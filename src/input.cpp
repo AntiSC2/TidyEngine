@@ -12,31 +12,27 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU Lesser General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>. 
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-#pragma once
-#include "screen.h"
 #include "input.h"
 
-//This class is not part of the engine! It's just for testing
-//The game class is the actual game, it makes sure that everything gets initialized and that
-//everything gets updated and rendered
+//The constructor and destructor does nothing special
+Input::Input() {
+    ;
+}
 
-class Game {
-    public:
-        Game();
-        ~Game();
-        
-        void run();
-    private:
-        void init();
-        void gameLoop();
-        void update();
-        void drawGame();
-        void quit();
+Input::~Input() {
+    ;
+}
 
-        Screen m_Screen;
-        Input m_Input;
-};
+//The update function loops through every new event
+//If an event is detected it stores the data
+void Input::update() {
+    SDL_Event e;
+    while(SDL_PollEvent(&e) != 0) {
+        if(e.type == SDL_QUIT) {
+            m_CloseWindow = true;
+        }
+    }
+}

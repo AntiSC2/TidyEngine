@@ -1,3 +1,21 @@
+/*
+Copyright (C) 2015 Jakob Sinclair
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Lesser General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 #include "game.h"
 #include <SDL2/SDL.h>
 
@@ -23,19 +41,22 @@ void Game::init() {
     m_Screen.createNewWindow(1280, 720, "GameEngine");
 }
 
-//The gameLoop function handles the main loop  TEMP:ONLY DISPLAYS WINDOW IN 5 SECONDS
+//The gameLoop function handles the main loop
 void Game::gameLoop() {
-    SDL_Delay(5000);
+    while(m_Input.getCloseWindow() != true) {
+        update();
+        drawGame();
+    }
 }
 
 //The update function handles the game updates
 void Game::update() {
-    ;
+    m_Input.update();
 }
 
 //The draw function handles the rendering part of the game
 void Game::drawGame() {
-    ;
+    SDL_UpdateWindowSurface(m_Screen.getWindow());
 }
 
 //The quit function makes sure that everything is closed properly

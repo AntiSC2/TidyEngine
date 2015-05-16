@@ -12,31 +12,29 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU Lesser General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>. 
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 #pragma once
-#include "screen.h"
-#include "input.h"
+#include <SDL2/SDL.h>
+#include <vector>
 
-//This class is not part of the engine! It's just for testing
-//The game class is the actual game, it makes sure that everything gets initialized and that
-//everything gets updated and rendered
-
-class Game {
+//The input class handles mouse and key inputs given to the window
+//It's a static class for the most part
+class Input {
     public:
-        Game();
-        ~Game();
+        Input();
+        ~Input();
         
-        void run();
-    private:
-        void init();
-        void gameLoop();
         void update();
-        void drawGame();
-        void quit();
-
-        Screen m_Screen;
-        Input m_Input;
+        //Returns if the user has tried to close the window
+        //True means that the user wants to close the window
+        bool getCloseWindow() {
+            return m_CloseWindow;
+        }
+        
+        static bool getKeyPressed(SDL_Scancode scancode);
+    private:
+        bool m_CloseWindow = false;
+        static std::vector<bool> m_PressedKeys;
 };
