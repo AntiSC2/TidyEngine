@@ -3,3 +3,6 @@ TidyEngine is a game engine utilizing C++14 and SDL2 to achieve excellent perfor
 
 # Who is this game engine for?
 TidyEngine is for programmers that want to make 2D games. Instead of trying to do many things, this engine tries to be the best game engine for 2D games instead of trying to please everyone. Tools for this game engine is planned but right now is not under development.
+
+# Presentation
+https://docs.google.com/presentation/d/1KCC6VAwV4GwIKRrNTNlfntW5TLCluPvbB-OwTJ0mb2Q/edit?usp=sharing
