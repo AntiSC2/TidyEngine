@@ -25,11 +25,7 @@ TexCache::TexCache() {
 }
 
 TexCache::~TexCache() {
-    for(auto& kv : m_Textures) {
-        SDL_DestroyTexture(kv.second);
-        kv.second = nullptr;
-    }
-    m_Textures.clear();
+    clearCache();
 }
 
 //This function creates a new SDL_Texture and returns it, can return nullptr if
@@ -60,6 +56,7 @@ SDL_Texture* TexCache::createTexture(std::string filepath, SDL_Renderer* rendere
     return newTexture;
 }
 
+//Returns the texture if found, else it returns a NULL pointer
 SDL_Texture* TexCache::getTexture(std::string filepath) {
     if(m_Textures.find(filepath) != m_Textures.end())
         return m_Textures[filepath];
@@ -67,4 +64,13 @@ SDL_Texture* TexCache::getTexture(std::string filepath) {
         printf("Could not find texture %s!\n", filepath.c_str());
     }
     return nullptr;
+}
+
+//Removes all the textures in this cache
+void TexCache::clearCache() {
+    for(auto& it : m_Textures) {
+        SDL_DestroyTexture(it.second);
+        it.second = nullptr;   
+    }
+    m_Textures.clear();
 }

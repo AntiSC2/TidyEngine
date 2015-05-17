@@ -28,6 +28,7 @@ class TexCache {
        
        SDL_Texture* createTexture(std::string filepath, SDL_Renderer* renderer);
        SDL_Texture* getTexture(std::string filepath);
+       void clearCache();
    private:
        std::map<std::string, SDL_Texture*> m_Textures;
 };
