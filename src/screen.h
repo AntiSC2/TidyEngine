@@ -24,7 +24,8 @@ class Screen {
         Screen();
         ~Screen();
         //getWidth & getHeight returns the width and height in px, getTitle returns the window title
-        //getWindow returns the pointer to the actual window 
+        //getWindow returns the pointer to the actual window, getRenderer returns a pointer to the
+        //renderer that renders the SDL textures to the screen 
         int getWidth() {
             return m_Width;
         }
@@ -37,9 +38,13 @@ class Screen {
         SDL_Window* getWindow() {
             return m_Window;
         }
+        SDL_Renderer* getRenderer() {
+            return m_Renderer;
+        }
         bool createNewWindow(int width, int height, const char* title);
     private:
         SDL_Window* m_Window = nullptr;
+        SDL_Renderer* m_Renderer = nullptr;
         int m_Width = 0;
         int m_Height = 0;
         char* m_Title = 0;

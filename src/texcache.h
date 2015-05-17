@@ -12,31 +12,22 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU Lesser General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>. 
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 #pragma once
-#include "screen.h"
-#include "input.h"
+#include <SDL2/SDL.h>
+#include <string>
+#include <map>
 
-//This class is not part of the engine! It's just for testing
-//The game class is the actual game, it makes sure that everything gets initialized and that
-//everything gets updated and rendered
-
-class Game {
-    public:
-        Game();
-        ~Game();
-        
-        void run();
-    private:
-        bool init();
-        void gameLoop();
-        void update();
-        void drawGame();
-        void quit();
-
-        Screen m_Screen;
-        Input m_Input;
+//The TexCache class is handling the loading of textures and unloading of textures
+class TexCache {
+   public:
+       TexCache();
+       ~TexCache();
+       
+       SDL_Texture* createTexture(std::string filepath, SDL_Renderer* renderer);
+       SDL_Texture* getTexture(std::string filepath);
+   private:
+       std::map<std::string, SDL_Texture*> m_Textures;
 };

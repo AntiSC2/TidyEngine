@@ -18,6 +18,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "game.h"
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
+#include "cache.h"
 
 //The constructor and destructor is nothing special in this case
 Game::Game() {
@@ -30,15 +32,31 @@ Game::~Game() {
 //The run function is used to run the game, it initializes the engine system, then runs the main loop
 //and then exits everything
 void Game::run() {
-    init();
-    gameLoop();
+    if(init()) {
+        gameLoop();
+    }
     quit();
 }
 
 //The init function initializes the engine so that the game can use it
-void Game::init() {
-    SDL_Init(SDL_INIT_VIDEO);
-    m_Screen.createNewWindow(1280, 720, "GameEngine");
+//Returns true if an error did not show up
+bool Game::init() {
+    bool success = true;
+    int imgFlags = IMG_INIT_PNG;
+
+    if (SDL_Init(SDL_INIT_VIDEO) < 0) {
+        printf("SDL could not not initialize! SDL_Error: %s\n", SDL_GetError());
+        success = false;
+    } else if (!(IMG_Init(imgFlags) & imgFlags)) {
+        printf("SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError());
+        success = false;
+    } else if(m_Screen.createNewWindow(1280, 720, "GameEngine") != true) {
+        success = false;
+    }
+    if(Cache::texCache.createTexture("resources/block.png", m_Screen.getRenderer()) == nullptr) {
+        success = false;
+    }
+    return success;
 }
 
 //The gameLoop function handles the main loop
@@ -56,10 +74,14 @@ void Game::update() {
 
 //The draw function handles the rendering part of the game
 void Game::drawGame() {
-    SDL_UpdateWindowSurface(m_Screen.getWindow());
+    SDL_Texture* temp = Cache::texCache.getTexture("resources/block.png");
+    SDL_RenderClear(m_Screen.getRenderer());
+    SDL_RenderCopy(m_Screen.getRenderer(), temp, nullptr, nullptr);
+    SDL_RenderPresent(m_Screen.getRenderer());
 }
 
 //The quit function makes sure that everything is closed properly
 void Game::quit() {
+    IMG_Quit();
     SDL_Quit();
 }

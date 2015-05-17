@@ -18,7 +18,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "screen.h"
 #include <stdio.h>
 
-//The screen constructor does nothing special, the destructor makes sure the window is destroyed
+//The screen constructor does nothing special, the destructor makes sure the window & the renderer
+//is destroyed
 Screen::Screen() {
     ;
 }
@@ -28,14 +29,22 @@ Screen::~Screen() {
        SDL_DestroyWindow(m_Window);
        m_Window = nullptr;
    }
+   if(m_Renderer != nullptr) {
+       SDL_DestroyRenderer(m_Renderer);
+       m_Renderer = nullptr;
+   }
 }
 
-//Returns true if a new window was created successfully
+//Returns true if a new window was created successfully, also creates a new renderer
 bool Screen::createNewWindow(int width, int height, const char* title) {
     bool success = true;
     if(m_Window != nullptr) {
         SDL_DestroyWindow(m_Window);
         m_Window = nullptr;
+    }
+    if(m_Renderer != nullptr) {
+        SDL_DestroyRenderer(m_Renderer);
+        m_Renderer = nullptr;
     }
     m_Width = width;
     m_Height = height;
@@ -45,6 +54,15 @@ bool Screen::createNewWindow(int width, int height, const char* title) {
     if(m_Window == nullptr) {
         printf("Error 001: Window could not be created! SDL_Error: %s\n", SDL_GetError());
         success = false;
+    }
+    if(success == true) {
+        m_Renderer = SDL_CreateRenderer(m_Window, -1, SDL_RENDERER_ACCELERATED);
+        if(m_Renderer == nullptr) {
+            printf("Error 004: Renderer could not be created! SDL Error: %s\n", SDL_GetError());
+            success = false;    
+        } else {
+            SDL_SetRenderDrawColor(m_Renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+        }
     }
     return success;
 }

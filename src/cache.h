@@ -12,31 +12,22 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU Lesser General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>. 
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 #pragma once
-#include "screen.h"
-#include "input.h"
+#include "texcache.h"
 
-//This class is not part of the engine! It's just for testing
-//The game class is the actual game, it makes sure that everything gets initialized and that
-//everything gets updated and rendered
+//The cache class is the root of the resource manager system
+//This class will handle loading, and unload, textures, sounds, fonts, music
+//This is a static class
 
-class Game {
-    public:
-        Game();
-        ~Game();
-        
-        void run();
-    private:
-        bool init();
-        void gameLoop();
-        void update();
-        void drawGame();
-        void quit();
-
-        Screen m_Screen;
-        Input m_Input;
+class Cache {
+   public:
+       Cache();
+       ~Cache();
+       
+       static TexCache texCache;
+   private:
+       ; 
 };

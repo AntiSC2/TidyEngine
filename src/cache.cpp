@@ -12,31 +12,18 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU Lesser General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>. 
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "cache.h"
 
-#pragma once
-#include "screen.h"
-#include "input.h"
+//This is a static class so the constructor and destructor doesn't need to do everything
+Cache::Cache() {
+    ;
+}
 
-//This class is not part of the engine! It's just for testing
-//The game class is the actual game, it makes sure that everything gets initialized and that
-//everything gets updated and rendered
+Cache::~Cache() {
 
-class Game {
-    public:
-        Game();
-        ~Game();
-        
-        void run();
-    private:
-        bool init();
-        void gameLoop();
-        void update();
-        void drawGame();
-        void quit();
+}
 
-        Screen m_Screen;
-        Input m_Input;
-};
+TexCache Cache::texCache;

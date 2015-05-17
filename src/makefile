@@ -1,5 +1,5 @@
 #OBJS specifies which files to compile as part of the project
-OBJS = main.cpp screen.cpp game.cpp input.cpp
+OBJS = main.cpp screen.cpp game.cpp input.cpp cache.cpp texcache.cpp
 
 #CC specifies which compiler to use
 CC = g++
@@ -8,7 +8,7 @@ CC = g++
 COMPILER_FLAGS = -Wall -std=c++14
 
 #LINKER_FLAGS specifies the libraries we're linking against
-LINKER_FLAGS = -lSDL2
+LINKER_FLAGS = -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer
 
 #OBJ_NAME
 OBJ_NAME = Game
