@@ -15,25 +15,34 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "cache.h"
+#include "core.h"
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 
-//This is a static class so the constructor and destructor doesn't need to do everything
-Cache::Cache() {
+Core::Core() {
     ;
 }
 
-Cache::~Cache() {
-
+Core::~Core() {
+    ;
 }
 
-//This is the texture cache
-TexCache Cache::texCache;
+bool Core::init() {
+    bool success = true;
+    int imgFlags = IMG_INIT_PNG;
 
-//This function clears all caches
-void Cache::clearAllCaches() {
-    texCache.clearCache();
+    if (SDL_Init(SDL_INIT_VIDEO) < 0) {
+        printf("SDL could not not initialize! SDL_Error: %s\n", SDL_GetError());
+        success = false;
+    } else if (!(IMG_Init(imgFlags) & imgFlags)) {
+        printf("SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError());
+        success = false;
+    }
+    m_Initialized = true;
+    return success;
 }
 
-//This function loads a block with textures
-//A block is a part of a file that's marked out with a # in the start and a # in the end
-//Between two # there should be filepaths to, in this case, textures
+void Core::quit() {
+    IMG_Quit();
+    SDL_Quit();
+}

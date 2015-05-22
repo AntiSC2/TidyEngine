@@ -15,25 +15,16 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "cache.h"
+#pragma once
 
-//This is a static class so the constructor and destructor doesn't need to do everything
-Cache::Cache() {
-    ;
-}
-
-Cache::~Cache() {
-
-}
-
-//This is the texture cache
-TexCache Cache::texCache;
-
-//This function clears all caches
-void Cache::clearAllCaches() {
-    texCache.clearCache();
-}
-
-//This function loads a block with textures
-//A block is a part of a file that's marked out with a # in the start and a # in the end
-//Between two # there should be filepaths to, in this case, textures
+//This is the main engine class, this class handles the initialization of the engine
+class Core {
+    public:
+        Core();
+        ~Core();
+        
+        bool init();
+        void quit();
+    private:
+        bool m_Initialized = false;
+};

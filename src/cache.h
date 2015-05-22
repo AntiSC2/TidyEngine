@@ -23,11 +23,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //This is a static class
 
 class Cache {
-   public:
-       Cache();
-       ~Cache();
+    public:
+        Cache();
+        ~Cache();
        
-       static TexCache texCache;
-   private:
-       ; 
-};
+        static TexCache texCache;
+        
+        static bool loadTexturesFromBlock(std::string filepath);
+        static void clearAllCaches();
+    private:
+        
+}; 

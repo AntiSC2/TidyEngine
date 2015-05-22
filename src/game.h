@@ -1,4 +1,4 @@
-/*
+u/*
 Copyright (C) 2015 Jakob Sinclair
 
 This program is free software: you can redistribute it and/or modify
@@ -35,7 +35,6 @@ class Game {
         void gameLoop();
         void update();
         void drawGame();
-        void quit();
 
         Screen m_Screen;
         Input m_Input;
