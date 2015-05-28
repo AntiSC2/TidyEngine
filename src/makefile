@@ -1,5 +1,5 @@
 #OBJS specifies which files to compile as part of the project
-OBJS = main.cpp screen.cpp game.cpp input.cpp cache.cpp texcache.cpp core.cpp
+OBJS = main.cpp screen.cpp game.cpp input.cpp cache.cpp texcache.cpp core.cpp spritesheet.cpp
 
 #CC specifies which compiler to use
 CC = g++

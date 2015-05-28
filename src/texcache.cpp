@@ -66,6 +66,18 @@ SDL_Texture* TexCache::getTexture(std::string filepath) {
     return nullptr;
 }
 
+//Removes one texture
+void disposeTexture(std::string filepath) {
+    auto it = m_Textures.find(filepath);
+    if(it != m_Textures.end()) {
+        SDL_DestroyTexture(it.second);
+        it.second = nullptr;
+        m_Textures.erase(it);    
+    } else {
+        printf("Could not find and remove %s!\n", filepath.c_str());
+    }
+}
+
 //Removes all the textures in this cache
 void TexCache::clearCache() {
     for(auto& it : m_Textures) {

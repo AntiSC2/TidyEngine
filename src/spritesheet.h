@@ -17,19 +17,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 #include <SDL2/SDL.h>
-#include <string>
-#include <map>
 
-//The TexCache class is handling the loading of textures and unloading of textures
-class TexCache {
-   public:
-       TexCache();
-       ~TexCache();
-       
-       SDL_Texture* createTexture(std::string filepath, SDL_Renderer* renderer);
-       SDL_Texture* getTexture(std::string filepath);
-       void disposeTexture(std::string filepath);
-       void clearCache();
-   private:
-       std::map<std::string, SDL_Texture*> m_Textures;
+class SpriteSheet {
+    public:
+        friend class Sprite;
+        SpriteSheet();
+        ~SpriteSheet();
+
+        void loadSpriteSheet(const char* filepath);
+
+        unsigned int getWidth() {
+            return m_Width;
+        }
+        unsigned int getHeight() {
+            return m_Height();
+        }
+        
+    private:
+        void renderSprite(int x, int y, SDL_Rect* clip = nullptr, SDL_Renderer* renderer);
+        SDL_Texture* m_Texture = nullptr;
+        unsigned int m_Width;
+        unsigned int m_Height;
 };
