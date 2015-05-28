@@ -23,13 +23,13 @@ SpriteSheet::SpriteSheet() {
     ;
 }
 //The texture is destroyed in the resource manager
-~SpriteSheet::SpriteSheet() {
+SpriteSheet::~SpriteSheet() {
     m_Texture = nullptr;
 }
 
-void SpriteSheet::loadTexture(const char* filepath) {
+void SpriteSheet::loadSpriteSheet(const char* filepath) {
     m_Texture = nullptr; //Makes sure that the previous sprite sheet is not linked anymore
-    m_Texture = Cache::texCache->getTexture(filepath);
+    m_Texture = Cache::texCache.getTexture(filepath);
     SDL_QueryTexture(m_Texture, nullptr, nullptr, &m_Width, &m_Height);
     if(m_Texture == nullptr) {
         printf("Error: Could not get texture %s!\n", filepath);

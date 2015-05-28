@@ -17,9 +17,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 #include "game.h"
+#include "cache.h"
+#include "spritesheet.h"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
-#include "cache.h"
 
 //The constructor and destructor is nothing special in this case
 Game::Game() {
@@ -64,8 +65,9 @@ void Game::update() {
 
 //The draw function handles the rendering part of the game
 void Game::drawGame() {
-    SDL_Texture* temp = Cache::texCache.getTexture("resources/block.png");
+    SpriteSheet* temp = new SpriteSheet;
+    temp->loadSpriteSheet("resources/block.png");
     SDL_RenderClear(m_Screen.getRenderer());
-    SDL_RenderCopy(m_Screen.getRenderer(), temp, nullptr, nullptr);
+    temp->renderSprite(64, 64, nullptr, m_Screen.getRenderer());
     SDL_RenderPresent(m_Screen.getRenderer());
 }

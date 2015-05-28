@@ -26,16 +26,15 @@ class SpriteSheet {
 
         void loadSpriteSheet(const char* filepath);
 
-        unsigned int getWidth() {
+        int getWidth() {
             return m_Width;
         }
-        unsigned int getHeight() {
-            return m_Height();
+        int getHeight() {
+            return m_Height;
         }
-        
+        void renderSprite(int x, int y, SDL_Rect* clip = nullptr, SDL_Renderer* renderer = nullptr);
     private:
-        void renderSprite(int x, int y, SDL_Rect* clip = nullptr, SDL_Renderer* renderer);
         SDL_Texture* m_Texture = nullptr;
-        unsigned int m_Width;
-        unsigned int m_Height;
+        int m_Width;
+        int m_Height;
 };

@@ -67,11 +67,11 @@ SDL_Texture* TexCache::getTexture(std::string filepath) {
 }
 
 //Removes one texture
-void disposeTexture(std::string filepath) {
+void TexCache::disposeTexture(std::string filepath) {
     auto it = m_Textures.find(filepath);
     if(it != m_Textures.end()) {
-        SDL_DestroyTexture(it.second);
-        it.second = nullptr;
+        SDL_DestroyTexture(it->second);
+        it->second = nullptr;
         m_Textures.erase(it);    
     } else {
         printf("Could not find and remove %s!\n", filepath.c_str());
