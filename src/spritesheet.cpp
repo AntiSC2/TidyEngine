@@ -26,7 +26,7 @@ SpriteSheet::SpriteSheet() {
 SpriteSheet::~SpriteSheet() {
     m_Texture = nullptr;
 }
-
+//Loads in a texture
 void SpriteSheet::loadSpriteSheet(const char* filepath) {
     m_Texture = nullptr; //Makes sure that the previous sprite sheet is not linked anymore
     m_Texture = Cache::texCache.getTexture(filepath);
@@ -35,7 +35,7 @@ void SpriteSheet::loadSpriteSheet(const char* filepath) {
         printf("Error: Could not get texture %s!\n", filepath);
     } 
 }
-
+//Renders the entire, or part of, spritesheet
 void SpriteSheet::renderSprite(int x, int y, SDL_Rect* clip, SDL_Renderer* renderer) {
     SDL_Rect renderQuad = {x, y, m_Width, m_Height}; 
     if(clip != nullptr) {

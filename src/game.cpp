@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "game.h"
 #include "cache.h"
 #include "spritesheet.h"
+#include "sprite.h"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 
@@ -66,8 +67,14 @@ void Game::update() {
 //The draw function handles the rendering part of the game
 void Game::drawGame() {
     SpriteSheet* temp = new SpriteSheet;
+    Sprite* temp2 = new Sprite;
     temp->loadSpriteSheet("resources/block.png");
+    SDL_Rect temp3;
+    temp3.x = 0; temp3.y = 0; temp3.w = 32; temp3.h = 32;
+    temp2->loadSpriteFromSheet(temp, temp3);
     SDL_RenderClear(m_Screen.getRenderer());
-    temp->renderSprite(64, 64, nullptr, m_Screen.getRenderer());
+    temp2->renderSprite(64, 64, m_Screen.getRenderer());
     SDL_RenderPresent(m_Screen.getRenderer());
+    delete temp;
+    temp = nullptr;
 }

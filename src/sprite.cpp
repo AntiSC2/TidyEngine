@@ -25,13 +25,13 @@ Sprite::Sprite() {
 Sprite::~Sprite() {
     m_SpriteReference = nullptr;
 }
-
+//This function renders the sprite
 void Sprite::renderSprite(int x, int y, SDL_Renderer* renderer) {
     if(m_SpriteReference != nullptr) {
         m_SpriteReference->renderSprite(x, y, &m_SourceRegion, renderer);
     }
 }
-
+//Set the reference to the correct sprite sheet
 void Sprite::loadSpriteFromSheet(SpriteSheet* reference, SDL_Rect& region) {
     m_SpriteReference = reference;
     m_SourceRegion = region;

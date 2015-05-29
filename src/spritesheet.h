@@ -17,7 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 #include <SDL2/SDL.h>
-
+//This class handles a single texture and acts as a reference for sprites
 class SpriteSheet {
     public:
         friend class Sprite;

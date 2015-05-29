@@ -26,7 +26,7 @@ Core::Core() {
 Core::~Core() {
     ;
 }
-
+//The init function handles the initialization of SDL, returns true if it was successful
 bool Core::init() {
     bool success = true;
     int imgFlags = IMG_INIT_PNG;
