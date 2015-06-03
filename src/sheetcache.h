@@ -14,29 +14,23 @@ GNU Lesser General Public License for more details.
 You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 #pragma once
-#include <SDL2/SDL.h>
 #include <string>
+#include <map>
 
-//This class handles a single texture and acts as a reference for sprites
-class SpriteSheet {
+class SpriteSheet;
+
+//The SheetCache handles the SpriteSheets to make it easier for sprites to get a reference
+class SheetCache {
     public:
-        friend class Sprite;
-        SpriteSheet();
-        ~SpriteSheet();
+        SheetCache();
+        ~SheetCache();
+        
+        SpriteSheet* createSheet(std::string filepath);
+        SpriteSheet* getSheet(std::string filepath);
 
-        void loadSpriteSheet(std::string filepath);
-
-        int getWidth() {
-            return m_Width;
-        }
-        int getHeight() {
-            return m_Height;
-        }
-        void renderSprite(int x, int y, SDL_Rect* clip = nullptr, SDL_Renderer* renderer = nullptr);
+        void disposeSheet(std::string filepath);
+        void clearCache(); 
     private:
-        SDL_Texture* m_Texture = nullptr;
-        int m_Width;
-        int m_Height;
+        std::map<std::string, SpriteSheet*> m_Sheets;
 };
