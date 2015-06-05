@@ -16,22 +16,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #pragma once
-#include "component.h"
-#include <SDL2/SDL.h>
+#include <string>
 
-class SpriteSheet;
-//This class represents an object in form of an image, gets the image from a sprite sheet
-class Sprite : public Component {
+//This class represents a component that can be added to an actor
+//To create a component, simply make another class inherit from this one
+class Component {
     public:
-        Sprite();
-        ~Sprite();
-
-        bool initialize();
-        bool initialize(std::string name);
-
-        void renderSprite(int x, int y, SDL_Renderer* renderer = nullptr);
-        void loadSpriteFromSheet(SpriteSheet* reference, SDL_Rect& region);
-    private:
-        SDL_Rect m_SourceRegion;
-        SpriteSheet* m_SpriteReference = nullptr;      
+        Component();
+        virtual ~Component();
+        virtual bool initialize() = 0;  
+        std::string getName() {
+            return m_Name;
+        }
+    protected:
+        std::string m_Name;       
 };

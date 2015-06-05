@@ -17,21 +17,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 #include "component.h"
-#include <SDL2/SDL.h>
+#include <string>
+#include <vector>
+#include <memory>
 
-class SpriteSheet;
-//This class represents an object in form of an image, gets the image from a sprite sheet
-class Sprite : public Component {
+//This class represents a physical object that can be placed in the world
+//This is a base class
+class Actor {
     public:
-        Sprite();
-        ~Sprite();
+        Actor();
+        virtual ~Actor();
 
-        bool initialize();
-        bool initialize(std::string name);
-
-        void renderSprite(int x, int y, SDL_Renderer* renderer = nullptr);
-        void loadSpriteFromSheet(SpriteSheet* reference, SDL_Rect& region);
-    private:
-        SDL_Rect m_SourceRegion;
-        SpriteSheet* m_SpriteReference = nullptr;      
+        std::string listComponents();
+    protected:
+         std::vector<std::unique_ptr<Component>> m_Components; 
 };

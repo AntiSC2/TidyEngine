@@ -17,6 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 #include "texcache.h"
+#include "sheetcache.h"
 
 //The cache class is the root of the resource manager system
 //This class will handle loading, and unload, textures, sounds, fonts, music
@@ -28,6 +29,7 @@ class Cache {
         ~Cache();
        
         static TexCache texCache;
+        static SheetCache sheetCache;
         
         static bool loadTexturesFromBlock(std::string filepath);
         static void clearAllCaches();

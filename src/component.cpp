@@ -15,23 +15,12 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#pragma once
 #include "component.h"
-#include <SDL2/SDL.h>
 
-class SpriteSheet;
-//This class represents an object in form of an image, gets the image from a sprite sheet
-class Sprite : public Component {
-    public:
-        Sprite();
-        ~Sprite();
+Component::Component() {
+    ;
+}
 
-        bool initialize();
-        bool initialize(std::string name);
+Component::~Component() {
 
-        void renderSprite(int x, int y, SDL_Renderer* renderer = nullptr);
-        void loadSpriteFromSheet(SpriteSheet* reference, SDL_Rect& region);
-    private:
-        SDL_Rect m_SourceRegion;
-        SpriteSheet* m_SpriteReference = nullptr;      
-};
+}

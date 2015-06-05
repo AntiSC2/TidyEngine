@@ -28,7 +28,7 @@ SheetCache::SheetCache() {
 SheetCache::~SheetCache() {
     clearCache();
 }
-
+//Function for loading a sprite sheet into the cache class
 SpriteSheet* SheetCache::createSheet(std::string filepath) {
     auto it = m_Sheets.find(filepath);
     if(it != m_Sheets.end()) {
@@ -43,7 +43,7 @@ SpriteSheet* SheetCache::createSheet(std::string filepath) {
     
     return nullptr;
 }
-
+//Function that rerturns a reference to the specified sprite sheet
 SpriteSheet* SheetCache::getSheet(std::string filepath) {
     auto it = m_Sheets.find(filepath);
     if(it == m_Sheets.end()) {
@@ -52,7 +52,7 @@ SpriteSheet* SheetCache::getSheet(std::string filepath) {
     }
     return m_Sheets[filepath];
 }
-
+//Function that removes the specified sprite sheet from the cache
 void SheetCache::disposeSheet(std::string filepath) {
     auto it = m_Sheets.find(filepath);
     if(it != m_Sheets.end()) {
@@ -62,7 +62,7 @@ void SheetCache::disposeSheet(std::string filepath) {
         printf("SpriteSheet %s was not found so could not be deleted\n", filepath.c_str());
     }
 }
-
+//Function that clears the cache
 void SheetCache::clearCache() {
     for(auto& it : m_Sheets) {
         delete it.second;
@@ -70,44 +70,3 @@ void SheetCache::clearCache() {
     }
     m_Sheets.clear();
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

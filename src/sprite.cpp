@@ -25,6 +25,16 @@ Sprite::Sprite() {
 Sprite::~Sprite() {
     m_SpriteReference = nullptr;
 }
+
+bool Sprite::initialize() {
+    return true;
+}
+
+bool Sprite::initialize(std::string name) {
+    m_Name = name;
+    return initialize();
+}
+
 //This function renders the sprite
 void Sprite::renderSprite(int x, int y, SDL_Renderer* renderer) {
     if(m_SpriteReference != nullptr) {
