@@ -15,34 +15,34 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "core.h"
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
+#include "sprite.h"
+#include "../Graphics/spritesheet.h"
 
-Core::Core() {
+Sprite::Sprite() {
     ;
 }
 
-Core::~Core() {
-    ;
+Sprite::~Sprite() {
+    m_SpriteReference = nullptr;
 }
-//The init function handles the initialization of SDL, returns true if it was successful
-bool Core::init() {
-    bool success = true;
-    int imgFlags = IMG_INIT_PNG;
 
-    if (SDL_Init(SDL_INIT_VIDEO) < 0) {
-        printf("SDL could not not initialize! SDL_Error: %s\n", SDL_GetError());
-        success = false;
-    } else if (!(IMG_Init(imgFlags) & imgFlags)) {
-        printf("SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError());
-        success = false;
+bool Sprite::initialize() {
+    return true;
+}
+
+bool Sprite::initialize(std::string name) {
+    m_Name = name;
+    return initialize();
+}
+
+//This function renders the sprite
+void Sprite::renderSprite(int x, int y, SDL_Renderer* renderer) {
+    if(m_SpriteReference != nullptr) {
+        m_SpriteReference->renderSprite(x, y, &m_SourceRegion, renderer);
     }
-    m_Initialized = true;
-    return success;
 }
-
-void Core::quit() {
-    IMG_Quit();
-    SDL_Quit();
+//Set the reference to the correct sprite sheet
+void Sprite::loadSpriteFromSheet(SpriteSheet* reference, SDL_Rect& region) {
+    m_SpriteReference = reference;
+    m_SourceRegion = region;
 }

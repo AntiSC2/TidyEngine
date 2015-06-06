@@ -21,15 +21,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //Error 004: SDL could not create renderer
 
 #include "game.h"
-#include "core.h"
 
 int main(int argc, char** argv) {
-    Core c;
     Game g;
-
-    if(c.init() == true)
-        g.run();
-
-    c.quit();
+    g.run();
     return 0;
 }

@@ -16,7 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #pragma once
-#include "component.h"
+#include "../Components/component.h"
 #include <string>
 #include <vector>
 #include <memory>

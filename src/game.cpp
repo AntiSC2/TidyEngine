@@ -17,9 +17,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 #include "game.h"
-#include "cache.h"
-#include "spritesheet.h"
-#include "sprite.h"
+#include "RM/cache.h"
+#include "Graphics/spritesheet.h"
+#include "Components/sprite.h"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 
@@ -30,13 +30,6 @@ Game::Game() {
 
 Game::~Game() {
     ;
-}
-
-//The run function is used to run the game
-void Game::run() { //Only run the main loop if it initialized properly
-    if(init()) {
-        gameLoop();
-    }
 }
 
 //The init function initializes the game, true if an error did not show up
@@ -51,14 +44,6 @@ bool Game::init() {
         success = true;
     }
     return success;
-}
-
-//The gameLoop function handles the main loop
-void Game::gameLoop() {
-    while(m_Input.getCloseWindow() != true) { //As long as the user has not tried to exit
-        update();
-        drawGame();
-    }
 }
 
 //The update function handles the game updates

@@ -16,7 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "sheetcache.h"
-#include "spritesheet.h"
+#include "../Graphics/spritesheet.h"
 #include <stdio.h>
 
 //The constructor does nothing special,
