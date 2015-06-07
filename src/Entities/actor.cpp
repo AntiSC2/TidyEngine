@@ -25,6 +25,26 @@ Actor::~Actor() {
     ;
 }
 
+void Actor::update() {
+    for(size_t i = 0; i < m_Components.size(); i++) {
+        if(m_Components[i]->getUpdate()) {
+            m_Components[i]->update();
+        } 
+    }
+}
+
+void Actor::draw(SDL_Renderer* renderer) {
+    for(size_t i = 0; i < m_Components.size(); i++) {
+        if(m_Components[i]->getDraw()) {
+            m_Components[i]->draw(renderer);
+        }
+    }
+}
+
+void Actor::addComponent(Component* newComponent) {
+    m_Components.emplace_back(newComponent);   
+}
+
 std::string Actor::listComponents() {
     std::string temp = "";
     for(size_t i = 0; i < m_Components.size(); i++) {

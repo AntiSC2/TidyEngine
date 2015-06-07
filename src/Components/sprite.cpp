@@ -35,6 +35,18 @@ bool Sprite::initialize(std::string name) {
     return initialize();
 }
 
+bool Sprite::getUpdate() {
+    return false;
+}
+
+bool Sprite::getDraw() {
+    return true;
+}
+
+void Sprite::draw(SDL_Renderer* renderer) {
+    renderSprite(0, 0, renderer);
+}
+
 //This function renders the sprite
 void Sprite::renderSprite(int x, int y, SDL_Renderer* renderer) {
     if(m_SpriteReference != nullptr) {

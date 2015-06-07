@@ -16,6 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #pragma once
+#include <SDL2/SDL.h>
 #include <string>
 
 //This class represents a component that can be added to an actor
@@ -24,7 +25,13 @@ class Component {
     public:
         Component();
         virtual ~Component();
-        virtual bool initialize() = 0;  
+        virtual bool initialize() = 0;
+        virtual bool getUpdate() = 0;
+        virtual bool getDraw() = 0;
+
+        virtual void update();
+        virtual void draw(SDL_Renderer* renderer);
+  
         std::string getName() {
             return m_Name;
         }

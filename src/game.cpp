@@ -43,6 +43,12 @@ bool Game::init() {
     } else if(Cache::sheetCache.createSheet("resources/block.png")) {
         success = true;
     }
+    SDL_Rect temp2;
+    temp2.x = 32; temp2.y = 32; temp2.w = 32; temp2.h = 32;
+    Sprite* temp = new Sprite;
+    temp->loadSpriteFromSheet(Cache::sheetCache.getSheet("resources/block.png"), temp2);
+    m_Player.addComponent(temp);
+    temp = nullptr;
     return success;
 }
 
@@ -53,13 +59,25 @@ void Game::update() {
 
 //The draw function handles the rendering part of the game
 void Game::drawGame() {
-    Sprite* temp2 = new Sprite;
-    SDL_Rect temp3;
-    temp3.x = 32; temp3.y = 32; temp3.w = 32; temp3.h = 32;
-    temp2->loadSpriteFromSheet(Cache::sheetCache.getSheet("resources/block.png"), temp3);
     SDL_RenderClear(m_Screen.getRenderer());
-    temp2->renderSprite(64, 64, m_Screen.getRenderer());
+    m_Player.draw(m_Screen.getRenderer());
     SDL_RenderPresent(m_Screen.getRenderer());
-    temp2 = nullptr;
-    delete temp2;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -16,23 +16,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #pragma once
-#include "../Components/component.h"
-#include <SDL2/SDL.h>
-#include <string>
-#include <vector>
-#include <memory>
+#include "Component.h"
+#include "../Core/input.h"
 
-//This class represents a physical object that can be placed in the world
-//This is a base class
-class Actor {
+//This class is a base class for controller components
+//It can be used but does not do anything by itself
+class Controller : public Component {
     public:
-        Actor();
-        virtual ~Actor();
+        Controller();
+        virtual ~Controller();
 
-        virtual void update();
-        virtual void draw(SDL_Renderer* renderer);
-        virtual void addComponent(Component* newComponent); //When using this function, always use it this way: addComponent(new SomeRandomComponent);
-        std::string listComponents();
+        virtual bool getUpdate();
+        virtual bool getDraw();
+        void setInputReference(Input& inputReference);
     protected:
-        std::vector<std::unique_ptr<Component>> m_Components; 
+        Input* m_Input;
 };

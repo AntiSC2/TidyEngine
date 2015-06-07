@@ -28,7 +28,10 @@ class Sprite : public Component {
 
         bool initialize();
         bool initialize(std::string name);
+        bool getUpdate();
+        bool getDraw();
 
+        void draw(SDL_Renderer* renderer);
         void renderSprite(int x, int y, SDL_Renderer* renderer = nullptr);
         void loadSpriteFromSheet(SpriteSheet* reference, SDL_Rect& region);
     private:

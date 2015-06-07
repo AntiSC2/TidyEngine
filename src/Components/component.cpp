@@ -24,3 +24,11 @@ Component::Component() {
 Component::~Component() {
 
 }
+
+void Component::update() {
+    ;
+}
+
+void Component::draw(SDL_Renderer* renderer) {
+    ;
+}

@@ -18,8 +18,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 #include "Core/core.h"
+#include "Entities/actor.h"
 #include "Graphics/screen.h"
-#include "Core/input.h"
 
 //This class is not part of the engine! It's just for testing
 //The game class is the actual game, it makes sure that everything gets initialized and that
@@ -35,5 +35,6 @@ class Game : public Core {
         void update();
         void drawGame();
 
+        Actor m_Player;
         Screen m_Screen;
 };
