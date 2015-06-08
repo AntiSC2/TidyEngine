@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <string>
 #include <vector>
 #include <memory>
+#include <glm/glm.hpp>
 
 //This class represents a physical object that can be placed in the world
 //This is a base class
@@ -34,5 +35,6 @@ class Actor {
         virtual void addComponent(Component* newComponent); //When using this function, always use it this way: addComponent(new SomeRandomComponent);
         std::string listComponents();
     protected:
-        std::vector<std::unique_ptr<Component>> m_Components; 
+        std::vector<std::unique_ptr<Component>> m_Components;
+        glm::vec2 m_Position;
 };

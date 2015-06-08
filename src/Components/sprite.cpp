@@ -43,8 +43,8 @@ bool Sprite::getDraw() {
     return true;
 }
 
-void Sprite::draw(SDL_Renderer* renderer) {
-    renderSprite(0, 0, renderer);
+void Sprite::draw(SDL_Renderer* renderer, int x, int y) {
+    renderSprite(x, y, renderer);
 }
 
 //This function renders the sprite

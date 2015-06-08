@@ -29,6 +29,6 @@ void Component::update() {
     ;
 }
 
-void Component::draw(SDL_Renderer* renderer) {
+void Component::draw(SDL_Renderer* renderer, int x, int y) {
     ;
 }

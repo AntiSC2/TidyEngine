@@ -18,7 +18,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "actor.h"
 
 Actor::Actor() {
-    ;
+    m_Position.x = 32.0f;
+    m_Position.y = 32.0f;
 }
 
 Actor::~Actor() {
@@ -36,7 +37,7 @@ void Actor::update() {
 void Actor::draw(SDL_Renderer* renderer) {
     for(size_t i = 0; i < m_Components.size(); i++) {
         if(m_Components[i]->getDraw()) {
-            m_Components[i]->draw(renderer);
+            m_Components[i]->draw(renderer, (int)m_Position.x, (int)m_Position.y);
         }
     }
 }

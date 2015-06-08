@@ -31,7 +31,7 @@ class Sprite : public Component {
         bool getUpdate();
         bool getDraw();
 
-        void draw(SDL_Renderer* renderer);
+        void draw(SDL_Renderer* renderer, int x, int y);
         void renderSprite(int x, int y, SDL_Renderer* renderer = nullptr);
         void loadSpriteFromSheet(SpriteSheet* reference, SDL_Rect& region);
     private:

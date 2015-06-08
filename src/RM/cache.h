@@ -31,7 +31,7 @@ class Cache {
         static TexCache texCache;
         static SheetCache sheetCache;
         
-        static bool loadTexturesFromBlock(std::string filepath);
+        static bool loadTexturesFromBlock(std::string filepath, int start, SDL_Renderer* renderer);
         static void clearAllCaches();
     private:
         

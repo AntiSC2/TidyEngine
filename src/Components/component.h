@@ -30,7 +30,7 @@ class Component {
         virtual bool getDraw() = 0;
 
         virtual void update();
-        virtual void draw(SDL_Renderer* renderer);
+        virtual void draw(SDL_Renderer* renderer, int x, int y);
   
         std::string getName() {
             return m_Name;
