@@ -16,8 +16,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #pragma once
-#include "Component.h"
+#include "component.h"
 #include "../Core/input.h"
+#include <string>
 
 //This class is a base class for controller components
 //It can be used but does not do anything by itself
@@ -26,8 +27,12 @@ class Controller : public Component {
         Controller();
         virtual ~Controller();
 
+        virtual bool initialize(std::string name);
         virtual bool getUpdate();
         virtual bool getDraw();
+
+        virtual void update();
+
         void setInputReference(Input& inputReference);
     protected:
         Input* m_Input;

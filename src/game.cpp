@@ -20,6 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "RM/cache.h"
 #include "Graphics/spritesheet.h"
 #include "Components/sprite.h"
+#include "Components/controller.h"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 
@@ -43,10 +44,15 @@ bool Game::init() {
     } else if(Cache::sheetCache.createSheet("resources/block.png")) {
         success = true;
     }
+    Controller *temp3 = new Controller;
+    temp3->setInputReference(m_Input);
+    m_Player.addComponent(temp3);
+    temp3 = nullptr;
     SDL_Rect temp2;
     temp2.x = 32; temp2.y = 32; temp2.w = 32; temp2.h = 32;
     Sprite* temp = new Sprite;
     temp->loadSpriteFromSheet(Cache::sheetCache.getSheet("resources/block.png"), temp2);
+    Cache::loadTexturesFromBlock("resources/game.txt", 1, m_Screen.getRenderer());
     m_Player.addComponent(temp);
     temp = nullptr;
     return success;
@@ -55,6 +61,7 @@ bool Game::init() {
 //The update function handles the game updates
 void Game::update() {
     m_Input.update();
+    m_Player.update();
 }
 
 //The draw function handles the rendering part of the game

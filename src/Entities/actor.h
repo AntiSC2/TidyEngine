@@ -32,7 +32,7 @@ class Actor {
 
         virtual void update();
         virtual void draw(SDL_Renderer* renderer);
-        virtual void addComponent(Component* newComponent); //When using this function, always use it this way: addComponent(new SomeRandomComponent);
+        virtual void addComponent(Component* newComponent);
         std::string listComponents();
     protected:
         std::vector<std::unique_ptr<Component>> m_Components;

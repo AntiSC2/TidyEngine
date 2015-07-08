@@ -53,6 +53,7 @@ SDL_Texture* TexCache::createTexture(std::string filepath, SDL_Renderer* rendere
         SDL_FreeSurface(loadedSurface);
         m_Textures[filepath] = newTexture;
     }
+    printf("Created new texture %s\n", filepath.c_str());
     return newTexture;
 }
 

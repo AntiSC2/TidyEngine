@@ -17,9 +17,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "input.h"
 
+std::vector<bool> Input::m_PressedKeys;
+
 //The constructor and destructor does nothing special
 Input::Input() {
-    ;
+    for(size_t i = 0; i < 282; i++) {
+        m_PressedKeys.push_back(false);
+    }
 }
 
 Input::~Input() {
@@ -31,8 +35,20 @@ Input::~Input() {
 void Input::update() {
     SDL_Event e;
     while(SDL_PollEvent(&e) != 0) {
-        if(e.type == SDL_QUIT) {
-            m_CloseWindow = true;
+        switch(e.type) {
+            case SDL_QUIT:
+                m_CloseWindow = true;
+                break;
+            case SDL_KEYDOWN:
+                m_PressedKeys[e.key.keysym.scancode] = true;
+                break;
+            case SDL_KEYUP:
+                m_PressedKeys[e.key.keysym.scancode] = false;
+                break;
         }
     }
+}
+
+bool Input::getKeyPressed(SDL_Scancode key) {
+    return m_PressedKeys[key];
 }

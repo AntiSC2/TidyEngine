@@ -26,7 +26,6 @@ class Sprite : public Component {
         Sprite();
         ~Sprite();
 
-        bool initialize();
         bool initialize(std::string name);
         bool getUpdate();
         bool getDraw();

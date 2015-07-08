@@ -26,13 +26,9 @@ Sprite::~Sprite() {
     m_SpriteReference = nullptr;
 }
 
-bool Sprite::initialize() {
-    return true;
-}
-
 bool Sprite::initialize(std::string name) {
     m_Name = name;
-    return initialize();
+    return true;
 }
 
 bool Sprite::getUpdate() {

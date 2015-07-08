@@ -33,7 +33,7 @@ class Input {
             return m_CloseWindow;
         }
         
-        static bool getKeyPressed(SDL_Scancode scancode);
+        static bool getKeyPressed(SDL_Scancode key);
     private:
         bool m_CloseWindow = false;
         static std::vector<bool> m_PressedKeys;

@@ -25,7 +25,7 @@ class Component {
     public:
         Component();
         virtual ~Component();
-        virtual bool initialize() = 0;
+        virtual bool initialize(std::string name) = 0;
         virtual bool getUpdate() = 0;
         virtual bool getDraw() = 0;
 

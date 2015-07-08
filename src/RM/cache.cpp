@@ -51,12 +51,15 @@ bool Cache::loadTexturesFromBlock(std::string filepath, int start, SDL_Renderer*
         if(c != '#') {
             getline(file, info);
         } else {
+            getline(file, info);
             info = 'R';
             count++;
             if((start == 1 && count == 1) || count == start * 2) {
-                while(info[0] != '#' || !file.good()) {
+                while(info[0] != '#') {
                     getline(file, info);
-                    texCache.createTexture(info, renderer);
+                    if(info[0] != '#') {
+                        texCache.createTexture(info, renderer);
+                    }
                 }
                 break;
             }

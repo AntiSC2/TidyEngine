@@ -25,6 +25,11 @@ Controller::~Controller() {
 
 }
 
+bool Controller::initialize(std::string name) {
+    m_Name = name;
+    return true;
+}
+
 bool Controller::getUpdate() {
     return true; 
 }
@@ -33,6 +38,11 @@ bool Controller::getDraw() {
     return false;
 }
 
+void Controller::update() {
+    if(m_Input->getKeyPressed(SDL_SCANCODE_W))
+        printf("w"); 
+}
+
 void Controller::setInputReference(Input& inputReference) {
-    m_Input = inputReference;
+    m_Input = &inputReference;
 }
