@@ -39,8 +39,7 @@ bool Controller::getDraw() {
 }
 
 void Controller::update() {
-    if(m_Input->getKeyPressed(SDL_SCANCODE_W))
-        printf("w"); 
+    ; 
 }
 
 void Controller::setInputReference(Input& inputReference) {

@@ -51,7 +51,7 @@ bool Game::init() {
     SDL_Rect temp2;
     temp2.x = 32; temp2.y = 32; temp2.w = 32; temp2.h = 32;
     Sprite* temp = new Sprite;
-    temp->loadSpriteFromSheet(Cache::sheetCache.getSheet("resources/block.png"), temp2);
+    temp->loadSpriteFromSheet(Cache::sheetCache.getSheet("resources/block.png"), temp2, 2);
     Cache::loadTexturesFromBlock("resources/game.txt", 1, m_Screen.getRenderer());
     m_Player.addComponent(temp);
     temp = nullptr;

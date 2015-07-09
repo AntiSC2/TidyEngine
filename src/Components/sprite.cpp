@@ -40,17 +40,28 @@ bool Sprite::getDraw() {
 }
 
 void Sprite::draw(SDL_Renderer* renderer, int x, int y) {
+    m_CurrentFrame++;
+    if (m_CurrentFrame >= m_Frames) {
+        m_CurrentFrame = 0;
+    }
     renderSprite(x, y, renderer);
 }
 
 //This function renders the sprite
 void Sprite::renderSprite(int x, int y, SDL_Renderer* renderer) {
     if(m_SpriteReference != nullptr) {
-        m_SpriteReference->renderSprite(x, y, &m_SourceRegion, renderer);
+
+        SDL_Rect currentSourceRegion = m_SourceRegion;
+        for(int i = 0; i < m_CurrentFrame; i++) {
+            currentSourceRegion.x += currentSourceRegion.w;
+        }
+
+        m_SpriteReference->renderSprite(x, y, &currentSourceRegion, renderer);
     }
 }
 //Set the reference to the correct sprite sheet
-void Sprite::loadSpriteFromSheet(SpriteSheet* reference, SDL_Rect& region) {
+void Sprite::loadSpriteFromSheet(SpriteSheet* reference, SDL_Rect& region, int frames) {
     m_SpriteReference = reference;
     m_SourceRegion = region;
+    m_Frames = frames;
 }

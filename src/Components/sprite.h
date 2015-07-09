@@ -32,8 +32,10 @@ class Sprite : public Component {
 
         void draw(SDL_Renderer* renderer, int x, int y);
         void renderSprite(int x, int y, SDL_Renderer* renderer = nullptr);
-        void loadSpriteFromSheet(SpriteSheet* reference, SDL_Rect& region);
+        void loadSpriteFromSheet(SpriteSheet* reference, SDL_Rect& region, int frames);
     private:
+        int m_Frames = 0;
+        int m_CurrentFrame = 0;
         SDL_Rect m_SourceRegion;
         SpriteSheet* m_SpriteReference = nullptr;      
 };
