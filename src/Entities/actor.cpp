@@ -46,6 +46,14 @@ void Actor::addComponent(Component* newComponent) {
     m_Components.emplace_back(newComponent);   
 }
 
+void Actor::doCommand(std::string nameComponent, std::string command) {
+    for(size_t i = 0; i < m_Components.size(); i++) {
+        if(m_Components[i]->getName() == nameComponent) {
+            m_Components[i]->doCommand(command);
+        }
+    }
+}
+
 std::string Actor::listComponents() {
     std::string temp = "";
     for(size_t i = 0; i < m_Components.size(); i++) {

@@ -1,5 +1,5 @@
 #OBJS specifies which files to compile as part of the project
-OBJS = main.cpp Graphics/screen.cpp game.cpp Core/input.cpp RM/cache.cpp RM/texcache.cpp Core/core.cpp Components/component.cpp Components/controller.cpp Components/sprite.cpp Entities/actor.cpp Graphics/spritesheet.cpp RM/sheetcache.cpp
+OBJS = main.cpp Graphics/screen.cpp game.cpp Core/input.cpp RM/cache.cpp RM/texcache.cpp Core/core.cpp Components/component.cpp Components/controller.cpp Components/sprite.cpp Entities/actor.cpp Graphics/spritesheet.cpp RM/sheetcache.cpp RM/soundcache.cpp
 
 #CC specifies which compiler to use
 CC = g++

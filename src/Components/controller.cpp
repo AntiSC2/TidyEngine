@@ -38,6 +38,10 @@ bool Controller::getDraw() {
     return false;
 }
 
+void Controller::doCommand(std::string command) {
+    ;
+}
+
 void Controller::update() {
     ; 
 }

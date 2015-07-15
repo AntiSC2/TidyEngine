@@ -32,18 +32,34 @@ bool Sprite::initialize(std::string name) {
 }
 
 bool Sprite::getUpdate() {
-    return false;
+    return true;
 }
 
 bool Sprite::getDraw() {
     return true;
 }
 
-void Sprite::draw(SDL_Renderer* renderer, int x, int y) {
-    m_CurrentFrame++;
+void Sprite::doCommand(std::string command) {
+    if(command == "play") {
+        m_Play = true;
+    } else if(command == "pause") {
+        m_Play = false;
+    } else if(command == "stop") {
+        m_Play = false;
+        m_CurrentFrame = 0;
+    }
+}
+
+void Sprite::update() {
+    if(m_Play == true) {
+        m_CurrentFrame++;
+    }
     if (m_CurrentFrame >= m_Frames) {
         m_CurrentFrame = 0;
     }
+}
+
+void Sprite::draw(SDL_Renderer* renderer, int x, int y) {
     renderSprite(x, y, renderer);
 }
 
@@ -59,6 +75,7 @@ void Sprite::renderSprite(int x, int y, SDL_Renderer* renderer) {
         m_SpriteReference->renderSprite(x, y, &currentSourceRegion, renderer);
     }
 }
+
 //Set the reference to the correct sprite sheet
 void Sprite::loadSpriteFromSheet(SpriteSheet* reference, SDL_Rect& region, int frames) {
     m_SpriteReference = reference;

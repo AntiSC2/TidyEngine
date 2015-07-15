@@ -16,25 +16,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #pragma once
-#include "component.h"
-#include "../Core/input.h"
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_mixer.h>
 #include <string>
+#include <map>
 
-//This class is a base class for controller components
-//It can be used but does not do anything by itself
-class Controller : public Component {
-    public:
-        Controller();
-        virtual ~Controller();
-
-        virtual bool initialize(std::string name);
-        virtual bool getUpdate();
-        virtual bool getDraw();
-
-        virtual void doCommand(std::string command);
-        virtual void update();
-
-        void setInputReference(Input& inputReference);
-    protected:
-        Input* m_Input;
+//The SoundCache class is handling the loading of sound effects and unloading of sound effects
+class SoundCache {
+   public:
+       SoundCache();
+       ~SoundCache();
+       
+       Mix_Chunk* createSound(std::string filepath);
+       Mix_Chunk* getSound(std::string filepath);
+       void disposeSound(std::string filepath);
+       void clearCache();
+   private:
+       std::map<std::string, Mix_Chunk*> m_SoundEffects;
 };

@@ -31,11 +31,13 @@ Cache::~Cache() {
 //This is the texture cache
 TexCache Cache::texCache;
 SheetCache Cache::sheetCache;
+SoundCache Cache::soundCache;
 
 //This function clears all caches
 void Cache::clearAllCaches() {
     texCache.clearCache();
     sheetCache.clearCache();
+    soundCache.clearCache();
 }
 
 //This function loads a block with textures

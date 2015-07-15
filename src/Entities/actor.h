@@ -33,6 +33,7 @@ class Actor {
         virtual void update();
         virtual void draw(SDL_Renderer* renderer);
         virtual void addComponent(Component* newComponent);
+	void doCommand(std::string nameComponent, std::string command);
         std::string listComponents();
     protected:
         std::vector<std::unique_ptr<Component>> m_Components;

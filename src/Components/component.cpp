@@ -25,6 +25,10 @@ Component::~Component() {
 
 }
 
+void Component::doCommand(std::string command) {
+    ;
+}
+
 void Component::update() {
     ;
 }

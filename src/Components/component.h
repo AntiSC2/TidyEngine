@@ -28,7 +28,8 @@ class Component {
         virtual bool initialize(std::string name) = 0;
         virtual bool getUpdate() = 0;
         virtual bool getDraw() = 0;
-
+        
+        virtual void doCommand(std::string command);
         virtual void update();
         virtual void draw(SDL_Renderer* renderer, int x, int y);
   
@@ -36,5 +37,5 @@ class Component {
             return m_Name;
         }
     protected:
-        std::string m_Name;       
+        std::string m_Name = "";       
 };

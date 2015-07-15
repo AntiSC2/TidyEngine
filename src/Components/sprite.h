@@ -30,12 +30,15 @@ class Sprite : public Component {
         bool getUpdate();
         bool getDraw();
 
+        void doCommand(std::string command);
+	void update();
         void draw(SDL_Renderer* renderer, int x, int y);
         void renderSprite(int x, int y, SDL_Renderer* renderer = nullptr);
         void loadSpriteFromSheet(SpriteSheet* reference, SDL_Rect& region, int frames);
     private:
         int m_Frames = 0;
         int m_CurrentFrame = 0;
+        bool m_Play = true;
         SDL_Rect m_SourceRegion;
         SpriteSheet* m_SpriteReference = nullptr;      
 };

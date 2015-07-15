@@ -21,8 +21,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //Error 004: SDL could not create renderer
 
 #include "game.h"
+//#include "config.h"
 
 int main(int argc, char** argv) {
+    //printf("TidyEngine Version: %d.%d\n", TidyEngine_VERSION_MAJOR, TidyEngine_VERSION_MINOR);
     Game g;
     g.run();
     return 0;
