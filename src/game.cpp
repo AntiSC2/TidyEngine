@@ -45,8 +45,8 @@ bool Game::init() {
         success = true;
     }
     Controller *temp3 = new Controller;
-    temp3->initialize("sprite");
-    temp3->setInputReference(m_Input);
+    temp3->initialize("controller");
+    temp3->setInputReference(m_Input, m_Player);
     m_Player.addComponent(temp3);
     temp3 = nullptr;
     SDL_Rect temp2;

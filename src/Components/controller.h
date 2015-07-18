@@ -20,6 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "../Core/input.h"
 #include <string>
 
+class Actor;
+
 //This class is a base class for controller components
 //It can be used but does not do anything by itself
 class Controller : public Component {
@@ -34,7 +36,8 @@ class Controller : public Component {
         virtual void doCommand(std::string command);
         virtual void update();
 
-        void setInputReference(Input& inputReference);
+        void setInputReference(Input& inputReference, Actor& parentReference);
     protected:
-        Input* m_Input;
+        Input* m_Input = nullptr;
+	Actor* m_Parent = nullptr;
 };

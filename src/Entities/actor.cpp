@@ -18,8 +18,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "actor.h"
 
 Actor::Actor() {
-    m_Position.x = 32.0f;
-    m_Position.y = 32.0f;
+    m_Position.x = 640;
+    m_Position.y = 360;
+}
+
+Actor::Actor(float x, float y) {
+    m_Position.x = x;
+    m_Position.y = y;
 }
 
 Actor::~Actor() {
@@ -46,6 +51,15 @@ void Actor::addComponent(Component* newComponent) {
     m_Components.emplace_back(newComponent);   
 }
 
+void Actor::moveActor(float newX, float newY) {
+    m_Position.x = newX;
+    m_Position.y = newY;
+}
+
+void Actor::moveActor(glm::vec2& newPosition) {
+    m_Position = newPosition;
+}
+
 void Actor::doCommand(std::string nameComponent, std::string command) {
     for(size_t i = 0; i < m_Components.size(); i++) {
         if(m_Components[i]->getName() == nameComponent) {
@@ -61,4 +75,8 @@ std::string Actor::listComponents() {
         temp += '\n';
     }
     return temp;
+}
+
+glm::vec2 Actor::getPosition() {
+    return m_Position;
 }

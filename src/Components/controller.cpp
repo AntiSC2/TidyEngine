@@ -16,6 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "controller.h"
+#include "../Entities/actor.h"
 
 Controller::Controller() {
 
@@ -43,9 +44,22 @@ void Controller::doCommand(std::string command) {
 }
 
 void Controller::update() {
-    ; 
+    if(m_Parent != nullptr) {
+        if(m_Input->getKeyPressed(SDL_SCANCODE_W)) {
+            glm::vec2 temp = m_Parent->getPosition();
+	    temp.y -= 0.1;
+	    m_Parent->moveActor(temp);
+        }
+        
+	if(m_Input->getKeyPressed(SDL_SCANCODE_S)) {
+            glm::vec2 temp = m_Parent->getPosition();
+	    temp.y += 0.1;
+	    m_Parent->moveActor(temp);
+        }
+    }
 }
 
-void Controller::setInputReference(Input& inputReference) {
+void Controller::setInputReference(Input& inputReference, Actor& parentReference) {
     m_Input = &inputReference;
+    m_Parent = &parentReference;
 }

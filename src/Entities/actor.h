@@ -28,13 +28,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 class Actor {
     public:
         Actor();
+        Actor(float x, float y);
         virtual ~Actor();
 
         virtual void update();
         virtual void draw(SDL_Renderer* renderer);
         virtual void addComponent(Component* newComponent);
+	virtual void moveActor(float newX, float newY);
+	virtual void moveActor(glm::vec2& newPosition);
 	void doCommand(std::string nameComponent, std::string command);
         std::string listComponents();
+	glm::vec2 getPosition();
     protected:
         std::vector<std::unique_ptr<Component>> m_Components;
         glm::vec2 m_Position;
