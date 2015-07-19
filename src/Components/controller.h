@@ -29,15 +29,14 @@ class Controller : public Component {
         Controller();
         virtual ~Controller();
 
-        virtual bool initialize(std::string name);
+        virtual bool initialize(std::string name, Actor* parent);
         virtual bool getUpdate();
         virtual bool getDraw();
 
         virtual void doCommand(std::string command);
         virtual void update();
 
-        void setInputReference(Input& inputReference, Actor& parentReference);
+        void setInputReference(Input& inputReference);
     protected:
         Input* m_Input = nullptr;
-	Actor* m_Parent = nullptr;
 };

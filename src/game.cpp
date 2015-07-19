@@ -45,14 +45,14 @@ bool Game::init() {
         success = true;
     }
     Controller *temp3 = new Controller;
-    temp3->initialize("controller");
-    temp3->setInputReference(m_Input, m_Player);
+    temp3->initialize("controller", &m_Player);
+    temp3->setInputReference(m_Input);
     m_Player.addComponent(temp3);
     temp3 = nullptr;
     SDL_Rect temp2;
     temp2.x = 32; temp2.y = 32; temp2.w = 32; temp2.h = 32;
     Sprite* temp = new Sprite;
-    temp->initialize("sprite");
+    temp->initialize("sprite", &m_Player);
     temp->loadSpriteFromSheet(Cache::sheetCache.getSheet("resources/block.png"), temp2, 2);
     Cache::loadTexturesFromBlock("resources/game.txt", 1, m_Screen.getRenderer());
     m_Player.addComponent(temp);

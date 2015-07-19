@@ -26,9 +26,10 @@ Controller::~Controller() {
 
 }
 
-bool Controller::initialize(std::string name) {
+bool Controller::initialize(std::string name, Actor* parent) {
     m_Name = name;
-    return true;
+    m_Parent = parent;
+    return (m_Parent != nullptr);
 }
 
 bool Controller::getUpdate() {
@@ -49,6 +50,7 @@ void Controller::update() {
             glm::vec2 temp = m_Parent->getPosition();
 	    temp.y -= 0.1;
 	    m_Parent->moveActor(temp);
+	    m_Parent->doCommand("sprite", "stop");
         }
         
 	if(m_Input->getKeyPressed(SDL_SCANCODE_S)) {
@@ -59,7 +61,6 @@ void Controller::update() {
     }
 }
 
-void Controller::setInputReference(Input& inputReference, Actor& parentReference) {
+void Controller::setInputReference(Input& inputReference) {
     m_Input = &inputReference;
-    m_Parent = &parentReference;
 }

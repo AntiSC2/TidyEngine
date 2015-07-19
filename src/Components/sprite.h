@@ -20,13 +20,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <SDL2/SDL.h>
 
 class SpriteSheet;
+class Actor;
 //This class represents an object in form of an image, gets the image from a sprite sheet
 class Sprite : public Component {
     public:
         Sprite();
         ~Sprite();
 
-        bool initialize(std::string name);
+        bool initialize(std::string name, Actor* parent = nullptr);
         bool getUpdate();
         bool getDraw();
 

@@ -45,7 +45,7 @@ EQUALS = =
 CMAKE_SOURCE_DIR = /home/anti/Code/GameEngine/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/anti/Code/GameEngine/Bin
+CMAKE_BINARY_DIR = /home/anti/Code/GameEngine/bin
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -72,9 +72,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/anti/Code/GameEngine/Bin/CMakeFiles /home/anti/Code/GameEngine/Bin/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/anti/Code/GameEngine/bin/CMakeFiles /home/anti/Code/GameEngine/bin/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/anti/Code/GameEngine/Bin/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/anti/Code/GameEngine/bin/CMakeFiles 0
 .PHONY : all
 
 # The main clean target

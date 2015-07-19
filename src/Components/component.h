@@ -19,13 +19,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <SDL2/SDL.h>
 #include <string>
 
+class Actor;
+
 //This class represents a component that can be added to an actor
 //To create a component, simply make another class inherit from this one
 class Component {
     public:
         Component();
         virtual ~Component();
-        virtual bool initialize(std::string name) = 0;
+        virtual bool initialize(std::string name, Actor* parent = nullptr) = 0;
         virtual bool getUpdate() = 0;
         virtual bool getDraw() = 0;
         
@@ -37,5 +39,6 @@ class Component {
             return m_Name;
         }
     protected:
-        std::string m_Name = "";       
+        std::string m_Name = "";
+	Actor* m_Parent = nullptr;
 };

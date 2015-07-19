@@ -17,6 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "sprite.h"
 #include "../Graphics/spritesheet.h"
+#include "../Entities/actor.h"
 
 Sprite::Sprite() {
     ;
@@ -26,9 +27,10 @@ Sprite::~Sprite() {
     m_SpriteReference = nullptr;
 }
 
-bool Sprite::initialize(std::string name) {
+bool Sprite::initialize(std::string name, Actor* parent) {
     m_Name = name;
-    return true;
+    m_Parent = parent;
+    return (m_Parent != nullptr);
 }
 
 bool Sprite::getUpdate() {
