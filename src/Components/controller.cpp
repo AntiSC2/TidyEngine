@@ -48,14 +48,14 @@ void Controller::update() {
     if(m_Parent != nullptr) {
         if(m_Input->getKeyPressed(SDL_SCANCODE_W)) {
             glm::vec2 temp = m_Parent->getPosition();
-	    temp.y -= 0.1;
+	    temp.y -= 0.1f;
 	    m_Parent->moveActor(temp);
 	    m_Parent->doCommand("sprite", "stop");
         }
         
 	if(m_Input->getKeyPressed(SDL_SCANCODE_S)) {
             glm::vec2 temp = m_Parent->getPosition();
-	    temp.y += 0.1;
+	    temp.y += 0.1f;
 	    m_Parent->moveActor(temp);
         }
     }
