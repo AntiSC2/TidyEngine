@@ -1,3 +1,8 @@
 #Ignore SWAP-FILES
 *.swp
 *.swo
+
+#Ignore deps folder
+/deps/include/*.h
+/deps/include/*.cpp
+/deps/lib/*.lib
