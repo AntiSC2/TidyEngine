@@ -1,0 +1,1 @@
+This is where you will place the SDL2 libraries if you are using Windows.
