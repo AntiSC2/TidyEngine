@@ -3,6 +3,9 @@
 *.swo
 
 #Ignore deps folder
-/deps/include/*.h
-/deps/include/*.cpp
-/deps/lib/*.lib
+deps/include*/
+deps/lib*/
+
+#Ignore most of bin folder
+bin/*
+!bin/config.h

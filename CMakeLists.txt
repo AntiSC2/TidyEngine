@@ -64,29 +64,30 @@ configure_file(
 IF(WIN32)
 
     message(STATUS "WIN32")
+	LINK_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/deps/lib)
     include_directories(${PROJECT_SOURCE_DIR}/deps/include)
     include_directories(${PROJECT_SOURCE_DIR}/src/)
     include_directories(${PROJECT_BINARY_DIR})
 
     set(SDL2_LIBRARIES
         ${SDL2_LIBRARIES}
-        ${PROJECT_SOURCE_DIR}/deps/lib/SDL2.lib
-        ${PROJECT_SOURCE_DIR}/deps/lib/SDL2main.lib
+        SDL2.lib
+        SDL2main.lib
     )
 
     set(SDLIMAGE_LIBRARIES
         ${SDLIMAGE_LIBRARIES}
-        ${PROJECT_SOURCE_DIR}/deps/lib/SDL2_image.lib
+        SDL2_image.lib
     )
 
     set(SDLMIXER_LIBRARIES
         ${SDLMIXER_LIBRARIES}
-        ${PROJECT_SOURCE_DIR}/deps/lib/SDL2_mixer.lib
+        SDL2_mixer.lib
     )
 
     set(SDLTTF_LIBRARIES
         ${SDLTTF_LIBRARIES}
-        ${PROJECT_SOURCE_DIR}/deps/lib/SDL2_ttf.lib
+        SDL2_ttf.lib
     )
 else(WIN32)
     message(STATUS "UNIX")
