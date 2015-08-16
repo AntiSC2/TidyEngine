@@ -16,6 +16,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "draw.h"
+#include "screen.h"
+#include "../RM/cache.h"
+#include <algorithm>
 
 Draw::Draw() {
     ;
@@ -27,4 +30,34 @@ Draw::~Draw() {
 
 void Draw::begin() {
     m_Glyphs.clear();
+}
+
+void Draw::draw(Renderable sprite) {
+    m_Glyphs.push_back(sprite);
+}
+
+void Draw::end() {
+    sortGlyphs();
+}
+
+void Draw::render(SDL_Renderer* renderer) {
+    //printf("%d\n %d\n %d\n %d\n", m_Glyphs[0].clip->x, m_Glyphs[0].clip->y,
+                                  //m_Glyphs[0].clip->w, m_Glyphs[0].clip->h);
+    for(size_t i = 0; i < m_Glyphs.size(); i++) {
+        SDL_RenderCopy(renderer, Cache::texCache.getTexture(m_Glyphs[i].texName),
+	               &m_Glyphs[i].clip, &m_Glyphs[i].glyph);
+    }
+}
+
+bool sortTexture(Renderable a, Renderable b) {
+    return a.texName.compare(b.texName) < 0;   
+}
+
+bool sortDepth(Renderable a, Renderable b) {
+    return a.depth < b.depth;
+}
+
+void Draw::sortGlyphs() {
+    std::stable_sort(m_Glyphs.begin(), m_Glyphs.end(), sortTexture);
+    std::stable_sort(m_Glyphs.begin(), m_Glyphs.end(), sortDepth);
 }

@@ -61,20 +61,19 @@ void Sprite::update() {
     }
 }
 
-void Sprite::draw(SDL_Renderer* renderer, int x, int y) {
-    renderSprite(x, y, renderer);
+void Sprite::draw(Draw& draw, int x, int y) {
+    renderSprite(x, y, draw);
 }
 
 //This function renders the sprite
-void Sprite::renderSprite(int x, int y, SDL_Renderer* renderer) {
+void Sprite::renderSprite(int x, int y, Draw& draw) {
     if(m_SpriteReference != nullptr) {
 
         SDL_Rect currentSourceRegion = m_SourceRegion;
         for(int i = 0; i < m_CurrentFrame; i++) {
             currentSourceRegion.x += currentSourceRegion.w;
         }
-
-        m_SpriteReference->renderSprite(x, y, &currentSourceRegion, renderer);
+        m_SpriteReference->renderSprite(x, y, draw, &currentSourceRegion);
     }
 }
 

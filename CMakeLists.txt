@@ -27,6 +27,8 @@ set(SOURCE
    ${CMAKE_CURRENT_SOURCE_DIR}/src/Entities/actor.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/src/Graphics/screen.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/src/Graphics/spritesheet.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/src/Graphics/draw.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/src/Graphics/renderable.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/src/RM/cache.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/src/RM/sheetcache.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/src/RM/soundcache.cpp
@@ -44,6 +46,8 @@ set(HEADERS
    ${CMAKE_CURRENT_SOURCE_DIR}/src/Entities/actor.h
    ${CMAKE_CURRENT_SOURCE_DIR}/src/Graphisc/screen.h
    ${CMAKE_CURRENT_SOURCE_DIR}/src/Graphics/spritesheet.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/src/Graphics/draw.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/src/Graphics/renderable.h
    ${CMAKE_CURRENT_SOURCE_DIR}/src/RM/cache.h
    ${CMAKE_CURRENT_SOURCE_DIR}/src/RM/sheetcache.h
    ${CMAKE_CURRENT_SOURCE_DIR}/src/RM/soundcache.h
@@ -64,7 +68,7 @@ configure_file(
 IF(WIN32)
 
     message(STATUS "WIN32")
-	LINK_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/deps/lib)
+    LINK_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/deps/lib)
     include_directories(${PROJECT_SOURCE_DIR}/deps/include)
     include_directories(${PROJECT_SOURCE_DIR}/src/)
     include_directories(${PROJECT_BINARY_DIR})
@@ -93,7 +97,7 @@ else(WIN32)
     message(STATUS "UNIX")
     include(FindPkgConfig)
     pkg_search_module(SDL2 REQUIRED sdl2)
-    pkg_search_module(SDLIMAGE REQUIRED SDL2_image>=2.0.2)
+    pkg_search_module(SDLIMAGE REQUIRED SDL2_image>=2.0.0)
     pkg_search_module(SDLMIXER REQUIRED SDL2_mixer>=2.0.0)
     pkg_search_module(SDLTTF REQUIRED SDL2_ttf>=2.0.12)
 

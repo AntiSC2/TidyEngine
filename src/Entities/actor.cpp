@@ -39,10 +39,10 @@ void Actor::update() {
     }
 }
 
-void Actor::draw(SDL_Renderer* renderer) {
+void Actor::draw(Draw& draw) {
     for(size_t i = 0; i < m_Components.size(); i++) {
         if(m_Components[i]->getDraw()) {
-            m_Components[i]->draw(renderer, (int)m_Position.x, (int)m_Position.y);
+            m_Components[i]->draw(draw, (int)m_Position.x, (int)m_Position.y);
         }
     }
 }

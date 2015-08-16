@@ -17,6 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 #include "../Components/component.h"
+#include "../Graphics/draw.h"
 #include <SDL2/SDL.h>
 #include <string>
 #include <vector>
@@ -32,7 +33,7 @@ class Actor {
         virtual ~Actor();
 
         virtual void update();
-        virtual void draw(SDL_Renderer* renderer);
+        virtual void draw(Draw& draw);
         virtual void addComponent(Component* newComponent);
 	virtual void moveActor(float newX, float newY);
 	virtual void moveActor(glm::vec2& newPosition);

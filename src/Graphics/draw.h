@@ -15,9 +15,10 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "screen.h"
+#pragma once
 #include "renderable.h"
 #include <SDL2/SDL.h>
+#include <glm/glm.hpp>
 #include <string>
 #include <vector>
 
@@ -27,12 +28,13 @@ class Draw {
 	~Draw();
 
         void begin();
-	void draw(Renderable& sprite);
+	void draw(Renderable sprite);
 	void drawText(std::string text, std::string font, glm::vec2 position,
 	              glm::vec2 scale, SDL_Color color);
 	void end();
-	void render(Screen& screen);
+	void render(SDL_Renderer* renderer);
 
     private:
+        void sortGlyphs();
         std::vector<Renderable> m_Glyphs;
 };

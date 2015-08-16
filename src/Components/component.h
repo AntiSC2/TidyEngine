@@ -16,6 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #pragma once
+#include "../Graphics/draw.h"
 #include <SDL2/SDL.h>
 #include <string>
 
@@ -33,7 +34,7 @@ class Component {
         
         virtual void doCommand(std::string command);
         virtual void update();
-        virtual void draw(SDL_Renderer* renderer, int x, int y);
+        virtual void draw(Draw& draw, int x, int y);
   
         std::string getName() {
             return m_Name;

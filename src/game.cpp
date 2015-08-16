@@ -50,10 +50,10 @@ bool Game::init() {
     m_Player.addComponent(temp3);
     temp3 = nullptr;
     SDL_Rect temp2;
-    temp2.x = 32; temp2.y = 32; temp2.w = 32; temp2.h = 32;
+    temp2.x = 0; temp2.y = 0; temp2.w = 32; temp2.h = 32;
     Sprite* temp = new Sprite;
     temp->initialize("sprite", &m_Player);
-    temp->loadSpriteFromSheet(Cache::sheetCache.getSheet("resources/block.png"), temp2, 2);
+    temp->loadSpriteFromSheet(Cache::sheetCache.getSheet("resources/block.png"), temp2, 3);
     Cache::loadTexturesFromBlock("resources/game.txt", 1, m_Screen.getRenderer());
     m_Player.addComponent(temp);
     temp = nullptr;
@@ -69,7 +69,10 @@ void Game::update() {
 //The draw function handles the rendering part of the game
 void Game::drawGame() {
     SDL_RenderClear(m_Screen.getRenderer());
-    m_Player.draw(m_Screen.getRenderer());
+    draw.begin();
+    m_Player.draw(draw);
+    draw.end();
+    draw.render(m_Screen.getRenderer());
     SDL_RenderPresent(m_Screen.getRenderer());
 }
 

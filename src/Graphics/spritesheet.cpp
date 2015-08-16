@@ -17,6 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "spritesheet.h"
 #include "../RM/cache.h"
+#include "renderable.h"
 
 // The constructor does nothing special here
 SpriteSheet::SpriteSheet() {
@@ -33,15 +34,20 @@ void SpriteSheet::loadSpriteSheet(std::string filepath) {
     SDL_QueryTexture(m_Texture, nullptr, nullptr, &m_Width, &m_Height);
     if(m_Texture == nullptr) {
         printf("Error: Could not get texture %s!\n", filepath.c_str());
-    } 
+    } else {
+        m_Name = filepath;
+    }
 }
 //Renders the entire, or part of, spritesheet
-void SpriteSheet::renderSprite(int x, int y, SDL_Rect* clip, SDL_Renderer* renderer) {
-    SDL_Rect renderQuad = {x, y, m_Width, m_Height}; 
+void SpriteSheet::renderSprite(int x, int y, Draw& draw, SDL_Rect* clip) {
+    Renderable sprite;
+    sprite.glyph = {x, y, m_Width, m_Height};
+    sprite.clip = *clip;
+    sprite.texName = m_Name; 
     if(clip != nullptr) {
-        renderQuad.w = clip->w;
-        renderQuad.h = clip->h;
+        sprite.glyph.w = clip->w;
+        sprite.glyph.h = clip->h;
     }
-
-    SDL_RenderCopy(renderer, m_Texture, clip, &renderQuad);
+    
+    draw.draw(sprite);
 }

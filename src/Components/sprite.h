@@ -17,6 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 #include "component.h"
+#include "../Graphics/draw.h"
 #include <SDL2/SDL.h>
 
 class SpriteSheet;
@@ -33,8 +34,8 @@ class Sprite : public Component {
 
         void doCommand(std::string command);
 	void update();
-        void draw(SDL_Renderer* renderer, int x, int y);
-        void renderSprite(int x, int y, SDL_Renderer* renderer = nullptr);
+        void draw(Draw& draw, int x, int y);
+        void renderSprite(int x, int y, Draw& draw);
         void loadSpriteFromSheet(SpriteSheet* reference, SDL_Rect& region, int frames);
     private:
         int m_Frames = 0;

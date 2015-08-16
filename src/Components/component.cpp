@@ -33,6 +33,6 @@ void Component::update() {
     ;
 }
 
-void Component::draw(SDL_Renderer* renderer, int x, int y) {
+void Component::draw(Draw& draw, int x, int y) {
     ;
 }
