@@ -19,6 +19,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //Error 002: SDL_image could not load image, probably because of SDL not being initialized correctly
 //Error 003: SDL could not create texture from surface
 //Error 004: SDL could not create renderer
+//Error 005: SDL_mixer could not load sound
+//Error 006: SDL_ttf could not load font
 
 #include "game.h"
 #include "config.h"
@@ -27,5 +29,6 @@ int main(int argc, char** argv) {
     printf("TidyEngine Version: %d.%d\n", TidyEngine_VERSION_MAJOR, TidyEngine_VERSION_MINOR);
     Game g;
     g.run();
+    printf("Core not fail\n");
     return 0;
 }

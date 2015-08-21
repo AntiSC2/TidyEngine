@@ -16,26 +16,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #pragma once
-#include "renderable.h"
-#include <SDL2/SDL.h>
-#include <glm/glm.hpp>
+#include <SDL2/SDL_ttf.h>
 #include <string>
-#include <vector>
+#include <map>
 
-class Draw {
-    public:
-        Draw();
-	~Draw();
-
-        void begin();
-	void draw(Renderable sprite);
-	void drawText(std::string text, std::string font, glm::vec2 position,
-	              SDL_Color color, SDL_Renderer* renderer = nullptr, float depth = 0.0f);
-	void end();
-	void render(SDL_Renderer* renderer);
-
-    private:
-        void sortGlyphs();
-        std::vector<Renderable> m_Glyphs;
-	std::vector<SDL_Texture*> m_TextTextures;
+//The FontCache class is handling the loading of fonts and the unloading of fonts
+class FontCache {
+   public:
+       FontCache();
+       ~FontCache();
+       
+       TTF_Font* createFont(std::string filepath, int size);
+       TTF_Font* getFont(std::string filepath);
+       void disposeFont(std::string filepath);
+       void clearCache();
+   private:
+       std::map<std::string, TTF_Font*> m_Fonts;
 };

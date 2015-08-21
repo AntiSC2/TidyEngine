@@ -22,10 +22,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 class Renderable {
     public:
         Renderable();
-	~Renderable();
+	virtual ~Renderable();
         
         SDL_Rect glyph;
 	SDL_Rect clip;
-	std::string texName;
-	float depth;
+	SDL_Texture* tex = nullptr;
+	std::string texName = "";
+	float depth = 0.0f;
 };

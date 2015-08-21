@@ -43,7 +43,8 @@ void SpriteSheet::renderSprite(int x, int y, Draw& draw, SDL_Rect* clip) {
     Renderable sprite;
     sprite.glyph = {x, y, m_Width, m_Height};
     sprite.clip = *clip;
-    sprite.texName = m_Name; 
+    sprite.tex = m_Texture;
+    sprite.texName = m_Name;
     if(clip != nullptr) {
         sprite.glyph.w = clip->w;
         sprite.glyph.h = clip->h;

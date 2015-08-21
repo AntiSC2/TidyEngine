@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_mixer.h>
+#include <SDL2/SDL_ttf.h>
 
 Core::Core() {
     ;
@@ -48,6 +49,9 @@ bool Core::initSubSystems() {
     } else if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 4096) < 0) {
         printf("SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError());
 	success = false;
+    } else if(TTF_Init() == -1) {
+        printf("SDL_ttf could not initialize! SDL_ttf Error: %s\n", TTF_GetError());
+	success = false;
     }
     
     return success;
@@ -76,6 +80,8 @@ void Core::drawGame() {
 }
 
 void Core::quit() {
+    TTF_Quit();
+    Mix_Quit();
     IMG_Quit();
     SDL_Quit();
 }

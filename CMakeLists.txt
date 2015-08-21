@@ -30,6 +30,7 @@ set(SOURCE
    ${CMAKE_CURRENT_SOURCE_DIR}/src/Graphics/draw.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/src/Graphics/renderable.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/src/RM/cache.cpp
+   ${CMAKE_CURRENT_SOURCE_DIR}/src/RM/fontcache.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/src/RM/sheetcache.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/src/RM/soundcache.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/src/RM/texcache.cpp
@@ -49,6 +50,7 @@ set(HEADERS
    ${CMAKE_CURRENT_SOURCE_DIR}/src/Graphics/draw.h
    ${CMAKE_CURRENT_SOURCE_DIR}/src/Graphics/renderable.h
    ${CMAKE_CURRENT_SOURCE_DIR}/src/RM/cache.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/src/RM/fontcache.h
    ${CMAKE_CURRENT_SOURCE_DIR}/src/RM/sheetcache.h
    ${CMAKE_CURRENT_SOURCE_DIR}/src/RM/soundcache.h
    ${CMAKE_CURRENT_SOURCE_DIR}/src/RM/texcache.h
