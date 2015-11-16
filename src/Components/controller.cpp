@@ -19,48 +19,48 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "../Entities/actor.h"
 
 Controller::Controller() {
-
+	;
 }
 
 Controller::~Controller() {
-
+	;
 }
 
 bool Controller::initialize(std::string name, Actor* parent) {
-    m_Name = name;
-    m_Parent = parent;
-    return (m_Parent != nullptr);
+	m_Name = name;
+	m_Parent = parent;
+	return (m_Parent != nullptr);
 }
 
 bool Controller::getUpdate() {
-    return true; 
+	return true; 
 }
 
 bool Controller::getDraw() {
-    return false;
+	return false;
 }
 
 void Controller::doCommand(std::string command) {
-    ;
+	;
 }
 
 void Controller::update() {
-    if(m_Parent != nullptr) {
-        if(m_Input->getKeyPressed(SDL_SCANCODE_W)) {
-            glm::vec2 temp = m_Parent->getPosition();
-	    temp.y -= 0.1f;
-	    m_Parent->moveActor(temp);
-	    m_Parent->doCommand("sprite", "stop");
-        }
-        
-	if(m_Input->getKeyPressed(SDL_SCANCODE_S)) {
-            glm::vec2 temp = m_Parent->getPosition();
-	    temp.y += 0.1f;
-	    m_Parent->moveActor(temp);
-        }
-    }
+	if(m_Parent != nullptr) {
+			if(m_Input->getKeyPressed(SDL_SCANCODE_W)) {
+			glm::vec2 temp = m_Parent->getPosition();
+			temp.y -= 0.1f;
+			m_Parent->moveActor(temp);
+			m_Parent->doCommand("sprite", "stop");
+		}
+
+		if(m_Input->getKeyPressed(SDL_SCANCODE_S)) {
+			glm::vec2 temp = m_Parent->getPosition();
+			temp.y += 0.1f;
+			m_Parent->moveActor(temp);
+		}
+	}
 }
 
 void Controller::setInputReference(Input& inputReference) {
-    m_Input = &inputReference;
+    	m_Input = &inputReference;
 }

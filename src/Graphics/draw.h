@@ -23,19 +23,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <vector>
 
 class Draw {
-    public:
-        Draw();
-	~Draw();
+	public:
+		Draw();
+		~Draw();
 
-        void begin();
-	void draw(Renderable sprite);
-	void drawText(std::string text, std::string font, glm::vec2 position,
-	              SDL_Color color, SDL_Renderer* renderer = nullptr, float depth = 0.0f);
-	void end();
-	void render(SDL_Renderer* renderer);
+		void begin();
+		void draw(Renderable sprite);
+		void drawText(std::string text, std::string font,
+			glm::vec2 position,SDL_Color color,
+			SDL_Renderer* renderer = nullptr, float depth = 0.0f);
+		void end();
+		void render(SDL_Renderer* renderer);
 
-    private:
-        void sortGlyphs();
-        std::vector<Renderable> m_Glyphs;
-	std::vector<SDL_Texture*> m_TextTextures;
+	private:
+		void sortGlyphs();
+		std::vector<Renderable> m_Glyphs;
+		std::vector<SDL_Texture*> m_TextTextures;
 };

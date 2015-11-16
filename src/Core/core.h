@@ -20,18 +20,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 //This is the main engine class, this class handles the initialization of the engine
 class Core {
-    public:
-        Core();
-        virtual ~Core();
-        
-        virtual void run();
-    protected:
-        virtual bool initSubSystems();
-        virtual bool init() = 0;
-        virtual void gameLoop();
-        virtual void update();
-        virtual void drawGame() = 0;
-        virtual void quit();
-        bool m_Initialized = false;
-        Input m_Input;
+	public:
+		Core();
+		virtual ~Core();
+ 
+		virtual void run();
+	protected:
+		virtual bool initSubSystems();
+		virtual bool init() = 0;
+		virtual void gameLoop();
+		virtual void update();
+		virtual void drawGame() = 0;
+		virtual void quit();
+		bool m_Initialized = false;
+		Input m_Input;
 };

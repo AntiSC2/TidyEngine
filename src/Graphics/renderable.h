@@ -20,13 +20,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <string>
 
 class Renderable {
-    public:
-        Renderable();
-	virtual ~Renderable();
-        
-        SDL_Rect glyph;
-	SDL_Rect clip;
-	SDL_Texture* tex = nullptr;
-	std::string texName = "";
-	float depth = 0.0f;
+	public:
+		Renderable();
+		virtual ~Renderable();
+
+		SDL_Rect glyph;
+		SDL_Rect clip;
+		SDL_Texture* tex = nullptr;
+		std::string texName = "";
+		float depth = 0.0f;
 };

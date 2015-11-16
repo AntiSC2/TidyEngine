@@ -20,66 +20,66 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "../Entities/actor.h"
 
 Sprite::Sprite() {
-    ;
+	;
 }
 
 Sprite::~Sprite() {
-    m_SpriteReference = nullptr;
+	m_SpriteReference = nullptr;
 }
 
 bool Sprite::initialize(std::string name, Actor* parent) {
-    m_Name = name;
-    m_Parent = parent;
-    return (m_Parent != nullptr);
+	m_Name = name;
+	m_Parent = parent;
+	return (m_Parent != nullptr);
 }
 
 bool Sprite::getUpdate() {
-    return true;
+	return true;
 }
 
 bool Sprite::getDraw() {
-    return true;
+	return true;
 }
 
 void Sprite::doCommand(std::string command) {
-    if(command == "play") {
-        m_Play = true;
-    } else if(command == "pause") {
-        m_Play = false;
-    } else if(command == "stop") {
-        m_Play = false;
-        m_CurrentFrame = 0;
-    }
+	if(command == "play") {
+		m_Play = true;
+	} else if(command == "pause") {
+		m_Play = false;
+	} else if(command == "stop") {
+		m_Play = false;
+		m_CurrentFrame = 0;
+	}
 }
 
 void Sprite::update() {
-    if(m_Play == true) {
-        m_CurrentFrame++;
-    }
-    if (m_CurrentFrame >= m_Frames) {
-        m_CurrentFrame = 0;
-    }
+	if(m_Play == true) {
+		m_CurrentFrame++;
+	}
+	if (m_CurrentFrame >= m_Frames) {
+		m_CurrentFrame = 0;
+	}
 }
 
 void Sprite::draw(Draw& draw, int x, int y) {
-    renderSprite(x, y, draw);
+	renderSprite(x, y, draw);
 }
 
 //This function renders the sprite
 void Sprite::renderSprite(int x, int y, Draw& draw) {
-    if(m_SpriteReference != nullptr) {
+	if(m_SpriteReference != nullptr) {
 
-        SDL_Rect currentSourceRegion = m_SourceRegion;
-        for(int i = 0; i < m_CurrentFrame; i++) {
-            currentSourceRegion.x += currentSourceRegion.w;
-        }
-        m_SpriteReference->renderSprite(x, y, draw, &currentSourceRegion);
-    }
+		SDL_Rect currentSourceRegion = m_SourceRegion;
+		for(int i = 0; i < m_CurrentFrame; i++) {
+			currentSourceRegion.x += currentSourceRegion.w;
+		}
+		m_SpriteReference->renderSprite(x, y, draw, &currentSourceRegion);
+	}
 }
 
 //Set the reference to the correct sprite sheet
 void Sprite::loadSpriteFromSheet(SpriteSheet* reference, SDL_Rect& region, int frames) {
-    m_SpriteReference = reference;
-    m_SourceRegion = region;
-    m_Frames = frames;
+	m_SpriteReference = reference;
+	m_SourceRegion = region;
+	m_Frames = frames;
 }

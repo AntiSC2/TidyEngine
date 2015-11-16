@@ -22,23 +22,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 //This class handles a single texture and acts as a reference for sprites
 class SpriteSheet {
-    public:
-        friend class Sprite;
-        SpriteSheet();
-        ~SpriteSheet();
+	public:
+		friend class Sprite;
+		SpriteSheet();
+		~SpriteSheet();
 
-        void loadSpriteSheet(std::string filepath);
+		void loadSpriteSheet(std::string filepath);
 
-        int getWidth() {
-            return m_Width;
-        }
-        int getHeight() {
-            return m_Height;
-        }
-        void renderSprite(int x, int y, Draw& draw, SDL_Rect* clip = nullptr);
-    private:
-        SDL_Texture* m_Texture = nullptr;
-        int m_Width = 0;
-        int m_Height = 0;
-	std::string m_Name = "";
+		int getWidth() {
+			return m_Width;
+		}
+		int getHeight() {
+			return m_Height;
+		}
+		void renderSprite(int x, int y, Draw& draw,
+			SDL_Rect* clip = nullptr);
+	private:
+		SDL_Texture* m_Texture = nullptr;
+		int m_Width = 0;
+		int m_Height = 0;
+		std::string m_Name = "";
 };

@@ -21,34 +21,34 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // The constructor does nothing special here
 SpriteSheet::SpriteSheet() {
-    ;
+	;
 }
 //The texture is destroyed in the resource manager
 SpriteSheet::~SpriteSheet() {
-    m_Texture = nullptr;
+	m_Texture = nullptr;
 }
 //Loads in a texture
 void SpriteSheet::loadSpriteSheet(std::string filepath) {
-    m_Texture = nullptr; //Makes sure that the previous sprite sheet is not linked anymore
-    m_Texture = Cache::texCache.getTexture(filepath);
-    SDL_QueryTexture(m_Texture, nullptr, nullptr, &m_Width, &m_Height);
-    if(m_Texture == nullptr) {
-        printf("Error: Could not get texture %s!\n", filepath.c_str());
-    } else {
-        m_Name = filepath;
-    }
+	m_Texture = nullptr; //Makes sure that the previous sprite sheet is not linked anymore
+	m_Texture = Cache::texCache.getTexture(filepath);
+	SDL_QueryTexture(m_Texture, nullptr, nullptr, &m_Width, &m_Height);
+	if(m_Texture == nullptr) {
+		printf("Error: Could not get texture %s!\n", filepath.c_str());
+	} else {
+		m_Name = filepath;
+	}
 }
 //Renders the entire, or part of, spritesheet
 void SpriteSheet::renderSprite(int x, int y, Draw& draw, SDL_Rect* clip) {
-    Renderable sprite;
-    sprite.glyph = {x, y, m_Width, m_Height};
-    sprite.clip = *clip;
-    sprite.tex = m_Texture;
-    sprite.texName = m_Name;
-    if(clip != nullptr) {
-        sprite.glyph.w = clip->w;
-        sprite.glyph.h = clip->h;
-    }
-    
-    draw.draw(sprite);
+	Renderable sprite;
+	sprite.glyph = {x, y, m_Width, m_Height};
+	sprite.clip = *clip;
+	sprite.tex = m_Texture;
+	sprite.texName = m_Name;
+	if(clip != nullptr) {
+		sprite.glyph.w = clip->w;
+		sprite.glyph.h = clip->h;
+	}
+
+	draw.draw(sprite);
 }

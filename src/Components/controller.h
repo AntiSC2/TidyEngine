@@ -25,18 +25,18 @@ class Actor;
 //This class is a base class for controller components
 //It can be used but does not do anything by itself
 class Controller : public Component {
-    public:
-        Controller();
-        virtual ~Controller();
+	public:
+		Controller();
+		virtual ~Controller();
 
-        virtual bool initialize(std::string name, Actor* parent);
-        virtual bool getUpdate();
-        virtual bool getDraw();
+		virtual bool initialize(std::string name, Actor* parent);
+		virtual bool getUpdate();
+		virtual bool getDraw();
 
-        virtual void doCommand(std::string command);
-        virtual void update();
+		virtual void doCommand(std::string command);
+		virtual void update();
 
-        void setInputReference(Input& inputReference);
-    protected:
-        Input* m_Input = nullptr;
+		void setInputReference(Input& inputReference);
+	protected:
+		Input* m_Input = nullptr;
 };

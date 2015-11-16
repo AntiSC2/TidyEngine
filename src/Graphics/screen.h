@@ -20,30 +20,30 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 //The screen class handles the SDL window & the SDL renderer. It also stores the width, height and the title of the window
 class Screen {
-    public:
-        Screen();
-        ~Screen();
+	public:
+		Screen();
+		~Screen();
 
-        int getWidth() {
-            return m_Width;
-        }
-        int getHeight() {
-            return m_Height;
-        }
-        const char* getTitle() {
-            return m_Title;
-        }
-        SDL_Window* getWindow() {
-            return m_Window;
-        }
-        SDL_Renderer* getRenderer() {
-            return m_Renderer;
-        }
-        bool createNewWindow(int width, int height, const char* title);
-    private:
-        SDL_Window* m_Window = nullptr;
-        SDL_Renderer* m_Renderer = nullptr;
-        int m_Width = 0;
-        int m_Height = 0;
-        char* m_Title = 0;
+		int getWidth() {
+			return m_Width;
+		}
+		int getHeight() {
+			return m_Height;
+		}
+		const char* getTitle() {
+			return m_Title;
+		}
+		SDL_Window* getWindow() {
+			return m_Window;
+		}
+		SDL_Renderer* getRenderer() {
+			return m_Renderer;
+		}
+		bool createNewWindow(int width, int height, const char* title);
+	private:
+		SDL_Window* m_Window = nullptr;
+		SDL_Renderer* m_Renderer = nullptr;
+		int m_Width = 0;
+		int m_Height = 0;
+		char* m_Title = 0;
 };

@@ -18,21 +18,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "component.h"
 
 Component::Component() {
-    ;
+	;
 }
 
 Component::~Component() {
-
+	;
 }
 
 void Component::doCommand(std::string command) {
-    ;
+	;
 }
 
 void Component::update() {
-    ;
+	;
 }
 
 void Component::draw(Draw& draw, int x, int y) {
-    ;
+	;
 }

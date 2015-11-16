@@ -22,19 +22,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //The input class handles mouse and key inputs given to the window
 //It's a static class for the most part
 class Input {
-    public:
-        Input();
-        ~Input();
+	public:
+		Input();
+		~Input();
+
+		void update();
+		//Returns if the user has tried to close the window
+		//True means that the user wants to close the window
+		bool getCloseWindow() {
+			return m_CloseWindow;
+		}
         
-        void update();
-        //Returns if the user has tried to close the window
-        //True means that the user wants to close the window
-        bool getCloseWindow() {
-            return m_CloseWindow;
-        }
-        
-        static bool getKeyPressed(SDL_Scancode key);
-    private:
-        bool m_CloseWindow = false;
-        static std::vector<bool> m_PressedKeys;
+		static bool getKeyPressed(SDL_Scancode key);
+	private:
+		bool m_CloseWindow = false;
+		static std::vector<bool> m_PressedKeys;
 };

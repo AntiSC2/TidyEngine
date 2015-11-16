@@ -24,23 +24,23 @@ class SpriteSheet;
 class Actor;
 //This class represents an object in form of an image, gets the image from a sprite sheet
 class Sprite : public Component {
-    public:
-        Sprite();
-        ~Sprite();
+	public:
+		Sprite();
+		~Sprite();
 
-        bool initialize(std::string name, Actor* parent = nullptr);
-        bool getUpdate();
-        bool getDraw();
+		bool initialize(std::string name, Actor* parent = nullptr);
+		bool getUpdate();
+		bool getDraw();
 
-        void doCommand(std::string command);
-	void update();
-        void draw(Draw& draw, int x, int y);
-        void renderSprite(int x, int y, Draw& draw);
-        void loadSpriteFromSheet(SpriteSheet* reference, SDL_Rect& region, int frames);
-    private:
-        int m_Frames = 0;
-        int m_CurrentFrame = 0;
-        bool m_Play = true;
-        SDL_Rect m_SourceRegion;
-        SpriteSheet* m_SpriteReference = nullptr;      
+		void doCommand(std::string command);
+		void update();
+		void draw(Draw& draw, int x, int y);
+		void renderSprite(int x, int y, Draw& draw);
+		void loadSpriteFromSheet(SpriteSheet* reference, SDL_Rect& region, int frames);
+	private:
+		int m_Frames = 0;
+		int m_CurrentFrame = 0;
+		bool m_Play = true;
+		SDL_Rect m_SourceRegion;
+		SpriteSheet* m_SpriteReference = nullptr;      
 };
