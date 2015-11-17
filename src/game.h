@@ -27,16 +27,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //everything gets updated and rendered
 
 class Game : public Core {
-    public:
-        Game();
-        ~Game();
-        
-    private:
-        bool init();
-        void update();
-        void drawGame();
+	public:
+		Game();
+		~Game();
 
-        Actor m_Player;
-        Screen m_Screen;
-	Draw draw;
+	private:
+		bool init();
+		void update();
+		void drawGame();
+
+		Actor m_Player;
+		Screen m_Screen;
+		Draw draw;
 };

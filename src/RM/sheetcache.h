@@ -22,15 +22,15 @@ class SpriteSheet;
 
 //The SheetCache handles the SpriteSheets to make it easier for sprites to get a reference
 class SheetCache {
-    public:
-        SheetCache();
-        ~SheetCache();
-        
-        SpriteSheet* createSheet(std::string filepath);
-        SpriteSheet* getSheet(std::string filepath);
+	public:
+		SheetCache();
+		~SheetCache();
 
-        void disposeSheet(std::string filepath);
-        void clearCache(); 
-    private:
-        std::map<std::string, SpriteSheet*> m_Sheets;
+		SpriteSheet* createSheet(std::string filepath);
+		SpriteSheet* getSheet(std::string filepath);
+
+		void disposeSheet(std::string filepath);
+		void clearCache(); 
+	private:
+		std::map<std::string, SpriteSheet*> m_Sheets;
 };

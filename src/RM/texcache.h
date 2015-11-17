@@ -22,14 +22,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 //The TexCache class is handling the loading of textures and unloading of textures
 class TexCache {
-   public:
-       TexCache();
-       ~TexCache();
-       
-       SDL_Texture* createTexture(std::string filepath, SDL_Renderer* renderer);
-       SDL_Texture* getTexture(std::string filepath);
-       void disposeTexture(std::string filepath);
-       void clearCache();
-   private:
-       std::map<std::string, SDL_Texture*> m_Textures;
+	public:
+		TexCache();
+		~TexCache();
+
+		SDL_Texture* createTexture(std::string filepath,
+			SDL_Renderer* renderer);
+		SDL_Texture* getTexture(std::string filepath);
+		void disposeTexture(std::string filepath);
+		void clearCache();
+	private:
+		std::map<std::string, SDL_Texture*> m_Textures;
 };

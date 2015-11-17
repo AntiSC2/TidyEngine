@@ -22,51 +22,52 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //The constructor does nothing special,
 //The destructor makes sure that the cache is emptied
 SheetCache::SheetCache() {
-    ;
+	;
 }
 
 SheetCache::~SheetCache() {
-    clearCache();
+	clearCache();
 }
 //Function for loading a sprite sheet into the cache class
 SpriteSheet* SheetCache::createSheet(std::string filepath) {
-    auto it = m_Sheets.find(filepath);
-    if(it != m_Sheets.end()) {
-        printf("ŚpriteSheet %s already existed!\n", filepath.c_str());
-        return nullptr;
-    } else {
-        SpriteSheet* temp = new SpriteSheet;
-        temp->loadSpriteSheet(filepath);
-        m_Sheets[filepath] = temp;
-        return temp;        
-    }
-    
-    return nullptr;
+	auto it = m_Sheets.find(filepath);
+	if(it != m_Sheets.end()) {
+		printf("ŚpriteSheet %s already existed!\n", filepath.c_str());
+		return nullptr;
+	} else {
+		SpriteSheet* temp = new SpriteSheet;
+		temp->loadSpriteSheet(filepath);
+		m_Sheets[filepath] = temp;
+		return temp;        
+	}
+
+	return nullptr;
 }
 //Function that rerturns a reference to the specified sprite sheet
 SpriteSheet* SheetCache::getSheet(std::string filepath) {
-    auto it = m_Sheets.find(filepath);
-    if(it == m_Sheets.end()) {
-        printf("Could not find SpriteSheet %s!\n", filepath.c_str());
-        return nullptr; 
-    }
-    return m_Sheets[filepath];
+	auto it = m_Sheets.find(filepath);
+	if(it == m_Sheets.end()) {
+		printf("Could not find SpriteSheet %s!\n", filepath.c_str());
+		return nullptr; 
+	}
+	return m_Sheets[filepath];
 }
 //Function that removes the specified sprite sheet from the cache
 void SheetCache::disposeSheet(std::string filepath) {
-    auto it = m_Sheets.find(filepath);
-    if(it != m_Sheets.end()) {
-        delete it->second;
-        m_Sheets.erase(it);
-    } else {
-        printf("SpriteSheet %s was not found so could not be deleted\n", filepath.c_str());
-    }
+	auto it = m_Sheets.find(filepath);
+	if(it != m_Sheets.end()) {
+		delete it->second;
+		m_Sheets.erase(it);
+	} else {
+		printf("SpriteSheet %s was not found so could not be deleted\n",
+			filepath.c_str());
+	}
 }
 //Function that clears the cache
 void SheetCache::clearCache() {
-    for(auto& it : m_Sheets) {
-        delete it.second;
-        it.second = nullptr;
-    }
-    m_Sheets.clear();
+	for(auto& it : m_Sheets) {
+		delete it.second;
+		it.second = nullptr;
+	}
+	m_Sheets.clear();
 }

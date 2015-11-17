@@ -23,14 +23,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 //The SoundCache class is handling the loading of sound effects and unloading of sound effects
 class SoundCache {
-   public:
-       SoundCache();
-       ~SoundCache();
-       
-       Mix_Chunk* createSound(std::string filepath);
-       Mix_Chunk* getSound(std::string filepath);
-       void disposeSound(std::string filepath);
-       void clearCache();
-   private:
-       std::map<std::string, Mix_Chunk*> m_SoundEffects;
+	public:
+		SoundCache();
+		~SoundCache();
+
+		Mix_Chunk* createSound(std::string filepath);
+		Mix_Chunk* getSound(std::string filepath);
+		void disposeSound(std::string filepath);
+		void clearCache();
+	private:
+		std::map<std::string, Mix_Chunk*> m_SoundEffects;
 };

@@ -20,55 +20,55 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //The constructor does nothing special
 //The destructor makes sure the textures are unloadeded.
 FontCache::FontCache() {
-    ;
+	;
 }
 
 FontCache::~FontCache() {
-    clearCache();
+	clearCache();
 }
 
 //This function creates a new font and returns it, can return nullptr if
 //Error 006 is triggered. If the font already exists, the function
 //simply returns it
 TTF_Font* FontCache::createFont(std::string filepath, int size) {
-    if(m_Fonts.find(filepath) != m_Fonts.end()) {
-        return m_Fonts[filepath];
-    } 
-    m_Fonts[filepath] = nullptr;
-    m_Fonts[filepath] = TTF_OpenFont(filepath.c_str(), size);
-    if(m_Fonts[filepath] == nullptr) {
-        printf("Error 006: Could not load font %s", filepath.c_str());
-    }
-    return m_Fonts[filepath];
+	if(m_Fonts.find(filepath) != m_Fonts.end()) {
+		return m_Fonts[filepath];
+	} 
+	m_Fonts[filepath] = nullptr;
+	m_Fonts[filepath] = TTF_OpenFont(filepath.c_str(), size);
+	if(m_Fonts[filepath] == nullptr) {
+		printf("Error 006: Could not load font %s", filepath.c_str());
+	}
+	return m_Fonts[filepath];
 }
 
 //Returns the font if found, else it returns a NULL pointer
 TTF_Font* FontCache::getFont(std::string filepath) {
-    if(m_Fonts.find(filepath) != m_Fonts.end())
-        return m_Fonts[filepath];
-    else {
-        printf("Could not find font %s!\n", filepath.c_str());
-    }
-    return nullptr;
+	if(m_Fonts.find(filepath) != m_Fonts.end())
+		return m_Fonts[filepath];
+	else {
+		printf("Could not find font %s!\n", filepath.c_str());
+	}
+	return nullptr;
 }
 
 //Removes one font
 void FontCache::disposeFont(std::string filepath) {
-    auto it = m_Fonts.find(filepath);
-    if(it != m_Fonts.end()) {
-        TTF_CloseFont(it->second);
-        it->second = nullptr;
-        m_Fonts.erase(it);    
-    } else {
-        printf("Could not find and remove %s!\n", filepath.c_str());
-    }
+	auto it = m_Fonts.find(filepath);
+	if(it != m_Fonts.end()) {
+		TTF_CloseFont(it->second);
+		it->second = nullptr;
+		m_Fonts.erase(it);    
+	} else {
+		printf("Could not find and remove %s!\n", filepath.c_str());
+	}
 }
 
 //Removes all the fonts in this cache
 void FontCache::clearCache() {
-    for(auto& it : m_Fonts) {
-        TTF_CloseFont(it.second);
-        it.second = nullptr;   
-    }
-    m_Fonts.clear();
+	for(auto& it : m_Fonts) {
+		TTF_CloseFont(it.second);
+		it.second = nullptr;   
+	}
+	m_Fonts.clear();
 }

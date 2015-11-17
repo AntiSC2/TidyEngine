@@ -18,65 +18,66 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "actor.h"
 
 Actor::Actor() {
-    m_Position.x = 640;
-    m_Position.y = 360;
+	m_Position.x = 640;
+	m_Position.y = 360;
 }
 
 Actor::Actor(float x, float y) {
-    m_Position.x = x;
-    m_Position.y = y;
+	m_Position.x = x;
+	m_Position.y = y;
 }
 
 Actor::~Actor() {
-    ;
+	;
 }
 
 void Actor::update() {
-    for(size_t i = 0; i < m_Components.size(); i++) {
-        if(m_Components[i]->getUpdate()) {
-            m_Components[i]->update();
-        } 
-    }
+	for(size_t i = 0; i < m_Components.size(); i++) {
+		if(m_Components[i]->getUpdate()) {
+			m_Components[i]->update();
+		} 
+	}
 }
 
 void Actor::draw(Draw& draw) {
-    for(size_t i = 0; i < m_Components.size(); i++) {
-        if(m_Components[i]->getDraw()) {
-            m_Components[i]->draw(draw, (int)m_Position.x, (int)m_Position.y);
-        }
-    }
+	for(size_t i = 0; i < m_Components.size(); i++) {
+		if(m_Components[i]->getDraw()) {
+		m_Components[i]->draw(draw, (int)m_Position.x,
+			(int)m_Position.y);
+		}
+	}
 }
 
 void Actor::addComponent(Component* newComponent) {
-    m_Components.emplace_back(newComponent);   
+	m_Components.emplace_back(newComponent);   
 }
 
 void Actor::moveActor(float newX, float newY) {
-    m_Position.x = newX;
-    m_Position.y = newY;
+	m_Position.x = newX;
+	m_Position.y = newY;
 }
 
 void Actor::moveActor(glm::vec2& newPosition) {
-    m_Position = newPosition;
+	m_Position = newPosition;
 }
 
 void Actor::doCommand(std::string nameComponent, std::string command) {
-    for(size_t i = 0; i < m_Components.size(); i++) {
-        if(m_Components[i]->getName() == nameComponent) {
-            m_Components[i]->doCommand(command);
-        }
-    }
+	for(size_t i = 0; i < m_Components.size(); i++) {
+		if(m_Components[i]->getName() == nameComponent) {
+        		m_Components[i]->doCommand(command);
+		}
+	}
 }
 
 std::string Actor::listComponents() {
-    std::string temp = "";
-    for(size_t i = 0; i < m_Components.size(); i++) {
-        temp += m_Components[i]->getName();
-        temp += '\n';
-    }
-    return temp;
+	std::string temp = "";
+	for(size_t i = 0; i < m_Components.size(); i++) {
+		temp += m_Components[i]->getName();
+		temp += '\n';
+	}
+	return temp;
 }
 
 glm::vec2 Actor::getPosition() {
-    return m_Position;
+	return m_Position;
 }

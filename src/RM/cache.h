@@ -26,17 +26,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //This is a static class
 
 class Cache {
-    public:
-        Cache();
-        ~Cache();
-       
-        static TexCache texCache;
-        static SheetCache sheetCache;
-	static SoundCache soundCache;
-	static FontCache fontCache;
-        
-        static bool loadTexturesFromBlock(std::string filepath, int start, SDL_Renderer* renderer);
-        static void clearAllCaches();
-    private:
-        
+	public:
+		Cache();
+		~Cache();
+
+		static TexCache texCache;
+		static SheetCache sheetCache;
+		static SoundCache soundCache;
+		static FontCache fontCache;
+
+		static bool loadTexturesFromBlock(std::string filepath,
+			int start,SDL_Renderer* renderer);
+		static void clearAllCaches();
+	private:
+
 }; 

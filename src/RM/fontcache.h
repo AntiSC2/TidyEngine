@@ -22,14 +22,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 //The FontCache class is handling the loading of fonts and the unloading of fonts
 class FontCache {
-   public:
-       FontCache();
-       ~FontCache();
-       
-       TTF_Font* createFont(std::string filepath, int size);
-       TTF_Font* getFont(std::string filepath);
-       void disposeFont(std::string filepath);
-       void clearCache();
-   private:
-       std::map<std::string, TTF_Font*> m_Fonts;
+	public:
+		FontCache();
+		~FontCache();
+
+		TTF_Font* createFont(std::string filepath, int size);
+		TTF_Font* getFont(std::string filepath);
+		void disposeFont(std::string filepath);
+		void clearCache();
+	private:
+		std::map<std::string, TTF_Font*> m_Fonts;
 };
