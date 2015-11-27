@@ -36,8 +36,7 @@ Mix_Chunk* SoundCache::createSound(std::string filepath) {
 
 	newSound = Mix_LoadWAV(filepath.c_str());
 	if(newSound == nullptr) {
-		printf("Error 005: Unable to load sound file %s! 
-			SDL_mixer Error: %s\n",filepath.c_str(),
+		printf("Error 005: Unable to load sound file %s! SDL_mixer Error: %s\n",filepath.c_str(),
 			Mix_GetError());
 		return nullptr;
 	} else {

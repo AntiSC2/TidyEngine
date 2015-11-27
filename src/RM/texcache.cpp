@@ -40,16 +40,14 @@ SDL_Texture* TexCache::createTexture(std::string filepath,
 
 	SDL_Surface* loadedSurface = IMG_Load(filepath.c_str());
 	if(loadedSurface == nullptr) {
-		printf("Error 002: Unable to load image %s!
-			SDL_image Error: %s\n", filepath.c_str(),
+		printf("Error 002: Unable to load image %s! SDL_image Error: %s\n", filepath.c_str(),
 			IMG_GetError());
 		return nullptr;
 	} else {
 		newTexture = SDL_CreateTextureFromSurface(renderer,
 			loadedSurface);
 		if(newTexture == nullptr) {
-			printf("Error 003: Unable to create texture from %s!
-				SDL Error: %s\n", filepath.c_str(),
+			printf("Error 003: Unable to create texture from %s! SDL Error: %s\n", filepath.c_str(),
 				SDL_GetError());
 			SDL_FreeSurface(loadedSurface);
 			return nullptr;

@@ -30,6 +30,6 @@ int main(int argc, char** argv) {
 		TidyEngine_VERSION_MAJOR, TidyEngine_VERSION_MINOR);
 	Game g;
 	g.run();
-	printf("Core not fail\n");
+	printf("Main loop was closed.\n");
 	return 0;
 }
