@@ -42,10 +42,10 @@ bool Game::init() {
 	} else if(Cache::texCache.createTexture("resources/block.png",
 		m_Screen.getRenderer()) == nullptr) {
 		success = false;
-	} else if(Cache::sheetCache.createSheet("resources/block.png")) {
-		success = true;
+	} else if(Cache::sheetCache.createSheet("resources/block.png") == nullptr) {
+		success = false;
 	}
-	Cache::fontCache.createFont("resources/desonanz.ttf", 20);
+	//Cache::fontCache.createFont("resources/desonanz.ttf", 20);
 	Controller *temp3 = new Controller;
 	temp3->initialize("controller", &m_Player);
 	temp3->setInputReference(m_Input);
@@ -76,8 +76,8 @@ void Game::drawGame() {
 	SDL_RenderClear(m_Screen.getRenderer());
 	draw.begin();
 	m_Player.draw(draw);
-	draw.drawText("Hello World", "resources/desonanz.ttf",
-		glm::vec2(64.0f, 64.0f), color, m_Screen.getRenderer());
+	//draw.drawText("Hello World", "resources/desonanz.ttf",
+		//glm::vec2(64.0f, 64.0f), color, m_Screen.getRenderer());
 	draw.end();
 	draw.render(m_Screen.getRenderer());
 	SDL_RenderPresent(m_Screen.getRenderer());
