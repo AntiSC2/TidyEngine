@@ -39,13 +39,12 @@ bool Game::init() {
 
     	if(m_Screen.createNewWindow(1280, 720, "GameEngine") != true) {
 		success = false;
-	} else if(Cache::texCache.createTexture("resources/block.png",
-		m_Screen.getRenderer()) == nullptr) {
-		success = false;
-	} else if(Cache::sheetCache.createSheet("resources/block.png") == nullptr) {
-		success = false;
 	}
-	//Cache::fontCache.createFont("resources/desonanz.ttf", 20);
+
+	Cache::loadTexturesFromBlock("resources/game.txt", 1,
+		m_Screen.getRenderer());
+	Cache::sheetCache.createSheet("resources/block.png");
+	Cache::fontCache.createFont("resources/DroidSans.ttf", 20);
 	Controller *temp3 = new Controller;
 	temp3->initialize("controller", &m_Player);
 	temp3->setInputReference(m_Input);
@@ -57,8 +56,6 @@ bool Game::init() {
 	temp->initialize("sprite", &m_Player);
 	temp->loadSpriteFromSheet(
 		Cache::sheetCache.getSheet("resources/block.png"), temp2, 3);
-	Cache::loadTexturesFromBlock("resources/game.txt", 1,
-		m_Screen.getRenderer());
 	m_Player.addComponent(temp);
 	temp = nullptr;
 	return success;
@@ -76,8 +73,8 @@ void Game::drawGame() {
 	SDL_RenderClear(m_Screen.getRenderer());
 	draw.begin();
 	m_Player.draw(draw);
-	//draw.drawText("Hello World", "resources/desonanz.ttf",
-		//glm::vec2(64.0f, 64.0f), color, m_Screen.getRenderer());
+	draw.drawText("Hello World", "resources/DroidSans.ttf",
+		glm::vec2(64.0f, 64.0f), color, m_Screen.getRenderer());
 	draw.end();
 	draw.render(m_Screen.getRenderer());
 	SDL_RenderPresent(m_Screen.getRenderer());

@@ -38,6 +38,7 @@ TTF_Font* FontCache::createFont(std::string filepath, int size) {
 	m_Fonts[filepath] = TTF_OpenFont(filepath.c_str(), size);
 	if(m_Fonts[filepath] == nullptr) {
 		printf("Error 006: Could not load font %s", filepath.c_str());
+		return nullptr;
 	}
 	return m_Fonts[filepath];
 }
@@ -48,6 +49,7 @@ TTF_Font* FontCache::getFont(std::string filepath) {
 		return m_Fonts[filepath];
 	else {
 		printf("Could not find font %s!\n", filepath.c_str());
+		return nullptr;
 	}
 	return nullptr;
 }
