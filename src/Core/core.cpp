@@ -51,9 +51,10 @@ bool Core::initSubSystems()
 
 //The init function handles the initialization of the game
 bool Core::init() {
-	bool success = true;
 	m_Initialized = true;
-	return success;
+        printf("TidyEngine Version: %d.%d\n",
+               TidyEngine_VERSION_MAJOR, TidyEngine_VERSION_MINOR);
+	return m_Initialized;
 }
 
 void Core::gameLoop() {

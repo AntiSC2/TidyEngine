@@ -34,8 +34,8 @@ set (TidyEngine_VERSION_MINOR 2)
 
 #Configure a header file to pass the CMake version into the source code
 configure_file(
-    "${PROJECT_SOURCE_DIR}/src/config.h.in"
-    "${PROJECT_BINARY_DIR}/config.h"
+    "${PROJECT_SOURCE_DIR}/src/config.hpp.in"
+    "${PROJECT_BINARY_DIR}/config.hpp"
 )
 
 #GLFW
