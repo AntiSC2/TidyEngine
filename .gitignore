@@ -9,3 +9,4 @@ deps/lib*/
 #Ignore most of bin folder
 bin/*
 !bin/config.h
+*.zip
