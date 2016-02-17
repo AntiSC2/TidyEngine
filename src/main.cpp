@@ -15,13 +15,6 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-//Error 001: SDL window could not be created, probably because of SDL not being initialized correctly
-//Error 002: SDL_image could not load image, probably because of SDL not being initialized correctly
-//Error 003: SDL could not create texture from surface
-//Error 004: SDL could not create renderer
-//Error 005: SDL_mixer could not load sound
-//Error 006: SDL_ttf could not load font
-
 #include "game.h"
 #include "config.h"
 
