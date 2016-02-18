@@ -24,11 +24,8 @@ class Game : public Core {
 	public:
 		Game();
 		~Game();
-
 	private:
-		bool init();
-		void update();
-		void drawGame();
-
-                Screen m_Screen;
+		bool Init();
+		void Update();
+		void DrawGame();
 };

@@ -18,16 +18,33 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "screen.hpp"
 #include <stdio.h>
 
-Screen::Screen() {
+Screen::Screen()
+{
         ;
 }
 
-Screen::~Screen() {
-        ;
+Screen::~Screen()
+{
+        DestroyWindow();
 }
 
-//Returns true if a new window was created successfully, also creates a new renderer
-bool Screen::createNewWindow(int width, int height, const char* title) {
+bool Screen::CreateWindow(int width, int height, const char* title)
+{
         bool success = true;
+        m_Window = glfwCreateWindow(width, height, title, nullptr, nullptr);
+        if (m_Window == nullptr) {
+                success = false;
+        } else {
+                m_Width = width;
+                m_Height = height;
+                m_Title = (char*)title;
+        }
         return success;
+}
+
+void Screen::DestroyWindow()
+{
+        if (m_Window != nullptr) {
+                glfwDestroyWindow(m_Window);
+        }
 }

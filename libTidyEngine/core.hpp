@@ -17,6 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 #include "config.hpp"
+#include "screen.hpp"
 #include <glfw3.h>
 #include <stdio.h>
 #include <exception>
@@ -26,14 +27,14 @@ class Core {
 	public:
 		Core();
 		virtual ~Core();
- 
-		virtual void run();
+                virtual void Run();
 	protected:
-		virtual bool initSubSystems();
-		virtual bool init() = 0;
-		virtual void gameLoop();
-		virtual void update();
-		virtual void drawGame() = 0;
-		virtual void quit();
+		virtual bool InitSubSystems();
+		virtual bool Init() = 0;
+		virtual void GameLoop();
+		virtual void Update() = 0;
+		virtual void DrawGame() = 0;
+		virtual void Quit();
 		bool m_Initialized = false;
+                Screen m_Screen;
 };
