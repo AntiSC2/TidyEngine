@@ -44,16 +44,18 @@ bool Core::initSubSystems()
         }
         catch (std::exception &e) {
                 printf("%s\n", e.what());
+                success = false;
         }
 	
+        printf("TidyEngine Version: %d.%d\n",
+               TidyEngine_VERSION_MAJOR, TidyEngine_VERSION_MINOR);
+
 	return success;
 }
 
 //The init function handles the initialization of the game
 bool Core::init() {
 	m_Initialized = true;
-        printf("TidyEngine Version: %d.%d\n",
-               TidyEngine_VERSION_MAJOR, TidyEngine_VERSION_MINOR);
 	return m_Initialized;
 }
 
