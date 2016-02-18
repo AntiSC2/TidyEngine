@@ -17,7 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 #include "config.hpp"
-#include <GLFW/glfw3.h>
+#include <glfw3.h>
 #include <stdio.h>
 #include <exception>
 
