@@ -34,6 +34,14 @@ if(WIN32)
 	)
 endif()
 
+if(APPLE)
+
+elseif(UNIX)
+	find_package(PkgConfig REQUIRED)
+	pkg_search_module(GLFW REQUIRED glfw3)
+
+endif()
+
 include_directories(${GLFW_INCLUDE_DIRS})
 
 add_library(${PROJECT_NAME} STATIC ${SOURCE} ${HEADERS})
