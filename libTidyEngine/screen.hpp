@@ -16,9 +16,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #pragma once
-#include <glfw3.h>
+#ifndef GLFW_DLL
+#define GLFW_DLL
+#endif
+#include <GLFW/glfw3.h>
+#include <stdio.h>
 
-//The screen class handles the SDL window & the SDL renderer. It also stores the width, height and the title of the window
 class Screen {
 	public:
 		Screen();

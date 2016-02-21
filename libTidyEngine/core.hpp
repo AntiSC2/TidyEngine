@@ -16,9 +16,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #pragma once
+#ifndef GLFW_DLL
+#define GLFW_DLL
+#endif
 #include "config.hpp"
 #include "screen.hpp"
-#include <glfw3.h>
+#include <GLFW/glfw3.h>
 #include <stdio.h>
 #include <exception>
 
