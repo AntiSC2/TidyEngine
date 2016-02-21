@@ -11,4 +11,5 @@ set(HEADERS
         ${CMAKE_CURRENT_SOURCE_DIR}/game.hpp
 )
 
-add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS})
+add_executable(${PROJECT_NAME} ${SOURCES})
+target_link_libraries(TidyEngine ${PROJECT_})
