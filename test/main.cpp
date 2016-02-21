@@ -17,9 +17,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "game.hpp"
 
-int main(int argc, char **argv)
-{
+int main(int argc, char** argv) {
 	Game g;
-	g.Run();
+	g.run();
+	printf("Main loop was closed.\n");
 	return 0;
 }

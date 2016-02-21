@@ -18,35 +18,28 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "game.hpp"
 
-Game::Game()
-{
+Game::Game() {
 	;
 }
 
-Game::~Game()
-{
+Game::~Game() {
 	;
 }
 
-bool Game::Init()
-{
+bool Game::init() {
 	bool success = true;
 
-    	if(m_Screen.CreateWindow(1280, 720, "GameEngine") != true) {
+    	if(m_Screen.createNewWindow(1280, 720, "GameEngine") != true) {
 		success = false;
-        } else {
-                glfwSetWindowShouldClose(m_Screen.GetWindow(), GL_FALSE);
-        }
+	}
 
 	return success;
 }
 
-void Game::Update()
-{
-        glfwPollEvents();
+void Game::update() {
+        ;
 }
 
-void Game::DrawGame()
-{
-        glfwSwapBuffers(m_Screen.GetWindow());
+void Game::drawGame() {
+        ;
 }

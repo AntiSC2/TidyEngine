@@ -18,25 +18,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "core.hpp"
 
 
-Core::Core()
-{
+Core::Core() {
 	;
 }
 
-Core::~Core()
-{
+Core::~Core() {
 	;
 }
 
-void Core::Run() 
+void Core::run() 
 {
-	if(InitSubSystems() && Init()) {
-		GameLoop();
+	if(initSubSystems() && init()) {
+		gameLoop();
 	}
-	Quit();
+	quit();
 }
 
-bool Core::InitSubSystems()
+bool Core::initSubSystems()
 {
     	bool success = true;
         try {
@@ -55,17 +53,25 @@ bool Core::InitSubSystems()
 	return success;
 }
 
-void Core::GameLoop()
-{
-        while (!glfwWindowShouldClose(m_Screen.GetWindow())) {
-                Update();
-                DrawGame();
-        }
-        printf("Main loop was closed.\n");
+//The init function handles the initialization of the game
+bool Core::init() {
+	m_Initialized = true;
+	return m_Initialized;
 }
 
-void Core::Quit()
-{
+void Core::gameLoop() {
+        ;
+}
+
+void Core::update() {
+        ;
+}
+
+void Core::drawGame() {
+	;
+}
+
+void Core::quit() {
         glfwTerminate();
 }
 

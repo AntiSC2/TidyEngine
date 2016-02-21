@@ -24,27 +24,18 @@ class Screen {
 		Screen();
 		~Screen();
 
-		int GetWidth()
-                {
+		int getWidth() {
 			return m_Width;
 		}
-		int GetHeight()
-                {
+		int getHeight() {
 			return m_Height;
 		}
-		const char *GetTitle()
-                {
+		const char* getTitle() {
 			return m_Title;
 		}
-                GLFWwindow *GetWindow()
-                {
-                        return m_Window;
-                }
-		bool CreateWindow(int width, int height, const char* title);
-                void DestroyWindow();
+		bool createNewWindow(int width, int height, const char* title);
 	private:
 		int m_Width = 0;
 		int m_Height = 0;
-		char *m_Title = nullptr;
-                GLFWwindow *m_Window = nullptr;
+		char* m_Title = 0;
 };
