@@ -15,36 +15,17 @@ set(HEADERS
 )
 
 if(WIN32)
-	if(MSVC)
-		set(TIDYENGINE_LIBRARIES
-			${TIDYENGINE_LIBRARIES}
-			${CMAKE_BINARY_DIR}/libTidyEngine/Debug/TidyEngine.lib
-		)
-	else()
-		set(TIDYENGINE_LIBRARIES
-			${TIDYENGINE_LIBRARIES}
-			${CMAKE_BINARY_DIR}/libTidyEngine/TidyEngine.lib
-		)
-	endif()
+	set(TIDYENGINE_LIBRARIES
+		${TIDYENGINE_LIBRARIES}
+		${CMAKE_BINARY_DIR}/libTidyEngine/Debug/TidyEngine.lib
+	)
 	set(GLFW_INCLUDE_DIRS
 		${GLFW_INCLUDE_DIRS}
-		${CMAKE_SOURCE_DIR}/deps/include/
+		${CMAKE_SOURCE_DIR}/deps/include/GLFW
 	)
 	set(GLFW_LIBRARIES
 		${GLFW_LIBRARIES}
 		${CMAKE_SOURCE_DIR}/deps/lib/glfw3dll.lib
-	)
-endif()
-
-if(APPLE)
-
-elseif(UNIX)
-	find_package(PkgConfig REQUIRED)
-	pkg_search_module(GLFW REQUIRED glfw3)
-	
-	set(TIDYENGINE_LIBRARIES
-		${TIDYENGINE_LIBRARIES}
-		${CMAKE_BINARY_DIR}/libTidyEngine/libTidyEngine.a
 	)
 endif()
 

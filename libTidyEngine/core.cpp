@@ -48,7 +48,7 @@ bool Core::InitSubSystems()
                 printf("%s\n", e.what());
                 success = false;
         }
-
+	
         printf("TidyEngine Version: %d.%d\n",
                TidyEngine_VERSION_MAJOR, TidyEngine_VERSION_MINOR);
 
@@ -57,7 +57,6 @@ bool Core::InitSubSystems()
 
 void Core::GameLoop()
 {
-	printf("Main loop was entered.\n");
         while (!glfwWindowShouldClose(m_Screen.GetWindow())) {
                 Update();
                 DrawGame();
@@ -69,3 +68,28 @@ void Core::Quit()
 {
         glfwTerminate();
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
