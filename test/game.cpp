@@ -31,7 +31,6 @@ Game::~Game()
 bool Game::Init()
 {
 	bool success = true;
-	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 	if(m_Screen.CreateWindow(1280, 720, "GameEngine") != true) {
 		success = false;
         } else {
