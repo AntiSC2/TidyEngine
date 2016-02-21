@@ -16,34 +16,27 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #pragma once
+#include "renderable.h"
 #include <SDL2/SDL.h>
+#include <glm/glm.hpp>
+#include <string>
+#include <vector>
 
-//The screen class handles the SDL window & the SDL renderer. It also stores the width, height and the title of the window
-class Screen {
+class Draw {
 	public:
-		Screen();
-		~Screen();
+		Draw();
+		~Draw();
 
-		int getWidth() {
-			return m_Width;
-		}
-		int getHeight() {
-			return m_Height;
-		}
-		const char* getTitle() {
-			return m_Title;
-		}
-		SDL_Window* getWindow() {
-			return m_Window;
-		}
-		SDL_Renderer* getRenderer() {
-			return m_Renderer;
-		}
-		bool createNewWindow(int width, int height, const char* title);
+		void begin();
+		void draw(Renderable sprite);
+		void drawText(std::string text, std::string font,
+			glm::vec2 position,SDL_Color color,
+			SDL_Renderer* renderer = nullptr, float depth = 0.0f);
+		void end();
+		void render(SDL_Renderer* renderer);
+
 	private:
-		SDL_Window* m_Window = nullptr;
-		SDL_Renderer* m_Renderer = nullptr;
-		int m_Width = 0;
-		int m_Height = 0;
-		char* m_Title = 0;
+		void sortGlyphs();
+		std::vector<Renderable> m_Glyphs;
+		std::vector<SDL_Texture*> m_TextTextures;
 };

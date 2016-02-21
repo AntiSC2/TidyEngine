@@ -16,34 +16,28 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #pragma once
-#include <SDL2/SDL.h>
+#include "texcache.h"
+#include "sheetcache.h"
+#include "soundcache.h"
+#include "fontcache.h"
 
-//The screen class handles the SDL window & the SDL renderer. It also stores the width, height and the title of the window
-class Screen {
+//The cache class is the root of the resource manager system
+//This class will handle loading, and unload, textures, sounds, fonts, music
+//This is a static class
+
+class Cache {
 	public:
-		Screen();
-		~Screen();
+		Cache();
+		~Cache();
 
-		int getWidth() {
-			return m_Width;
-		}
-		int getHeight() {
-			return m_Height;
-		}
-		const char* getTitle() {
-			return m_Title;
-		}
-		SDL_Window* getWindow() {
-			return m_Window;
-		}
-		SDL_Renderer* getRenderer() {
-			return m_Renderer;
-		}
-		bool createNewWindow(int width, int height, const char* title);
+		static TexCache texCache;
+		static SheetCache sheetCache;
+		static SoundCache soundCache;
+		static FontCache fontCache;
+
+		static bool loadTexturesFromBlock(std::string filepath,
+			int start,SDL_Renderer* renderer);
+		static void clearAllCaches();
 	private:
-		SDL_Window* m_Window = nullptr;
-		SDL_Renderer* m_Renderer = nullptr;
-		int m_Width = 0;
-		int m_Height = 0;
-		char* m_Title = 0;
-};
+
+}; 

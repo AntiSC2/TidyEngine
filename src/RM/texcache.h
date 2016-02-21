@@ -17,33 +17,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 #include <SDL2/SDL.h>
+#include <string>
+#include <map>
 
-//The screen class handles the SDL window & the SDL renderer. It also stores the width, height and the title of the window
-class Screen {
+//The TexCache class is handling the loading of textures and unloading of textures
+class TexCache {
 	public:
-		Screen();
-		~Screen();
+		TexCache();
+		~TexCache();
 
-		int getWidth() {
-			return m_Width;
-		}
-		int getHeight() {
-			return m_Height;
-		}
-		const char* getTitle() {
-			return m_Title;
-		}
-		SDL_Window* getWindow() {
-			return m_Window;
-		}
-		SDL_Renderer* getRenderer() {
-			return m_Renderer;
-		}
-		bool createNewWindow(int width, int height, const char* title);
+		SDL_Texture* createTexture(std::string filepath,
+			SDL_Renderer* renderer);
+		SDL_Texture* getTexture(std::string filepath);
+		void disposeTexture(std::string filepath);
+		void clearCache();
 	private:
-		SDL_Window* m_Window = nullptr;
-		SDL_Renderer* m_Renderer = nullptr;
-		int m_Width = 0;
-		int m_Height = 0;
-		char* m_Title = 0;
+		std::map<std::string, SDL_Texture*> m_Textures;
 };

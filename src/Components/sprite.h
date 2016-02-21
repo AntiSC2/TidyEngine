@@ -16,34 +16,31 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #pragma once
+#include "component.h"
+#include "../Graphics/draw.h"
 #include <SDL2/SDL.h>
 
-//The screen class handles the SDL window & the SDL renderer. It also stores the width, height and the title of the window
-class Screen {
+class SpriteSheet;
+class Actor;
+//This class represents an object in form of an image, gets the image from a sprite sheet
+class Sprite : public Component {
 	public:
-		Screen();
-		~Screen();
+		Sprite();
+		~Sprite();
 
-		int getWidth() {
-			return m_Width;
-		}
-		int getHeight() {
-			return m_Height;
-		}
-		const char* getTitle() {
-			return m_Title;
-		}
-		SDL_Window* getWindow() {
-			return m_Window;
-		}
-		SDL_Renderer* getRenderer() {
-			return m_Renderer;
-		}
-		bool createNewWindow(int width, int height, const char* title);
+		bool initialize(std::string name, Actor* parent = nullptr);
+		bool getUpdate();
+		bool getDraw();
+
+		void doCommand(std::string command);
+		void update();
+		void draw(Draw& draw, int x, int y);
+		void renderSprite(int x, int y, Draw& draw);
+		void loadSpriteFromSheet(SpriteSheet* reference, SDL_Rect& region, int frames);
 	private:
-		SDL_Window* m_Window = nullptr;
-		SDL_Renderer* m_Renderer = nullptr;
-		int m_Width = 0;
-		int m_Height = 0;
-		char* m_Title = 0;
+		int m_Frames = 0;
+		int m_CurrentFrame = 0;
+		bool m_Play = true;
+		SDL_Rect m_SourceRegion;
+		SpriteSheet* m_SpriteReference = nullptr;      
 };

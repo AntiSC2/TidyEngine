@@ -17,33 +17,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 #include <SDL2/SDL.h>
+#include <string>
 
-//The screen class handles the SDL window & the SDL renderer. It also stores the width, height and the title of the window
-class Screen {
+class Renderable {
 	public:
-		Screen();
-		~Screen();
+		Renderable();
+		virtual ~Renderable();
 
-		int getWidth() {
-			return m_Width;
-		}
-		int getHeight() {
-			return m_Height;
-		}
-		const char* getTitle() {
-			return m_Title;
-		}
-		SDL_Window* getWindow() {
-			return m_Window;
-		}
-		SDL_Renderer* getRenderer() {
-			return m_Renderer;
-		}
-		bool createNewWindow(int width, int height, const char* title);
-	private:
-		SDL_Window* m_Window = nullptr;
-		SDL_Renderer* m_Renderer = nullptr;
-		int m_Width = 0;
-		int m_Height = 0;
-		char* m_Title = 0;
+		SDL_Rect glyph;
+		SDL_Rect clip;
+		SDL_Texture* tex = nullptr;
+		std::string texName = "";
+		float depth = 0.0f;
 };

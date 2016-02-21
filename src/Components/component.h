@@ -16,34 +16,30 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #pragma once
+#include "../Graphics/draw.h"
 #include <SDL2/SDL.h>
+#include <string>
 
-//The screen class handles the SDL window & the SDL renderer. It also stores the width, height and the title of the window
-class Screen {
+class Actor;
+
+//This class represents a component that can be added to an actor
+//To create a component, simply make another class inherit from this one
+class Component {
 	public:
-		Screen();
-		~Screen();
-
-		int getWidth() {
-			return m_Width;
+		Component();
+		virtual ~Component();
+		virtual bool initialize(std::string name, Actor* parent = nullptr) = 0;
+		virtual bool getUpdate() = 0;
+		virtual bool getDraw() = 0;
+		
+		virtual void doCommand(std::string command);
+		virtual void update();
+		virtual void draw(Draw& draw, int x, int y);
+		
+		std::string getName() {
+			return m_Name;
 		}
-		int getHeight() {
-			return m_Height;
-		}
-		const char* getTitle() {
-			return m_Title;
-		}
-		SDL_Window* getWindow() {
-			return m_Window;
-		}
-		SDL_Renderer* getRenderer() {
-			return m_Renderer;
-		}
-		bool createNewWindow(int width, int height, const char* title);
-	private:
-		SDL_Window* m_Window = nullptr;
-		SDL_Renderer* m_Renderer = nullptr;
-		int m_Width = 0;
-		int m_Height = 0;
-		char* m_Title = 0;
+	protected:
+		std::string m_Name = "";
+		Actor* m_Parent = nullptr;
 };

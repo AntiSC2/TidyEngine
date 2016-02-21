@@ -16,9 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #pragma once
-#include <GLFW/glfw3.h>
-#include <stdio.h>
-#include <exception>
+#include "input.h"
 
 //This is the main engine class, this class handles the initialization of the engine
 class Core {
@@ -35,4 +33,5 @@ class Core {
 		virtual void drawGame() = 0;
 		virtual void quit();
 		bool m_Initialized = false;
+		Input m_Input;
 };

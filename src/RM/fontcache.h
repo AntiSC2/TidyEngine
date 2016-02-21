@@ -16,34 +16,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #pragma once
-#include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
+#include <string>
+#include <map>
 
-//The screen class handles the SDL window & the SDL renderer. It also stores the width, height and the title of the window
-class Screen {
+//The FontCache class is handling the loading of fonts and the unloading of fonts
+class FontCache {
 	public:
-		Screen();
-		~Screen();
+		FontCache();
+		~FontCache();
 
-		int getWidth() {
-			return m_Width;
-		}
-		int getHeight() {
-			return m_Height;
-		}
-		const char* getTitle() {
-			return m_Title;
-		}
-		SDL_Window* getWindow() {
-			return m_Window;
-		}
-		SDL_Renderer* getRenderer() {
-			return m_Renderer;
-		}
-		bool createNewWindow(int width, int height, const char* title);
+		TTF_Font* createFont(std::string filepath, int size);
+		TTF_Font* getFont(std::string filepath);
+		void disposeFont(std::string filepath);
+		void clearCache();
 	private:
-		SDL_Window* m_Window = nullptr;
-		SDL_Renderer* m_Renderer = nullptr;
-		int m_Width = 0;
-		int m_Height = 0;
-		char* m_Title = 0;
+		std::map<std::string, TTF_Font*> m_Fonts;
 };

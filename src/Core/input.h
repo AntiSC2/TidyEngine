@@ -17,33 +17,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 #include <SDL2/SDL.h>
+#include <vector>
 
-//The screen class handles the SDL window & the SDL renderer. It also stores the width, height and the title of the window
-class Screen {
+//The input class handles mouse and key inputs given to the window
+//It's a static class for the most part
+class Input {
 	public:
-		Screen();
-		~Screen();
+		Input();
+		~Input();
 
-		int getWidth() {
-			return m_Width;
+		void update();
+		//Returns if the user has tried to close the window
+		//True means that the user wants to close the window
+		bool getCloseWindow() {
+			return m_CloseWindow;
 		}
-		int getHeight() {
-			return m_Height;
-		}
-		const char* getTitle() {
-			return m_Title;
-		}
-		SDL_Window* getWindow() {
-			return m_Window;
-		}
-		SDL_Renderer* getRenderer() {
-			return m_Renderer;
-		}
-		bool createNewWindow(int width, int height, const char* title);
+        
+		static bool getKeyPressed(SDL_Scancode key);
 	private:
-		SDL_Window* m_Window = nullptr;
-		SDL_Renderer* m_Renderer = nullptr;
-		int m_Width = 0;
-		int m_Height = 0;
-		char* m_Title = 0;
+		bool m_CloseWindow = false;
+		static std::vector<bool> m_PressedKeys;
 };
