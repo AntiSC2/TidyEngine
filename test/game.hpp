@@ -17,8 +17,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 #pragma once
-#include "core.hpp"
-#include "screen.hpp"
+#include "Core/core.h"
+#include "Graphics/screen.h"
 
 class Game : public Core {
 	public:
