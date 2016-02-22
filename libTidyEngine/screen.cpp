@@ -37,6 +37,7 @@ bool Screen::CreateWindow(int width, int height, const char* title)
                 m_Width = width;
                 m_Height = height;
                 m_Title = (char*)title;
+                glfwMakeContextCurrent(m_Window);
         }
         return success;
 }
