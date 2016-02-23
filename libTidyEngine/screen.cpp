@@ -42,6 +42,18 @@ bool Screen::CreateWindow(int width, int height, const char* title)
         return success;
 }
 
+bool Screen::InitGL()
+{
+        glewExperimental = GL_TRUE;
+        GLenum err;
+        err = glewInit();
+        if (err != GLEW_OK) {
+                printf("Error: %s\n", glewGetErrorString(err));
+                return false;
+        }
+        return true;
+}
+
 void Screen::DestroyWindow()
 {
         if (m_Window != nullptr) {

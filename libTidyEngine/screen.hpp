@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef GLFW_DLL
 #define GLFW_DLL
 #endif
+#include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <stdio.h>
 
@@ -44,6 +45,7 @@ class Screen {
                         return m_Window;
                 }
 		bool CreateWindow(int width, int height, const char* title);
+                bool InitGL();
                 void DestroyWindow();
 	private:
 		int m_Width = 0;

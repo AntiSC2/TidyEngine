@@ -34,6 +34,14 @@ if(WIN32)
 		${GLFW_LIBRARIES}
 		${CMAKE_SOURCE_DIR}/deps/lib/glfw3dll.lib
 	)
+	set(GLEW_INCLUDE_DIRS
+		${GLEW_INCLUDE_DIRS}
+		${CMAKE_SOURCE_DIR}/deps/include/GL
+	)
+	set(GLEW_LIBRARIES
+		${GLEW_LIBRARIES}
+		${CMAKE_SOURCE_DIR}/deps/lib/glew32.lib
+	)
 endif()
 
 if(APPLE)
@@ -41,7 +49,7 @@ if(APPLE)
 elseif(UNIX)
 	find_package(PkgConfig REQUIRED)
 	pkg_search_module(GLFW REQUIRED glfw3)
-	
+	pkg_search_module(GLEW REQUIRED glew)
 	set(TIDYENGINE_LIBRARIES
 		${TIDYENGINE_LIBRARIES}
 		${CMAKE_BINARY_DIR}/libTidyEngine/libTidyEngine.a
@@ -49,7 +57,13 @@ elseif(UNIX)
 endif()
 
 include_directories(${GLFW_INCLUDE_DIRS})
+include_directories(${GLEW_INCLUDE_DIRS})
 
 add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS})
 target_link_libraries(${PROJECT_NAME} ${GLFW_LIBRARIES})
 target_link_libraries(${PROJECT_NAME} ${TIDYENGINE_LIBRARIES})
+target_link_libraries(${PROJECT_NAME} ${GLEW_LIBRARIES})
+
+if(WIN32)
+	target_link_libraries(${PROJECT_NAME} opengl32.lib)
+endif()

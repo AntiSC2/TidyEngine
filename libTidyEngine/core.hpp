@@ -19,13 +19,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef GLFW_DLL
 #define GLFW_DLL
 #endif
-#include "config.hpp"
-#include "screen.hpp"
+#include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <stdio.h>
 #include <exception>
+#include "config.hpp"
+#include "screen.hpp"
 
-//This is the main engine class, this class handles the initialization of the engine
 class Core {
 	public:
 		Core();

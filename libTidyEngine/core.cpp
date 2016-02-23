@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "core.hpp"
 
-
 Core::Core()
 {
 	;
@@ -39,16 +38,10 @@ void Core::Run()
 bool Core::InitSubSystems()
 {
     	bool success = true;
-        try {
-                if (glfwInit() == GL_FALSE) {
-                        throw "GLFW could not initialize!";
-                }
-        }
-        catch (std::exception &e) {
-                printf("%s\n", e.what());
+        if (glfwInit() == GL_FALSE) {
                 success = false;
         }
-
+        
         printf("TidyEngine Version: %d.%d\n",
                TidyEngine_VERSION_MAJOR, TidyEngine_VERSION_MINOR);
 

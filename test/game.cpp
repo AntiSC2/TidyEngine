@@ -33,8 +33,12 @@ bool Game::Init()
 	bool success = true;
 	if(m_Screen.CreateWindow(1280, 720, "GameEngine") != true) {
 		success = false;
+                printf("Error: glfw could not create window!\n");
         } else {
                 glfwSetWindowShouldClose(m_Screen.GetWindow(), GL_FALSE);
+                if (m_Screen.InitGL() == false) {
+                        printf("Error: could not initialize OpenGL!\n");
+                }
         }
 
 	return success;
