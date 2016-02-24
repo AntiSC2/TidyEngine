@@ -15,43 +15,42 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "render2d.hpp"
 
-#include "game.hpp"
-
-Game::Game()
+Render2D::Render2D()
 {
 	;
 }
 
-Game::~Game()
+Render2D::~Render2D()
+{
+	m_Shaders.clear();
+}
+
+void Render2D::LoadShaders()
+{
+	m_Shaders.emplace_back(new Shader);
+	m_Shaders[0]->SetSources("shader.vert", "shader.frag");
+	if (m_Shaders[0]->InitProgram() == false) {
+		return;
+	} else if (m_Shaders[0]->LinkProgram() == false) {
+		return;
+	} else
+		m_Shaders[0]->Bind();
+}
+
+void Render2D::Begin()
 {
 	;
 }
 
-bool Game::Init()
+void Render2D::End()
 {
-	bool success = true;
-	if(m_Screen.CreateWindow(1280, 720, "GameEngine") != true) {
-		success = false;
-                printf("Error: glfw could not create window!\n");
-        } else {
-                glfwSetWindowShouldClose(m_Screen.GetWindow(), GL_FALSE);
-                if (m_Screen.InitGL() == false) {
-                        printf("Error: could not initialize OpenGL!\n");
-                }
-        }
-	m_2DRenderer.LoadShaders();
-	return success;
+	;
 }
 
-void Game::Update()
+void Render2D::Present(GLFWwindow *window)
 {
-        glfwPollEvents();
-}
-
-void Game::DrawGame()
-{
-	m_2DRenderer.Begin();
-	m_2DRenderer.End();
-        m_2DRenderer.Present(m_Screen.GetWindow());
+	glClear(GL_COLOR_BUFFER_BIT);
+	glfwSwapBuffers(window);
 }

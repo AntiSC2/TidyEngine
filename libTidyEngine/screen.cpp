@@ -30,6 +30,11 @@ Screen::~Screen()
 bool Screen::CreateWindow(int width, int height, const char* title)
 {
         bool success = true;
+
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
         m_Window = glfwCreateWindow(width, height, title, nullptr, nullptr);
         if (m_Window == nullptr) {
                 success = false;
@@ -51,6 +56,11 @@ bool Screen::InitGL()
                 printf("Error: %s\n", glewGetErrorString(err));
                 return false;
         }
+	
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+        
         return true;
 }
 

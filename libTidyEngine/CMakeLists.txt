@@ -15,11 +15,15 @@ set(SOURCE
         ${SOURCE}
         ${CMAKE_CURRENT_SOURCE_DIR}/core.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/screen.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/render2d.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/shader.cpp
 )
 set(HEADERS
         ${HEADERS}
         ${CMAKE_CURRENT_SOURCE_DIR}/core.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/screen.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/render2d.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/shader.hpp
 )
 
 if(WIN32)
