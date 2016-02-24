@@ -35,12 +35,12 @@ bool Game::Init()
 		success = false;
                 printf("Error: glfw could not create window!\n");
         } else {
-                glfwSetWindowShouldClose(m_Screen.GetWindow(), GL_FALSE);
                 if (m_Screen.InitGL() == false) {
                         printf("Error: could not initialize OpenGL!\n");
                 }
         }
-	m_2DRenderer.LoadShaders();
+	m_2DRenderer.LoadShaders("default", "shader.vert", "shader.frag");
+	m_2DRenderer.UseShader("default");
 	return success;
 }
 
@@ -52,6 +52,11 @@ void Game::Update()
 void Game::DrawGame()
 {
 	m_2DRenderer.Begin();
+	GLuint vao = 0;
+	glGenVertexArrays(1, &vao);
+	glBindVertexArray(vao);
+	glDrawArrays(GL_TRIANGLES, 0, 3);
 	m_2DRenderer.End();
         m_2DRenderer.Present(m_Screen.GetWindow());
+        glDeleteVertexArrays(1, &vao);
 }

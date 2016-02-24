@@ -24,6 +24,7 @@ set(HEADERS
         ${CMAKE_CURRENT_SOURCE_DIR}/screen.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/render2d.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/shader.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/error.hpp
 )
 
 if(WIN32)

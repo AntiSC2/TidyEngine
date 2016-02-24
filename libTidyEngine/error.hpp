@@ -15,18 +15,25 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "game.hpp"
+#pragma once
 #include <exception>
+#include <string>
 
-int main(int argc, char **argv)
-{
-	try {
-		Game g;
-		g.Run();
-		return 0;
+class Error : std::exception {
+public:
+	Error()
+	{
+		;
 	}
-	catch(std::exception &e) {
-		printf("%s\n", e.what());
-		return -1;
+	Error(std::string s)
+	{
+		text = s;
 	}
-}
+
+	virtual const char *what()
+	{
+		return text.c_str();
+	}
+private:
+	std::string text = "";
+};

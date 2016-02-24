@@ -18,19 +18,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-#include <vector>
+#include <map>
 #include <memory>
 #include "shader.hpp"
+#include "error.hpp"
 
 class Render2D {
 public:
 	Render2D();
 	~Render2D();
 
-	void LoadShaders();
+	void LoadShaders(std::string name, std::string v, std::string f);
+	void UseShader(std::string name);
+	void StopShaders();
 	void Begin();
 	void End();
 	void Present(GLFWwindow *window);
 private:
-	std::vector<std::unique_ptr<Shader>> m_Shaders;
+	std::map<std::string, std::unique_ptr<Shader>> m_Shaders;
+	std::string m_CurrentShader = "";
 };

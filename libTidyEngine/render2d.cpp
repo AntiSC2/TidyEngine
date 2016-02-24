@@ -27,21 +27,37 @@ Render2D::~Render2D()
 	m_Shaders.clear();
 }
 
-void Render2D::LoadShaders()
+void Render2D::LoadShaders(std::string name, std::string v, std::string f)
 {
-	m_Shaders.emplace_back(new Shader);
-	m_Shaders[0]->SetSources("shader.vert", "shader.frag");
-	if (m_Shaders[0]->InitProgram() == false) {
-		return;
-	} else if (m_Shaders[0]->LinkProgram() == false) {
-		return;
-	} else
-		m_Shaders[0]->Bind();
+	m_Shaders[name] = std::unique_ptr<Shader>(new Shader(v, f));
+	if (m_Shaders[name]->InitProgram() == false) {
+		Error e("Exception: could not initialize shader!");
+		throw e;
+	} else if (m_Shaders[name]->LinkProgram() == false) {
+		Error e("Exception: could not link shader!");
+	}
+}
+
+void Render2D::UseShader(std::string name)
+{
+	if (m_Shaders.find(name) != m_Shaders.end()) {
+		m_Shaders[name]->Bind();
+		m_CurrentShader = name;
+	} else {
+		printf("Warning: could not find shader %s!\n", name.c_str());
+	}
+}
+
+void Render2D::StopShaders()
+{
+	m_Shaders.at(m_CurrentShader)->UnBind();
+	m_CurrentShader = "";
 }
 
 void Render2D::Begin()
 {
-	;
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
 }
 
 void Render2D::End()
@@ -51,6 +67,5 @@ void Render2D::End()
 
 void Render2D::Present(GLFWwindow *window)
 {
-	glClear(GL_COLOR_BUFFER_BIT);
 	glfwSwapBuffers(window);
 }
