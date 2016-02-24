@@ -76,7 +76,7 @@ bool Shader::LinkProgram()
 		GLint max_length = 0;
 		glGetProgramiv(m_ProgramID, GL_INFO_LOG_LENGTH, &max_length);
 
-		char log[max_length];
+		char *log = new char[max_length];
 		glGetProgramInfoLog(m_ProgramID, max_length, &max_length, log);
 
 		glDeleteProgram(m_ProgramID);
@@ -84,6 +84,8 @@ bool Shader::LinkProgram()
 		glDeleteShader(m_FragmentID);
 
 		printf("%s\n", log);
+                delete log;
+                log = nullptr;
 		printf("Error: shaders failed to link!\n");
 		return false;
 	}
@@ -122,12 +124,14 @@ bool Shader::CompileShader(std::string file_path, GLuint shader_id)
 		GLint max_length = 0;
 		glGetShaderiv(shader_id, GL_INFO_LOG_LENGTH, &max_length);
 
-		char log[max_length];
+		char *log = new char[max_length];
 		glGetShaderInfoLog(shader_id, max_length, &max_length, log);
 
 		glDeleteShader(shader_id);
 
 		printf("%s\n", log);
+                delete log;
+                log = nullptr;
 		printf("Error: shader failed to compile!\n");
 		return false;
 	}

@@ -35,6 +35,7 @@ void Render2D::LoadShaders(std::string name, std::string v, std::string f)
 		throw e;
 	} else if (m_Shaders[name]->LinkProgram() == false) {
 		Error e("Exception: could not link shader!");
+                throw e;
 	}
 }
 
