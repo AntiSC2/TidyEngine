@@ -44,7 +44,8 @@ class Screen {
                 {
                         return m_Window;
                 }
-		bool CreateWindow(int width, int height, const char* title);
+		bool CreateWindow(int width, int height, const char* title,
+                                  int gl_major, int gl_minor);
                 bool InitGL();
                 void DestroyWindow();
 	private:

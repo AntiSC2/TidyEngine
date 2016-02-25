@@ -20,6 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <GLFW/glfw3.h>
 #include <map>
 #include <memory>
+#include <vector>
 #include "shader.hpp"
 #include "error.hpp"
 
@@ -28,7 +29,8 @@ public:
 	Render2D();
 	~Render2D();
 
-	void LoadShaders(std::string name, std::string v, std::string f);
+	void LoadShaders(std::string name, std::string v, std::string f,
+                         std::vector<std::string> attributes = {});
 	void UseShader(std::string name);
 	void StopShaders();
 	void Begin();

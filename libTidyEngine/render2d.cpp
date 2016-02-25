@@ -27,13 +27,19 @@ Render2D::~Render2D()
 	m_Shaders.clear();
 }
 
-void Render2D::LoadShaders(std::string name, std::string v, std::string f)
+void Render2D::LoadShaders(std::string name, std::string v, std::string f,
+                           std::vector<std::string> attributes)
 {
-	m_Shaders[name] = std::unique_ptr<Shader>(new Shader(v, f));
-	if (m_Shaders[name]->InitProgram() == false) {
-		Error e("Exception: could not initialize shader!");
-		throw e;
-	} else if (m_Shaders[name]->LinkProgram() == false) {
+        m_Shaders[name] = std::unique_ptr<Shader>(new Shader(v, f));
+        if (m_Shaders[name]->InitProgram() == false) {
+                Error e("Exception: could not initialize shader!");
+                throw e;
+        }
+
+        for (size_t i = 0; i < attributes.size(); i++)
+                m_Shaders[name]->AddAttribute(attributes[i]);
+
+        if (m_Shaders[name]->LinkProgram() == false) {
 		Error e("Exception: could not link shader!");
                 throw e;
 	}

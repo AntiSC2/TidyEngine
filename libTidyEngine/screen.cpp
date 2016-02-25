@@ -27,13 +27,17 @@ Screen::~Screen()
         DestroyWindow();
 }
 
-bool Screen::CreateWindow(int width, int height, const char* title)
+bool Screen::CreateWindow(int width, int height, const char* title,
+                          int gl_major, int gl_minor)
 {
         bool success = true;
 
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, gl_major);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, gl_minor);
+        if (gl_major <= 3 && gl_minor < 2)
+                glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_ANY_PROFILE);
+        else
+                glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
         m_Window = glfwCreateWindow(width, height, title, nullptr, nullptr);
         if (m_Window == nullptr) {
