@@ -31,7 +31,7 @@ Game::~Game()
 bool Game::Init()
 {
 	bool success = true;
-	if(m_Screen.CreateWindow(1280, 720, "GameEngine") != true) {
+	if(m_Screen.CreateWindow(1280, 720, "GameEngine", 3, 3) != true) {
 		success = false;
                 printf("Error: glfw could not create window!\n");
         } else {
