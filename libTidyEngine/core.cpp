@@ -41,7 +41,7 @@ bool Core::InitSubSystems()
         if (glfwInit() == GL_FALSE) {
                 success = false;
         }
-        
+        FreeImage_Initialise();
         printf("TidyEngine Version: %d.%d\n",
                TidyEngine_VERSION_MAJOR, TidyEngine_VERSION_MINOR);
 
@@ -61,4 +61,5 @@ void Core::GameLoop()
 void Core::Quit()
 {
         glfwTerminate();
+        FreeImage_DeInitialise();
 }

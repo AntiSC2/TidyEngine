@@ -1,4 +1,4 @@
-﻿/*
+/*
 Copyright (C) 2015 Jakob Sinclair
 
 This program is free software: you can redistribute it and/or modify
@@ -16,31 +16,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #pragma once
-#ifndef GLFW_DLL
-#define GLFW_DLL
-#endif
 #include <GL/glew.h>
-#include <GLFW/glfw3.h>
-#include <FreeImage.h>
-#include <stdio.h>
-#include <exception>
-#include "config.hpp"
-#include "screen.hpp"
-#include "render2d.hpp"
 
-class Core {
-	public:
-		Core();
-		virtual ~Core();
-                virtual void Run();
-	protected:
-		virtual bool InitSubSystems();
-		virtual bool Init() = 0;
-		virtual void GameLoop();
-		virtual void Update() = 0;
-		virtual void DrawGame() = 0;
-		virtual void Quit();
-		bool m_Initialized = false;
-                Screen m_Screen;
-                Render2D m_2DRenderer;
+class Texture {
+public:
+	Texture();
+	~Texture();
+
+	CreateTexture();
+	DeleteTexture();
+
+private:
+	GLuint m_TexID = 0;
 };

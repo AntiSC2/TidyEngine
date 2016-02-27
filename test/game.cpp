@@ -39,7 +39,8 @@ bool Game::Init()
                         printf("Error: could not initialize OpenGL!\n");
                 }
         }
-	m_2DRenderer.LoadShaders("default", "shader.vert", "shader.frag");
+	m_2DRenderer.LoadShaders("default", "shader.vert", "shader.frag",
+				 {"position"});
 	m_2DRenderer.UseShader("default");
 	return success;
 }
