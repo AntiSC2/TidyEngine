@@ -19,6 +19,8 @@ set(SOURCE
 	${CMAKE_CURRENT_SOURCE_DIR}/shader.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/error.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/texture.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/renderable.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/batch.cpp
 )
 set(HEADERS
         ${HEADERS}
@@ -29,6 +31,7 @@ set(HEADERS
 	${CMAKE_CURRENT_SOURCE_DIR}/error.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/texture.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/vertex.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/batch.hpp
 )
 
 if(WIN32)
