@@ -58,7 +58,7 @@ elseif(UNIX)
 	find_package(PkgConfig REQUIRED)
 	pkg_search_module(GLFW REQUIRED glfw3)
 	pkg_search_module(GLEW REQUIRED glew)
-	pkg_search_module(FREEIMAGE REQURIED FreeImage)
+	pkg_search_module(FREEIMAGE REQURIED freeimage)
 	set(TIDYENGINE_LIBRARIES
 		${TIDYENGINE_LIBRARIES}
 		${CMAKE_BINARY_DIR}/libTidyEngine/libTidyEngine.a

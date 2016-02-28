@@ -57,7 +57,7 @@ bool Shader::InitProgram()
 
 	bool compile_finish = false;
 	compile_finish = CompileShader(m_VertexSource, m_VertexID);
-	if (compile_finish) 
+	if (compile_finish)
 		compile_finish = CompileShader(m_FragmentSource, m_FragmentID);
 	
 	return compile_finish;

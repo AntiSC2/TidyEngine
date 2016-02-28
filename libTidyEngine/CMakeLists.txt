@@ -17,6 +17,8 @@ set(SOURCE
         ${CMAKE_CURRENT_SOURCE_DIR}/screen.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/render2d.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/shader.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/error.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/texture.cpp
 )
 set(HEADERS
         ${HEADERS}
@@ -25,6 +27,8 @@ set(HEADERS
 	${CMAKE_CURRENT_SOURCE_DIR}/render2d.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/shader.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/error.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/texture.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/vertex.hpp
 )
 
 if(WIN32)
@@ -61,7 +65,7 @@ elseif(UNIX)
 	find_package(PkgConfig REQUIRED)
 	pkg_search_module(GLFW REQUIRED glfw3)
 	pkg_search_module(GLEW REQUIRED glew)
-	pkg_search_module(FREEIMAGE REQURIED FreeImage)
+	pkg_search_module(FREEIMAGE REQURIED freeimage)
 endif()
 
 include_directories(${GLFW_INCLUDE_DIRS})

@@ -23,15 +23,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <GLFW/glfw3.h>
 #include <FreeImage.h>
 #include <stdio.h>
-#include <exception>
 #include "config.hpp"
 #include "screen.hpp"
 #include "render2d.hpp"
+#include "error.hpp"
 
 class Core {
 	public:
 		Core();
 		virtual ~Core();
+
                 virtual void Run();
 	protected:
 		virtual bool InitSubSystems();

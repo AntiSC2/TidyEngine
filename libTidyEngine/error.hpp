@@ -16,6 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #pragma once
+#include <FreeImage.h>
 #include <exception>
 #include <string>
 
@@ -37,3 +38,5 @@ public:
 private:
 	std::string text = "";
 };
+
+void FreeImageError(FREE_IMAGE_FORMAT fif, const char *message);

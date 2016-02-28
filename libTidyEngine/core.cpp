@@ -42,15 +42,17 @@ bool Core::InitSubSystems()
                 success = false;
         }
         FreeImage_Initialise();
+        FreeImage_SetOutputMessage(FreeImageError);
         printf("TidyEngine Version: %d.%d\n",
                TidyEngine_VERSION_MAJOR, TidyEngine_VERSION_MINOR);
-
+	
 	return success;
 }
 
 void Core::GameLoop()
 {
 	printf("Main loop was entered.\n");
+	m_Screen.GetWidth();
         while (!glfwWindowShouldClose(m_Screen.GetWindow())) {
                 Update();
                 DrawGame();

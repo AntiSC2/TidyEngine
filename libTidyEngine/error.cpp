@@ -15,23 +15,13 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#pragma once
-#include <GL/glew.h>
-#include <FreeImage.h>
+#include "error.hpp"
 
-class Texture {
-public:
-	Texture();
-	Texture(FIBITMAP *bitmap, bool mipmap = false, bool linear = false);
-	~Texture();
-
-	bool CreateTex(FIBITMAP *bitmap, bool mipmap = false,
-			bool linear = false);
-	void DeleteTex();
-	uint32_t GetWidth();
-	uint32_t GetHeight();
-private:
-	GLuint m_TexID = 0;
-	uint32_t m_Width = 0;
-	uint32_t m_Height = 0;
-};
+void FreeImageError(FREE_IMAGE_FORMAT fif, const char *message)
+{
+	if (fif != FIF_UNKNOWN) {
+		printf("Error with %s format!\n",
+			FreeImage_GetFormatFromFIF(fif));
+	}
+	printf(message);
+}

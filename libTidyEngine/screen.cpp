@@ -27,11 +27,29 @@ Screen::~Screen()
         DestroyWindow();
 }
 
-bool Screen::CreateWindow(int width, int height, const char* title,
+uint16_t Screen::GetWidth()
+{
+	return m_Width;
+}
+
+uint16_t Screen::GetHeight()
+{
+	return m_Height;
+}
+
+const char *Screen::GetTitle()
+{
+	return m_Title;
+}
+
+GLFWwindow *Screen::GetWindow()
+{
+	return m_Window;
+}
+
+bool Screen::CreateWindow(uint16_t width, uint16_t height, const char* title,
                           int gl_major, int gl_minor)
 {
-        bool success = true;
-
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, gl_major);
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, gl_minor);
         if (gl_major <= 3 && gl_minor < 2)
@@ -41,14 +59,14 @@ bool Screen::CreateWindow(int width, int height, const char* title,
 
         m_Window = glfwCreateWindow(width, height, title, nullptr, nullptr);
         if (m_Window == nullptr) {
-                success = false;
+                return false;
         } else {
                 m_Width = width;
                 m_Height = height;
                 m_Title = (char*)title;
                 glfwMakeContextCurrent(m_Window);
         }
-        return success;
+        return true;
 }
 
 bool Screen::InitGL()

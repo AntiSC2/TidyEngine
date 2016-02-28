@@ -25,13 +25,11 @@ public:
 	Shader();
 	Shader(std::string vertex, std::string fragment);
 	~Shader();
-	
+
 	void SetSources(std::string vertex, std::string fragment);
 	void AddAttribute(std::string attribute);
-
 	bool InitProgram();
 	bool LinkProgram();
-
 	void Bind();
 	void UnBind();
 private:

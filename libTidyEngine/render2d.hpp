@@ -30,7 +30,7 @@ public:
 	~Render2D();
 
 	void LoadShaders(std::string name, std::string v, std::string f,
-                         std::vector<std::string> attributes = {});
+			std::vector<std::string> attributes = {});
 	void UseShader(std::string name);
 	void StopShaders();
 	void Begin();
