@@ -18,8 +18,28 @@ Contact the author at: jakob.sinclair99@gmail.com
 */
 
 #pragma once
+#include <GL/glew.h>
+#include <vector>
+#include <stdio.h>
+#include "renderable.hpp"
 
 class Batch {
 public:
+	Batch();
+	virtual ~Batch();
+
+	void Initialise();
+
+	void Begin();
+	void End();
+	void Draw(const Renderable &object);
+	void Present();
 private:
+	void SortGlyphs();
+	void CreateBatches();
+
+	GLuint m_VBOID = 0;
+	std::vector<Renderable> m_Glyphs;
+	std::vector<Renderable*> m_SortedGlyphs;
+	std::vector<RenderBatch> m_RenderBatches;
 };

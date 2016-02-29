@@ -29,6 +29,11 @@ Renderable::~Renderable()
         ;
 }
 
+void Renderable::AddVertex(const Vertex& vertex)
+{
+	m_Vertices.push_back(vertex);
+}
+
 const std::vector<Vertex> &Renderable::GetVertices()
 {
         return m_Vertices;

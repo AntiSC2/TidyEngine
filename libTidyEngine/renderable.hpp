@@ -26,7 +26,8 @@ class Renderable {
 public:
         Renderable();
         virtual ~Renderable();
-
+	
+	virtual void AddVertex(const Vertex &vertex);
         virtual const std::vector<Vertex> &GetVertices();
         virtual GLuint GetTex();
 private:

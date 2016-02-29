@@ -25,6 +25,8 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include <vector>
 #include "shader.hpp"
 #include "error.hpp"
+#include "vertex.hpp"
+#include "batch.hpp"
 
 class Render2D {
 public:
@@ -35,10 +37,12 @@ public:
 			std::vector<std::string> attributes = {});
 	void UseShader(std::string name);
 	void StopShaders();
+	Batch& GetBatch();
 	void Begin();
 	void End();
 	void Present(GLFWwindow *window);
 private:
 	std::map<std::string, std::unique_ptr<Shader>> m_Shaders;
 	std::string m_CurrentShader = "";
+	Batch SpriteBatch;
 };
