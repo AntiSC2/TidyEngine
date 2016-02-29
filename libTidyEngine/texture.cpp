@@ -1,4 +1,5 @@
 /*
+TidyEngine
 Copyright (C) 2016 Jakob Sinclair
 
 This program is free software: you can redistribute it and/or modify
@@ -13,6 +14,7 @@ GNU Lesser General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Contact the author at: jakob.sinclair99@gmail.com
 */
 
 #include "texture.hpp"
@@ -87,6 +89,11 @@ void Texture::DeleteTex()
 {
 	if (m_TexID != 0)
 		glDeleteTextures(1, &m_TexID);
+}
+
+GLuint Texture::GetTex()
+{
+        return m_TexID;
 }
 
 uint32_t Texture::GetWidth()

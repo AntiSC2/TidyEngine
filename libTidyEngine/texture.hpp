@@ -1,4 +1,5 @@
 /*
+TidyEngine
 Copyright (C) 2016 Jakob Sinclair
 
 This program is free software: you can redistribute it and/or modify
@@ -13,6 +14,7 @@ GNU Lesser General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Contact the author at: jakob.sinclair99@gmail.com
 */
 
 #pragma once
@@ -31,6 +33,7 @@ public:
 	bool CreateTex(FIBITMAP *bitmap, bool mipmap = false,
 			bool linear = false);
 	void DeleteTex();
+        GLuint GetTex();
 	uint32_t GetWidth();
 	uint32_t GetHeight();
 private:

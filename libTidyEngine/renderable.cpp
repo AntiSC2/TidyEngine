@@ -1,4 +1,4 @@
-/*
+﻿/*
 TidyEngine
 Copyright (C) 2016 Jakob Sinclair
 
@@ -17,30 +17,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 Contact the author at: jakob.sinclair99@gmail.com
 */
 
-#pragma once
-#include <GL/glew.h>
-#include <string>
-#include <fstream>
+#include "renderable.hpp"
 
-class Shader {
-public:
-	Shader();
-	Shader(const std::string &vertex, const std::string &fragment);
-	~Shader();
+Renderable::Renderable()
+{
+        ;
+}
 
-	void SetSources(const std::string &vertex, const std::string &fragment);
-	void AddAttribute(const std::string &attribute);
-	bool InitProgram();
-	bool LinkProgram();
-	void Bind();
-	void UnBind();
-private:
-	bool CompileShader(const std::string &file_path, GLuint shader_id);
+Renderable::~Renderable()
+{
+        ;
+}
 
-	GLuint m_Attributes = 0;
-	GLuint m_ProgramID = 0;
-	GLuint m_VertexID = 0;
-	GLuint m_FragmentID = 0;
-	std::string m_VertexSource = "";
-	std::string m_FragmentSource = "";
-};
+const std::vector<Vertex> &Renderable::GetVertices()
+{
+        return m_Vertices;
+}
+
+GLuint Renderable::GetTex()
+{
+        return m_Tex;
+}

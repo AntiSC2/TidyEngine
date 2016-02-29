@@ -1,4 +1,4 @@
-/*
+﻿/*
 TidyEngine
 Copyright (C) 2016 Jakob Sinclair
 
@@ -18,29 +18,8 @@ Contact the author at: jakob.sinclair99@gmail.com
 */
 
 #pragma once
-#include <GL/glew.h>
-#include <string>
-#include <fstream>
 
-class Shader {
+class Batch {
 public:
-	Shader();
-	Shader(const std::string &vertex, const std::string &fragment);
-	~Shader();
-
-	void SetSources(const std::string &vertex, const std::string &fragment);
-	void AddAttribute(const std::string &attribute);
-	bool InitProgram();
-	bool LinkProgram();
-	void Bind();
-	void UnBind();
 private:
-	bool CompileShader(const std::string &file_path, GLuint shader_id);
-
-	GLuint m_Attributes = 0;
-	GLuint m_ProgramID = 0;
-	GLuint m_VertexID = 0;
-	GLuint m_FragmentID = 0;
-	std::string m_VertexSource = "";
-	std::string m_FragmentSource = "";
 };

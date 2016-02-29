@@ -1,4 +1,5 @@
 /*
+TidyEngine
 Copyright (C) 2016 Jakob Sinclair
 
 This program is free software: you can redistribute it and/or modify
@@ -13,6 +14,7 @@ GNU Lesser General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Contact the author at: jakob.sinclair99@gmail.com
 */
 
 #include "shader.hpp"
@@ -22,7 +24,7 @@ Shader::Shader()
 	;
 }
 
-Shader::Shader(std::string vertex, std::string fragment)
+Shader::Shader(const std::string &vertex, const std::string &fragment)
 {
 	SetSources(vertex, fragment);
 }
@@ -33,13 +35,13 @@ Shader::~Shader()
 		glDeleteProgram(m_ProgramID);
 }
 
-void Shader::SetSources(std::string vertex, std::string fragment)
+void Shader::SetSources(const std::string &vertex, const std::string &fragment)
 {
 	m_VertexSource = vertex;
 	m_FragmentSource = fragment;
 }
 
-void Shader::AddAttribute(std::string attribute)
+void Shader::AddAttribute(const std::string &attribute)
 {
 	glBindAttribLocation(m_ProgramID, m_Attributes, attribute.c_str());
 	m_Attributes++;
@@ -97,7 +99,7 @@ bool Shader::LinkProgram()
 	return true;
 }
 
-bool Shader::CompileShader(std::string file_path, GLuint shader_id)
+bool Shader::CompileShader(const std::string &file_path, GLuint shader_id)
 {
 	std::ifstream source(file_path);
 	if (source.fail()) {

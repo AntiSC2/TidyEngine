@@ -38,7 +38,8 @@ class Core {
 		virtual void Update() = 0;
 		virtual void DrawGame() = 0;
 		virtual void Quit();
+
 		bool m_Initialized = false;
                 Screen m_Screen;
-                Render2D m_2DRenderer;
+                Render2D m_2DRender;
 };

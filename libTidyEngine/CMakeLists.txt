@@ -31,6 +31,7 @@ set(HEADERS
 	${CMAKE_CURRENT_SOURCE_DIR}/error.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/texture.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/vertex.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/renderable.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/batch.hpp
 )
 

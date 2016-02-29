@@ -1,4 +1,5 @@
 /*
+TidyEngine
 Copyright (C) 2016 Jakob Sinclair
 
 This program is free software: you can redistribute it and/or modify
@@ -13,14 +14,17 @@ GNU Lesser General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Contact the author at: jakob.sinclair99@gmail.com
 */
 
 #pragma once
 #include <glm/vec3.hpp>
 #include <glm/vec4.hpp>
+#include <glm/vec2.hpp>
 
 class Vertex {
 public:
-	glm::vec3 Position = glm::vec3(0, 0, 0);
-	glm::vec4 Color = glm::vec4(0, 0, 0, 0);
+	glm::vec3 Position = glm::vec3(0.0f, 0.0f, 0.0f);
+	glm::vec4 Color = glm::vec4(0.0f, 0.0f, 0.0f, 0.0f);
+        glm::vec2 TexUV = glm::vec2(0.0f, 0.0f);
 };
