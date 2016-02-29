@@ -25,7 +25,7 @@ Game::Game()
 
 Game::~Game()
 {
-	;
+        ;
 }
 
 bool Game::Init()
@@ -42,15 +42,7 @@ bool Game::Init()
 	m_2DRender.LoadShaders("default", "shader.vert", "shader.frag",
 				 {"position", "color", "uv"});
 	m_2DRender.UseShader("default");
-	Vertex temp;
-	temp.Position = glm::vec3(0.0f, 0.0f, 0.0f);
-	temp.Color = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
-	temp.TexUV = glm::vec2(0.0f, 0.0f);
-	m_Test.AddVertex(temp);
-	temp.Position = glm::vec3(0.5f, 0.0f, 0.0f);
-	m_Test.AddVertex(temp);
-	temp.Position = glm::vec3(0.0f, 0.5f, 0.0f);
-	m_Test.AddVertex(temp);
+
 	return success;
 }
 
@@ -62,10 +54,6 @@ void Game::Update()
 void Game::DrawGame()
 {
 	m_2DRender.Begin();
-	m_2DRender.GetBatch().Begin();
-	m_2DRender.GetBatch().Draw(m_Test);
-	m_2DRender.GetBatch().End();
-	m_2DRender.GetBatch().Present();
 	m_2DRender.End();
         m_2DRender.Present(m_Screen.GetWindow());
 }

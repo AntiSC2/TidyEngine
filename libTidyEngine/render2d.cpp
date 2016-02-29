@@ -52,12 +52,6 @@ void Render2D::UseShader(std::string name)
 	if (m_Shaders.find(name) != m_Shaders.end()) {
 		m_Shaders[name]->Bind();
 		m_CurrentShader = name;
-		glEnableVertexAttribArray(0);
-		glEnableVertexAttribArray(1);
-		glEnableVertexAttribArray(2);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Position));
-		glVertexAttribPointer(1, 4, GL_FLOAT, GL_TRUE, sizeof(Vertex), (void*)offsetof(Vertex, Color));
-		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, TexUV)); 
 	} else {
 		printf("Warning: could not find shader %s!\n", name.c_str());
 	}
@@ -69,16 +63,9 @@ void Render2D::StopShaders()
 	m_CurrentShader = "";
 }
 
-Batch& Render2D::GetBatch()
-{
-	return SpriteBatch;
-}
-
 void Render2D::Begin()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	SpriteBatch.Initialise();
-
 }
 
 void Render2D::End()

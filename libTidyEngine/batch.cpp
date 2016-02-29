@@ -91,10 +91,11 @@ void Batch::CreateBatches()
 	offset += m_RenderBatches[0].Vertices;
 
 	auto it = vertex_data.end();
+        auto it_begin = m_SortedGlyphs[0]->GetVertices().begin();
+        auto it_end = m_SortedGlyphs[0]->GetVertices().end();
 
 	vertex_data.resize(vert_total);
-	vertex_data.insert(it, m_SortedGlyphs.at(0)->GetVertices().begin(),
-			m_SortedGlyphs.at(0)->GetVertices().end());
+	vertex_data.insert(it, it_begin, it_end);
 
 	for (size_t g = 1; g < m_SortedGlyphs.size(); g++) {
 		GLuint temp_tex = m_SortedGlyphs[g]->GetTex();
@@ -107,7 +108,7 @@ void Batch::CreateBatches()
 			m_RenderBatches.back().Vertices += num_vert;
 		}
 
-		it = vertex_data.end();
+		it = vertex_data.end() - 1;
 
 		vertex_data.insert(it, m_SortedGlyphs[g]->GetVertices().begin(),
 			m_SortedGlyphs[g]->GetVertices().end());
@@ -118,6 +119,5 @@ void Batch::CreateBatches()
 	glBindBuffer(GL_ARRAY_BUFFER, m_VBOID);
 	glBufferData(GL_ARRAY_BUFFER, vertex_data.size() * sizeof(Vertex), 
 			vertex_data.data(), GL_STREAM_DRAW);
-	glBufferSubData(GL_ARRAY_BUFFER, 0, vertex_data.size() * sizeof(Vertex), vertex_data.data());
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }

@@ -29,5 +29,4 @@ class Game : public Core {
 		bool Init();
 		void Update();
 		void DrawGame();
-		Renderable m_Test;
 };
