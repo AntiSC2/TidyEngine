@@ -21,6 +21,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include <GL/glew.h>
 #include <vector>
 #include <stdio.h>
+#include <algorithm>
 #include "renderable.hpp"
 
 class Batch {
@@ -37,8 +38,10 @@ public:
 private:
 	void SortGlyphs();
 	void CreateBatches();
+	static bool CompareTex(Renderable *a, Renderable *b);
 
 	GLuint m_VBOID = 0;
+	GLuint m_VAOID = 0;
 	std::vector<Renderable> m_Glyphs;
 	std::vector<Renderable*> m_SortedGlyphs;
 	std::vector<RenderBatch> m_RenderBatches;

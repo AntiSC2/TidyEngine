@@ -49,19 +49,11 @@ void Render2D::LoadShaders(std::string name, std::string v, std::string f,
 
 void Render2D::UseShader(std::string name)
 {
-	if (m_Shaders.find(name) != m_Shaders.end()) {
-		m_Shaders[name]->Bind();
-		m_CurrentShader = name;
-	} else {
-		printf("Warning: could not find shader %s!\n", name.c_str());
-	}
-}
-
-void Render2D::StopShaders()
-{
-	m_Shaders.at(m_CurrentShader)->UnBind();
-	m_CurrentShader = "";
-}
+	if (m_Shaders.find(name) != m_Shaders.end())
+		return m_Shaders[name].get();
+	else
+		printf("Warning: Could not find shader %s!", name.c_str());
+	return nullptr;
 
 void Render2D::Begin()
 {

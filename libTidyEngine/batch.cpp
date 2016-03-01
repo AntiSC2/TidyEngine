@@ -26,17 +26,35 @@ Batch::Batch()
 
 Batch::~Batch()
 {
-	if (m_VBOID != 0) {
+	if (m_VBOID != 0)
 		glDeleteBuffers(1, &m_VBOID);
-	}
+	if (m_VAOID != 0)
+		glDeleteVertexArrays(1, &m_VAOID);
 }
 
 void Batch::Initialise()
 {
-	if(m_VBOID != 0) {
+	if (m_VBOID != 0) 
 		glDeleteBuffers(1, &m_VBOID);
-	}
+	if (m_VAOID != 0)
+		glDeleteVertexArrays(1, &m_VAOID);
+	glGenVertexArrays(1, &m_VAOID);
 	glGenBuffers(1, &m_VBOID);
+	glBindVertexArray(m_VAOID);
+	glBindBuffer(GL_ARRAY_BUFFER, m_VBOID);
+
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex),
+			(void*)offsetof(Vertex, Position));
+	glVertexAttribPointer(1, 4, GL_FLOAT, GL_TRUE, sizeof(Vertex),
+			(void*)offsetof(Vertex, Color));
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex),
+			(void*)offsetof(Vertex, TexUV));
+
+	glEnableVertexAttribArray(0);
+	glEnableVertexAttribArray(1);
+	glEnableVertexAttribArray(2);
+	
+	glBindVertexArray(0);
 }
 
 void Batch::Begin()
@@ -64,16 +82,19 @@ void Batch::Draw(const Renderable &object)
 
 void Batch::Present()
 {
+	glBindVertexArray(m_VAOID);
 	for (size_t i = 0; i < m_RenderBatches.size(); i++) {
 		glBindTexture(GL_TEXTURE_2D, m_RenderBatches[i].Tex);
 		glDrawArrays(GL_TRIANGLES, m_RenderBatches[i].Offset,
 				m_RenderBatches[i].Vertices);
 	}
+	glBindVertexArray(0);
 }
 
 void Batch::SortGlyphs()
 {
-	;
+	std::stable_sort(m_SortedGlyphs.begin(), m_SortedGlyphs.end(),
+			CompareTex);
 }
 
 void Batch::CreateBatches()
@@ -120,4 +141,9 @@ void Batch::CreateBatches()
 	glBufferData(GL_ARRAY_BUFFER, vertex_data.size() * sizeof(Vertex), 
 			vertex_data.data(), GL_STREAM_DRAW);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
+}
+
+bool Batch::CompareTex(Renderable *a, Renderable *b)
+{
+	return a->GetTex() < b->GetTex();
 }

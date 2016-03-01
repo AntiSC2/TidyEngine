@@ -18,26 +18,13 @@ Contact the author at: jakob.sinclair99@gmail.com
 */
 
 #pragma once
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-#include <map>
-#include <memory>
-#include <vector>
-#include "shader.hpp"
-#include "error.hpp"
+#include <FreeImage.h>
 
-class Render2D {
+class IOManager {
 public:
-	Render2D();
-	~Render2D();
+	IOManager();
+	~IOManager();
 
-	void LoadShaders(std::string name, std::string v, std::string f,
-			std::vector<std::string> attributes = {});
-	const Shader *GetShader();
-	void Begin();
-	void End();
-	void Present(GLFWwindow *window);
+	FIBITMAP *LoadImage(std::string filepath);
 private:
-	std::map<std::string, std::unique_ptr<Shader>> m_Shaders;
-	std::string m_CurrentShader = "";
 };
