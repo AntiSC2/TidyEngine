@@ -20,7 +20,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 #pragma once
 #include <GL/glew.h>
 #include <string>
-#include <fstream>
+#include "IOManager.hpp"
 
 class Shader {
 public:
@@ -32,10 +32,10 @@ public:
 	void AddAttribute(const std::string &attribute);
 	bool InitProgram();
 	bool LinkProgram();
-	void Bind();
-	void UnBind();
+	void Bind() const;
+	void UnBind() const;
 private:
-	bool CompileShader(const std::string &file_path, GLuint shader_id);
+	bool CompileShader(const std::string &filepath, GLuint shader_id);
 
 	GLuint m_Attributes = 0;
 	GLuint m_ProgramID = 0;

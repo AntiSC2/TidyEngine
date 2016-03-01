@@ -1,4 +1,4 @@
-/*
+﻿/*
 TidyEngine
 Copyright (C) 2016 Jakob Sinclair
 
@@ -18,27 +18,20 @@ Contact the author at: jakob.sinclair99@gmail.com
 */
 
 #pragma once
-#ifdef _WIN32
-#include <cstdint>
-#endif
-#include <GL/glew.h>
-#include <FreeImage.h>
-#include <stdio.h>
+#include <map>
+#include <string>
+#include "error.hpp"
+#include "texture.hpp"
+#include "iomanager.hpp"
 
-class Texture {
+class Cache {
 public:
-	Texture();
-	Texture(FIBITMAP *bitmap, bool mipmap = false, bool linear = false);
-	~Texture();
+        Cache();
+        ~Cache();
 
-	bool CreateTex(FIBITMAP *bitmap, bool mipmap = false,
-			bool linear = false);
-	void DeleteTex();
-        const GLuint &GetTex() const;
-	const uint32_t &GetWidth() const;
-	const uint32_t &GetHeight() const;
+        const Texture &CreateTexture(std::string name, std::string filepath);
+        void DeleteTexture(std::string name);
+        const Texture &GetTexture(std::string name);
 private:
-	GLuint m_TexID = 0;
-	uint32_t m_Width = 0;
-	uint32_t m_Height = 0;
-};
+        std::map<std::string, Texture> m_Textures;
+} extern Resources;

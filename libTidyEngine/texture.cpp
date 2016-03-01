@@ -58,6 +58,7 @@ bool Texture::CreateTex(FIBITMAP *bitmap, bool mipmap, bool linear)
 	if (temp == nullptr) {
 		DeleteTex();
 		FreeImage_Unload(temp);
+                printf("Error: could not convert texture to 32 bits!\n");
 		return false;
 	}
 	m_Width = FreeImage_GetWidth(temp);
@@ -91,17 +92,17 @@ void Texture::DeleteTex()
 		glDeleteTextures(1, &m_TexID);
 }
 
-GLuint Texture::GetTex()
+const GLuint &Texture::GetTex() const
 {
         return m_TexID;
 }
 
-uint32_t Texture::GetWidth()
+const uint32_t &Texture::GetWidth() const
 {
 	return m_Width;
 }
 
-uint32_t Texture::GetHeight()
+const uint32_t &Texture::GetHeight() const
 {
 	return m_Height;
 }

@@ -41,7 +41,7 @@ bool Game::Init()
         }
 	m_2DRender.LoadShaders("default", "shader.vert", "shader.frag",
 				 {"position", "color", "uv"});
-	m_2DRender.UseShader("default");
+	m_2DRender.GetShader("default")->Bind();
 
 	return success;
 }

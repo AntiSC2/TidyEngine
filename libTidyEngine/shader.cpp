@@ -99,22 +99,12 @@ bool Shader::LinkProgram()
 	return true;
 }
 
-bool Shader::CompileShader(const std::string &file_path, GLuint shader_id)
+bool Shader::CompileShader(const std::string &filepath, GLuint shader_id)
 {
-	std::ifstream source(file_path);
-	if (source.fail()) {
-		printf("Error: failed to open %s!\n", file_path.c_str());
-		return false;
-	}
+        std::string source = "";
+        source = IO.ReadFile(filepath);
 
-	std::string source_contents = "";
-	std::string line = "";
-
-	while (std::getline(source, line))
-		source_contents += line + '\n';
-
-	source.close();
-	const char* pointer_source = source_contents.c_str();
+	const char* pointer_source = source.c_str();
 
 	glShaderSource(shader_id, 1, &pointer_source, nullptr);
 	glCompileShader(shader_id);
@@ -140,14 +130,14 @@ bool Shader::CompileShader(const std::string &file_path, GLuint shader_id)
 	return true;
 }
 
-void Shader::Bind()
+void Shader::Bind() const
 {
 	glUseProgram(m_ProgramID);
 	for (GLuint i = 0; i < m_Attributes; i++)
 		glEnableVertexAttribArray(i);
 }
 
-void Shader::UnBind()
+void Shader::UnBind() const
 {
 	glUseProgram(0);
 	for (GLuint i = 0; i < m_Attributes; i++)

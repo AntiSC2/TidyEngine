@@ -47,13 +47,14 @@ void Render2D::LoadShaders(std::string name, std::string v, std::string f,
 	}
 }
 
-void Render2D::UseShader(std::string name)
+const Shader *Render2D::GetShader(std::string name)
 {
-	if (m_Shaders.find(name) != m_Shaders.end())
-		return m_Shaders[name].get();
-	else
-		printf("Warning: Could not find shader %s!", name.c_str());
-	return nullptr;
+        if (m_Shaders.find(name) != m_Shaders.end())
+                return m_Shaders[name].get();
+        else
+                printf("Warning: Could not find shader %s!", name.c_str());
+        return nullptr;
+}
 
 void Render2D::Begin()
 {

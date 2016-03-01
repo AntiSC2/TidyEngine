@@ -19,6 +19,8 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 #pragma once
 #include <FreeImage.h>
+#include <string>
+#include <fstream>
 
 class IOManager {
 public:
@@ -26,5 +28,6 @@ public:
 	~IOManager();
 
 	FIBITMAP *LoadImage(std::string filepath);
+        std::string ReadFile(std::string filepath);
 private:
-};
+} extern IO;

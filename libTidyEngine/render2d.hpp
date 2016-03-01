@@ -33,7 +33,7 @@ public:
 
 	void LoadShaders(std::string name, std::string v, std::string f,
 			std::vector<std::string> attributes = {});
-	const Shader *GetShader();
+        const Shader *GetShader(std::string name);
 	void Begin();
 	void End();
 	void Present(GLFWwindow *window);
