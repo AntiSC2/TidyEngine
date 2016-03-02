@@ -53,7 +53,6 @@ void Game::Update()
 
 void Game::DrawGame()
 {
-	m_2DRender.Begin();
-	m_2DRender.End();
+        m_2DRender.Clear();
         m_2DRender.Present(m_Screen.GetWindow());
 }

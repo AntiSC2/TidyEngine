@@ -24,6 +24,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include <memory>
 #include <vector>
 #include "shader.hpp"
+#include "batch.hpp"
 #include "error.hpp"
 
 class Render2D {
@@ -31,13 +32,15 @@ public:
 	Render2D();
 	~Render2D();
 
+	void Init();
 	void LoadShaders(std::string name, std::string v, std::string f,
 			std::vector<std::string> attributes = {});
         const Shader *GetShader(std::string name);
-	void Begin();
-	void End();
+        Batch &GetBatch();
+	void Clear();
 	void Present(GLFWwindow *window);
 private:
 	std::map<std::string, std::unique_ptr<Shader>> m_Shaders;
 	std::string m_CurrentShader = "";
+	Batch m_Batch;
 };

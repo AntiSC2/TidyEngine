@@ -29,6 +29,11 @@ Render2D::~Render2D()
 	m_Shaders.clear();
 }
 
+void Render2D::Init()
+{
+	m_Batch.Initialise();
+}
+
 void Render2D::LoadShaders(std::string name, std::string v, std::string f,
 		std::vector<std::string> attributes)
 {
@@ -56,14 +61,14 @@ const Shader *Render2D::GetShader(std::string name)
         return nullptr;
 }
 
-void Render2D::Begin()
+Batch &Render2D::GetBatch()
 {
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	return m_Batch;
 }
 
-void Render2D::End()
+void Render2D::Clear()
 {
-	;
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
 void Render2D::Present(GLFWwindow *window)

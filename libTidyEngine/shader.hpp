@@ -20,7 +20,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 #pragma once
 #include <GL/glew.h>
 #include <string>
-#include "IOManager.hpp"
+#include "iomanager.hpp"
 
 class Shader {
 public:
