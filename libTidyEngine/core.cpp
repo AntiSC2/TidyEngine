@@ -18,6 +18,11 @@ Contact the author at: jakob.sinclair99@gmail.com
 */
 
 #include "core.hpp"
+#include <GLFW/glfw3.h>
+#include <FreeImage.h>
+#include "error.hpp"
+#include "cache.hpp"
+#include "config.hpp"
 
 Core::Core()
 {
@@ -45,6 +50,20 @@ bool Core::InitSubSystems()
         }
         FreeImage_Initialise();
         FreeImage_SetOutputMessage(FreeImageError);
+
+	if(m_Screen.CreateWindow(1280, 720, "TidyEngine", 3, 3) != true) {
+		success = false;
+                printf("Error: glfw could not create window!\n");
+        } else {
+                if (m_Screen.InitGL() == false) {
+                        printf("Error: could not initialize OpenGL!\n");
+                        success = false;
+                }
+        
+        }
+
+	Resources.CreateTexture("default", "default.png");
+
         printf("TidyEngine Version: %d.%d\n",
                TidyEngine_VERSION_MAJOR, TidyEngine_VERSION_MINOR);
 	

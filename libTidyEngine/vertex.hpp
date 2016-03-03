@@ -18,9 +18,11 @@ Contact the author at: jakob.sinclair99@gmail.com
 */
 
 #pragma once
+
 #ifdef _WIN32
 #include <cstdint>
 #endif
+
 #include <GL/glew.h>
 #include <glm/vec3.hpp>
 #include <glm/vec4.hpp>

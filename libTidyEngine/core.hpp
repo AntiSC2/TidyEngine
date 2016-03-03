@@ -16,14 +16,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #pragma once
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-#include <FreeImage.h>
-#include <stdio.h>
-#include "config.hpp"
+
 #include "screen.hpp"
 #include "render2d.hpp"
-#include "error.hpp"
 
 class Core {
 	public:

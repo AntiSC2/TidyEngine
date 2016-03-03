@@ -18,6 +18,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 */
 
 #pragma once
+
 #include "renderable.hpp"
 
 class Rect2D : public Renderable {
@@ -29,6 +30,8 @@ public:
 	virtual ~Rect2D();
 
 	virtual void SetRect(float x, float y, float w, float h);
-	
+	virtual void SetColor(glm::vec4 color);
+	virtual void SetColor(float r, float g, float b, float a);
 protected:
+	glm::vec4 m_Color = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
 };

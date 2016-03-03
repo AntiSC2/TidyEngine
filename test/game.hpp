@@ -29,6 +29,4 @@ class Game : public Core {
 		bool Init();
 		void Update();
 		void DrawGame();
-
-		Rect2D m_Rect;
 };

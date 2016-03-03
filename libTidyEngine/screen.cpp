@@ -18,6 +18,9 @@ Contact the author at: jakob.sinclair99@gmail.com
 */
 
 #include "screen.hpp"
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
+#include <stdio.h>
 
 Screen::Screen()
 {
@@ -52,6 +55,8 @@ GLFWwindow *Screen::GetWindow()
 bool Screen::CreateWindow(uint16_t width, uint16_t height, const char* title,
                           int gl_major, int gl_minor)
 {
+	DestroyWindow();
+
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, gl_major);
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, gl_minor);
         if (gl_major <= 3 && gl_minor < 2)
@@ -91,7 +96,6 @@ bool Screen::InitGL()
 
 void Screen::DestroyWindow()
 {
-        if (m_Window != nullptr) {
+        if (m_Window != nullptr)
                 glfwDestroyWindow(m_Window);
-        }
 }

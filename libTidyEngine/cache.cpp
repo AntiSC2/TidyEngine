@@ -18,6 +18,8 @@ Contact the author at: jakob.sinclair99@gmail.com
 */
 
 #include "cache.hpp"
+#include "error.hpp"
+#include "iomanager.hpp"
 
 Cache Resources;
 
@@ -32,7 +34,7 @@ Cache::~Cache()
                 it.second.DeleteTex();
 }
 
-const Texture &Cache::CreateTexture(std::string name,std::string filepath)
+const Texture &Cache::CreateTexture(std::string name, std::string filepath)
 {
         if (m_Textures.find(name) == m_Textures.end()) {
                 FIBITMAP *bitmap = IO.LoadImage(filepath);

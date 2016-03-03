@@ -18,9 +18,10 @@ Contact the author at: jakob.sinclair99@gmail.com
 */
 
 #pragma once
-#include <FreeImage.h>
+
 #include <exception>
 #include <string>
+#include <FreeImage.h>
 
 class Error : std::exception {
 public:

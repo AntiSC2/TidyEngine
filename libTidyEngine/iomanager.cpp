@@ -18,6 +18,9 @@ Contact the author at: jakob.sinclair99@gmail.com
 */
 
 #include "iomanager.hpp"
+#include <FreeImage.h>
+#include <string>
+#include <fstream>
 
 IOManager IO;
 

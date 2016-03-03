@@ -18,6 +18,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 */
 
 #include "shader.hpp"
+#include "iomanager.hpp"
 
 Shader::Shader()
 {

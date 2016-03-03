@@ -17,6 +17,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 #include "game.hpp"
+#include <GLFW/glfw3.h>
+#include "shader.hpp"
 
 Game::Game()
 {
@@ -31,19 +33,11 @@ Game::~Game()
 bool Game::Init()
 {
 	bool success = true;
-	if(m_Screen.CreateWindow(1280, 720, "GameEngine", 3, 3) != true) {
-		success = false;
-                printf("Error: glfw could not create window!\n");
-        } else {
-                if (m_Screen.InitGL() == false) {
-                        printf("Error: could not initialize OpenGL!\n");
-                }
-        }
+	
         m_2DRender.GetBatch().Initialise();
 	m_2DRender.LoadShaders("default", "shader.vert", "shader.frag",
 				 {"position", "color", "uv"});
 	m_2DRender.GetShader("default")->Bind();
-	m_Rect.SetRect(0.0f, 0.0f, 1.0f, 1.0f);
 
 	return success;
 }
@@ -55,6 +49,9 @@ void Game::Update()
 
 void Game::DrawGame()
 {
+	Rect2D m_Rect;
+	m_Rect.SetRect(0.0f, 0.0f, 1.0f, 1.0f);
+	m_Rect.SetColor(0.2, 0.3, 0.4, 1.0f);
         m_2DRender.Clear();
         m_2DRender.GetBatch().Begin();
         m_2DRender.GetBatch().Draw(m_Rect);

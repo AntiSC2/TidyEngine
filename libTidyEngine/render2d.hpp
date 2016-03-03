@@ -18,14 +18,15 @@ Contact the author at: jakob.sinclair99@gmail.com
 */
 
 #pragma once
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
+
+class GLFWwindow;
+class Shader;
+
+#include <vector>
 #include <map>
 #include <memory>
-#include <vector>
-#include "shader.hpp"
+#include <string>
 #include "batch.hpp"
-#include "error.hpp"
 
 class Render2D {
 public:

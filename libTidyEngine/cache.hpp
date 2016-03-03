@@ -18,11 +18,10 @@ Contact the author at: jakob.sinclair99@gmail.com
 */
 
 #pragma once
+
 #include <map>
 #include <string>
-#include "error.hpp"
 #include "texture.hpp"
-#include "iomanager.hpp"
 
 class Cache {
 public:

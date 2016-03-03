@@ -18,10 +18,9 @@ Contact the author at: jakob.sinclair99@gmail.com
 */
 
 #pragma once
+
 #include <GL/glew.h>
 #include <vector>
-#include <stdio.h>
-#include <algorithm>
 #include "renderable.hpp"
 
 class Batch {

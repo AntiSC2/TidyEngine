@@ -18,12 +18,10 @@ Contact the author at: jakob.sinclair99@gmail.com
 */
 
 #pragma once
-#ifdef _WIN32
+
+class GLFWwindow;
+
 #include <cstdint>
-#endif
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-#include <stdio.h>
 
 class Screen {
 	public:

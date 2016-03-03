@@ -18,6 +18,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 */
 
 #include "error.hpp"
+#include <FreeImage.h>
 
 void FreeImageError(FREE_IMAGE_FORMAT fif, const char *message)
 {

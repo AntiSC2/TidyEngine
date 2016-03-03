@@ -18,6 +18,10 @@ Contact the author at: jakob.sinclair99@gmail.com
 */
 
 #include "render2d.hpp"
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
+#include "error.hpp"
+#include "shader.hpp"
 
 Render2D::Render2D()
 {

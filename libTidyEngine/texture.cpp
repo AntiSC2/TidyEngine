@@ -18,6 +18,8 @@ Contact the author at: jakob.sinclair99@gmail.com
 */
 
 #include "texture.hpp"
+#include <stdio.h>
+#include <FreeImage.h>
 
 Texture::Texture()
 {

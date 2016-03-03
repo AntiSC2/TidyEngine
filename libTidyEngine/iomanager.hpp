@@ -18,9 +18,9 @@ Contact the author at: jakob.sinclair99@gmail.com
 */
 
 #pragma once
-#include <FreeImage.h>
+
 #include <string>
-#include <fstream>
+#include <FreeImage.h>
 
 class IOManager {
 public:

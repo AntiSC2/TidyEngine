@@ -18,12 +18,13 @@ Contact the author at: jakob.sinclair99@gmail.com
 */
 
 #pragma once
+
+class FIBITMAP;
+
 #ifdef _WIN32
 #include <cstdint>
 #endif
 #include <GL/glew.h>
-#include <FreeImage.h>
-#include <stdio.h>
 
 class Texture {
 public:
