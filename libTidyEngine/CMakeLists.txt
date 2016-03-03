@@ -23,6 +23,7 @@ set(SOURCE
 	${CMAKE_CURRENT_SOURCE_DIR}/batch.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/iomanager.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/cache.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/rect2d.cpp
 )
 set(HEADERS
         ${HEADERS}
@@ -37,6 +38,7 @@ set(HEADERS
 	${CMAKE_CURRENT_SOURCE_DIR}/batch.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/iomanager.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/cache.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/rect2d.hpp
 )
 
 if(WIN32)

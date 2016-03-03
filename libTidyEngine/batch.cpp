@@ -38,11 +38,17 @@ void Batch::Initialise()
 		glDeleteBuffers(1, &m_VBOID);
 	if (m_VAOID != 0)
 		glDeleteVertexArrays(1, &m_VAOID);
+
 	glGenVertexArrays(1, &m_VAOID);
-	glGenBuffers(1, &m_VBOID);
 	glBindVertexArray(m_VAOID);
+
+	glGenBuffers(1, &m_VBOID);
 	glBindBuffer(GL_ARRAY_BUFFER, m_VBOID);
 
+	glEnableVertexAttribArray(0);
+	glEnableVertexAttribArray(1);
+	glEnableVertexAttribArray(2);
+	
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex),
 			(void*)offsetof(Vertex, Position));
 	glVertexAttribPointer(1, 4, GL_FLOAT, GL_TRUE, sizeof(Vertex),
@@ -50,10 +56,6 @@ void Batch::Initialise()
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex),
 			(void*)offsetof(Vertex, TexUV));
 
-	glEnableVertexAttribArray(0);
-	glEnableVertexAttribArray(1);
-	glEnableVertexAttribArray(2);
-	
 	glBindVertexArray(0);
 }
 
@@ -67,10 +69,13 @@ void Batch::End()
 {
 	if (m_Glyphs.empty())
 		return;
+
 	m_SortedGlyphs.resize(m_Glyphs.size());
+
 	for (size_t i = 0; i < m_Glyphs.size(); i++) {
 		m_SortedGlyphs[i] = &m_Glyphs[i];
 	}
+
 	SortGlyphs();
 	CreateBatches();
 }
@@ -115,7 +120,6 @@ void Batch::CreateBatches()
         auto it_begin = m_SortedGlyphs[0]->GetVertices().begin();
         auto it_end = m_SortedGlyphs[0]->GetVertices().end();
 
-	vertex_data.resize(vert_total);
 	vertex_data.insert(it, it_begin, it_end);
 
 	for (size_t g = 1; g < m_SortedGlyphs.size(); g++) {
@@ -129,7 +133,7 @@ void Batch::CreateBatches()
 			m_RenderBatches.back().Vertices += num_vert;
 		}
 
-		it = vertex_data.end() - 1;
+		it = vertex_data.end();
 
 		vertex_data.insert(it, m_SortedGlyphs[g]->GetVertices().begin(),
 			m_SortedGlyphs[g]->GetVertices().end());
@@ -138,8 +142,8 @@ void Batch::CreateBatches()
 	}
 
 	glBindBuffer(GL_ARRAY_BUFFER, m_VBOID);
-	glBufferData(GL_ARRAY_BUFFER, vertex_data.size() * sizeof(Vertex), 
-			vertex_data.data(), GL_STREAM_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * vertex_data.size(), 
+			vertex_data.data(), GL_STATIC_DRAW);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 

@@ -1,4 +1,4 @@
-﻿/*
+/*
 TidyEngine
 Copyright (C) 2016 Jakob Sinclair
 
@@ -18,19 +18,17 @@ Contact the author at: jakob.sinclair99@gmail.com
 */
 
 #pragma once
-#include <GL/glew.h>
-#include <vector>
-#include "vertex.hpp"
+#include "renderable.hpp"
 
-class Renderable {
+class Rect2D : public Renderable {
 public:
-        Renderable();
-        virtual ~Renderable();
+	Rect2D();
+	Rect2D(float x, float y, float w, float h);
+	Rect2D(glm::vec2 position, glm::vec2 dimensions);
+	Rect2D(glm::vec4 rect);
+	virtual ~Rect2D();
+
+	virtual void SetRect(float x, float y, float w, float h);
 	
-	virtual void AddVertex(const Vertex &vertex);
-        virtual const std::vector<Vertex> &GetVertices();
-        virtual GLuint GetTex();
 protected:
-        std::vector<Vertex> m_Vertices;
-        GLuint m_Tex = 0;
 };

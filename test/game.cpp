@@ -39,9 +39,11 @@ bool Game::Init()
                         printf("Error: could not initialize OpenGL!\n");
                 }
         }
+        m_2DRender.GetBatch().Initialise();
 	m_2DRender.LoadShaders("default", "shader.vert", "shader.frag",
 				 {"position", "color", "uv"});
 	m_2DRender.GetShader("default")->Bind();
+	m_Rect.SetRect(0.0f, 0.0f, 1.0f, 1.0f);
 
 	return success;
 }
@@ -54,5 +56,9 @@ void Game::Update()
 void Game::DrawGame()
 {
         m_2DRender.Clear();
+        m_2DRender.GetBatch().Begin();
+        m_2DRender.GetBatch().Draw(m_Rect);
+        m_2DRender.GetBatch().End();
+        m_2DRender.GetBatch().Present();
         m_2DRender.Present(m_Screen.GetWindow());
 }
