@@ -51,7 +51,7 @@ void Game::DrawGame()
 {
 	Rect2D m_Rect;
 	m_Rect.SetRect(0.0f, 0.0f, 1.0f, 1.0f);
-	m_Rect.SetColor(0.2, 0.3, 0.4, 1.0f);
+	m_Rect.SetColor(0.2f, 0.3f, 0.4f, 1.0f);
         m_2DRender.Clear();
         m_2DRender.GetBatch().Begin();
         m_2DRender.GetBatch().Draw(m_Rect);

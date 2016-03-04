@@ -19,7 +19,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 #pragma once
 
-class GLFWwindow;
+struct GLFWwindow;
 class Shader;
 
 #include <vector>

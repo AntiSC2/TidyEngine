@@ -19,7 +19,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 #pragma once
 
-class FIBITMAP;
+struct FIBITMAP;
 
 #ifdef _WIN32
 #include <cstdint>

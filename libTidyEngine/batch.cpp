@@ -91,8 +91,8 @@ void Batch::Present()
 	glBindVertexArray(m_VAOID);
 	for (size_t i = 0; i < m_RenderBatches.size(); i++) {
 		glBindTexture(GL_TEXTURE_2D, m_RenderBatches[i].Tex);
-		glDrawArrays(GL_TRIANGLES, m_RenderBatches[i].Offset,
-				m_RenderBatches[i].Vertices);
+		glDrawArrays(GL_TRIANGLES, (GLsizei)m_RenderBatches[i].Offset,
+				(GLsizei)m_RenderBatches[i].Vertices);
 	}
 	glBindVertexArray(0);
 }

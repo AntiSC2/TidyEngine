@@ -19,9 +19,11 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 #pragma once
 
-class GLFWwindow;
+struct GLFWwindow;
 
+#ifdef _WIN32
 #include <cstdint>
+#endif
 
 class Screen {
 	public:
