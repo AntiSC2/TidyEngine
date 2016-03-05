@@ -18,6 +18,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 */
 
 #include "cache.hpp"
+#include <cstdio>
 #include "error.hpp"
 #include "iomanager.hpp"
 
@@ -47,8 +48,8 @@ const Texture &Cache::CreateTexture(std::string name, std::string filepath)
                 FreeImage_Unload(bitmap);
                 return m_Textures[name];
         } else {
-                printf("Warning: a texture with the name %s already exists!\n",
-                                name.c_str());
+		std::printf("Warning: texture %s already exists!\n",
+				name.c_str());
                 return m_Textures[name];
         }
 }
@@ -63,6 +64,6 @@ const Texture &Cache::GetTexture(std::string name)
 {
         if (m_Textures.find(name) != m_Textures.end())
                 return m_Textures[name];
-        Error e("Exception: could not find texture with the name " + name);
-        throw e;
+	std::printf("Warning: could not find texture %s!", name.c_str());
+	return m_Textures["default"];
 }

@@ -105,11 +105,6 @@ void Batch::SortGlyphs()
 
 void Batch::CreateBatches()
 {
-	uint64_t vert_total = 0;
-	
-	for (size_t g = 0; g < m_SortedGlyphs.size(); g++)
-		vert_total += m_SortedGlyphs[g]->GetVertices().size();
-	
 	std::vector<Vertex> vertex_data;
 	uint64_t offset = 0;
 	

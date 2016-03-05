@@ -19,6 +19,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 #include "error.hpp"
 #include <FreeImage.h>
+#include <cstdio>
 
 void FreeImageError(FREE_IMAGE_FORMAT fif, const char *message)
 {
@@ -26,5 +27,5 @@ void FreeImageError(FREE_IMAGE_FORMAT fif, const char *message)
 		printf("Error with %s format!\n",
 			FreeImage_GetFormatFromFIF(fif));
 	}
-	printf(message);
+	std::printf(message);
 }
