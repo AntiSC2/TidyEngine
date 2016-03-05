@@ -21,9 +21,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 struct GLFWwindow;
 
-#ifdef _WIN32
 #include <cstdint>
-#endif
 
 class Screen {
 	public:

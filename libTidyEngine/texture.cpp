@@ -18,7 +18,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 */
 
 #include "texture.hpp"
-#include <stdio.h>
+#include <cstdio>
 #include <FreeImage.h>
 
 Texture::Texture()
@@ -60,7 +60,7 @@ bool Texture::CreateTex(FIBITMAP *bitmap, bool mipmap, bool linear)
 	if (temp == nullptr) {
 		DeleteTex();
 		FreeImage_Unload(temp);
-                printf("Error: could not convert texture to 32 bits!\n");
+		std::printf("Error: could not convert texture to 32 bits!\n");
 		return false;
 	}
 	m_Width = FreeImage_GetWidth(temp);
