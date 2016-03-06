@@ -1,4 +1,4 @@
-﻿/*
+/*
 TidyEngine
 Copyright (C) 2016 Jakob Sinclair
 
@@ -19,29 +19,25 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 #pragma once
 
+class Shader;
+class Batch;
+class Renderable;
+
 #include <GL/glew.h>
-#include <vector>
-#include "renderable.hpp"
 
-class Batch {
+class Renderer {
 public:
-	Batch();
-	virtual ~Batch();
+	Renderer();
+	virtual ~Renderer();
 
-	void Initialise();
-
-	void Begin(GLuint vaoid, GLuint vboid);
-	void End();
-	void Draw(const Renderable &object);
-	void Present();
-private:
-	void SortGlyphs();
-	void CreateBatches();
-	static bool CompareTex(Renderable *a, Renderable *b);
-
-	GLuint m_VBOID = 0;
+	virtual void Initialise(Shader *shader, Batch *batch) = 0;
+	virtual void Begin();
+	virtual void Draw(const Renderable &object);
+	virtual void End();
+	virtual void Present();
+protected:
+	Shader *m_Shader = nullptr;
+	Batch *m_Batch = nullptr;
 	GLuint m_VAOID = 0;
-	std::vector<Renderable> m_Glyphs;
-	std::vector<Renderable*> m_SortedGlyphs;
-	std::vector<RenderBatch> m_RenderBatches;
+	GLuint m_VBOID = 0;
 };

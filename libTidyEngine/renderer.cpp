@@ -1,4 +1,4 @@
-﻿/*
+/*
 TidyEngine
 Copyright (C) 2016 Jakob Sinclair
 
@@ -17,31 +17,41 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 Contact the author at: jakob.sinclair99@gmail.com
 */
 
-#pragma once
-
-#include <GL/glew.h>
-#include <vector>
+#include "renderer.hpp"
+#include "shader.hpp"
+#include "batch.hpp"
 #include "renderable.hpp"
 
-class Batch {
-public:
-	Batch();
-	virtual ~Batch();
+Renderer::Renderer()
+{
+	;
+}
 
-	void Initialise();
+Renderer::~Renderer()
+{
+	if (m_VAOID != 0)
+		glDeleteVertexArrays(1, &m_VAOID);
+	if (m_VBOID != 0)
+		glDeleteBuffers(1, &m_VBOID);
+}
 
-	void Begin(GLuint vaoid, GLuint vboid);
-	void End();
-	void Draw(const Renderable &object);
-	void Present();
-private:
-	void SortGlyphs();
-	void CreateBatches();
-	static bool CompareTex(Renderable *a, Renderable *b);
+void Renderer::Begin()
+{
+	m_Shader->Bind();
+	m_Batch->Begin(m_VAOID, m_VBOID);
+}
 
-	GLuint m_VBOID = 0;
-	GLuint m_VAOID = 0;
-	std::vector<Renderable> m_Glyphs;
-	std::vector<Renderable*> m_SortedGlyphs;
-	std::vector<RenderBatch> m_RenderBatches;
-};
+void Renderer::Draw(const Renderable &object)
+{
+	m_Batch->Draw(object);
+}
+
+void Renderer::End()
+{
+	m_Batch->End();
+}
+
+void Renderer::Present()
+{
+	m_Batch->Present();
+}

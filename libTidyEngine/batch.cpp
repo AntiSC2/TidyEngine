@@ -27,41 +27,18 @@ Batch::Batch()
 
 Batch::~Batch()
 {
-	if (m_VBOID != 0)
-		glDeleteBuffers(1, &m_VBOID);
-	if (m_VAOID != 0)
-		glDeleteVertexArrays(1, &m_VAOID);
+	;
 }
 
 void Batch::Initialise()
 {
-	if (m_VBOID != 0) 
-		glDeleteBuffers(1, &m_VBOID);
-	if (m_VAOID != 0)
-		glDeleteVertexArrays(1, &m_VAOID);
-
-	glGenVertexArrays(1, &m_VAOID);
-	glBindVertexArray(m_VAOID);
-
-	glGenBuffers(1, &m_VBOID);
-	glBindBuffer(GL_ARRAY_BUFFER, m_VBOID);
-
-	glEnableVertexAttribArray(0);
-	glEnableVertexAttribArray(1);
-	glEnableVertexAttribArray(2);
-	
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex),
-			(void*)offsetof(Vertex, Position));
-	glVertexAttribPointer(1, 4, GL_FLOAT, GL_TRUE, sizeof(Vertex),
-			(void*)offsetof(Vertex, Color));
-	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex),
-			(void*)offsetof(Vertex, TexUV));
-
-	glBindVertexArray(0);
+	;
 }
 
-void Batch::Begin()
+void Batch::Begin(GLuint vaoid, GLuint vboid)
 {
+	m_VAOID = vaoid;
+	m_VBOID = vboid;
 	m_Glyphs.clear();
 	m_SortedGlyphs.clear();
 }
