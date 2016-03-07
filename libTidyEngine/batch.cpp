@@ -30,11 +30,6 @@ Batch::~Batch()
 	;
 }
 
-void Batch::Initialise()
-{
-	;
-}
-
 void Batch::Begin(GLuint vaoid, GLuint vboid)
 {
 	m_VAOID = vaoid;

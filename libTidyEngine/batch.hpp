@@ -28,8 +28,6 @@ public:
 	Batch();
 	virtual ~Batch();
 
-	void Initialise();
-
 	void Begin(GLuint vaoid, GLuint vboid);
 	void End();
 	void Draw(const Renderable &object);

@@ -20,6 +20,10 @@ Contact the author at: jakob.sinclair99@gmail.com
 #pragma once
 
 #include <GL/glew.h>
+#include <glm/vec2.hpp>
+#include <glm/vec3.hpp>
+#include <glm/vec4.hpp>
+#include <glm/mat4x4.hpp>
 #include <string>
 
 class Shader {
@@ -32,6 +36,17 @@ public:
 	void AddAttribute(const std::string &attribute);
 	bool InitProgram();
 	bool LinkProgram();
+        GLuint GetUniformLoc(const std::string &name);
+
+        void SetUniform1f(const std::string &name, float value);
+        void SetUniform1fv(const std::string &name, float *value, int count);
+        void SetUniform1i(const std::string &name, int value);
+        void SetUniform1iv(const std::string &name, int *value, int count);
+        void SetUniform2f(const std::string &name, glm::vec2 vec);
+        void SetUniform3f(const std::string &name, glm::vec3 vec);
+        void SetUniform4f(const std::string &name, glm::vec4 vec);
+        void SetUniformMat4(const std::string &name, glm::mat4 matrix);
+
 	void Bind() const;
 	void UnBind() const;
 private:

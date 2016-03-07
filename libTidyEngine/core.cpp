@@ -63,7 +63,6 @@ bool Core::InitSubSystems()
         
         }
 
-        m_2DRender.GetBatch().Initialise();
         m_2DRender.LoadShaders("default", "shader.vert", "shader.frag",
         {"position", "color", "uv"});
         m_2DRender.GetShader("default")->Bind();

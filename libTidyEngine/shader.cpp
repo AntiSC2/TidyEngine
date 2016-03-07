@@ -20,6 +20,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include "shader.hpp"
 #include "iomanager.hpp"
 #include <cstdio>
+#include <glm/gtc/type_ptr.hpp>
 
 Shader::Shader()
 {
@@ -130,6 +131,52 @@ bool Shader::CompileShader(const std::string &filepath, GLuint shader_id)
 		return false;
 	}
 	return true;
+}
+
+GLuint Shader::GetUniformLoc(const std::string &name)
+{
+        return glGetUniformLocation(m_ProgramID, name.c_str());
+}
+
+void Shader::SetUniform1f(const std::string &name, float value)
+{
+        glUniform1f(GetUniformLoc(name), value);
+}
+
+void Shader::SetUniform1fv(const std::string &name, float *value, int count)
+{
+        glUniform1fv(GetUniformLoc(name), count, value);
+}
+
+void Shader::SetUniform1i(const std::string &name, int value)
+{
+        glUniform1i(GetUniformLoc(name), value);
+}
+
+void Shader::SetUniform1iv(const std::string &name, int *value, int count)
+{
+        glUniform1iv(GetUniformLoc(name), count, value);
+}
+
+void Shader::SetUniform2f(const std::string &name, glm::vec2 vec)
+{
+        glUniform2f(GetUniformLoc(name), vec.x, vec.y);
+}
+
+void Shader::SetUniform3f(const std::string &name, glm::vec3 vec)
+{
+        glUniform3f(GetUniformLoc(name), vec.x, vec.y, vec.z);
+}
+
+void Shader::SetUniform4f(const std::string &name, glm::vec4 vec)
+{
+        glUniform4f(GetUniformLoc(name), vec.x, vec.y, vec.z, vec.w);
+}
+
+void Shader::SetUniformMat4(const std::string &name, glm::mat4 matrix)
+{
+        glUniformMatrix4fv(GetUniformLoc(name), 1, GL_FALSE,
+                        glm::value_ptr(matrix));
 }
 
 void Shader::Bind() const
