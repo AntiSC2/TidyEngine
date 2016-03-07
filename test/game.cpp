@@ -33,12 +33,6 @@ Game::~Game()
 bool Game::Init()
 {
 	bool success = true;
-	
-        m_2DRender.GetBatch().Initialise();
-	m_2DRender.LoadShaders("default", "shader.vert", "shader.frag",
-				 {"position", "color", "uv"});
-	m_2DRender.GetShader("default")->Bind();
-
 	return success;
 }
 
@@ -53,9 +47,9 @@ void Game::DrawGame()
 	m_Rect.SetRect(0.0f, 0.0f, 1.0f, 1.0f);
 	m_Rect.SetColor(0.2f, 0.3f, 0.4f, 1.0f);
         m_2DRender.Clear();
-        m_2DRender.GetBatch().Begin();
-        m_2DRender.GetBatch().Draw(m_Rect);
-        m_2DRender.GetBatch().End();
-        m_2DRender.GetBatch().Present();
+        m_DrawSprite.Begin();
+        m_DrawSprite.Draw(m_Rect);
+        m_DrawSprite.End();
+        m_DrawSprite.Present();
         m_2DRender.Present(m_Screen.GetWindow());
 }

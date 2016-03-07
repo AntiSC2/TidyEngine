@@ -20,6 +20,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include "core.hpp"
 #include <GLFW/glfw3.h>
 #include <FreeImage.h>
+#include "shader.hpp"
 #include "error.hpp"
 #include "cache.hpp"
 #include "config.hpp"
@@ -62,7 +63,15 @@ bool Core::InitSubSystems()
         
         }
 
-	Resources.CreateTexture("default", "default.png");
+        m_2DRender.GetBatch().Initialise();
+        m_2DRender.LoadShaders("default", "shader.vert", "shader.frag",
+        {"position", "color", "uv"});
+        m_2DRender.GetShader("default")->Bind();
+
+        m_DrawSprite.Initialise(m_2DRender.GetShader("default"),
+                        &m_2DRender.GetBatch());
+	
+        Resources.CreateTexture("default", "default.png");
 
         printf("TidyEngine Version: %d.%d\n",
                TidyEngine_VERSION_MAJOR, TidyEngine_VERSION_MINOR);

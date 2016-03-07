@@ -23,7 +23,6 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include <cstdio>
 #include "error.hpp"
 #include "shader.hpp"
-#include "renderer.hpp"
 
 Render2D::Render2D()
 {
@@ -33,22 +32,6 @@ Render2D::Render2D()
 Render2D::~Render2D()
 {
 	m_Shaders.clear();
-}
-
-void Render2D::AddNewRenderer(Renderer *renderer, std::string shader)
-{
-	if (renderer == nullptr) {
-		std::printf("Warning: render pointer was null!\n")
-		return;
-	} else if (m_Shaders.find(shader) == m_Shaders.end()) {
-		std::printf("Warning: could not find shader %s!\n",
-				shader.c_str());
-		delete renderer;
-		return;
-	}
-
-	renderer->Initialise(m_Shaders[shader].get(), m_Batch);
-	m_Renderers.emplace_back(renderer);
 }
 
 void Render2D::LoadShaders(std::string name, std::string v, std::string f,
@@ -69,7 +52,7 @@ void Render2D::LoadShaders(std::string name, std::string v, std::string f,
 	}
 }
 
-const Shader *Render2D::GetShader(std::string name)
+Shader *Render2D::GetShader(std::string name)
 {
         if (m_Shaders.find(name) != m_Shaders.end())
                 return m_Shaders[name].get();

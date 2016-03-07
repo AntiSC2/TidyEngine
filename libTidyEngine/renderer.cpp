@@ -37,7 +37,7 @@ Renderer::~Renderer()
 
 void Renderer::Begin()
 {
-	m_Shader->Bind();
+        m_Shader->Bind();
 	m_Batch->Begin(m_VAOID, m_VBOID);
 }
 

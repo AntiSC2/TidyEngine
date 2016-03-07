@@ -26,7 +26,12 @@ SpriteRenderer::SpriteRenderer()
 	;	
 }
 
-void SpriteRenderer::Initialise(Shader *shader, Batch * batch)
+SpriteRenderer::~SpriteRenderer()
+{
+        ;
+}
+
+void SpriteRenderer::Initialise(Shader *shader, Batch *batch)
 {
 	m_Shader = shader;
 	m_Batch = batch;
@@ -54,5 +59,4 @@ void SpriteRenderer::Initialise(Shader *shader, Batch * batch)
 			(void*)offsetof(Vertex, TexUV));
 
 	glBindVertexArray(0);
-
 }

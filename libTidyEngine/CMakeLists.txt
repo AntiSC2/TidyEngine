@@ -24,6 +24,8 @@ set(SOURCE
 	${CMAKE_CURRENT_SOURCE_DIR}/iomanager.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/cache.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/rect2d.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/renderer.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/spriterenderer.cpp
 )
 set(HEADERS
         ${HEADERS}
@@ -39,6 +41,8 @@ set(HEADERS
 	${CMAKE_CURRENT_SOURCE_DIR}/iomanager.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/cache.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/rect2d.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/renderer.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/spriterenderer.hpp
 )
 
 if(WIN32)
