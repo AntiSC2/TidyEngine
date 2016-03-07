@@ -27,5 +27,4 @@ public:
 	virtual ~SpriteRenderer();
 
 	virtual void Initialise(Shader *shader, Batch *batch);
-protected:
 };
