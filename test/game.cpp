@@ -19,6 +19,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "game.hpp"
 #include <GLFW/glfw3.h>
 #include "shader.hpp"
+#include "screen.hpp"
+#include "rect2d.hpp"
+
 
 Game::Game()
 {
@@ -33,23 +36,25 @@ Game::~Game()
 bool Game::Init()
 {
 	bool success = true;
+        m_Camera.Initialise(1280, 720);
 	return success;
 }
 
 void Game::Update()
 {
         glfwPollEvents();
+        m_Camera.Update();
 }
 
 void Game::DrawGame()
 {
 	Rect2D m_Rect;
-	m_Rect.SetRect(0.0f, 0.0f, 1.0f, 1.0f);
+	m_Rect.SetRect(0, 0, 1280.0f, 700.0f);
 	m_Rect.SetColor(0.2f, 0.3f, 0.4f, 1.0f);
         m_2DRender.Clear();
         m_DrawSprite.Begin();
         m_DrawSprite.Draw(m_Rect);
         m_DrawSprite.End();
-        m_DrawSprite.Present();
+        m_DrawSprite.Present(m_Camera);
         m_2DRender.Present(m_Screen.GetWindow());
 }

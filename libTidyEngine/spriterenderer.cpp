@@ -20,6 +20,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include "spriterenderer.hpp"
 #include "shader.hpp"
 #include "batch.hpp"
+#include "camera2d.hpp"
 
 SpriteRenderer::SpriteRenderer()
 {
@@ -59,4 +60,12 @@ void SpriteRenderer::Initialise(Shader *shader, Batch *batch)
 			(void*)offsetof(Vertex, TexUV));
 
 	glBindVertexArray(0);
+}
+
+void SpriteRenderer::Present(const Camera2D &camera)
+{
+        m_Shader->SetUniformMat4("projection", camera.GetProj());
+        m_Shader->SetUniformMat4("view", camera.GetView());
+        m_Shader->SetUniformMat4("model", camera.GetModel());
+        m_Batch->Present();
 }

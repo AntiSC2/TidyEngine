@@ -16,6 +16,7 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 Contact the author at: jakob.sinclair99@gmail.com
 */
+
 #include <glm/vec2.hpp>
 #include <glm/mat4x4.hpp>
 #include <cstdint>

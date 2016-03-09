@@ -18,8 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 #include "core.hpp"
-#include "screen.hpp"
-#include "rect2d.hpp"
+#include "camera2d.hpp"
 
 class Game : public Core {
 	public:
@@ -29,4 +28,6 @@ class Game : public Core {
 		bool Init();
 		void Update();
 		void DrawGame();
+
+                Camera2D m_Camera;
 };
