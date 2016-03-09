@@ -26,6 +26,7 @@ set(SOURCE
 	${CMAKE_CURRENT_SOURCE_DIR}/rect2d.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/renderer.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/spriterenderer.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/camera2d.cpp
 )
 set(HEADERS
         ${HEADERS}
@@ -43,6 +44,7 @@ set(HEADERS
 	${CMAKE_CURRENT_SOURCE_DIR}/rect2d.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/renderer.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/spriterenderer.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/camera2d.hpp
 )
 
 if(WIN32)
