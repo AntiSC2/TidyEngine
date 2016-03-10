@@ -29,7 +29,10 @@ SpriteRenderer::SpriteRenderer()
 
 SpriteRenderer::~SpriteRenderer()
 {
-        ;
+        if (m_VAOID != 0)
+                glDeleteVertexArrays(1, &m_VAOID);
+        if (m_VBOID != 0)
+                glDeleteBuffers(1, &m_VBOID);
 }
 
 void SpriteRenderer::Initialise(Shader *shader, Batch *batch)
