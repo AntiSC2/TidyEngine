@@ -20,7 +20,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 int main(int argc, char **argv)
 {
-	Game g;
-	g.Run();
-	return 0;
+        try {
+                Game g;
+                g.Run();
+                return 0;
+        }
+        catch (std::exception &e) {
+                std::printf("%s", e.what());
+        }
+	return -1;
 }

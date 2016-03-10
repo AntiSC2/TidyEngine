@@ -23,7 +23,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include <string>
 #include <FreeImage.h>
 
-class Error : std::exception {
+class Error : public std::exception {
 public:
 	Error()
 	{
