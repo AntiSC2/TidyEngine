@@ -36,6 +36,7 @@ void Batch::Begin(GLuint vaoid, GLuint vboid)
 	m_VBOID = vboid;
 	m_Glyphs.clear();
 	m_SortedGlyphs.clear();
+        m_RenderBatches.clear();
 }
 
 void Batch::End()
@@ -45,9 +46,8 @@ void Batch::End()
 
 	m_SortedGlyphs.resize(m_Glyphs.size());
 
-	for (size_t i = 0; i < m_Glyphs.size(); i++) {
+	for (size_t i = 0; i < m_Glyphs.size(); i++)
 		m_SortedGlyphs[i] = &m_Glyphs[i];
-	}
 
 	SortGlyphs();
 	CreateBatches();
@@ -77,6 +77,9 @@ void Batch::SortGlyphs()
 
 void Batch::CreateBatches()
 {
+        uint32_t num_vert = 0;
+        for (size_t i = 0; i < m_SortedGlyphs.size(); i++)
+                num_vert += m_SortedGlyphs[i]->GetVertices().size();
 	std::vector<Vertex> vertex_data;
 	uint64_t offset = 0;
 	
@@ -84,11 +87,9 @@ void Batch::CreateBatches()
 			m_SortedGlyphs[0]->GetVertices().size(), offset);
 	offset += m_RenderBatches[0].Vertices;
 
-	auto it = vertex_data.end();
-        auto it_begin = m_SortedGlyphs[0]->GetVertices().begin();
-        auto it_end = m_SortedGlyphs[0]->GetVertices().end();
-
-	vertex_data.insert(it, it_begin, it_end);
+        vertex_data.resize(num_vert);
+        for (size_t i = 0; i < m_SortedGlyphs[0]->GetVertices().size(); i++)
+                vertex_data[i] = m_SortedGlyphs[0]->GetVertices()[i];
 
 	for (size_t g = 1; g < m_SortedGlyphs.size(); g++) {
 		GLuint temp_tex = m_SortedGlyphs[g]->GetTex();
@@ -101,17 +102,15 @@ void Batch::CreateBatches()
 			m_RenderBatches.back().Vertices += num_vert;
 		}
 
-		it = vertex_data.end();
-
-		vertex_data.insert(it, m_SortedGlyphs[g]->GetVertices().begin(),
-			m_SortedGlyphs[g]->GetVertices().end());
-
+                for (size_t i = 0; i < m_SortedGlyphs[g]->GetVertices().size();
+                                i++)
+                        vertex_data[i] = m_SortedGlyphs[g]->GetVertices()[i];
 		offset += num_vert;
 	}
 
 	glBindBuffer(GL_ARRAY_BUFFER, m_VBOID);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * vertex_data.size(), 
-			vertex_data.data(), GL_STATIC_DRAW);
+			vertex_data.data(), GL_STREAM_DRAW);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
