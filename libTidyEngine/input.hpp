@@ -1,4 +1,5 @@
-/*
+﻿/*
+TidyEngine
 Copyright (C) 2016 Jakob Sinclair
 
 This program is free software: you can redistribute it and/or modify
@@ -13,51 +14,23 @@ GNU Lesser General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Contact the author at: jakob.sinclair99@gmail.com
 */
 
+#pragma once
 
-#include "game.hpp"
 #include <GLFW/glfw3.h>
-#include "shader.hpp"
-#include "screen.hpp"
-#include "rect2d.hpp"
 
+class Input {
+public:
+        Input();
+        ~Input();
 
-Game::Game()
-{
-	;
-}
-
-Game::~Game()
-{
-        ;
-}
-
-bool Game::Init()
-{
-	bool success = true;
-        m_Camera.Initialise(1280, 720);
-	return success;
-}
-
-void Game::Update()
-{
-        m_Camera.Update();
-}
-
-void Game::DrawGame()
-{
-	Rect2D m_Rect;
-	m_Rect.SetRect(0.0f, 0.0f, 100.0f, 100.0f);
-	m_Rect.SetColor(0.2f, 0.3f, 0.4f, 1.0f);
-
-        m_2DRender.Clear();
-
-        m_DrawSprite.Begin();
-        for(uint8_t i = 0; i < 100; i++)
-                m_DrawSprite.Draw(m_Rect);
-        m_DrawSprite.End();
-        m_DrawSprite.Present(m_Camera);
-
-        m_2DRender.Present(m_Screen.GetWindow());
-}
+        void Initialise(GLFWwindow *window);
+        void Update();
+        static void Process(GLFWwindow *window, int key, int scancode, int action,
+                        int mode);
+        bool GetKey(int key);
+private:
+        static bool m_Keys[1024];
+};
