@@ -32,5 +32,5 @@ public:
                         int mode);
         bool GetKey(int key);
 private:
-        static bool m_Keys[1024];
+        static bool m_Keys[350];
 };

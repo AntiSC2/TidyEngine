@@ -21,9 +21,11 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include <cstdint>
 #include <cstdio>
 
+bool Input::m_Keys[350];
+
 Input::Input()
 {
-        for (uint16_t i = 0; i < 1024; i++)
+        for (uint16_t i = 0; i < 350; i++)
                 m_Keys[i] = false;
 }
 
@@ -58,7 +60,7 @@ void Input::Process(GLFWwindow *window, int key, int scancode, int action,
 
 bool Input::GetKey(int key)
 {
-        if (key < 0 || key >= 1024) {
+        if (key < 0 || key >= 350) {
                 std::printf("Warning: key unknown!\n");
                 return false;
         }

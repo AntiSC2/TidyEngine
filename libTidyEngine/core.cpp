@@ -71,6 +71,8 @@ bool Core::InitSubSystems()
                         &m_2DRender.GetBatch());
 	
         Resources.CreateTexture("default", "default.png");
+        
+        m_Input.Initialise(m_Screen.GetWindow());
 
         printf("TidyEngine Version: %d.%d\n",
                TidyEngine_VERSION_MAJOR, TidyEngine_VERSION_MINOR);

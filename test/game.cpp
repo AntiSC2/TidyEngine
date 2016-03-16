@@ -42,7 +42,10 @@ bool Game::Init()
 
 void Game::Update()
 {
+        m_Input.Update();
         m_Camera.Update();
+        if (m_Input.GetKey(GLFW_KEY_ESCAPE))
+                glfwSetWindowShouldClose(m_Screen.GetWindow(), GL_TRUE);
 }
 
 void Game::DrawGame()

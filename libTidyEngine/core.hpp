@@ -20,6 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "screen.hpp"
 #include "render2d.hpp"
 #include "spriterenderer.hpp"
+#include "input.hpp"
 
 class Core {
 	public:
@@ -39,4 +40,5 @@ class Core {
                 Screen m_Screen;
                 Render2D m_2DRender;
                 SpriteRenderer m_DrawSprite;
+                Input m_Input;
 };
