@@ -15,13 +15,11 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 #include "game.hpp"
 #include <GLFW/glfw3.h>
 #include "shader.hpp"
 #include "screen.hpp"
 #include "rect2d.hpp"
-
 
 Game::Game()
 {
