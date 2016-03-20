@@ -52,7 +52,7 @@ void Game::DrawGame()
 	m_Rect.SetRect(0.0f, 0.0f, 100.0f, 100.0f);
 	m_Rect.SetColor(0.2f, 0.3f, 0.4f, 1.0f);
 
-        m_2DRender.Clear();
+        m_Render.Clear();
 
         m_DrawSprite.Begin();
         for(uint8_t i = 0; i < 100; i++)
@@ -60,5 +60,5 @@ void Game::DrawGame()
         m_DrawSprite.End();
         m_DrawSprite.Present(m_Camera);
 
-        m_2DRender.Present(m_Screen.GetWindow());
+        m_Render.Present(m_Screen.GetWindow());
 }

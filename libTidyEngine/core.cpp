@@ -63,12 +63,10 @@ bool Core::InitSubSystems()
         
         }
 
-        m_2DRender.LoadShaders("default", "shader.vert", "shader.frag",
+        m_Render.LoadShaders("default", "shader.vert", "shader.frag",
         {"position", "color", "uv"});
-        m_2DRender.GetShader("default")->Bind();
-
-        m_DrawSprite.Initialise(m_2DRender.GetShader("default"),
-                        &m_2DRender.GetBatch());
+        m_DrawSprite.Initialise(m_Render.GetShader("default"),
+                        &m_Render.GetBatch());
 	
         Resources.CreateTexture("default", "default.png");
         

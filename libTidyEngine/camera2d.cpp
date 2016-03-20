@@ -48,7 +48,7 @@ void Camera2D::Initialise(uint16_t width, uint16_t height)
                         m_Position.y + m_Height / 2, 0.0f);
         m_View = glm::translate(m_View, translate);
 
-        glm::vec3 scale = glm::vec3(m_Scale, -m_Scale, 0.0f);
+        glm::vec3 scale = glm::vec3(m_Scale, -m_Scale, m_Scale);
         m_Model = glm::scale(glm::mat4(1.0f), scale);
         m_Update = false;
 }

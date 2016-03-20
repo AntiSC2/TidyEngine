@@ -17,24 +17,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 Contact the author at: jakob.sinclair99@gmail.com
 */
 
-#include "render2d.hpp"
+#include "render.hpp"
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <cstdio>
 #include "error.hpp"
 #include "shader.hpp"
 
-Render2D::Render2D()
+Render::Render()
 {
 	;
 }
 
-Render2D::~Render2D()
+Render::~Render()
 {
 	m_Shaders.clear();
 }
 
-void Render2D::LoadShaders(std::string name, std::string v, std::string f,
+void Render::LoadShaders(std::string name, std::string v, std::string f,
 		std::vector<std::string> attributes)
 {
         m_Shaders[name] = std::unique_ptr<Shader>(new Shader(v, f));
@@ -52,7 +52,7 @@ void Render2D::LoadShaders(std::string name, std::string v, std::string f,
 	}
 }
 
-Shader *Render2D::GetShader(std::string name)
+Shader *Render::GetShader(std::string name)
 {
         if (m_Shaders.find(name) != m_Shaders.end())
                 return m_Shaders[name].get();
@@ -62,17 +62,17 @@ Shader *Render2D::GetShader(std::string name)
         return nullptr;
 }
 
-Batch &Render2D::GetBatch()
+Batch &Render::GetBatch()
 {
 	return m_Batch;
 }
 
-void Render2D::Clear()
+void Render::Clear()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-void Render2D::Present(GLFWwindow *window)
+void Render::Present(GLFWwindow *window)
 {
 	glfwSwapBuffers(window);
 }

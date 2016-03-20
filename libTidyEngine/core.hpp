@@ -18,7 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 #include "screen.hpp"
-#include "render2d.hpp"
+#include "render.hpp"
 #include "spriterenderer.hpp"
 #include "input.hpp"
 
@@ -38,7 +38,7 @@ class Core {
 
 		bool m_Initialized = false;
                 Screen m_Screen;
-                Render2D m_2DRender;
+                Render m_Render;
                 SpriteRenderer m_DrawSprite;
                 Input m_Input;
 };

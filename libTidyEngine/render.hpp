@@ -28,10 +28,10 @@ class Shader;
 #include <string>
 #include "batch.hpp"
 
-class Render2D {
+class Render {
 public:
-	Render2D();
-	~Render2D();
+	Render();
+	~Render();
 
 	void LoadShaders(std::string name, std::string v, std::string f,
 			std::vector<std::string> attributes = {});
