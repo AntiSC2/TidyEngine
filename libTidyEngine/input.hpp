@@ -20,6 +20,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 #pragma once
 
 #include <GLFW/glfw3.h>
+#include <glm/vec2.hpp>
 
 class Input {
 public:
@@ -28,9 +29,13 @@ public:
 
         void Initialise(GLFWwindow *window);
         void Update();
-        static void Process(GLFWwindow *window, int key, int scancode, int action,
-                        int mode);
+        static void Process(GLFWwindow *window, int key, int scancode,
+                        int action, int mode);
+        static void MouseProcess(GLFWwindow *window, double xpos, double ypos);
         bool GetKey(int key);
+        const glm::vec2 &GetMousePos();
+        bool GetMousePress();
 private:
         static bool m_Keys[350];
+        static glm::vec2 m_MousePos;
 };

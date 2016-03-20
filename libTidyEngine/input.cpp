@@ -22,6 +22,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include <cstdio>
 
 bool Input::m_Keys[350];
+glm::vec2 Input::m_MousePos = glm::vec2(0.0f, 0.0f);
 
 Input::Input()
 {
@@ -37,6 +38,7 @@ Input::~Input()
 void Input::Initialise(GLFWwindow *window)
 {
         glfwSetKeyCallback(window, Process);
+        glfwSetCursorPosCallback(window, MouseProcess);
 }
 
 void Input::Update()
@@ -58,6 +60,11 @@ void Input::Process(GLFWwindow *window, int key, int scancode, int action,
                 m_Keys[key] = false;
 }
 
+void Input::MouseProcess(GLFWwindow *window, double xpos, double ypos)
+{
+        m_MousePos = glm::vec2(xpos, ypos);
+}
+
 bool Input::GetKey(int key)
 {
         if (key < 0 || key >= 350) {
@@ -65,4 +72,9 @@ bool Input::GetKey(int key)
                 return false;
         }
         return m_Keys[key];
+}
+
+const glm::vec2 &Input::GetMousePos()
+{
+        return m_MousePos;
 }
