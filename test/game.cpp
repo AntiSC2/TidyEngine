@@ -44,6 +44,8 @@ void Game::Update()
         m_Camera.Update();
         if (m_Input.GetKey(GLFW_KEY_ESCAPE))
                 glfwSetWindowShouldClose(m_Screen.GetWindow(), GL_TRUE);
+        if (m_Input.GetMouseButton(GLFW_MOUSE_BUTTON_LEFT))
+                printf("Left mouse button was pressed!\n");
 }
 
 void Game::DrawGame()
