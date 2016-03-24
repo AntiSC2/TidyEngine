@@ -65,10 +65,12 @@ void SpriteRenderer::Initialise(Shader *shader, Batch *batch)
 	glBindVertexArray(0);
 }
 
-void SpriteRenderer::Present(const Camera2D &camera)
+void SpriteRenderer::Present(const Camera2D *camera)
 {
-        m_Shader->SetUniformMat4("projection", camera.GetProj());
-        m_Shader->SetUniformMat4("view", camera.GetView());
-        m_Shader->SetUniformMat4("model", camera.GetModel());
+        if (camera != nullptr) {
+                m_Shader->SetUniformMat4("projection", camera->GetProj());
+                m_Shader->SetUniformMat4("view", camera->GetView());
+                m_Shader->SetUniformMat4("model", camera->GetModel());
+        }
         m_Batch->Present();
 }

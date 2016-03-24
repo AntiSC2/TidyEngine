@@ -1,4 +1,5 @@
 ﻿/*
+TidyEngine
 Copyright (C) 2016 Jakob Sinclair
 
 This program is free software: you can redistribute it and/or modify
@@ -13,34 +14,29 @@ GNU Lesser General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Contact the author at: jakob.sinclair99@gmail.com
 */
 
 #pragma once
 
-#include "screen.hpp"
-#include "render.hpp"
-#include "spriterenderer.hpp"
-#include "input.hpp"
-#include "objectmanager.hpp"
+class Object;
+class Renderer;
 
-class Core {
-	public:
-		Core();
-		virtual ~Core();
+#include <memory>
+#include <vector>
+#include "camera2d.hpp"
 
-                virtual void Run();
-	protected:
-		virtual bool InitSubSystems();
-		virtual bool Init() = 0;
-		virtual void GameLoop();
-		virtual void Update() = 0;
-		virtual void DrawGame() = 0;
-		virtual void Quit();
-
-		bool m_Initialized = false;
-                Screen m_Screen;
-                Render m_Render;
-                SpriteRenderer m_DrawSprite;
-                Input m_Input;
-                ObjectManager m_ObjectManager;
+class ObjectManager {
+public:
+        ObjectManager();
+        virtual ~ObjectManager();
+        
+        virtual void Update();
+        virtual void Draw(Renderer *renderer);
+        virtual void AddObject(Object *object);
+        virtual void SetCamera(Camera2D *camera);
+        virtual const Camera2D *GetCamera();
+protected:
+        std::vector<std::unique_ptr<Object>> m_Objects;
+        Camera2D *m_CurrentCamera = nullptr;
 };

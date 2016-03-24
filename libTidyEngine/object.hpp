@@ -21,6 +21,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 #include <glm/vec3.hpp>
 #include <string>
+#include "renderable.hpp"
 
 class Object {
 public:
@@ -31,11 +32,13 @@ public:
         virtual ~Object();
         
         virtual void Update();
-        virtual void Draw();
+        virtual const Renderable *Draw();
 
+        void SetName(std::string name);
         void SetScript(std::string script);
 protected:
         std::string m_Name;
         std::string m_Script;
         glm::vec3 m_Position = glm::vec3(0.0f, 0.0f, 0.0f);
+        Renderable m_Empty;
 };

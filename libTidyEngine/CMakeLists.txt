@@ -29,6 +29,7 @@ set(SOURCE
 	${CMAKE_CURRENT_SOURCE_DIR}/camera2d.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/input.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/object.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/objectmanager.cpp
 )
 set(HEADERS
         ${HEADERS}
@@ -49,6 +50,7 @@ set(HEADERS
 	${CMAKE_CURRENT_SOURCE_DIR}/camera2d.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/input.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/object.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/objectmanager.hpp
 )
 
 if(WIN32)

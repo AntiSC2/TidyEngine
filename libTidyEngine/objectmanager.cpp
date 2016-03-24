@@ -1,4 +1,4 @@
-/*
+﻿/*
 TidyEngine
 Copyright (C) 2016 Jakob Sinclair
 
@@ -17,29 +17,48 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 Contact the author at: jakob.sinclair99@gmail.com
 */
 
+#pragma once
+
+#include "objectmanager.hpp"
 #include "object.hpp"
+#include "renderer.hpp"
 
-Object::~Object()
+ObjectManager::ObjectManager()
 {
         ;
 }
 
-void Object::Update()
+ObjectManager::~ObjectManager()
 {
         ;
 }
 
-const Renderable *Object::Draw()
+void ObjectManager::AddObject(Object *object)
 {
-        return nullptr;
+        m_Objects.emplace_back(object);
 }
 
-void Object::SetName(std::string name)
+void ObjectManager::Update()
 {
-        m_Name = name;
+        for (size_t i = 0; i < m_Objects.size(); i++)
+                m_Objects[i]->Update();
 }
 
-void Object::SetScript(std::string script)
+void ObjectManager::Draw(Renderer *renderer)
 {
-        m_Script = script;
+        for (size_t i = 0; i < m_Objects.size(); i++) {
+                if (m_Objects[i]->Draw() != nullptr) {
+                        renderer->Draw(*(m_Objects[i]->Draw()));
+                }
+        }
+}
+
+void ObjectManager::SetCamera(Camera2D *camera)
+{
+        m_CurrentCamera = camera;
+}
+
+const Camera2D *ObjectManager::GetCamera()
+{
+        return m_CurrentCamera;
 }

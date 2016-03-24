@@ -20,6 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "shader.hpp"
 #include "screen.hpp"
 #include "rect2d.hpp"
+#include "camera2d.hpp"
 
 Game::Game()
 {
@@ -33,34 +34,31 @@ Game::~Game()
 
 bool Game::Init()
 {
-	bool success = true;
-        m_Camera.Initialise(1280, 720);
-	return success;
+        Camera2D *temp = new Camera2D();
+        temp->Initialise(1280, 720);
+        m_ObjectManager.SetCamera(temp);
+        m_ObjectManager.AddObject(temp);
+        temp = nullptr;
+
+	return true;
 }
 
 void Game::Update()
 {
         m_Input.Update();
-        m_Camera.Update();
+        m_ObjectManager.Update();
         if (m_Input.GetKey(GLFW_KEY_ESCAPE))
                 glfwSetWindowShouldClose(m_Screen.GetWindow(), GL_TRUE);
-        if (m_Input.GetMouseButton(GLFW_MOUSE_BUTTON_LEFT))
-                printf("Left mouse button was pressed!\n");
 }
 
 void Game::DrawGame()
 {
-	Rect2D m_Rect;
-	m_Rect.SetRect(0.0f, 0.0f, 100.0f, 100.0f);
-	m_Rect.SetColor(0.2f, 0.3f, 0.4f, 1.0f);
-
         m_Render.Clear();
 
         m_DrawSprite.Begin();
-        for(uint8_t i = 0; i < 100; i++)
-                m_DrawSprite.Draw(m_Rect);
+        m_ObjectManager.Draw(&m_DrawSprite);
         m_DrawSprite.End();
-        m_DrawSprite.Present(m_Camera);
+        m_DrawSprite.Present(m_ObjectManager.GetCamera());
 
         m_Render.Present(m_Screen.GetWindow());
 }
