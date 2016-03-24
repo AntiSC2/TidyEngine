@@ -1,4 +1,5 @@
-TidyEngine, a game engine made for personal use
+﻿/*
+TidyEngine
 Copyright (C) 2016 Jakob Sinclair
 
 This program is free software: you can redistribute it and/or modify
@@ -14,3 +15,31 @@ GNU Lesser General Public License for more details.
 You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 Contact the author at: jakob.sinclair99@gmail.com
+*/
+
+#include "renderable.hpp"
+
+Renderable::Renderable()
+{
+        ;
+}
+
+Renderable::~Renderable()
+{
+        ;
+}
+
+void Renderable::AddVertex(const Vertex& vertex)
+{
+	m_Vertices.push_back(vertex);
+}
+
+const std::vector<Vertex> &Renderable::GetVertices()
+{
+        return m_Vertices;
+}
+
+GLuint Renderable::GetTex()
+{
+        return m_Tex;
+}

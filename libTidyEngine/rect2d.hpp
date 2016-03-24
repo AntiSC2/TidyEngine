@@ -1,4 +1,5 @@
-TidyEngine, a game engine made for personal use
+/*
+TidyEngine
 Copyright (C) 2016 Jakob Sinclair
 
 This program is free software: you can redistribute it and/or modify
@@ -14,3 +15,23 @@ GNU Lesser General Public License for more details.
 You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 Contact the author at: jakob.sinclair99@gmail.com
+*/
+
+#pragma once
+
+#include "renderable.hpp"
+
+class Rect2D : public Renderable {
+public:
+	Rect2D();
+	Rect2D(float x, float y, float w, float h);
+	Rect2D(glm::vec2 position, glm::vec2 dimensions);
+	Rect2D(glm::vec4 rect);
+	virtual ~Rect2D();
+
+	virtual void SetRect(float x, float y, float w, float h);
+	virtual void SetColor(glm::vec4 color);
+	virtual void SetColor(float r, float g, float b, float a);
+protected:
+	glm::vec4 m_Color = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
+};

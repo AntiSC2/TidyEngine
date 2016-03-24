@@ -1,4 +1,4 @@
-TidyEngine, a game engine made for personal use
+﻿/*
 Copyright (C) 2016 Jakob Sinclair
 
 This program is free software: you can redistribute it and/or modify
@@ -13,4 +13,32 @@ GNU Lesser General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
-Contact the author at: jakob.sinclair99@gmail.com
+*/
+
+#pragma once
+
+#include "screen.hpp"
+#include "render.hpp"
+#include "spriterenderer.hpp"
+#include "input.hpp"
+
+class Core {
+	public:
+		Core();
+		virtual ~Core();
+
+                virtual void Run();
+	protected:
+		virtual bool InitSubSystems();
+		virtual bool Init() = 0;
+		virtual void GameLoop();
+		virtual void Update() = 0;
+		virtual void DrawGame() = 0;
+		virtual void Quit();
+
+		bool m_Initialized = false;
+                Screen m_Screen;
+                Render m_Render;
+                SpriteRenderer m_DrawSprite;
+                Input m_Input;
+};

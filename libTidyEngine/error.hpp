@@ -1,4 +1,5 @@
-TidyEngine, a game engine made for personal use
+/*
+TidyEngine
 Copyright (C) 2016 Jakob Sinclair
 
 This program is free software: you can redistribute it and/or modify
@@ -14,3 +15,31 @@ GNU Lesser General Public License for more details.
 You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 Contact the author at: jakob.sinclair99@gmail.com
+*/
+
+#pragma once
+
+#include <exception>
+#include <string>
+#include <FreeImage.h>
+
+class Error : public std::exception {
+public:
+	Error()
+	{
+		;
+	}
+	Error(std::string s)
+	{
+		text = s;
+	}
+
+	virtual const char *what()
+	{
+		return text.c_str();
+	}
+private:
+	std::string text = "";
+};
+
+void FreeImageError(FREE_IMAGE_FORMAT fif, const char *message);

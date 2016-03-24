@@ -1,4 +1,5 @@
-TidyEngine, a game engine made for personal use
+/*
+TidyEngine
 Copyright (C) 2016 Jakob Sinclair
 
 This program is free software: you can redistribute it and/or modify
@@ -14,3 +15,35 @@ GNU Lesser General Public License for more details.
 You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 Contact the author at: jakob.sinclair99@gmail.com
+*/
+
+#pragma once
+
+#ifdef _WIN32
+#include <cstdint>
+#endif
+
+#include <GL/glew.h>
+#include <glm/vec3.hpp>
+#include <glm/vec4.hpp>
+#include <glm/vec2.hpp>
+
+class Vertex {
+public:
+	glm::vec3 Position = glm::vec3(0.0f, 0.0f, 0.0f);
+	glm::vec4 Color = glm::vec4(0.0f, 0.0f, 0.0f, 0.0f);
+        glm::vec2 TexUV = glm::vec2(0.0f, 0.0f);
+};
+
+class RenderBatch {
+public:
+	RenderBatch(GLuint tex, uint64_t vertices, uint64_t offset) : Tex(tex),
+			Vertices(vertices), Offset(offset)
+	{
+		;
+	}
+
+	GLuint Tex = 0;
+	uint64_t Vertices = 0;
+	uint64_t Offset = 0;
+};

@@ -1,4 +1,5 @@
-TidyEngine, a game engine made for personal use
+﻿/*
+TidyEngine
 Copyright (C) 2016 Jakob Sinclair
 
 This program is free software: you can redistribute it and/or modify
@@ -14,3 +15,31 @@ GNU Lesser General Public License for more details.
 You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 Contact the author at: jakob.sinclair99@gmail.com
+*/
+
+#pragma once
+
+struct GLFWwindow;
+
+#include <cstdint>
+
+class Screen {
+	public:
+		Screen();
+		~Screen();
+
+		uint16_t GetWidth();
+		uint16_t GetHeight();
+		const char *GetTitle();
+                GLFWwindow *GetWindow();
+		bool CreateWindow(uint16_t width, uint16_t height,
+				const char* title, 
+				int gl_major, int gl_minor);
+                bool InitGL();
+                void DestroyWindow();
+	private:
+		uint16_t m_Width = 0;
+		uint16_t m_Height = 0;
+		char *m_Title = nullptr;
+                GLFWwindow *m_Window = nullptr;
+};

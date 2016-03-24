@@ -1,4 +1,5 @@
-TidyEngine, a game engine made for personal use
+/*
+TidyEngine
 Copyright (C) 2016 Jakob Sinclair
 
 This program is free software: you can redistribute it and/or modify
@@ -14,3 +15,29 @@ GNU Lesser General Public License for more details.
 You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 Contact the author at: jakob.sinclair99@gmail.com
+*/
+
+#pragma once
+
+class Shader;
+class Batch;
+class Renderable;
+
+#include <GL/glew.h>
+
+class Renderer {
+public:
+	Renderer();
+	virtual ~Renderer();
+
+	virtual void Initialise(Shader *shader, Batch *batch) = 0;
+	virtual void Begin();
+	virtual void Draw(const Renderable &object);
+	virtual void End();
+	virtual void Present();
+protected:
+	Shader *m_Shader = nullptr;
+	Batch *m_Batch = nullptr;
+	GLuint m_VAOID = 0;
+	GLuint m_VBOID = 0;
+};

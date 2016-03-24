@@ -1,4 +1,5 @@
-TidyEngine, a game engine made for personal use
+/*
+TidyEngine
 Copyright (C) 2016 Jakob Sinclair
 
 This program is free software: you can redistribute it and/or modify
@@ -14,3 +15,31 @@ GNU Lesser General Public License for more details.
 You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 Contact the author at: jakob.sinclair99@gmail.com
+*/
+
+#pragma once
+
+struct FIBITMAP;
+
+#ifdef _WIN32
+#include <cstdint>
+#endif
+#include <GL/glew.h>
+
+class Texture {
+public:
+	Texture();
+	Texture(FIBITMAP *bitmap, bool mipmap = false, bool linear = false);
+	~Texture();
+
+	bool CreateTex(FIBITMAP *bitmap, bool mipmap = false,
+			bool linear = false);
+	void DeleteTex();
+        const GLuint &GetTex() const;
+	const uint32_t &GetWidth() const;
+	const uint32_t &GetHeight() const;
+private:
+	GLuint m_TexID = 0;
+	uint32_t m_Width = 0;
+	uint32_t m_Height = 0;
+};
