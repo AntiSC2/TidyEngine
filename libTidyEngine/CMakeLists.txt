@@ -28,6 +28,7 @@ set(SOURCE
 	${CMAKE_CURRENT_SOURCE_DIR}/spriterenderer.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/camera2d.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/input.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/object.cpp
 )
 set(HEADERS
         ${HEADERS}
@@ -47,6 +48,7 @@ set(HEADERS
 	${CMAKE_CURRENT_SOURCE_DIR}/spriterenderer.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/camera2d.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/input.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/object.hpp
 )
 
 if(WIN32)

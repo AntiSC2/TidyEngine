@@ -1,4 +1,4 @@
-﻿/*
+/*
 TidyEngine
 Copyright (C) 2016 Jakob Sinclair
 
@@ -17,30 +17,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 Contact the author at: jakob.sinclair99@gmail.com
 */
 
-#include <glm/mat4x4.hpp>
-#include <cstdint>
-#include "object.hpp"
+#pragma once
 
-class Camera2D : public Object {
+#include <glm/vec3.hpp>
+#include <string>
+
+class Object {
 public:
-        Camera2D();
-        virtual ~Camera2D();
-
-        void Initialise(uint16_t width = 0, uint16_t height = 0);
+        Object(std::string name = "Object") : m_Name(name)
+        {
+                ;
+        }
+        virtual ~Object();
+        
         virtual void Update();
-        void SetScale(float scale = 1.0f);
-        void SetPosition(glm::vec3 position);
-        const float &GetScale() const;
-        const glm::vec3 &GetPos() const;
-        const glm::mat4 &GetProj() const;
-        const glm::mat4 &GetView() const;
-        const glm::mat4 &GetModel() const;
-private:
-        float m_Scale = 1.0f;
-        bool m_Update = false;
-        uint16_t m_Width = 0;
-        uint16_t m_Height = 0;
-        glm::mat4 m_Model;
-        glm::mat4 m_View;
-        glm::mat4 m_OrthoMatrix;
+        virtual void Draw();
+
+        void SetScript(std::string script);
+protected:
+        std::string m_Name;
+        std::string m_Script;
+        glm::vec3 m_Position = glm::vec3(0.0f, 0.0f, 0.0f);
 };

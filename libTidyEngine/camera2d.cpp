@@ -41,11 +41,12 @@ void Camera2D::Initialise(uint16_t width, uint16_t height)
         m_Height = height;
         m_Position.x = 640.0f;
         m_Position.y = 360.0f;
+        m_Position.z = 0.0f;
 
         m_OrthoMatrix = glm::ortho(0.0f, (float)m_Width, 0.0f, (float)m_Height,
                         0.0f, 100.0f);
         glm::vec3 translate = glm::vec3(-m_Position.x + m_Width / 2,
-                        m_Position.y + m_Height / 2, 0.0f);
+                        m_Position.y + m_Height / 2, m_Position.z);
         m_View = glm::translate(m_View, translate);
 
         glm::vec3 scale = glm::vec3(m_Scale, -m_Scale, m_Scale);
@@ -72,7 +73,7 @@ void Camera2D::SetScale(float scale)
         m_Update = true;
 }
 
-void Camera2D::SetPosition(glm::vec2 position)
+void Camera2D::SetPosition(glm::vec3 position)
 {
         m_Position = position;
         m_Update = true;
@@ -83,7 +84,7 @@ const float &Camera2D::GetScale() const
         return m_Scale;
 }
 
-const glm::vec2 &Camera2D::GetPos() const
+const glm::vec3 &Camera2D::GetPos() const
 {
         return m_Position;
 }
