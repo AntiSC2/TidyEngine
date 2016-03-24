@@ -32,10 +32,13 @@ public:
         static void Process(GLFWwindow *window, int key, int scancode,
                         int action, int mode);
         static void MouseProcess(GLFWwindow *window, double xpos, double ypos);
+        static void MousePress(GLFWwindow *window, int button, int action,
+                        int mods);
         bool GetKey(int key);
         const glm::vec2 &GetMousePos();
-        bool GetMousePress();
+        bool GetMouseButton(int button);
 private:
         static bool m_Keys[350];
+        static bool m_Buttons[8];
         static glm::vec2 m_MousePos;
 };
