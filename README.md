@@ -8,12 +8,20 @@ TidyEngine is a game engine that was created for making games in a C++ framework
 # Build instructions
 I really appreciate any help I can get. If you want to start contributing to this project you will need to be able to build the engine itself. Here is all the dependencies you need:
 
+- CMake, used for building the project
 - GLFW, used for handling windows and the input.
 - glew, used for OpenGL rendering.
 - glm, used for math when rendering.
+- FreeImage, used for bitmap loading.
 
 <h3>Linux Instructions</h3>
-- Coming soon
+- Clone the repository to your computer using the `git clone https://github.com/AntiSC2/TidyEngine.git` command.
+- Install all the dependencies listed above.
+- Copy the `freeimage.pc` file into your pkgconfig directory. Usually located in `/usr/lib/pkgconfig`. NOTE: YOU WILL NEED ROOT ACCESS TO DO THIS.
+- Change directory to the `/path/to/TidyEngine/bin` folder.
+- Run the command `cmake -Wdev /path/to/TidyEngine`.
+- Run `make` to build the project.
+- Before you start the test application, copy over the shaders from `shaders/` folder into the `bin/` folder. Also create a png image that is 2x2 and completly white. Name the image to `default.png`. You can now run the test application from the `bin/` folder with the command `./test/TEST`.
 
 <h3>Windows Instructions with Visual Studio</h3>
 - Coming soon
