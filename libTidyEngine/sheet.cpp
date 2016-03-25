@@ -30,7 +30,7 @@ Sheet::~Sheet()
         m_Tex = nullptr;
 }
 
-bool Initialise(uint32 w, uint32_t h, Texture *tex)
+bool Sheet::Initialise(uint32_t w, uint32_t h, Texture *tex)
 {
         if (w == 0 || h == 0 || tex == nullptr)
                 return false;
