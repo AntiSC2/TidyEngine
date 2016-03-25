@@ -40,5 +40,4 @@ protected:
         std::string m_Name;
         std::string m_Script;
         glm::vec3 m_Position = glm::vec3(0.0f, 0.0f, 0.0f);
-        Renderable m_Empty;
 };
