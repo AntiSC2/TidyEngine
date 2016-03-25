@@ -51,3 +51,10 @@ bool Sheet::Initialise(uint32_t w, uint32_t h, Texture *tex)
         }
         return true;
 }
+
+const GLuint &Sheet::GetTex()
+{
+        if (m_Tex == nullptr)
+                return 0;
+        return m_Tex->GetTex();
+}

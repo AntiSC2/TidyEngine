@@ -19,26 +19,28 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 #pragma once
 
-class Texture;
+class Sheet;
 
-#include <GL/glew.h>
 #include <cstdint>
+#include <vector>
 #include <glm/vec4.hpp>
+#include <glm/vec3.hpp>
+#include "renderable.hpp"
+#include "vertex.hpp"
 
-class Sheet {
+class Sprite : public Renderable {
 public:
-        /* w and h stand for the sprite size
-         * Not the overall size of the texture
-         */
-        Sheet(uint32_t w = 0, uint32_t h = 0, Texture *tex = nullptr);
-        virtual ~Sheet();
+        Sprite(Sheet *sheet, uint32_t w = 0, uint32_t h = 0);
+        virtual ~Sprite();
 
-        bool Initialise(uint32_t w, uint32_t h, Texture *tex);
-        const GLuint &GetTex(); 
+        virtual bool Initialise(Sheet *sheet, uint32_t w = 0, uint32_t h = 0);
+        virtual const std::vector<Vertex> &GetVertices();
+        virtual void SetPos();
+        virtual const glm::vec3 &GetPos();
 protected:
+        glm::vec3 m_Position = glm::vec3(0.0f, 0.0f, 0.0f);
         uint32_t m_Width = 0;
         uint32_t m_Height = 0;
-
         glm::vec4 m_TexCoords = glm::vec4(0.0f, 0.0f, 0.0f, 0.0f);
-        Texture *m_Tex = nullptr;
-};
+        bool m_Upadte = false;
+}
