@@ -19,25 +19,24 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 #pragma once
 
-struct FIBITMAP;
+class Texture;
 
 #include <cstdint>
-#include <GL/glew.h>
+#include <glm/vec4.hpp>
 
-class Texture {
+class Sheet {
 public:
-	Texture();
-	Texture(FIBITMAP *bitmap, bool mipmap = false, bool linear = false);
-	~Texture();
+        /* w and h stand for the sprite size
+         * Not the overall size of the texture
+         */
+        Sheet(uint32_t w = 0, uint32_t h = 0, Texture *tex = nullptr);
+        virtual ~Sheet();
 
-	bool CreateTex(FIBITMAP *bitmap, bool mipmap = false,
-			bool linear = false);
-	void DeleteTex();
-        const GLuint &GetTex() const;
-	const uint32_t &GetWidth() const;
-	const uint32_t &GetHeight() const;
-private:
-	GLuint m_TexID = 0;
-	uint32_t m_Width = 0;
-	uint32_t m_Height = 0;
+        bool Initialise(uint32_t w, uint32_t h, Texture *tex);
+protected:
+        uint32_t m_Width = 0;
+        uint32_t m_Height = 0;
+
+        glm::vec4 m_TexCoords = glm::vec4(0.0f, 0.0f, 0.0f, 0.0f);
+        Texture *m_Tex = nullptr;
 };
