@@ -30,6 +30,7 @@ set(SOURCE
 	${CMAKE_CURRENT_SOURCE_DIR}/input.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/object.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/objectmanager.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/sheet.cpp
 )
 set(HEADERS
         ${HEADERS}
@@ -51,6 +52,7 @@ set(HEADERS
 	${CMAKE_CURRENT_SOURCE_DIR}/input.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/object.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/objectmanager.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/sheet.hpp
 )
 
 if(WIN32)
