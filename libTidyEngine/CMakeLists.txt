@@ -31,6 +31,7 @@ set(SOURCE
         ${CMAKE_CURRENT_SOURCE_DIR}/object.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/objectmanager.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/sheet.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/sprite.cpp
 )
 set(HEADERS
         ${HEADERS}
@@ -53,6 +54,7 @@ set(HEADERS
         ${CMAKE_CURRENT_SOURCE_DIR}/object.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/objectmanager.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/sheet.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/sprite.hpp
 )
 
 if(WIN32)

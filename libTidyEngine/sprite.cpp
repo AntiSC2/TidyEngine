@@ -30,7 +30,7 @@ Sprite::~Sprite()
         
 }
 
-bool Sprite::Initalise(Sheet *sheet, uint32_t w, uint32_t h)
+bool Sprite::Initialise(Sheet *sheet, uint32_t w, uint32_t h)
 {
         if (sheet == nullptr)
                 return false;
