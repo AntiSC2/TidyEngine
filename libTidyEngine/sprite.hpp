@@ -35,12 +35,12 @@ public:
 
         virtual bool Initialise(Sheet *sheet, uint32_t w = 0, uint32_t h = 0);
         virtual const std::vector<Vertex> &GetVertices();
-        virtual void SetPos();
-        virtual const glm::vec3 &GetPos();
+        virtual void SetPos(const glm::vec3 &pos);
+        virtual const glm::vec3 &GetPos() const;
 protected:
         glm::vec3 m_Position = glm::vec3(0.0f, 0.0f, 0.0f);
         uint32_t m_Width = 0;
         uint32_t m_Height = 0;
         glm::vec4 m_TexCoords = glm::vec4(0.0f, 0.0f, 0.0f, 0.0f);
-        bool m_Upadte = false;
-}
+        bool m_Update = false;
+};

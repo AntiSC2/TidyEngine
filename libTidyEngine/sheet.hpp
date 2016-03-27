@@ -34,7 +34,10 @@ public:
         virtual ~Sheet();
 
         bool Initialise(uint32_t w, uint32_t h, Texture *tex);
-        const GLuint &GetTex(); 
+        const glm::vec4 &GetTexCoords(uint32_t x, uint32_t y) const;
+        const GLuint &GetTex() const; 
+        const uint32_t &GetWidth() const;
+        const uint32_t &GetHeight() const;
 protected:
         uint32_t m_Width = 0;
         uint32_t m_Height = 0;

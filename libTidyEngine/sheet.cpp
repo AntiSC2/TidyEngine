@@ -52,9 +52,24 @@ bool Sheet::Initialise(uint32_t w, uint32_t h, Texture *tex)
         return true;
 }
 
-const GLuint &Sheet::GetTex()
+const GLuint &Sheet::GetTex() const
 {
         if (m_Tex == nullptr)
                 return 0;
         return m_Tex->GetTex();
+}
+
+const glm::vec4 &Sheet::GetTexCoords(uint32_t x, uint32_t y) const
+{
+        return m_TexCoords;
+}
+
+const uint32_t &Sheet::GetWidth() const
+{
+        return m_Width;
+}
+
+const uint32_t &Sheet::GetHeight() const
+{
+        return m_Height;
 }
