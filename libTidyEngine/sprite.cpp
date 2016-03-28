@@ -39,7 +39,7 @@ bool Sprite::Initialise(Sheet *sheet, uint32_t w, uint32_t h)
                 return false;
 
         m_Tex = sheet->GetTex();
-        m_TexCoords = sheet->GetTexCoords();
+        m_TexCoords = sheet->GetTexCoords(0, 0);
 
         if (w == 0)
                 m_Width = sheet->GetWidth();

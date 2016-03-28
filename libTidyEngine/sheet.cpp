@@ -20,9 +20,9 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include "sheet.hpp"
 #include "texture.hpp"
 
-Sheet::Sheet(uint32_t w, uint32_t h, Texture *tex)
+Sheet::Sheet(uint32_t x, uint32_t y, Texture *tex)
 {
-        Initialise(w, h, tex);
+        Initialise(x, y, tex);
 }
 
 Sheet::~Sheet()
@@ -30,46 +30,53 @@ Sheet::~Sheet()
         m_Tex = nullptr;
 }
 
-bool Sheet::Initialise(uint32_t w, uint32_t h, Texture *tex)
+bool Sheet::Initialise(uint32_t x, uint32_t y, Texture *tex)
 {
-        if (w == 0 || h == 0 || tex == nullptr)
+        if (x == 0 || y == 0 || tex == nullptr)
                 return false;
        
-        m_Width = w;
-        m_Height = h;
+        m_TilesX = x;
+        m_TilesY = y;
         m_Tex = tex;
 
         m_TexCoords = glm::vec4(0.0f, 0.0f, 0.0f, 0.0f);
         if (m_Tex->GetWidth() > 0 && m_Tex->GetHeight() > 0) {
-                m_TexCoords.z = (float)w / (float)m_Tex->GetWidth();
-                m_TexCoords.w = (float)h / (float)m_Tex->GetHeight();
+                m_TexCoords.z = (float)m_Tex->GetWidth() / (float)x;
+                m_TexCoords.w = (float)m_Tex->GetWidth() / (float)y;
         } else {
-                m_Width = 0;
-                m_Height = 0;
+                m_TilesX = 0;
+                m_TilesY = 0;
                 m_Tex = nullptr;
                 return false;
         }
         return true;
 }
 
-const GLuint &Sheet::GetTex() const
+GLuint Sheet::GetTex() const
 {
         if (m_Tex == nullptr)
                 return 0;
         return m_Tex->GetTex();
 }
 
-const glm::vec4 &Sheet::GetTexCoords(uint32_t x, uint32_t y) const
+const glm::vec4 Sheet::GetTexCoords(uint32_t x, uint32_t y) const
 {
-        return m_TexCoords;
+        if (x == 0 && y == 0)
+                return m_TexCoords;
+        glm::vec4 temp(m_TexCoords);
+        temp.x += m_TexCoords.z * x;
+        temp.y += m_TexCoords.w * y;
+        temp.z += m_TexCoords.z * x;
+        temp.w += m_TexCoords.w * y;
+        return temp;
 }
 
 const uint32_t &Sheet::GetWidth() const
 {
-        return m_Width;
+        return m_TilesX;
 }
 
 const uint32_t &Sheet::GetHeight() const
 {
-        return m_Height;
+        return m_TilesY;
 }
