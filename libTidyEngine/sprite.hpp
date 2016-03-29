@@ -37,6 +37,10 @@ public:
         virtual const std::vector<Vertex> &GetVertices();
         virtual void SetPos(const glm::vec3 &pos);
         virtual const glm::vec3 &GetPos() const;
+        virtual const uint32_t &GetWidth();
+        virtual const uint32_t &GetHeight();
+        virtual void SetWidth(uint32_t w);
+        virtual void SetHeight(uint32_t h);
 protected:
         glm::vec3 m_Position = glm::vec3(0.0f, 0.0f, 0.0f);
         uint32_t m_Width = 0;

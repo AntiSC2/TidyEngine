@@ -112,3 +112,25 @@ const glm::vec3 &Sprite::GetPos() const
 {
         return m_Position;
 }
+
+const uint32_t &Sprite::GetWidth()
+{
+        return m_Width;
+}
+
+const uint32_t &Sprite::GetHeight()
+{
+        return m_Height;
+}
+
+void Sprite::SetWidth(uint32_t w)
+{
+        m_Width = w;
+        m_Update = true;
+}
+
+void Sprite::SetHeight(uint32_t h)
+{
+        m_Height = h;
+        m_Update = true;
+}
