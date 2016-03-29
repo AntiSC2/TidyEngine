@@ -61,8 +61,14 @@ GLuint Sheet::GetTex() const
 
 const glm::vec4 Sheet::GetTexCoords(uint32_t x, uint32_t y) const
 {
-        if (x == 0 && y == 0)
+        if (x == 0 && y == 0) {
                 return m_TexCoords;
+        }
+        for (; x > m_TilesX; x -= m_TilesX)
+                ;
+        for (; y > m_TilesY; y -= m_TilesY)
+                ;
+
         glm::vec4 temp(m_TexCoords);
         temp.x += m_TexCoords.z * x;
         temp.y += m_TexCoords.w * y;
