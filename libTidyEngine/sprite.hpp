@@ -42,9 +42,9 @@ public:
         virtual void SetWidth(uint32_t w);
         virtual void SetHeight(uint32_t h);
 protected:
-        glm::vec3 m_Position = glm::vec3(0.0f, 0.0f, 0.0f);
         uint32_t m_Width = 0;
         uint32_t m_Height = 0;
+        glm::vec3 m_Position = glm::vec3(0.0f, 0.0f, 0.0f);
         glm::vec4 m_TexCoords = glm::vec4(0.0f, 0.0f, 0.0f, 0.0f);
         bool m_Update = false;
 };
