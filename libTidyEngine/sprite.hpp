@@ -40,7 +40,7 @@ public:
         virtual const uint32_t &GetWidth();
         virtual const uint32_t &GetHeight();
         virtual void SetWidth(uint32_t w);
-        virtual void SetHeight(uint32_t h)
+        virtual void SetHeight(uint32_t h);
 protected:
         uint32_t m_Width = 0;
         uint32_t m_Height = 0;
