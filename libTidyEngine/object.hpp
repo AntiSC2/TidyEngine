@@ -32,7 +32,7 @@ public:
         virtual ~Object();
         
         virtual void Update();
-        virtual const Renderable *Draw();
+        virtual Renderable *Draw();
 
         void SetName(std::string name);
         void SetScript(std::string script);

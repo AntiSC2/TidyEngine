@@ -64,31 +64,31 @@ const std::vector<Vertex> &Sprite::GetVertices()
                         for (uint8_t i = 0; i < 6; i++)
                                 AddVertex(temp);
                 }
-                m_Vertices[0].TexUV = glm::vec2(m_TexCoords.x, m_TexCoords.y);
+                m_Vertices[0].TexUV = glm::vec2(m_TexCoords.x, m_TexCoords.w);
                 m_Vertices[0].Color = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
                 m_Vertices[0].Position = m_Position;
 
-                m_Vertices[1].TexUV = glm::vec2(m_TexCoords.z, m_TexCoords.y);
+                m_Vertices[1].TexUV = glm::vec2(m_TexCoords.z, m_TexCoords.w);
                 m_Vertices[1].Color = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
                 m_Vertices[1].Position = m_Position + glm::vec3((float)m_Width,
                         0.0f, 0.0f);
 
-                m_Vertices[2].TexUV = glm::vec2(m_TexCoords.x, m_TexCoords.w);
+                m_Vertices[2].TexUV = glm::vec2(m_TexCoords.x, m_TexCoords.y);
                 m_Vertices[2].Color = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
                 m_Vertices[2].Position = m_Position + glm::vec3(0.0f,
                         (float)m_Height, 0.0f);
 
-                m_Vertices[3].TexUV = glm::vec2(m_TexCoords.x, m_TexCoords.w);
+                m_Vertices[3].TexUV = glm::vec2(m_TexCoords.x, m_TexCoords.y);
                 m_Vertices[3].Color = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
                 m_Vertices[3].Position = m_Position + glm::vec3(0.0f,
                         (float)m_Height, 0.0f);
 
-                m_Vertices[4].TexUV = glm::vec2(m_TexCoords.z, m_TexCoords.y);
+                m_Vertices[4].TexUV = glm::vec2(m_TexCoords.z, m_TexCoords.w);
                 m_Vertices[4].Color = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
                 m_Vertices[4].Position = m_Position + glm::vec3((float)m_Width,
                         0.0f, 0.0f);
 
-                m_Vertices[5].TexUV = glm::vec2(m_TexCoords.z, m_TexCoords.w);
+                m_Vertices[5].TexUV = glm::vec2(m_TexCoords.z, m_TexCoords.y);
                 m_Vertices[5].Color = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
                 m_Vertices[5].Position = m_Position + glm::vec3((float)m_Width,
                         (float)m_Height, 0.0f);

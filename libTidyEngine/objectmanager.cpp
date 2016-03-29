@@ -46,7 +46,7 @@ void ObjectManager::Draw(Renderer *renderer)
 {
         for (size_t i = 0; i < m_Objects.size(); i++) {
                 if (m_Objects[i]->Draw() != nullptr) {
-                        renderer->Draw(*(m_Objects[i]->Draw()));
+                        renderer->Draw(m_Objects[i]->Draw());
                 }
         }
 }

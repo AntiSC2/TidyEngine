@@ -29,7 +29,7 @@ void Object::Update()
         ;
 }
 
-const Renderable *Object::Draw()
+Renderable *Object::Draw()
 {
         return nullptr;
 }

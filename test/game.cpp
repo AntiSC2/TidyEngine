@@ -63,7 +63,7 @@ void Game::DrawGame()
         m_Render.Clear();
 
         m_DrawSprite.Begin();
-        m_DrawSprite.Draw(temp);
+        m_DrawSprite.Draw(&temp);
         m_ObjectManager.Draw(&m_DrawSprite);
         m_DrawSprite.End();
         m_DrawSprite.Present(m_ObjectManager.GetCamera());
