@@ -30,7 +30,7 @@ public:
 
 	void Begin(GLuint vaoid, GLuint vboid);
 	void End();
-	void Draw(const Renderable &object);
+	void Draw(const Renderable *object);
 	void Present();
 private:
 	void SortGlyphs();

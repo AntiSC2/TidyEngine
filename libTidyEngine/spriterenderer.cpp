@@ -65,6 +65,12 @@ void SpriteRenderer::Initialise(Shader *shader, Batch *batch)
 	glBindVertexArray(0);
 }
 
+void SpriteRenderer::Draw(Renderable *object)
+{
+        object->GetVertices();
+        m_Batch->Draw(object);
+}
+
 void SpriteRenderer::Present(const Camera2D *camera)
 {
         if (camera != nullptr) {

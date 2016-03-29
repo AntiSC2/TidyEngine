@@ -53,9 +53,9 @@ void Batch::End()
 	CreateBatches();
 }
 
-void Batch::Draw(const Renderable &object)
+void Batch::Draw(const Renderable *object)
 {
-	m_Glyphs.emplace_back(object);
+	m_Glyphs.emplace_back(*object);
 }
 
 void Batch::Present()

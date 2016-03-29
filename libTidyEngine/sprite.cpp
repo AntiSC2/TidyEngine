@@ -51,6 +51,12 @@ bool Sprite::Initialise(Sheet *sheet, uint32_t w, uint32_t h)
                 m_Height = h;
 
         m_Update = true;
+        
+        return true;
+}
+
+const std::vector<Vertex> &Sprite::GetVertices()
+{
         if (m_Update == true) {
                 if (m_Vertices.size() != 6) {
                         m_Vertices.clear();
@@ -89,11 +95,6 @@ bool Sprite::Initialise(Sheet *sheet, uint32_t w, uint32_t h)
                 m_Update = false;
         }
 
-        return true;
-}
-
-const std::vector<Vertex> &Sprite::GetVertices()
-{
         return m_Vertices;
 }
 

@@ -32,7 +32,7 @@ public:
 
 	virtual void Initialise(Shader *shader, Batch *batch) = 0;
 	virtual void Begin();
-	virtual void Draw(const Renderable &object);
+	virtual void Draw(const Renderable *object);
 	virtual void End();
 	virtual void Present();
 protected:

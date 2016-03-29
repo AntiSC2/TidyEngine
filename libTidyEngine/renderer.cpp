@@ -41,7 +41,7 @@ void Renderer::Begin()
 	m_Batch->Begin(m_VAOID, m_VBOID);
 }
 
-void Renderer::Draw(const Renderable &object)
+void Renderer::Draw(const Renderable *object)
 {
 	m_Batch->Draw(object);
 }
