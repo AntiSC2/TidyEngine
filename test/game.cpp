@@ -21,6 +21,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "screen.hpp"
 #include "rect2d.hpp"
 #include "camera2d.hpp"
+#include "sprite.hpp"
+#include "sheet.hpp"
+#include "cache.hpp"
 
 Game::Game()
 {
@@ -39,6 +42,7 @@ bool Game::Init()
         m_ObjectManager.SetCamera(temp);
         m_ObjectManager.AddObject(temp);
         temp = nullptr;
+        Resources.CreateTexture("sprite", "sprite.png");
 
 	return true;
 }
@@ -53,9 +57,13 @@ void Game::Update()
 
 void Game::DrawGame()
 {
+        Sheet sheet(2, 2, &Resources.GetTexture("sprite"));
+        Sprite temp(&sheet, 64, 64);
+        temp.SetPos(glm::vec3(500.0f, 200.0f, 0.0f));
         m_Render.Clear();
 
         m_DrawSprite.Begin();
+        m_DrawSprite.Draw(temp);
         m_ObjectManager.Draw(&m_DrawSprite);
         m_DrawSprite.End();
         m_DrawSprite.Present(m_ObjectManager.GetCamera());

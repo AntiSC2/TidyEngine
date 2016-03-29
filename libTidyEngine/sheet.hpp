@@ -30,10 +30,10 @@ public:
         /* x and y stand for the number of tiles to divide the texture in
          * not the overall size of the texture
          */
-        Sheet(uint32_t x = 0, uint32_t y = 0, Texture *tex = nullptr);
+        Sheet(uint32_t x = 0, uint32_t y = 0, const Texture *tex = nullptr);
         virtual ~Sheet();
 
-        bool Initialise(uint32_t x, uint32_t y, Texture *tex);
+        bool Initialise(uint32_t x, uint32_t y, const Texture *tex);
         const glm::vec4 GetTexCoords(uint32_t x, uint32_t y) const;
         GLuint GetTex() const; 
         const uint32_t &GetWidth() const;
@@ -43,5 +43,5 @@ protected:
         uint32_t m_TilesY = 0;
 
         glm::vec4 m_TexCoords = glm::vec4(0.0f, 0.0f, 0.0f, 0.0f);
-        Texture *m_Tex = nullptr;
+        const Texture *m_Tex = nullptr;
 };

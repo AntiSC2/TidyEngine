@@ -20,7 +20,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include "sheet.hpp"
 #include "texture.hpp"
 
-Sheet::Sheet(uint32_t x, uint32_t y, Texture *tex)
+Sheet::Sheet(uint32_t x, uint32_t y, const Texture *tex)
 {
         Initialise(x, y, tex);
 }
@@ -30,7 +30,7 @@ Sheet::~Sheet()
         m_Tex = nullptr;
 }
 
-bool Sheet::Initialise(uint32_t x, uint32_t y, Texture *tex)
+bool Sheet::Initialise(uint32_t x, uint32_t y, const Texture *tex)
 {
         if (x == 0 || y == 0 || tex == nullptr)
                 return false;
@@ -41,8 +41,8 @@ bool Sheet::Initialise(uint32_t x, uint32_t y, Texture *tex)
 
         m_TexCoords = glm::vec4(0.0f, 0.0f, 0.0f, 0.0f);
         if (m_Tex->GetWidth() > 0 && m_Tex->GetHeight() > 0) {
-                m_TexCoords.z = (float)m_Tex->GetWidth() / (float)x;
-                m_TexCoords.w = (float)m_Tex->GetWidth() / (float)y;
+                m_TexCoords.z = 1.0f / (float)x;
+                m_TexCoords.w = 1.0f / (float)y;
         } else {
                 m_TilesX = 0;
                 m_TilesY = 0;
