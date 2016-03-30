@@ -23,9 +23,10 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include "vertex.hpp"
 #include "sheet.hpp"
 
-Sprite::Sprite(Sheet *sheet, uint32_t w, uint32_t h)
+Sprite::Sprite(Sheet *sheet, uint32_t w, uint32_t h,
+                const std::vector<uint32_t> &frames)
 {
-        Initialise(sheet, w, h);
+        Initialise(sheet, w, h, frames);
 }
 
 Sprite::~Sprite()
@@ -33,13 +34,18 @@ Sprite::~Sprite()
         ;
 }
 
-bool Sprite::Initialise(Sheet *sheet, uint32_t w, uint32_t h)
+/* frames must contain an even number of elements, else it returns false */
+bool Sprite::Initialise(Sheet *sheet, uint32_t w, uint32_t h,
+                const std::vector<uint32_t> &frames)
 {
-        if (sheet == nullptr)
+        if (frames.size() % 2 != 0 || sheet == nullptr)
                 return false;
 
         m_Tex = sheet->GetTex();
-        m_TexCoords = sheet->GetTexCoords(0, 0);
+        m_Frames.clear();
+        for (size_t i = 1; i < frames.size(); i += 2)
+                m_Frames.push_back(sheet->GetTexCoords(frames[i - 1],
+                                frames[i]));
 
         if (w == 0)
                 m_Width = sheet->GetWidth();
@@ -64,35 +70,41 @@ const std::vector<Vertex> &Sprite::GetVertices()
                         for (uint8_t i = 0; i < 6; i++)
                                 AddVertex(temp);
                 }
+                if (m_Frames.size() != 0) {
+                        for (; m_ImageIndex >= m_Frames.size(); m_ImageIndex -=
+                                        m_ImageIndex)
+                                ;
+                }
+                glm::vec4 tex_coords = m_Frames[m_ImageIndex];
                 /* OpenGL starts counting the texture coordinates from the
                  * bottom left corner which makes the textures appear upside
                  * down if we don't reverse the y coordinates here
                  */
-                m_Vertices[0].TexUV = glm::vec2(m_TexCoords.x, m_TexCoords.w);
+                m_Vertices[0].TexUV = glm::vec2(tex_coords.x, tex_coords.w);
                 m_Vertices[0].Color = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
                 m_Vertices[0].Position = m_Position;
 
-                m_Vertices[1].TexUV = glm::vec2(m_TexCoords.z, m_TexCoords.w);
+                m_Vertices[1].TexUV = glm::vec2(tex_coords.z, tex_coords.w);
                 m_Vertices[1].Color = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
                 m_Vertices[1].Position = m_Position + glm::vec3((float)m_Width,
                         0.0f, 0.0f);
 
-                m_Vertices[2].TexUV = glm::vec2(m_TexCoords.x, m_TexCoords.y);
+                m_Vertices[2].TexUV = glm::vec2(tex_coords.x, tex_coords.y);
                 m_Vertices[2].Color = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
                 m_Vertices[2].Position = m_Position + glm::vec3(0.0f,
                         (float)m_Height, 0.0f);
 
-                m_Vertices[3].TexUV = glm::vec2(m_TexCoords.x, m_TexCoords.y);
+                m_Vertices[3].TexUV = glm::vec2(tex_coords.x, tex_coords.y);
                 m_Vertices[3].Color = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
                 m_Vertices[3].Position = m_Position + glm::vec3(0.0f,
                         (float)m_Height, 0.0f);
 
-                m_Vertices[4].TexUV = glm::vec2(m_TexCoords.z, m_TexCoords.w);
+                m_Vertices[4].TexUV = glm::vec2(tex_coords.z, tex_coords.w);
                 m_Vertices[4].Color = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
                 m_Vertices[4].Position = m_Position + glm::vec3((float)m_Width,
                         0.0f, 0.0f);
 
-                m_Vertices[5].TexUV = glm::vec2(m_TexCoords.z, m_TexCoords.y);
+                m_Vertices[5].TexUV = glm::vec2(tex_coords.z, tex_coords.y);
                 m_Vertices[5].Color = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
                 m_Vertices[5].Position = m_Position + glm::vec3((float)m_Width,
                         (float)m_Height, 0.0f);

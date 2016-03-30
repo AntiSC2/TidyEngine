@@ -30,10 +30,12 @@ class Sheet;
 
 class Sprite : public Renderable {
 public:
-        Sprite(Sheet *sheet, uint32_t w = 0, uint32_t h = 0);
+        Sprite(Sheet *sheet, uint32_t w = 0, uint32_t h = 0,
+                        const std::vector<uint32_t> &frames = {0, 0});
         virtual ~Sprite();
 
-        virtual bool Initialise(Sheet *sheet, uint32_t w = 0, uint32_t h = 0);
+        virtual bool Initialise(Sheet *sheet, uint32_t w = 0, uint32_t h = 0, 
+                        const std::vector<uint32_t> &frames = {0, 0});
         virtual const std::vector<Vertex> &GetVertices();
         virtual void SetPos(const glm::vec3 &pos);
         virtual const glm::vec3 &GetPos() const;
@@ -42,9 +44,11 @@ public:
         virtual void SetWidth(uint32_t w);
         virtual void SetHeight(uint32_t h);
 protected:
+        float m_ImageSpeed = 0.0f;
+        uint32_t m_ImageIndex = 0;
         uint32_t m_Width = 0;
         uint32_t m_Height = 0;
         glm::vec3 m_Position = glm::vec3(0.0f, 0.0f, 0.0f);
-        glm::vec4 m_TexCoords = glm::vec4(0.0f, 0.0f, 0.0f, 0.0f);
+        std::vector<glm::vec4> m_Frames;
         bool m_Update = false;
 };
