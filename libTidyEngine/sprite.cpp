@@ -64,6 +64,10 @@ const std::vector<Vertex> &Sprite::GetVertices()
                         for (uint8_t i = 0; i < 6; i++)
                                 AddVertex(temp);
                 }
+                /* OpenGL starts counting the texture coordinates from the
+                 * bottom left corner which makes the textures appear upside
+                 * down if we don't reverse the y coordinates here
+                 */
                 m_Vertices[0].TexUV = glm::vec2(m_TexCoords.x, m_TexCoords.w);
                 m_Vertices[0].Color = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
                 m_Vertices[0].Position = m_Position;

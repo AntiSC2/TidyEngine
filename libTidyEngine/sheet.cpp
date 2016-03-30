@@ -41,8 +41,13 @@ bool Sheet::Initialise(uint32_t x, uint32_t y, const Texture *tex)
 
         m_TexCoords = glm::vec4(0.0f, 0.0f, 0.0f, 0.0f);
         if (m_Tex->GetWidth() > 0 && m_Tex->GetHeight() > 0) {
+                /* the y axis in TidyEngine is pointing down but opengl's y axis
+                 * is pointing up which we must reverse else the (0,0) 
+                 * coordinate in spritesheets will be in the bottom left corner
+                 */
                 m_TexCoords.z = 1.0f / (float)x;
-                m_TexCoords.w = 1.0f / (float)y;
+                m_TexCoords.y = 1.0f / (float)y;
+                m_TexCoords.w = m_TexCoords.y * 2;
         } else {
                 m_TilesX = 0;
                 m_TilesY = 0;
@@ -59,6 +64,7 @@ GLuint Sheet::GetTex() const
         return m_Tex->GetTex();
 }
 
+/* the (0,0) coordinate represents the most top left section of the sheet */
 const glm::vec4 Sheet::GetTexCoords(uint32_t x, uint32_t y) const
 {
         if (x == 0 && y == 0) {
@@ -71,9 +77,9 @@ const glm::vec4 Sheet::GetTexCoords(uint32_t x, uint32_t y) const
 
         glm::vec4 temp(m_TexCoords);
         temp.x += m_TexCoords.z * x;
-        temp.y += m_TexCoords.w * y;
+        temp.y -= m_TexCoords.y * y;
         temp.z += m_TexCoords.z * x;
-        temp.w += m_TexCoords.w * y;
+        temp.w -= m_TexCoords.y * y;
         return temp;
 }
 
