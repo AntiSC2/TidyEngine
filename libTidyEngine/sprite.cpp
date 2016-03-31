@@ -80,7 +80,7 @@ const std::vector<Vertex> &Sprite::GetVertices()
                 }
                 if (m_Frames.size() != 0) {
                         for (; m_ImageIndex >= m_Frames.size(); m_ImageIndex -=
-                                        m_ImageIndex)
+                                        m_Frames.size())
                                 ;
                 }
                 glm::vec4 tex_coords = m_Frames[m_ImageIndex];
