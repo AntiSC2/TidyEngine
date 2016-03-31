@@ -37,10 +37,10 @@ public:
         virtual bool Initialise(Sheet *sheet, uint32_t w = 0, uint32_t h = 0, 
                         const std::vector<uint32_t> &frames = {0, 0});
         virtual const std::vector<Vertex> &GetVertices();
-        virtual void SetPos(const glm::vec3 &pos);
         virtual const glm::vec3 &GetPos() const;
         virtual const uint32_t &GetWidth() const;
         virtual const uint32_t &GetHeight() const;
+        virtual void SetPos(const glm::vec3 &pos);
         virtual void SetWidth(uint32_t w);
         virtual void SetHeight(uint32_t h);
 protected:
