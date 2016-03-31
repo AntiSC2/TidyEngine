@@ -150,4 +150,5 @@ void Sprite::SetHeight(uint32_t h)
 void Sprite::SetImageIndex(uint32_t image_index)
 {
         m_ImageIndex = image_index;
+        m_Update = true;
 }
