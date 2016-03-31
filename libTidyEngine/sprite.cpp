@@ -125,12 +125,12 @@ const glm::vec3 &Sprite::GetPos() const
         return m_Position;
 }
 
-const uint32_t &Sprite::GetWidth()
+const uint32_t &Sprite::GetWidth() const
 {
         return m_Width;
 }
 
-const uint32_t &Sprite::GetHeight()
+const uint32_t &Sprite::GetHeight() const
 {
         return m_Height;
 }
