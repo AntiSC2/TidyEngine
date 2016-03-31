@@ -29,6 +29,11 @@ Renderable::~Renderable()
         ;
 }
 
+void Renderable::Update()
+{
+        ;
+}
+
 void Renderable::AddVertex(const Vertex& vertex)
 {
 	m_Vertices.push_back(vertex);

@@ -18,6 +18,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 */
 
 #include "sprite.hpp"
+#include <cmath>
 #include <glm/vec2.hpp>
 #include "renderable.hpp"
 #include "vertex.hpp"
@@ -32,6 +33,13 @@ Sprite::Sprite(Sheet *sheet, uint32_t w, uint32_t h,
 Sprite::~Sprite()
 {
         ;
+}
+
+void Sprite::Update()
+{
+        /*m_ImageIndex += (uint32_t)std::ceil((double)m_ImageSpeed);
+        for (; m_ImageIndex >= m_Frames.size(); m_ImageIndex -= m_Frames.size())
+                ;*/
 }
 
 /* frames must contain an even number of elements, else it returns false */
