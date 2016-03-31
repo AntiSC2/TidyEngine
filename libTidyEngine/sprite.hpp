@@ -43,6 +43,7 @@ public:
         virtual void SetPos(const glm::vec3 &pos);
         virtual void SetWidth(uint32_t w);
         virtual void SetHeight(uint32_t h);
+        virtual void SetImageIndex(uint32_t image_index);
 protected:
         float m_ImageSpeed = 0.0f;
         uint32_t m_ImageIndex = 0;

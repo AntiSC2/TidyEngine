@@ -114,12 +114,6 @@ const std::vector<Vertex> &Sprite::GetVertices()
         return m_Vertices;
 }
 
-void Sprite::SetPos(const glm::vec3 &pos)
-{
-        m_Position = pos;
-        m_Update = true;
-}
-
 const glm::vec3 &Sprite::GetPos() const
 {
         return m_Position;
@@ -135,6 +129,12 @@ const uint32_t &Sprite::GetHeight() const
         return m_Height;
 }
 
+void Sprite::SetPos(const glm::vec3 &pos)
+{
+        m_Position = pos;
+        m_Update = true;
+}
+
 void Sprite::SetWidth(uint32_t w)
 {
         m_Width = w;
@@ -145,4 +145,9 @@ void Sprite::SetHeight(uint32_t h)
 {
         m_Height = h;
         m_Update = true;
+}
+
+void Sprite::SetImageIndex(uint32_t image_index)
+{
+        m_ImageIndex = image_index;
 }
