@@ -35,43 +35,9 @@ Sprite::~Sprite()
         ;
 }
 
-void Sprite::Update()
+void Sprite::Update(bool render)
 {
-        /*m_ImageIndex += (uint32_t)std::ceil((double)m_ImageSpeed);
-        for (; m_ImageIndex >= m_Frames.size(); m_ImageIndex -= m_Frames.size())
-                ;*/
-}
-
-/* frames must contain an even number of elements, else it returns false */
-bool Sprite::Initialise(Sheet *sheet, uint32_t w, uint32_t h,
-                const std::vector<uint32_t> &frames)
-{
-        if (frames.size() % 2 != 0 || sheet == nullptr)
-                return false;
-
-        m_Tex = sheet->GetTex();
-        m_Frames.clear();
-        for (size_t i = 1; i < frames.size(); i += 2)
-                m_Frames.push_back(sheet->GetTexCoords(frames[i - 1],
-                                frames[i]));
-
-        if (w == 0)
-                m_Width = sheet->GetWidth();
-        else
-                m_Width = w;
-        if (h == 0)
-                m_Height = sheet->GetHeight();
-        else
-                m_Height = h;
-
-        m_Update = true;
-        
-        return true;
-}
-
-const std::vector<Vertex> &Sprite::GetVertices()
-{
-        if (m_Update == true) {
+        if (render == true && m_Update == true) {
                 if (m_Vertices.size() != 6) {
                         m_Vertices.clear();
                         Vertex temp;
@@ -117,9 +83,39 @@ const std::vector<Vertex> &Sprite::GetVertices()
                 m_Vertices[5].Position = m_Position + glm::vec3((float)m_Width,
                         (float)m_Height, 0.0f);
                 m_Update = false;
+        } else {
+                m_ImageIndex += (uint32_t)std::ceil((double)m_ImageSpeed);
+                for (; m_ImageIndex >= m_Frames.size();
+                                m_ImageIndex -= m_Frames.size())
+                        ;
         }
+}
 
-        return m_Vertices;
+/* frames must contain an even number of elements, else it returns false */
+bool Sprite::Initialise(Sheet *sheet, uint32_t w, uint32_t h,
+                const std::vector<uint32_t> &frames)
+{
+        if (frames.size() % 2 != 0 || sheet == nullptr)
+                return false;
+
+        m_Tex = sheet->GetTex();
+        m_Frames.clear();
+        for (size_t i = 1; i < frames.size(); i += 2)
+                m_Frames.push_back(sheet->GetTexCoords(frames[i - 1],
+                                frames[i]));
+
+        if (w == 0)
+                m_Width = sheet->GetWidth();
+        else
+                m_Width = w;
+        if (h == 0)
+                m_Height = sheet->GetHeight();
+        else
+                m_Height = h;
+
+        m_Update = true;
+        
+        return true;
 }
 
 const glm::vec3 &Sprite::GetPos() const

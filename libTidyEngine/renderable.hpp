@@ -28,9 +28,9 @@ public:
         Renderable();
         virtual ~Renderable();
 	
-        virtual void Update();
+        virtual void Update(bool render = false);
 	virtual void AddVertex(const Vertex &vertex);
-        virtual const std::vector<Vertex> &GetVertices();
+        virtual const std::vector<Vertex> &GetVertices() const;
         virtual GLuint GetTex();
 protected:
         std::vector<Vertex> m_Vertices;

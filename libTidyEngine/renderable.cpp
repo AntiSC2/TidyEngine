@@ -29,7 +29,7 @@ Renderable::~Renderable()
         ;
 }
 
-void Renderable::Update()
+void Renderable::Update(bool render)
 {
         ;
 }
@@ -39,7 +39,7 @@ void Renderable::AddVertex(const Vertex& vertex)
 	m_Vertices.push_back(vertex);
 }
 
-const std::vector<Vertex> &Renderable::GetVertices()
+const std::vector<Vertex> &Renderable::GetVertices() const
 {
         return m_Vertices;
 }

@@ -67,8 +67,8 @@ void SpriteRenderer::Initialise(Shader *shader, Batch *batch)
 
 void SpriteRenderer::Draw(Renderable *object)
 {
-        /* GetVertices() act as an update function for sprites */
-        object->GetVertices();
+        /* Updates the object to prepare for rendering */
+        object->Update(true);
         m_Batch->Draw(object);
 }
 
