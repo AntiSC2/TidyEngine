@@ -46,7 +46,7 @@ void Sprite::Update(bool render)
                 }
                 if (m_Frames.size() != 0) {
                         for (; m_ImageIndex >= m_Frames.size(); m_ImageIndex -=
-                                        m_Frames.size())
+                                        (uint32_t)m_Frames.size())
                                 ;
                 }
                 glm::vec4 tex_coords = m_Frames[m_ImageIndex];
@@ -86,7 +86,7 @@ void Sprite::Update(bool render)
         } else {
                 m_ImageIndex += (uint32_t)std::ceil((double)m_ImageSpeed);
                 for (; m_ImageIndex >= m_Frames.size();
-                                m_ImageIndex -= m_Frames.size())
+                                m_ImageIndex -= (uint32_t)m_Frames.size())
                         ;
         }
 }
