@@ -18,7 +18,6 @@ Contact the author at: jakob.sinclair99@gmail.com
 */
 
 #include "object.hpp"
-#include "renderable.hpp"
 
 Object::~Object()
 {
@@ -32,7 +31,7 @@ void Object::Update()
 
 Renderable *Object::Draw()
 {
-        return m_Renderable;
+        return m_Renderable.get();
 }
 
 void Object::SetName(std::string name)
@@ -47,5 +46,5 @@ void Object::SetScript(std::string script)
 
 void Object::SetRenderable(Renderable *renderable)
 {
-        m_Renderable = renderable;
+        m_Renderable.reset(renderable);
 }

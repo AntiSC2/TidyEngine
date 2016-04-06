@@ -19,10 +19,10 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 #pragma once
 
-class Renderable;
-
 #include <glm/vec3.hpp>
 #include <string>
+#include <memory>
+#include "renderable.hpp"
 
 class Object {
 public:
@@ -48,6 +48,6 @@ public:
 protected:
         std::string m_Name = "";
         std::string m_Script = "";
-        Renderable *m_Renderable = nullptr;
+        std::unique_ptr<Renderable> m_Renderable = nullptr;
         glm::vec3 m_Position = glm::vec3(0.0f, 0.0f, 0.0f);
 };
