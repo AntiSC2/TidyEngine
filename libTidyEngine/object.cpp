@@ -18,6 +18,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 */
 
 #include "object.hpp"
+#include "renderable.hpp"
 
 Object::~Object()
 {
@@ -26,12 +27,12 @@ Object::~Object()
 
 void Object::Update()
 {
-        ;
+        m_Renderable->Update();
 }
 
 Renderable *Object::Draw()
 {
-        return nullptr;
+        return m_Renderable;
 }
 
 void Object::SetName(std::string name)
@@ -42,4 +43,9 @@ void Object::SetName(std::string name)
 void Object::SetScript(std::string script)
 {
         m_Script = script;
+}
+
+void Object::SetRenderable(Renderable *renderable)
+{
+        m_Renderable = renderable;
 }

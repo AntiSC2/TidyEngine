@@ -19,13 +19,21 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 #pragma once
 
+class Renderable;
+
 #include <glm/vec3.hpp>
 #include <string>
-#include "renderable.hpp"
 
 class Object {
 public:
-        Object(std::string name = "Object") : m_Name(name)
+        Object(std::string name) : m_Name(name)
+        {
+                ;
+        }
+
+        Object(std::string name, std::string script = "",
+                       Renderable *renderable = nullptr) : m_Name(name), 
+                       m_Script(script), m_Renderable(renderable)
         {
                 ;
         }
@@ -36,8 +44,10 @@ public:
 
         void SetName(std::string name);
         void SetScript(std::string script);
+        void SetRenderable(Renderable *renderable);
 protected:
-        std::string m_Name;
-        std::string m_Script;
+        std::string m_Name = "";
+        std::string m_Script = "";
+        Renderable *m_Renderable = nullptr;
         glm::vec3 m_Position = glm::vec3(0.0f, 0.0f, 0.0f);
 };
