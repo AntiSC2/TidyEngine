@@ -27,7 +27,7 @@ Object::~Object()
 
 void Object::Update()
 {
-        m_Renderable->Update();
+        m_Renderable->Update(false);
 }
 
 Renderable *Object::Draw()
