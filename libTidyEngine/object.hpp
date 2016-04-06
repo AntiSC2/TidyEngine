@@ -31,9 +31,9 @@ public:
                 ;
         }
 
-        Object(std::string name, std::string script = "",
-                       Renderable *renderable = nullptr) : m_Name(name), 
-                       m_Script(script), m_Renderable(renderable)
+        Object(std::string name, std::string script,
+                        Renderable *renderable = nullptr) : m_Name(name),
+                        m_Script(script), m_Renderable(renderable)
         {
                 ;
         }

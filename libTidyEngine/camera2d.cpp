@@ -20,11 +20,6 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include "camera2d.hpp"
 #include <glm/gtc/matrix_transform.hpp>
 
-Camera2D::Camera2D()
-{
-        ;
-}
-
 Camera2D::~Camera2D()
 {
         ;

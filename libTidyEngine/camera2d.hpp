@@ -25,7 +25,10 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 class Camera2D : public Object {
 public:
-        Camera2D();
+        Camera2D(std::string name) : Object(name) 
+        {
+                ;
+        }
         virtual ~Camera2D();
 
         void Initialise(uint16_t width = 0, uint16_t height = 0);

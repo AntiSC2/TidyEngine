@@ -37,7 +37,7 @@ Game::~Game()
 
 bool Game::Init()
 {
-        Camera2D *temp = new Camera2D();
+        Camera2D *temp = new Camera2D("MainCamera");
         temp->Initialise(1280, 720);
         m_ObjectManager.SetCamera(temp);
         m_ObjectManager.AddObject(temp);
