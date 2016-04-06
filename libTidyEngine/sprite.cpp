@@ -84,10 +84,12 @@ void Sprite::Update(bool render)
                         (float)m_Height, 0.0f);
                 m_Update = false;
         } else {
-                m_ImageIndex += (uint32_t)std::ceil((double)m_ImageSpeed);
-                for (; m_ImageIndex >= m_Frames.size();
-                                m_ImageIndex -= (uint32_t)m_Frames.size())
-                        ;
+                m_ImageBuffer += m_ImageSpeed;
+                m_ImageIndex = std::round(m_ImageBuffer);
+                while (m_ImageIndex > (uint32_t)m_Frames.size()) {
+                        m_ImageBuffer -= (float)m_Frames.size();
+                        m_ImageIndex -= (uint32_t)m_Frames.size();
+                }
         }
 }
 

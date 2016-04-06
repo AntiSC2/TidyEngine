@@ -46,6 +46,7 @@ public:
         virtual void SetImageIndex(uint32_t image_index);
 protected:
         float m_ImageSpeed = 0.0f;
+        float m_ImageBuffer = 0.0f;
         uint32_t m_ImageIndex = 0;
         uint32_t m_Width = 0;
         uint32_t m_Height = 0;
