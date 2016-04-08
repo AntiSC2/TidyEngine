@@ -34,8 +34,8 @@ public:
 		text = s;
 	}
 
-	virtual const char *what()
-	{
+	virtual const char *what() const
+        {
 		return text.c_str();
 	}
 private:
