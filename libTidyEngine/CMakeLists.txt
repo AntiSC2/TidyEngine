@@ -83,6 +83,14 @@ if(WIN32)
 		${FREEIMAGE_LIBRARIES}
 		${CMAKE_SOURCE_DIR}/deps/lib/FreeImage.lib
 	)
+	set(LUAJIT_INCLUDE_DIRS
+		${LUAJIT_INCLUDE_DIRS}
+		${CMAKE_SOURCE_DIR}/deps/include/LuaJIT
+	)
+	set(LUAJIT_LIBRARIES
+		${LUAJIT_LIBRARIES}
+		${CMAKE_SOURCE_DIR}/deps/lib/lua51.lib
+	)
 endif()
 
 if(APPLE)
@@ -92,16 +100,19 @@ elseif(UNIX)
 	pkg_search_module(GLFW REQUIRED glfw3)
 	pkg_search_module(GLEW REQUIRED glew)
 	pkg_search_module(FREEIMAGE REQURIED freeimage)
+	pkg_search_module(LUAJIT REQUIRED luajit)
 endif()
 
 include_directories(${GLFW_INCLUDE_DIRS})
 include_directories(${GLEW_INCLUDE_DIRS})
 include_directories(${FREEIMAGE_INCLUDE_DIRS})
+include_directories(${LUAJIT_INCLUDE_DIRS})
 
 add_library(${PROJECT_NAME} STATIC ${SOURCE} ${HEADERS})
 target_link_libraries(${PROJECT_NAME} ${GLFW_LIBRARIES}
 				      ${GLEW_LIBRARIES}
-				      ${FREEIMAGE_LIBRARIES})
+				      ${FREEIMAGE_LIBRARIES}
+                                      ${LUAJIT_LIBRARIES})
 
 if(WIN32)
 	target_link_libraries(${PROJECT_NAME} opengl32.lib)

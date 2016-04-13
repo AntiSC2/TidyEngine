@@ -49,7 +49,15 @@ if(WIN32)
 	set(FREEIMAGE_LIBRARIES
 		${FREEIMAGE_LIBRARIES}
 		${CMAKE_SOURCE_DIR}/deps/lib/FreeImage.lib
-	)	
+	)
+	set(LUAJIT_INCLUDE_DIRS
+		${LUAJIT_INCLUDE_DIRS}
+		${CMAKE_SOURCE_DIR}/deps/include/LuaJIT
+	)
+	set(LUAJIT_LIBRARIES
+		${LUAJIT_LIBRARIES}
+		${CMAKE_SOURCE_DIR}/deps/lib/lua51.lib
+	)
 endif()
 
 if(APPLE)
@@ -59,6 +67,7 @@ elseif(UNIX)
 	pkg_search_module(GLFW REQUIRED glfw3)
 	pkg_search_module(GLEW REQUIRED glew)
 	pkg_search_module(FREEIMAGE REQURIED freeimage)
+	pkg_search_module(LUAJIT REQUIRED luajit)
 	set(TIDYENGINE_LIBRARIES
 		${TIDYENGINE_LIBRARIES}
 		${CMAKE_BINARY_DIR}/libTidyEngine/libTidyEngine.a
