@@ -18,3 +18,16 @@ Contact the author at: jakob.sinclair99@gmail.com
 */
 
 #pragma once
+
+#include <string>
+#include "lua.hpp"
+
+class LuaVM {
+public:
+        LuaVM();
+        ~LuaVM();
+
+        int LoadScript(const std::string &file);
+private:
+        lua_State *State = nullptr;
+};

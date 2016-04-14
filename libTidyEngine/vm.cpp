@@ -18,3 +18,19 @@ Contact the author at: jakob.sinclair99@gmail.com
 */
 
 #include "vm.hpp"
+
+LuaVM::LuaVM()
+{
+        State = luaL_newstate();
+        luaL_openlibs(State);
+}
+
+LuaVM::~LuaVM()
+{
+        lua_close(State);
+}
+
+int LuaVM::LoadScript(const std::string &file)
+{
+        return luaL_loadfile(State, file.c_str());
+}
