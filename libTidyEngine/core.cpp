@@ -61,12 +61,24 @@ bool Core::InitSubSystems()
                 }
         }
 
-        m_Render.LoadShaders("default", "shader.vert", "shader.frag",
-        {"position", "color", "uv"});
+        try {
+                m_Render.LoadShaders("default", "shader.vert", "shader.frag",
+                {"position", "color", "uv"});
+        }
+        catch (std::exception &e) {
+                printf("Error: Could not load default texture: default.png\n");
+                return false;
+        }
         m_DrawSprite.Initialise(m_Render.GetShader("default"),
                         &m_Render.GetBatch());
 	
-        Resources.CreateTexture("default", "default.png");
+        try {
+                Resources.CreateTexture("default", "default.png");
+        }
+        catch (std::exception &e) {
+                printf("Error: Could not load default texture: default.png\n");
+                return false;
+        }
         
         m_Input.Initialise(m_Screen.GetWindow());
 
