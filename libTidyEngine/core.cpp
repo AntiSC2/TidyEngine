@@ -37,30 +37,28 @@ Core::~Core()
 
 void Core::Run() 
 {
-	if(InitSubSystems() && Init()) {
-		GameLoop();
-	}
+        if (InitSubSystems() && Init()) {
+                GameLoop();
+        }
 	Quit();
 }
 
 bool Core::InitSubSystems()
 {
-    	bool success = true;
-        if (glfwInit() == GL_FALSE) {
-                success = false;
-        }
+        if (glfwInit() == GL_FALSE)
+                return false;
+
         FreeImage_Initialise();
         FreeImage_SetOutputMessage(FreeImageError);
 
 	if(m_Screen.CreateWindow(1280, 720, "TidyEngine", 3, 3) != true) {
-		success = false;
                 printf("Error: glfw could not create window!\n");
+                return false;
         } else {
                 if (m_Screen.InitGL() == false) {
                         printf("Error: could not initialize OpenGL!\n");
-                        success = false;
+                        return false;
                 }
-        
         }
 
         m_Render.LoadShaders("default", "shader.vert", "shader.frag",
@@ -75,7 +73,7 @@ bool Core::InitSubSystems()
         printf("TidyEngine Version: %d.%d\n",
                TidyEngine_VERSION_MAJOR, TidyEngine_VERSION_MINOR);
 	
-	return success;
+	return true;
 }
 
 void Core::GameLoop()
