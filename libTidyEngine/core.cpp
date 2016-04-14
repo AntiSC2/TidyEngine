@@ -66,6 +66,7 @@ bool Core::InitSubSystems()
                 {"position", "color", "uv"});
         }
         catch (std::exception &e) {
+                printf("%s", e.what());
                 printf("Error: Could not load default texture: default.png\n");
                 return false;
         }
@@ -76,6 +77,7 @@ bool Core::InitSubSystems()
                 Resources.CreateTexture("default", "default.png");
         }
         catch (std::exception &e) {
+                printf("%s", e.what());
                 printf("Error: Could not load default texture: default.png\n");
                 return false;
         }
