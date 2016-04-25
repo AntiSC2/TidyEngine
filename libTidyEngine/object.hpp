@@ -41,7 +41,6 @@ public:
         
         virtual void Update();
         virtual Renderable *Draw();
-
         void SetName(std::string name);
         void SetScript(std::string script);
         void SetRenderable(Renderable *renderable);

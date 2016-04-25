@@ -57,13 +57,9 @@ void Game::Update()
 
 void Game::DrawGame()
 {
-        Sheet sheet(2, 2, &Resources.GetTexture("sprite"));
-        Sprite temp(&sheet, 32, 32, {0, 0, 1, 1});
-        temp.SetPos(glm::vec3(500.0f, 200.0f, 0.0f));
         m_Render.Clear();
 
         m_DrawSprite.Begin();
-        m_DrawSprite.Draw(&temp);
         m_ObjectManager.Draw(&m_DrawSprite);
         m_DrawSprite.End();
         m_DrawSprite.Present(m_ObjectManager.GetCamera());

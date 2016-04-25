@@ -28,7 +28,7 @@ class Core {
 		Core();
 		virtual ~Core();
 
-                virtual void Run();
+		virtual void Run();
 	protected:
 		virtual bool InitSubSystems();
 		virtual bool Init() = 0;
@@ -38,9 +38,9 @@ class Core {
 		virtual void Quit();
 
 		bool m_Initialized = false;
-                Screen m_Screen;
-                Render m_Render;
-                SpriteRenderer m_DrawSprite;
-                Input m_Input;
-                ObjectManager m_ObjectManager;
+		Screen m_Screen;
+		Render m_Render;
+		SpriteRenderer m_DrawSprite;
+		Input m_Input;
+		ObjectManager m_ObjectManager;
 };

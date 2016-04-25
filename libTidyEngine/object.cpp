@@ -21,30 +21,30 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 Object::~Object()
 {
-        ;
+	;
 }
 
 void Object::Update()
 {
-        m_Renderable->Update(false);
+	m_Renderable->Update(false);
 }
 
 Renderable *Object::Draw()
 {
-        return m_Renderable.get();
+	return m_Renderable.get();
 }
 
 void Object::SetName(std::string name)
 {
-        m_Name = name;
+	m_Name = name;
 }
 
 void Object::SetScript(std::string script)
 {
-        m_Script = script;
+	m_Script = script;
 }
 
 void Object::SetRenderable(Renderable *renderable)
 {
-        m_Renderable.reset(renderable);
+	m_Renderable.reset(renderable);
 }
