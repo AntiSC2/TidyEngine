@@ -34,7 +34,7 @@ public:
 		text = s;
 	}
 
-	virtual const char *what() const
+	virtual const char *what() const noexcept
         {
 		return text.c_str();
 	}
