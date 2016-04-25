@@ -25,12 +25,12 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 class Cache {
 public:
-        Cache();
-        ~Cache();
+	Cache();
+	~Cache();
 
-        const Texture &CreateTexture(std::string name, std::string filepath);
-        void DeleteTexture(std::string name);
-        const Texture &GetTexture(std::string name);
+	const Texture &CreateTexture(std::string name, std::string filepath);
+	void DeleteTexture(std::string name);
+	const Texture &GetTexture(std::string name);
 private:
-        std::map<std::string, Texture> m_Textures;
+	std::map<std::string, Texture> m_Textures;
 } extern Resources;

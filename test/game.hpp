@@ -20,11 +20,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "core.hpp"
 
 class Game : public Core {
-	public:
-		Game();
-		~Game();
-	private:
-		bool Init();
-		void Update();
-		void DrawGame();
+public:		Game();
+	~Game();
+private:
+	bool Init();
+	void Update();
+	void DrawGame();
 };

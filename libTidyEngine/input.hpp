@@ -24,21 +24,21 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 class Input {
 public:
-        Input();
-        ~Input();
+	Input();
+	~Input();
 
-        void Initialise(GLFWwindow *window);
-        void Update();
-        static void Process(GLFWwindow *window, int key, int scancode,
-                        int action, int mode);
-        static void MouseProcess(GLFWwindow *window, double xpos, double ypos);
-        static void MousePress(GLFWwindow *window, int button, int action,
-                        int mods);
-        bool GetKey(int key);
-        const glm::vec2 &GetMousePos();
-        bool GetMouseButton(int button);
+	void Initialise(GLFWwindow *window);
+	void Update();
+	static void Process(GLFWwindow *window, int key, int scancode,
+			int action, int mode);
+	static void MouseProcess(GLFWwindow *window, double xpos, double ypos);
+	static void MousePress(GLFWwindow *window, int button, int action,
+			int mods);
+	bool GetKey(int key);
+	const glm::vec2 &GetMousePos();
+	bool GetMouseButton(int button);
 private:
-        static bool m_Keys[350];
-        static bool m_Buttons[8];
-        static glm::vec2 m_MousePos;
+	static bool m_Keys[350];
+	static bool m_Buttons[8];
+	static glm::vec2 m_MousePos;
 };

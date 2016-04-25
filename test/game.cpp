@@ -32,37 +32,37 @@ Game::Game()
 
 Game::~Game()
 {
-        ;
+	;
 }
 
 bool Game::Init()
 {
-        Camera2D *temp = new Camera2D("MainCamera");
-        temp->Initialise(1280, 720);
-        m_ObjectManager.SetCamera(temp);
-        m_ObjectManager.AddObject(temp);
-        temp = nullptr;
-        Resources.CreateTexture("sprite", "sprite.png");
+	Camera2D *temp = new Camera2D("MainCamera");
+	temp->Initialise(1280, 720);
+	m_ObjectManager.SetCamera(temp);
+	m_ObjectManager.AddObject(temp);
+	temp = nullptr;
+	Resources.CreateTexture("sprite", "sprite.png");
 
 	return true;
 }
 
 void Game::Update()
 {
-        m_Input.Update();
-        m_ObjectManager.Update();
-        if (m_Input.GetKey(GLFW_KEY_ESCAPE))
-                glfwSetWindowShouldClose(m_Screen.GetWindow(), GL_TRUE);
+	m_Input.Update();
+	m_ObjectManager.Update();
+	if (m_Input.GetKey(GLFW_KEY_ESCAPE))
+		glfwSetWindowShouldClose(m_Screen.GetWindow(), GL_TRUE);
 }
 
 void Game::DrawGame()
 {
-        m_Render.Clear();
+	m_Render.Clear();
 
-        m_DrawSprite.Begin();
-        m_ObjectManager.Draw(&m_DrawSprite);
-        m_DrawSprite.End();
-        m_DrawSprite.Present(m_ObjectManager.GetCamera());
+	m_DrawSprite.Begin();
+	m_ObjectManager.Draw(&m_DrawSprite);
+	m_DrawSprite.End();
+	m_DrawSprite.Present(m_ObjectManager.GetCamera());
 
-        m_Render.Present(m_Screen.GetWindow());
+	m_Render.Present(m_Screen.GetWindow());
 }
