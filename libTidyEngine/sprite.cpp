@@ -25,136 +25,136 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include "sheet.hpp"
 
 Sprite::Sprite(Sheet *sheet, uint32_t w, uint32_t h,
-                const std::vector<uint32_t> &frames)
+		const std::vector<uint32_t> &frames)
 {
-        Initialise(sheet, w, h, frames);
+	Initialise(sheet, w, h, frames);
 }
 
 Sprite::~Sprite()
 {
-        ;
+	;
 }
 
 void Sprite::Update(bool render)
 {
-        if (render == true && m_Update == true) {
-                if (m_Vertices.size() != 6) {
-                        m_Vertices.clear();
-                        Vertex temp;
-                        for (uint8_t i = 0; i < 6; i++)
-                                AddVertex(temp);
-                }
-                if (m_Frames.size() != 0) {
-                        for (; m_ImageIndex >= m_Frames.size(); m_ImageIndex -=
-                                        (uint32_t)m_Frames.size())
-                                ;
-                }
-                glm::vec4 tex_coords = m_Frames[m_ImageIndex];
-                /* OpenGL starts counting the texture coordinates from the
-                 * bottom left corner which makes the textures appear upside
-                 * down if we don't reverse the y coordinates here
-                 */
-                m_Vertices[0].TexUV = glm::vec2(tex_coords.x, tex_coords.w);
-                m_Vertices[0].Color = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
-                m_Vertices[0].Position = m_Position;
+	if (render == true && m_Update == true) {
+		if (m_Vertices.size() != 6) {
+			m_Vertices.clear();
+			Vertex temp;
+			for (uint8_t i = 0; i < 6; i++)
+				AddVertex(temp);
+		}
+		if (m_Frames.size() != 0) {
+			for (; m_ImageIndex >= m_Frames.size(); m_ImageIndex -=
+					(uint32_t)m_Frames.size())
+				;
+		}
+		glm::vec4 tex_coords = m_Frames[m_ImageIndex];
+		/* OpenGL starts counting the texture coordinates from the
+		 * bottom left corner which makes the textures appear upside
+		 * down if we don't reverse the y coordinates here
+		 */
+		m_Vertices[0].TexUV = glm::vec2(tex_coords.x, tex_coords.w);
+		m_Vertices[0].Color = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
+		m_Vertices[0].Position = m_Position;
 
-                m_Vertices[1].TexUV = glm::vec2(tex_coords.z, tex_coords.w);
-                m_Vertices[1].Color = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
-                m_Vertices[1].Position = m_Position + glm::vec3((float)m_Width,
-                        0.0f, 0.0f);
+		m_Vertices[1].TexUV = glm::vec2(tex_coords.z, tex_coords.w);
+		m_Vertices[1].Color = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
+		m_Vertices[1].Position = m_Position + glm::vec3((float)m_Width,
+			0.0f, 0.0f);
 
-                m_Vertices[2].TexUV = glm::vec2(tex_coords.x, tex_coords.y);
-                m_Vertices[2].Color = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
-                m_Vertices[2].Position = m_Position + glm::vec3(0.0f,
-                        (float)m_Height, 0.0f);
+		m_Vertices[2].TexUV = glm::vec2(tex_coords.x, tex_coords.y);
+		m_Vertices[2].Color = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
+		m_Vertices[2].Position = m_Position + glm::vec3(0.0f,
+			(float)m_Height, 0.0f);
 
-                m_Vertices[3].TexUV = glm::vec2(tex_coords.x, tex_coords.y);
-                m_Vertices[3].Color = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
-                m_Vertices[3].Position = m_Position + glm::vec3(0.0f,
-                        (float)m_Height, 0.0f);
+		m_Vertices[3].TexUV = glm::vec2(tex_coords.x, tex_coords.y);
+		m_Vertices[3].Color = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
+		m_Vertices[3].Position = m_Position + glm::vec3(0.0f,
+			(float)m_Height, 0.0f);
 
-                m_Vertices[4].TexUV = glm::vec2(tex_coords.z, tex_coords.w);
-                m_Vertices[4].Color = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
-                m_Vertices[4].Position = m_Position + glm::vec3((float)m_Width,
-                        0.0f, 0.0f);
+		m_Vertices[4].TexUV = glm::vec2(tex_coords.z, tex_coords.w);
+		m_Vertices[4].Color = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
+		m_Vertices[4].Position = m_Position + glm::vec3((float)m_Width,
+			0.0f, 0.0f);
 
-                m_Vertices[5].TexUV = glm::vec2(tex_coords.z, tex_coords.y);
-                m_Vertices[5].Color = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
-                m_Vertices[5].Position = m_Position + glm::vec3((float)m_Width,
-                        (float)m_Height, 0.0f);
-                m_Update = false;
-        } else {
-                m_ImageBuffer += m_ImageSpeed;
-                m_ImageIndex = (uint32_t)std::round(m_ImageBuffer);
-                while (m_ImageIndex > (uint32_t)m_Frames.size()) {
-                        m_ImageBuffer -= (float)m_Frames.size();
-                        m_ImageIndex -= (uint32_t)m_Frames.size();
-                }
-        }
+		m_Vertices[5].TexUV = glm::vec2(tex_coords.z, tex_coords.y);
+		m_Vertices[5].Color = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
+		m_Vertices[5].Position = m_Position + glm::vec3((float)m_Width,
+			(float)m_Height, 0.0f);
+		m_Update = false;
+	} else {
+		m_ImageBuffer += m_ImageSpeed;
+		m_ImageIndex = (uint32_t)std::round(m_ImageBuffer);
+		while (m_ImageIndex > (uint32_t)m_Frames.size()) {
+			m_ImageBuffer -= (float)m_Frames.size();
+			m_ImageIndex -= (uint32_t)m_Frames.size();
+		}
+	}
 }
 
 /* frames must contain an even number of elements, else it returns false */
 bool Sprite::Initialise(Sheet *sheet, uint32_t w, uint32_t h,
-                const std::vector<uint32_t> &frames)
+		const std::vector<uint32_t> &frames)
 {
-        if (frames.size() % 2 != 0 || sheet == nullptr)
-                return false;
+	if (frames.size() % 2 != 0 || sheet == nullptr)
+		return false;
 
-        m_Tex = sheet->GetTex();
-        m_Frames.clear();
-        for (size_t i = 1; i < frames.size(); i += 2)
-                m_Frames.push_back(sheet->GetTexCoords(frames[i - 1],
-                                frames[i]));
+	m_Tex = sheet->GetTex();
+	m_Frames.clear();
+	for (size_t i = 1; i < frames.size(); i += 2)
+		m_Frames.push_back(sheet->GetTexCoords(frames[i - 1],
+				frames[i]));
 
-        if (w == 0)
-                m_Width = sheet->GetWidth();
-        else
-                m_Width = w;
-        if (h == 0)
-                m_Height = sheet->GetHeight();
-        else
-                m_Height = h;
+	if (w == 0)
+		m_Width = sheet->GetWidth();
+	else
+		m_Width = w;
+	if (h == 0)
+		m_Height = sheet->GetHeight();
+	else
+		m_Height = h;
 
-        m_Update = true;
-        
-        return true;
+	m_Update = true;
+	
+	return true;
 }
 
 const glm::vec3 &Sprite::GetPos() const
 {
-        return m_Position;
+	return m_Position;
 }
 
 const uint32_t &Sprite::GetWidth() const
 {
-        return m_Width;
+	return m_Width;
 }
 
 const uint32_t &Sprite::GetHeight() const
 {
-        return m_Height;
+	return m_Height;
 }
 
 void Sprite::SetPos(const glm::vec3 &pos)
 {
-        m_Position = pos;
-        m_Update = true;
+	m_Position = pos;
+	m_Update = true;
 }
 
 void Sprite::SetWidth(uint32_t w)
 {
-        m_Width = w;
-        m_Update = true;
+	m_Width = w;
+	m_Update = true;
 }
 
 void Sprite::SetHeight(uint32_t h)
 {
-        m_Height = h;
-        m_Update = true;
+	m_Height = h;
+	m_Update = true;
 }
 
 void Sprite::SetImageIndex(uint32_t image_index)
 {
-        m_ImageIndex = image_index;
-        m_Update = true;
+	m_ImageIndex = image_index;
+	m_Update = true;
 }

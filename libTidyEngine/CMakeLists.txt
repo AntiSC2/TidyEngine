@@ -6,15 +6,15 @@ set (TidyEngine_VERSION_MAJOR 0)
 set (TidyEngine_VERSION_MINOR 2)
 
 configure_file(
-    "${CMAKE_CURRENT_SOURCE_DIR}/config.hpp.in"
-    "${CMAKE_BINARY_DIR}/config.hpp"
+	"${CMAKE_CURRENT_SOURCE_DIR}/config.hpp.in"
+	"${CMAKE_BINARY_DIR}/config.hpp"
 )
 include_directories(${CMAKE_BINARY_DIR})
 
 set(SOURCE
-        ${SOURCE}
-        ${CMAKE_CURRENT_SOURCE_DIR}/core.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/screen.cpp
+	${SOURCE}
+	${CMAKE_CURRENT_SOURCE_DIR}/core.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/screen.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/render.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/shader.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/error.cpp
@@ -28,16 +28,16 @@ set(SOURCE
 	${CMAKE_CURRENT_SOURCE_DIR}/spriterenderer.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/camera2d.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/input.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/object.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/object.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/objectmanager.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/sheet.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/sheet.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/sprite.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/vm.cpp
 )
 set(HEADERS
-        ${HEADERS}
-        ${CMAKE_CURRENT_SOURCE_DIR}/core.hpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/screen.hpp
+	${HEADERS}
+	${CMAKE_CURRENT_SOURCE_DIR}/core.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/screen.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/render.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/shader.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/error.hpp
@@ -52,9 +52,9 @@ set(HEADERS
 	${CMAKE_CURRENT_SOURCE_DIR}/spriterenderer.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/camera2d.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/input.hpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/object.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/object.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/objectmanager.hpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/sheet.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/sheet.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/sprite.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/vm.hpp
 )
@@ -114,7 +114,7 @@ add_library(${PROJECT_NAME} STATIC ${SOURCE} ${HEADERS})
 target_link_libraries(${PROJECT_NAME} ${GLFW_LIBRARIES}
 				      ${GLEW_LIBRARIES}
 				      ${FREEIMAGE_LIBRARIES}
-                                      ${LUAJIT_LIBRARIES})
+				      ${LUAJIT_LIBRARIES})
 
 if(WIN32)
 	target_link_libraries(${PROJECT_NAME} opengl32.lib)

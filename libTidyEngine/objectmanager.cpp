@@ -23,40 +23,40 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 ObjectManager::ObjectManager()
 {
-        ;
+	;
 }
 
 ObjectManager::~ObjectManager()
 {
-        ;
+	;
 }
 
 void ObjectManager::AddObject(Object *object)
 {
-        m_Objects.emplace_back(object);
+	m_Objects.emplace_back(object);
 }
 
 void ObjectManager::Update()
 {
-        for (size_t i = 0; i < m_Objects.size(); i++)
-                m_Objects[i]->Update();
+	for (size_t i = 0; i < m_Objects.size(); i++)
+		m_Objects[i]->Update();
 }
 
 void ObjectManager::Draw(Renderer *renderer)
 {
-        for (size_t i = 0; i < m_Objects.size(); i++) {
-                if (m_Objects[i]->Draw() != nullptr) {
-                        renderer->Draw(m_Objects[i]->Draw());
-                }
-        }
+	for (size_t i = 0; i < m_Objects.size(); i++) {
+		if (m_Objects[i]->Draw() != nullptr) {
+			renderer->Draw(m_Objects[i]->Draw());
+		}
+	}
 }
 
 void ObjectManager::SetCamera(Camera2D *camera)
 {
-        m_CurrentCamera = camera;
+	m_CurrentCamera = camera;
 }
 
 const Camera2D *ObjectManager::GetCamera()
 {
-        return m_CurrentCamera;
+	return m_CurrentCamera;
 }

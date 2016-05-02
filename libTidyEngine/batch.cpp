@@ -36,7 +36,7 @@ void Batch::Begin(GLuint vaoid, GLuint vboid)
 	m_VBOID = vboid;
 	m_Glyphs.clear();
 	m_SortedGlyphs.clear();
-        m_RenderBatches.clear();
+	m_RenderBatches.clear();
 }
 
 void Batch::End()
@@ -76,9 +76,9 @@ void Batch::SortGlyphs()
 
 void Batch::CreateBatches()
 {
-        size_t num_vert_total = 0;
-        for (size_t i = 0; i < m_SortedGlyphs.size(); i++)
-                num_vert_total += m_SortedGlyphs[i]->GetVertices().size();
+	size_t num_vert_total = 0;
+	for (size_t i = 0; i < m_SortedGlyphs.size(); i++)
+		num_vert_total += m_SortedGlyphs[i]->GetVertices().size();
 
 	std::vector<Vertex> vertex_data;
 	uint64_t offset = 0;
@@ -87,9 +87,9 @@ void Batch::CreateBatches()
 			m_SortedGlyphs[0]->GetVertices().size(), offset);
 	offset += m_RenderBatches[0].Vertices;
 
-        vertex_data.resize(num_vert_total);
-        for (size_t i = 0; i < m_SortedGlyphs[0]->GetVertices().size(); i++)
-                vertex_data[i] = m_SortedGlyphs[0]->GetVertices()[i];
+	vertex_data.resize(num_vert_total);
+	for (size_t i = 0; i < m_SortedGlyphs[0]->GetVertices().size(); i++)
+		vertex_data[i] = m_SortedGlyphs[0]->GetVertices()[i];
 
 	for (size_t g = 1; g < m_SortedGlyphs.size(); g++) {
 		GLuint temp_tex = m_SortedGlyphs[g]->GetTex();
@@ -101,12 +101,12 @@ void Batch::CreateBatches()
 		else
 			m_RenderBatches.back().Vertices += num_vert;
 
-                size_t i = offset;
-                size_t size_vert = m_SortedGlyphs[g]->GetVertices().size();
+		size_t i = offset;
+		size_t size_vert = m_SortedGlyphs[g]->GetVertices().size();
 
-                for (; (i - offset) < size_vert; i++)
-                        vertex_data[i] = m_SortedGlyphs[g]->
-                                        GetVertices()[i - offset];
+		for (; (i - offset) < size_vert; i++)
+			vertex_data[i] = m_SortedGlyphs[g]->
+					GetVertices()[i - offset];
 
 		offset += num_vert;
 	}

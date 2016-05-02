@@ -37,55 +37,55 @@ Core::~Core()
 
 void Core::Run() 
 {
-        if (InitSubSystems() && Init()) {
-                GameLoop();
-        }
+	if (InitSubSystems() && Init()) {
+		GameLoop();
+	}
 	Quit();
 }
 
 bool Core::InitSubSystems()
 {
-        if (glfwInit() == GL_FALSE)
-                return false;
+	if (glfwInit() == GL_FALSE)
+		return false;
 
-        FreeImage_Initialise();
-        FreeImage_SetOutputMessage(FreeImageError);
+	FreeImage_Initialise();
+	FreeImage_SetOutputMessage(FreeImageError);
 
 	if(m_Screen.CreateWindow(1280, 720, "TidyEngine", 3, 3) != true) {
-                printf("Error: glfw could not create window!\n");
-                return false;
-        } else {
-                if (m_Screen.InitGL() == false) {
-                        printf("Error: could not initialize OpenGL!\n");
-                        return false;
-                }
-        }
+		printf("Error: glfw could not create window!\n");
+		return false;
+	} else {
+		if (m_Screen.InitGL() == false) {
+			printf("Error: could not initialize OpenGL!\n");
+			return false;
+		}
+	}
 
-        try {
-                m_Render.LoadShaders("default", "shader.vert", "shader.frag",
-                {"position", "color", "uv"});
-        }
-        catch (std::exception &e) {
-                printf("%s", e.what());
-                printf("Error: Could not load default texture: default.png\n");
-                return false;
-        }
-        m_DrawSprite.Initialise(m_Render.GetShader("default"),
-                        &m_Render.GetBatch());
+	try {
+		m_Render.LoadShaders("default", "shader.vert", "shader.frag",
+		{"position", "color", "uv"});
+	}
+	catch (std::exception &e) {
+		printf("%s", e.what());
+		printf("Error: Could not load default texture: default.png\n");
+		return false;
+	}
+	m_DrawSprite.Initialise(m_Render.GetShader("default"),
+			&m_Render.GetBatch());
 	
-        try {
-                Resources.CreateTexture("default", "default.png");
-        }
-        catch (std::exception &e) {
-                printf("%s", e.what());
-                printf("Error: Could not load default texture: default.png\n");
-                return false;
-        }
-        
-        m_Input.Initialise(m_Screen.GetWindow());
+	try {
+		Resources.CreateTexture("default", "default.png");
+	}
+	catch (std::exception &e) {
+		printf("%s", e.what());
+		printf("Error: Could not load default texture: default.png\n");
+		return false;
+	}
+	
+	m_Input.Initialise(m_Screen.GetWindow());
 
-        printf("TidyEngine Version: %d.%d\n",
-               TidyEngine_VERSION_MAJOR, TidyEngine_VERSION_MINOR);
+	printf("TidyEngine Version: %d.%d\n",
+	       TidyEngine_VERSION_MAJOR, TidyEngine_VERSION_MINOR);
 	
 	return true;
 }
@@ -94,15 +94,15 @@ void Core::GameLoop()
 {
 	printf("Main loop was entered.\n");
 	m_Screen.GetWidth();
-        while (!glfwWindowShouldClose(m_Screen.GetWindow())) {
-                Update();
-                DrawGame();
-        }
-        printf("Main loop was closed.\n");
+	while (!glfwWindowShouldClose(m_Screen.GetWindow())) {
+		Update();
+		DrawGame();
+	}
+	printf("Main loop was closed.\n");
 }
 
 void Core::Quit()
 {
-        glfwTerminate();
-        FreeImage_DeInitialise();
+	glfwTerminate();
+	FreeImage_DeInitialise();
 }

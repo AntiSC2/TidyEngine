@@ -29,10 +29,10 @@ SpriteRenderer::SpriteRenderer()
 
 SpriteRenderer::~SpriteRenderer()
 {
-        if (m_VAOID != 0)
-                glDeleteVertexArrays(1, &m_VAOID);
-        if (m_VBOID != 0)
-                glDeleteBuffers(1, &m_VBOID);
+	if (m_VAOID != 0)
+		glDeleteVertexArrays(1, &m_VAOID);
+	if (m_VBOID != 0)
+		glDeleteBuffers(1, &m_VBOID);
 }
 
 void SpriteRenderer::Initialise(Shader *shader, Batch *batch)
@@ -67,17 +67,17 @@ void SpriteRenderer::Initialise(Shader *shader, Batch *batch)
 
 void SpriteRenderer::Draw(Renderable *object)
 {
-        /* Updates the object to prepare for rendering */
-        object->Update(true);
-        m_Batch->Draw(object);
+	/* Updates the object to prepare for rendering */
+	object->Update(true);
+	m_Batch->Draw(object);
 }
 
 void SpriteRenderer::Present(const Camera2D *camera)
 {
-        if (camera != nullptr) {
-                m_Shader->SetUniformMat4("projection", camera->GetProj());
-                m_Shader->SetUniformMat4("view", camera->GetView());
-                m_Shader->SetUniformMat4("model", camera->GetModel());
-        }
-        m_Batch->Present();
+	if (camera != nullptr) {
+		m_Shader->SetUniformMat4("projection", camera->GetProj());
+		m_Shader->SetUniformMat4("view", camera->GetView());
+		m_Shader->SetUniformMat4("model", camera->GetModel());
+	}
+	m_Batch->Present();
 }

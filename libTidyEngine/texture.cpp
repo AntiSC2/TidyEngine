@@ -98,7 +98,7 @@ void Texture::DeleteTex()
 
 const GLuint &Texture::GetTex() const
 {
-        return m_TexID;
+	return m_TexID;
 }
 
 const uint32_t &Texture::GetWidth() const

@@ -5,13 +5,13 @@ include_directories(${CMAKE_SOURCE_DIR}/libTidyEngine)
 include_directories(${CMAKE_BINARY_DIR})
 
 set(SOURCES
-        ${SOURCES}
-        ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/game.cpp
+	${SOURCES}
+	${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/game.cpp
 )
 set(HEADERS
-        ${HEADERS}
-        ${CMAKE_CURRENT_SOURCE_DIR}/game.hpp
+	${HEADERS}
+	${CMAKE_CURRENT_SOURCE_DIR}/game.hpp
 )
 
 if(WIN32)

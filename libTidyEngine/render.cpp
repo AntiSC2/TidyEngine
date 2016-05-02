@@ -37,29 +37,29 @@ Render::~Render()
 void Render::LoadShaders(std::string name, std::string v, std::string f,
 		std::vector<std::string> attributes)
 {
-        m_Shaders[name] = std::unique_ptr<Shader>(new Shader(v, f));
-        if (m_Shaders[name]->InitProgram() == false) {
-                Error e("Exception: could not initialize shader!");
-                throw e;
-        }
+	m_Shaders[name] = std::unique_ptr<Shader>(new Shader(v, f));
+	if (m_Shaders[name]->InitProgram() == false) {
+		Error e("Exception: could not initialize shader!");
+		throw e;
+	}
 
-        for (size_t i = 0; i < attributes.size(); i++)
-                m_Shaders[name]->AddAttribute(attributes[i]);
+	for (size_t i = 0; i < attributes.size(); i++)
+		m_Shaders[name]->AddAttribute(attributes[i]);
 
-        if (m_Shaders[name]->LinkProgram() == false) {
+	if (m_Shaders[name]->LinkProgram() == false) {
 		Error e("Exception: could not link shader!");
-                throw e;
+		throw e;
 	}
 }
 
 Shader *Render::GetShader(std::string name)
 {
-        if (m_Shaders.find(name) != m_Shaders.end())
-                return m_Shaders[name].get();
-        else
-                std::printf("Warning: could not find shader %s!\n",
+	if (m_Shaders.find(name) != m_Shaders.end())
+		return m_Shaders[name].get();
+	else
+		std::printf("Warning: could not find shader %s!\n",
 				name.c_str());
-        return nullptr;
+	return nullptr;
 }
 
 Batch &Render::GetBatch()

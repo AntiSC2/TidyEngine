@@ -27,78 +27,78 @@ glm::vec2 Input::m_MousePos = glm::vec2(0.0f, 0.0f);
 
 Input::Input()
 {
-        for (uint16_t i = 0; i < 350; i++)
-                m_Keys[i] = false;
-        for (uint8_t i = 0; i < 8; i++)
-                m_Buttons[i] = false;
+	for (uint16_t i = 0; i < 350; i++)
+		m_Keys[i] = false;
+	for (uint8_t i = 0; i < 8; i++)
+		m_Buttons[i] = false;
 }
 
 Input::~Input()
 {
-        ;
+	;
 }
 
 void Input::Initialise(GLFWwindow *window)
 {
-        glfwSetKeyCallback(window, Process);
-        glfwSetCursorPosCallback(window, MouseProcess);
-        glfwSetMouseButtonCallback(window, MousePress);
+	glfwSetKeyCallback(window, Process);
+	glfwSetCursorPosCallback(window, MouseProcess);
+	glfwSetMouseButtonCallback(window, MousePress);
 }
 
 void Input::Update()
 {
-        glfwPollEvents();
+	glfwPollEvents();
 }
 
 void Input::Process(GLFWwindow *window, int key, int scancode, int action,
-        int mode)
+	int mode)
 {
-        if (key == GLFW_KEY_UNKNOWN) {
-                std::printf("Warning: key unknown!\n");
-                return;
-        }
-        
-        if (action == GLFW_PRESS)
-                m_Keys[key] = true;
-        else if (action == GLFW_RELEASE)
-                m_Keys[key] = false;
+	if (key == GLFW_KEY_UNKNOWN) {
+		std::printf("Warning: key unknown!\n");
+		return;
+	}
+	
+	if (action == GLFW_PRESS)
+		m_Keys[key] = true;
+	else if (action == GLFW_RELEASE)
+		m_Keys[key] = false;
 }
 
 void Input::MouseProcess(GLFWwindow *window, double xpos, double ypos)
 {
-        m_MousePos = glm::vec2(xpos, ypos);
+	m_MousePos = glm::vec2(xpos, ypos);
 }
 
 void Input::MousePress(GLFWwindow *window, int button, int action, int mods)
 {
-        if (button < 0 || button > 7)
-                return;
+	if (button < 0 || button > 7)
+		return;
 
-        if (action == GLFW_PRESS)
-                m_Buttons[button] = true;
-        else if (action == GLFW_RELEASE)
-                m_Buttons[button] = false;
+	if (action == GLFW_PRESS)
+		m_Buttons[button] = true;
+	else if (action == GLFW_RELEASE)
+		m_Buttons[button] = false;
 }
 
 bool Input::GetKey(int key)
 {
-        if (key < 0 || key >= 350) {
-                std::printf("Warning: key unknown!\n");
-                return false;
-        }
-        return m_Keys[key];
+	if (key < 0 || key >= 350) {
+		std::printf("Warning: key unknown!\n");
+		return false;
+	}
+	return m_Keys[key];
 }
 
 const glm::vec2 &Input::GetMousePos()
 {
-        return m_MousePos;
+	return m_MousePos;
 }
 
 bool Input::GetMouseButton(int button)
 {
-        if (button < 0 || button > 7) {
-                std::printf("Warning: key unknown!\n");
-                return false;
-        }
-        return m_Buttons[button];
+	if (button < 0 || button > 7) {
+		std::printf("Warning: key unknown!\n");
+		return false;
+	}
+	return m_Buttons[button];
 }

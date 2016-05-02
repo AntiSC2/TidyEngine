@@ -21,16 +21,16 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 LuaVM::LuaVM()
 {
-        State = luaL_newstate();
-        luaL_openlibs(State);
+	State = luaL_newstate();
+	luaL_openlibs(State);
 }
 
 LuaVM::~LuaVM()
 {
-        lua_close(State);
+	lua_close(State);
 }
 
 int LuaVM::LoadScript(const std::string &file)
 {
-        return luaL_loadfile(State, file.c_str());
+	return luaL_loadfile(State, file.c_str());
 }

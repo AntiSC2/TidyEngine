@@ -21,17 +21,17 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 Renderable::Renderable()
 {
-        ;
+	;
 }
 
 Renderable::~Renderable()
 {
-        ;
+	;
 }
 
 void Renderable::Update(bool render)
 {
-        ;
+	;
 }
 
 void Renderable::AddVertex(const Vertex& vertex)
@@ -41,10 +41,10 @@ void Renderable::AddVertex(const Vertex& vertex)
 
 const std::vector<Vertex> &Renderable::GetVertices() const
 {
-        return m_Vertices;
+	return m_Vertices;
 }
 
 GLuint Renderable::GetTex()
 {
-        return m_Tex;
+	return m_Tex;
 }

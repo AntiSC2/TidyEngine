@@ -26,7 +26,7 @@ IOManager IO;
 
 IOManager::IOManager()
 {
-        ;
+	;
 }
 
 IOManager::~IOManager()
@@ -36,31 +36,31 @@ IOManager::~IOManager()
 
 FIBITMAP *IOManager::LoadImage(std::string filepath)
 {
-        if (filepath.find(".png") != std::string::npos)
-                return FreeImage_Load(FIF_PNG, filepath.c_str(), PNG_DEFAULT);
-        else if (filepath.find(".bmp") != std::string::npos)
-                return FreeImage_Load(FIF_BMP, filepath.c_str(), BMP_DEFAULT);
-        else if (filepath.find(".jpeg") != std::string::npos)
-                return FreeImage_Load(FIF_JPEG, filepath.c_str());
-        printf("Warning: image %s has an unsupported file format!",
-                       filepath.c_str());
-        return nullptr;
+	if (filepath.find(".png") != std::string::npos)
+		return FreeImage_Load(FIF_PNG, filepath.c_str(), PNG_DEFAULT);
+	else if (filepath.find(".bmp") != std::string::npos)
+		return FreeImage_Load(FIF_BMP, filepath.c_str(), BMP_DEFAULT);
+	else if (filepath.find(".jpeg") != std::string::npos)
+		return FreeImage_Load(FIF_JPEG, filepath.c_str());
+	printf("Warning: image %s has an unsupported file format!",
+		       filepath.c_str());
+	return nullptr;
 }
 
 std::string IOManager::ReadFile(std::string filepath)
 {
-        std::ifstream source(filepath);
-        if (source.fail()) {
-                printf("Warning: failed to open %s!\n", filepath.c_str());
-                return "";
-        }
+	std::ifstream source(filepath);
+	if (source.fail()) {
+		printf("Warning: failed to open %s!\n", filepath.c_str());
+		return "";
+	}
 
-        std::string source_contents = "";
-        std::string line = "";
+	std::string source_contents = "";
+	std::string line = "";
 
-        while (std::getline(source, line))
-                source_contents += line + '\n';
+	while (std::getline(source, line))
+		source_contents += line + '\n';
 
-        source.close();
-        return source_contents;
+	source.close();
+	return source_contents;
 }

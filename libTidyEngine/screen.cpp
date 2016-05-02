@@ -24,12 +24,12 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 Screen::Screen()
 {
-        ;
+	;
 }
 
 Screen::~Screen()
 {
-        DestroyWindow();
+	DestroyWindow();
 }
 
 uint16_t Screen::GetWidth()
@@ -53,49 +53,49 @@ GLFWwindow *Screen::GetWindow()
 }
 
 bool Screen::CreateWindow(uint16_t width, uint16_t height, const char* title,
-                          int gl_major, int gl_minor)
+			  int gl_major, int gl_minor)
 {
 	DestroyWindow();
 
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, gl_major);
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, gl_minor);
-        if (gl_major <= 3 && gl_minor < 2)
-                glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_ANY_PROFILE);
-        else
-                glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, gl_major);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, gl_minor);
+	if (gl_major <= 3 && gl_minor < 2)
+		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_ANY_PROFILE);
+	else
+		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-        m_Window = glfwCreateWindow(width, height, title, nullptr, nullptr);
-        if (m_Window == nullptr) {
-                return false;
-        } else {
-                m_Width = width;
-                m_Height = height;
-                m_Title = (char*)title;
-                glfwMakeContextCurrent(m_Window);
-        }
+	m_Window = glfwCreateWindow(width, height, title, nullptr, nullptr);
+	if (m_Window == nullptr) {
+		return false;
+	} else {
+		m_Width = width;
+		m_Height = height;
+		m_Title = (char*)title;
+		glfwMakeContextCurrent(m_Window);
+	}
 
-        return true;
+	return true;
 }
 
 bool Screen::InitGL()
 {
-        glewExperimental = GL_TRUE;
-        GLenum err;
-        err = glewInit();
-        if (err != GLEW_OK) {
-                printf("Error: %s\n", glewGetErrorString(err));
-                return false;
-        }
+	glewExperimental = GL_TRUE;
+	GLenum err;
+	err = glewInit();
+	if (err != GLEW_OK) {
+		printf("Error: %s\n", glewGetErrorString(err));
+		return false;
+	}
 	
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
-        
-        return true;
+	
+	return true;
 }
 
 void Screen::DestroyWindow()
 {
-        if (m_Window != nullptr)
-                glfwDestroyWindow(m_Window);
+	if (m_Window != nullptr)
+		glfwDestroyWindow(m_Window);
 }

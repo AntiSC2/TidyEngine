@@ -26,44 +26,44 @@ Cache Resources;
 
 Cache::Cache()
 {
-        ;
+	;
 }
 
 Cache::~Cache()
 {
-        for (auto it : m_Textures)
-                it.second.DeleteTex();
+	for (auto it : m_Textures)
+		it.second.DeleteTex();
 }
 
 const Texture &Cache::CreateTexture(std::string name, std::string filepath)
 {
-        if (m_Textures.find(name) == m_Textures.end()) {
-                FIBITMAP *bitmap = IO.LoadImage(filepath);
-                bool success = m_Textures[name].CreateTex(bitmap, true, true);
-                if (success == false) {
-                        Error e("Exception: could not create texture " +
-                                        filepath);
-                        throw e;
-                }
-                FreeImage_Unload(bitmap);
-                return m_Textures[name];
-        } else {
+	if (m_Textures.find(name) == m_Textures.end()) {
+		FIBITMAP *bitmap = IO.LoadImage(filepath);
+		bool success = m_Textures[name].CreateTex(bitmap, true, true);
+		if (success == false) {
+			Error e("Exception: could not create texture " +
+					filepath);
+			throw e;
+		}
+		FreeImage_Unload(bitmap);
+		return m_Textures[name];
+	} else {
 		std::printf("Warning: texture %s already exists!\n",
 				name.c_str());
-                return m_Textures[name];
-        }
+		return m_Textures[name];
+	}
 }
 
 void Cache::DeleteTexture(std::string name)
 {
-        m_Textures[name].DeleteTex();
-        m_Textures.erase(name);
+	m_Textures[name].DeleteTex();
+	m_Textures.erase(name);
 }
 
 const Texture &Cache::GetTexture(std::string name)
 {
-        if (m_Textures.find(name) != m_Textures.end())
-                return m_Textures[name];
+	if (m_Textures.find(name) != m_Textures.end())
+		return m_Textures[name];
 	std::printf("Warning: could not find texture %s!", name.c_str());
 	return m_Textures["default"];
 }
