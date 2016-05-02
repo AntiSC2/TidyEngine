@@ -26,27 +26,27 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 class Object {
 public:
-        Object(std::string name) : m_Name(name)
-        {
-                ;
-        }
+	Object(std::string name) : m_Name(name)
+	{
+		;
+	}
 
-        Object(std::string name, std::string script,
-                        Renderable *renderable = nullptr) : m_Name(name),
-                        m_Script(script), m_Renderable(renderable)
-        {
-                ;
-        }
-        virtual ~Object();
-        
-        virtual void Update();
-        virtual Renderable *Draw();
-        void SetName(std::string name);
-        void SetScript(std::string script);
-        void SetRenderable(Renderable *renderable);
+	Object(std::string name, std::string script,
+			Renderable *renderable = nullptr) : m_Name(name),
+			m_Script(script), m_Renderable(renderable)
+	{
+		;
+	}
+	virtual ~Object();
+	
+	virtual void Update();
+	virtual Renderable *Draw();
+	void SetName(std::string name);
+	void SetScript(std::string script);
+	void SetRenderable(Renderable *renderable);
 protected:
-        std::string m_Name = "";
-        std::string m_Script = "";
-        std::unique_ptr<Renderable> m_Renderable = nullptr;
-        glm::vec3 m_Position = glm::vec3(0.0f, 0.0f, 0.0f);
+	std::string m_Name = "";
+	std::string m_Script = "";
+	std::unique_ptr<Renderable> m_Renderable = nullptr;
+	glm::vec3 m_Position = glm::vec3(0.0f, 0.0f, 0.0f);
 };

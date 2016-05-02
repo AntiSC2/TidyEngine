@@ -28,15 +28,15 @@ class Renderer;
 
 class ObjectManager {
 public:
-        ObjectManager();
-        virtual ~ObjectManager();
-        
-        virtual void Update();
-        virtual void Draw(Renderer *renderer);
-        virtual void AddObject(Object *object);
-        virtual void SetCamera(Camera2D *camera);
-        virtual const Camera2D *GetCamera();
+	ObjectManager();
+	virtual ~ObjectManager();
+	
+	virtual void Update();
+	virtual void Draw(Renderer *renderer);
+	virtual void AddObject(Object *object);
+	virtual void SetCamera(Camera2D *camera);
+	virtual const Camera2D *GetCamera();
 protected:
-        std::vector<std::unique_ptr<Object>> m_Objects;
-        Camera2D *m_CurrentCamera = nullptr;
+	std::vector<std::unique_ptr<Object>> m_Objects;
+	Camera2D *m_CurrentCamera = nullptr;
 };

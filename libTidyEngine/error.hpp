@@ -35,7 +35,7 @@ public:
 	}
 
 	virtual const char *what() const noexcept
-        {
+	{
 		return text.c_str();
 	}
 private:

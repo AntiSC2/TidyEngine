@@ -28,7 +28,7 @@ public:
 	SpriteRenderer();
 	virtual ~SpriteRenderer();
 
-        virtual void Draw(Renderable* object);
+	virtual void Draw(Renderable* object);
 	virtual void Initialise(Shader *shader, Batch *batch);
-        virtual void Present(const Camera2D *camera);
+	virtual void Present(const Camera2D *camera);
 };

@@ -25,14 +25,14 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 class Renderable {
 public:
-        Renderable();
-        virtual ~Renderable();
+	Renderable();
+	virtual ~Renderable();
 	
-        virtual void Update(bool render = false);
+	virtual void Update(bool render = false);
 	virtual void AddVertex(const Vertex &vertex);
-        virtual const std::vector<Vertex> &GetVertices() const;
-        virtual GLuint GetTex();
+	virtual const std::vector<Vertex> &GetVertices() const;
+	virtual GLuint GetTex();
 protected:
-        std::vector<Vertex> m_Vertices;
-        GLuint m_Tex = 0;
+	std::vector<Vertex> m_Vertices;
+	GLuint m_Tex = 0;
 };

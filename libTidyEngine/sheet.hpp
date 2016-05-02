@@ -27,21 +27,21 @@ class Texture;
 
 class Sheet {
 public:
-        /* x and y stand for the number of tiles to divide the texture in
-         * not the overall size of the texture
-         */
-        Sheet(uint32_t x = 0, uint32_t y = 0, const Texture *tex = nullptr);
-        virtual ~Sheet();
+	/* x and y stand for the number of tiles to divide the texture in
+	 * not the overall size of the texture
+	 */
+	Sheet(uint32_t x = 0, uint32_t y = 0, const Texture *tex = nullptr);
+	virtual ~Sheet();
 
-        bool Initialise(uint32_t x, uint32_t y, const Texture *tex);
-        const glm::vec4 GetTexCoords(uint32_t x, uint32_t y) const;
-        GLuint GetTex() const; 
-        const uint32_t &GetWidth() const;
-        const uint32_t &GetHeight() const;
+	bool Initialise(uint32_t x, uint32_t y, const Texture *tex);
+	const glm::vec4 GetTexCoords(uint32_t x, uint32_t y) const;
+	GLuint GetTex() const; 
+	const uint32_t &GetWidth() const;
+	const uint32_t &GetHeight() const;
 protected:
-        uint32_t m_TilesX = 0;
-        uint32_t m_TilesY = 0;
+	uint32_t m_TilesX = 0;
+	uint32_t m_TilesY = 0;
 
-        glm::vec4 m_TexCoords = glm::vec4(0.0f, 0.0f, 0.0f, 0.0f);
-        const Texture *m_Tex = nullptr;
+	glm::vec4 m_TexCoords = glm::vec4(0.0f, 0.0f, 0.0f, 0.0f);
+	const Texture *m_Tex = nullptr;
 };

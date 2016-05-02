@@ -28,6 +28,6 @@ public:
 	~IOManager();
 
 	FIBITMAP *LoadImage(std::string filepath);
-        std::string ReadFile(std::string filepath);
+	std::string ReadFile(std::string filepath);
 private:
 } extern IO;

@@ -32,7 +32,7 @@ class Vertex {
 public:
 	glm::vec3 Position = glm::vec3(0.0f, 0.0f, 0.0f);
 	glm::vec4 Color = glm::vec4(0.0f, 0.0f, 0.0f, 0.0f);
-        glm::vec2 TexUV = glm::vec2(0.0f, 0.0f);
+	glm::vec2 TexUV = glm::vec2(0.0f, 0.0f);
 };
 
 class RenderBatch {

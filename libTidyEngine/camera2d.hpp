@@ -25,27 +25,27 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 class Camera2D : public Object {
 public:
-        Camera2D(std::string name) : Object(name) 
-        {
-                ;
-        }
-        virtual ~Camera2D();
+	Camera2D(std::string name) : Object(name) 
+	{
+		;
+	}
+	virtual ~Camera2D();
 
-        void Initialise(uint16_t width = 0, uint16_t height = 0);
-        virtual void Update();
-        void SetScale(float scale = 1.0f);
-        void SetPosition(glm::vec3 position);
-        const float &GetScale() const;
-        const glm::vec3 &GetPos() const;
-        const glm::mat4 &GetProj() const;
-        const glm::mat4 &GetView() const;
-        const glm::mat4 &GetModel() const;
+	void Initialise(uint16_t width = 0, uint16_t height = 0);
+	virtual void Update();
+	void SetScale(float scale = 1.0f);
+	void SetPosition(glm::vec3 position);
+	const float &GetScale() const;
+	const glm::vec3 &GetPos() const;
+	const glm::mat4 &GetProj() const;
+	const glm::mat4 &GetView() const;
+	const glm::mat4 &GetModel() const;
 private:
-        float m_Scale = 1.0f;
-        bool m_Update = false;
-        uint16_t m_Width = 0;
-        uint16_t m_Height = 0;
-        glm::mat4 m_Model;
-        glm::mat4 m_View;
-        glm::mat4 m_OrthoMatrix;
+	float m_Scale = 1.0f;
+	bool m_Update = false;
+	uint16_t m_Width = 0;
+	uint16_t m_Height = 0;
+	glm::mat4 m_Model;
+	glm::mat4 m_View;
+	glm::mat4 m_OrthoMatrix;
 };

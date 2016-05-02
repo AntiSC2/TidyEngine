@@ -36,16 +36,16 @@ public:
 	void AddAttribute(const std::string &attribute);
 	bool InitProgram();
 	bool LinkProgram();
-        GLuint GetUniformLoc(const std::string &name);
+	GLuint GetUniformLoc(const std::string &name);
 
-        void SetUniform1f(const std::string &name, float value);
-        void SetUniform1fv(const std::string &name, float *value, int count);
-        void SetUniform1i(const std::string &name, int value);
-        void SetUniform1iv(const std::string &name, int *value, int count);
-        void SetUniform2f(const std::string &name, glm::vec2 vec);
-        void SetUniform3f(const std::string &name, glm::vec3 vec);
-        void SetUniform4f(const std::string &name, glm::vec4 vec);
-        void SetUniformMat4(const std::string &name, glm::mat4 matrix);
+	void SetUniform1f(const std::string &name, float value);
+	void SetUniform1fv(const std::string &name, float *value, int count);
+	void SetUniform1i(const std::string &name, int value);
+	void SetUniform1iv(const std::string &name, int *value, int count);
+	void SetUniform2f(const std::string &name, glm::vec2 vec);
+	void SetUniform3f(const std::string &name, glm::vec3 vec);
+	void SetUniform4f(const std::string &name, glm::vec4 vec);
+	void SetUniformMat4(const std::string &name, glm::mat4 matrix);
 
 	void Bind() const;
 	void UnBind() const;

@@ -24,10 +24,10 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 class LuaVM {
 public:
-        LuaVM();
-        ~LuaVM();
+	LuaVM();
+	~LuaVM();
 
-        int LoadScript(const std::string &file);
+	int LoadScript(const std::string &file);
 private:
-        lua_State *State = nullptr;
+	lua_State *State = nullptr;
 };

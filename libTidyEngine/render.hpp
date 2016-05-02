@@ -35,8 +35,8 @@ public:
 
 	void LoadShaders(std::string name, std::string v, std::string f,
 			std::vector<std::string> attributes = {});
-        Shader *GetShader(std::string name);
-        Batch &GetBatch();
+	Shader *GetShader(std::string name);
+	Batch &GetBatch();
 	void Clear();
 	void Present(GLFWwindow *window);
 private:
