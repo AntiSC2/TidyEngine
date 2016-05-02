@@ -29,5 +29,5 @@ public:
 
 	int LoadScript(const std::string &file);
 private:
-	lua_State *State = nullptr;
+	lua_State *m_State = nullptr;
 };
