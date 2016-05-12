@@ -24,7 +24,7 @@ Object::~Object()
 	;
 }
 
-void Object::Update()
+void Object::Update(float delta)
 {
 	m_Renderable->Update(false);
 }

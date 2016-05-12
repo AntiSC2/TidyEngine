@@ -26,12 +26,12 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 class Object {
 public:
-	Object(std::string name) : m_Name(name)
+	Object(std::string name = "temp") : m_Name(name)
 	{
 		;
 	}
 
-	Object(std::string name, std::string script,
+	Object(std::string name = "temp", std::string script = "none",
 			Renderable *renderable = nullptr) : m_Name(name),
 			m_Script(script), m_Renderable(renderable)
 	{
@@ -39,14 +39,14 @@ public:
 	}
 	virtual ~Object();
 	
-	virtual void Update();
+	virtual void Update(float delta = 0.0f);
 	virtual Renderable *Draw();
 	void SetName(std::string name);
 	void SetScript(std::string script);
 	void SetRenderable(Renderable *renderable);
 protected:
-	std::string m_Name = "";
-	std::string m_Script = "";
+	std::string m_Name = "temp";
+	std::string m_Script = "none";
 	std::unique_ptr<Renderable> m_Renderable = nullptr;
 	glm::vec3 m_Position = glm::vec3(0.0f, 0.0f, 0.0f);
 };
