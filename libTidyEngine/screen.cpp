@@ -59,7 +59,9 @@ bool Screen::CreateWindow(uint16_t width, uint16_t height, const char* title,
 
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, gl_major);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, gl_minor);
-	if (gl_major <= 3 && gl_minor < 2)
+	if (gl_major == 3 && gl_minor < 2)
+		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_ANY_PROFILE);
+	else if (gl_major < 3)
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_ANY_PROFILE);
 	else
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
