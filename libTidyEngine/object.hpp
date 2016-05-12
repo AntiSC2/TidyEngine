@@ -26,11 +26,6 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 class Object {
 public:
-	Object(std::string name = "temp") : m_Name(name)
-	{
-		;
-	}
-
 	Object(std::string name = "temp", std::string script = "none",
 			Renderable *renderable = nullptr) : m_Name(name),
 			m_Script(script), m_Renderable(renderable)
