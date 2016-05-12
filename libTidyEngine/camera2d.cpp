@@ -51,6 +51,7 @@ void Camera2D::Initialise(uint16_t width, uint16_t height)
 
 void Camera2D::Update()
 {
+	/* Only update the camera if it has moved, scaled or rotated */
 	if (m_Update == true) {
 		glm::vec3 translate = glm::vec3(-m_Position.x + m_Width / 2,
 			m_Position.y + m_Height / 2, 0.0f);
