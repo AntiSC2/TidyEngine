@@ -26,7 +26,8 @@ Object::~Object()
 
 void Object::Update(float delta)
 {
-	m_Renderable->Update(false);
+	if (m_Renderable != nullptr)
+		m_Renderable->Update(false);
 }
 
 Renderable *Object::Draw()
