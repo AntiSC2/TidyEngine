@@ -94,7 +94,6 @@ bool Core::InitSubSystems()
 void Core::GameLoop()
 {
 	printf("Main loop was entered.\n");
-	m_Screen.GetWidth();
 	while (!glfwWindowShouldClose(m_Screen.GetWindow())) {
 		Update();
 		DrawGame();
