@@ -1,5 +1,5 @@
 cmake_minimum_required (VERSION 3.2.3)
-project (TEST)
+project(TEST)
 
 include_directories(${CMAKE_SOURCE_DIR}/libTidyEngine)
 include_directories(${CMAKE_BINARY_DIR})
@@ -14,18 +14,18 @@ set(HEADERS
 	${CMAKE_CURRENT_SOURCE_DIR}/game.hpp
 )
 
-if(WIN32)
-	if(MSVC)
+if (WIN32)
+	if (MSVC)
 		set(TIDYENGINE_LIBRARIES
 			${TIDYENGINE_LIBRARIES}
 			${CMAKE_BINARY_DIR}/libTidyEngine/Debug/TidyEngine.lib
 		)
-	else()
+	else ()
 		set(TIDYENGINE_LIBRARIES
 			${TIDYENGINE_LIBRARIES}
 			${CMAKE_BINARY_DIR}/libTidyEngine/TidyEngine.lib
 		)
-	endif()
+	endif ()
 	set(GLFW_INCLUDE_DIRS
 		${GLFW_INCLUDE_DIRS}
 		${CMAKE_SOURCE_DIR}/deps/include/
@@ -58,11 +58,11 @@ if(WIN32)
 		${LUAJIT_LIBRARIES}
 		${CMAKE_SOURCE_DIR}/deps/lib/lua51.lib
 	)
-endif()
+endif ()
 
-if(APPLE)
+if (APPLE)
 
-elseif(UNIX)
+elseif (UNIX)
 	find_package(PkgConfig REQUIRED)
 	pkg_search_module(GLFW REQUIRED glfw3)
 	pkg_search_module(GLEW REQUIRED glew)
@@ -72,7 +72,7 @@ elseif(UNIX)
 		${TIDYENGINE_LIBRARIES}
 		${CMAKE_BINARY_DIR}/libTidyEngine/libTidyEngine.a
 	)
-endif()
+endif ()
 
 include_directories(${GLFW_INCLUDE_DIRS})
 include_directories(${GLEW_INCLUDE_DIRS})
@@ -84,6 +84,6 @@ target_link_libraries(${PROJECT_NAME} ${TIDYENGINE_LIBRARIES})
 target_link_libraries(${PROJECT_NAME} ${GLEW_LIBRARIES})
 target_link_libraries(${PROJECT_NAME} ${FREEIMAGE_LIBRARIES})
 
-if(WIN32)
+if (WIN32)
 	target_link_libraries(${PROJECT_NAME} opengl32.lib)
-endif()
+endif ()

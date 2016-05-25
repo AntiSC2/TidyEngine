@@ -1,9 +1,9 @@
 cmake_minimum_required (VERSION 3.2.3)
-project (TidyEngine)
+project(TidyEngine)
 
 #Setting up the version number for the engine
-set (TidyEngine_VERSION_MAJOR 0)
-set (TidyEngine_VERSION_MINOR 2)
+set(TidyEngine_VERSION_MAJOR 0)
+set(TidyEngine_VERSION_MINOR 2)
 
 configure_file(
 	"${CMAKE_CURRENT_SOURCE_DIR}/config.hpp.in"
@@ -59,7 +59,7 @@ set(HEADERS
 	${CMAKE_CURRENT_SOURCE_DIR}/vm.hpp
 )
 
-if(WIN32)
+if (WIN32)
 	include_directories(${CMAKE_SOURCE_DIR}/deps/include)
 	set(GLFW_INCLUDE_DIRS
 		${GLFW_INCLUDE_DIRS}
@@ -93,17 +93,17 @@ if(WIN32)
 		${LUAJIT_LIBRARIES}
 		${CMAKE_SOURCE_DIR}/deps/lib/lua51.lib
 	)
-endif()
+endif ()
 
-if(APPLE)
+if (APPLE)
 
-elseif(UNIX)
+elseif (UNIX)
 	find_package(PkgConfig REQUIRED)
 	pkg_search_module(GLFW REQUIRED glfw3)
 	pkg_search_module(GLEW REQUIRED glew)
 	pkg_search_module(FREEIMAGE REQURIED freeimage)
 	pkg_search_module(LUAJIT REQUIRED luajit)
-endif()
+endif ()
 
 include_directories(${GLFW_INCLUDE_DIRS})
 include_directories(${GLEW_INCLUDE_DIRS})
@@ -116,6 +116,6 @@ target_link_libraries(${PROJECT_NAME} ${GLFW_LIBRARIES}
 				      ${FREEIMAGE_LIBRARIES}
 				      ${LUAJIT_LIBRARIES})
 
-if(WIN32)
+if (WIN32)
 	target_link_libraries(${PROJECT_NAME} opengl32.lib)
-endif()
+endif ()
