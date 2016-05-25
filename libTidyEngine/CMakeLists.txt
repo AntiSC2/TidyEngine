@@ -93,6 +93,15 @@ if (WIN32)
 		${LUAJIT_LIBRARIES}
 		${CMAKE_SOURCE_DIR}/deps/lib/lua51.lib
 	)
+	set(OPENAL_INCLUDE_DIRS
+		${OPENAL_INCLUDE_DIRS}
+		${CMAKE_SOURCE_DIR}/deps/include/OpenAL
+	)
+	set(OPENAL_LIBRARIES
+		${OPENAL_LIBRARIES}
+		${CMAKE_SOURCE_DIR}/deps/lib/OpenAL32.lib
+		${CMAKE_SOURCE_DIR}/deps/lib/EFX-Util.lib
+	)
 endif ()
 
 if (APPLE)
@@ -103,18 +112,21 @@ elseif (UNIX)
 	pkg_search_module(GLEW REQUIRED glew)
 	pkg_search_module(FREEIMAGE REQURIED freeimage)
 	pkg_search_module(LUAJIT REQUIRED luajit)
+	pkg_search_module(OPENAL REQUIRED openal)
 endif ()
 
 include_directories(${GLFW_INCLUDE_DIRS})
 include_directories(${GLEW_INCLUDE_DIRS})
 include_directories(${FREEIMAGE_INCLUDE_DIRS})
 include_directories(${LUAJIT_INCLUDE_DIRS})
+include_directories(${OPENAL_INCLUDE_DIRS})
 
 add_library(${PROJECT_NAME} STATIC ${SOURCE} ${HEADERS})
 target_link_libraries(${PROJECT_NAME} ${GLFW_LIBRARIES}
-				      ${GLEW_LIBRARIES}
-				      ${FREEIMAGE_LIBRARIES}
-				      ${LUAJIT_LIBRARIES})
+				   ${GLEW_LIBRARIES}
+				   ${FREEIMAGE_LIBRARIES}
+				   ${LUAJIT_LIBRARIES}
+				   ${OPENAL_LIBRARIES})
 
 if (WIN32)
 	target_link_libraries(${PROJECT_NAME} opengl32.lib)

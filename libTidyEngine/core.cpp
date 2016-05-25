@@ -20,6 +20,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include "core.hpp"
 #include <GLFW/glfw3.h>
 #include <FreeImage.h>
+#include <al.h>
 #include "shader.hpp"
 #include "error.hpp"
 #include "cache.hpp"
@@ -51,7 +52,7 @@ bool Core::InitSubSystems()
 	FreeImage_Initialise();
 	FreeImage_SetOutputMessage(FreeImageError);
 
-	if(m_Screen.CreateWindow(1280, 720, "TidyEngine", 3, 3) != true) {
+	if(m_Screen.CreateWindow(1280, 720, "TidyEngine", 4, 3) != true) {
 		printf("Error: glfw could not create window!\n");
 		return false;
 	} else {

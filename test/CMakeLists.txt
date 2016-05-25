@@ -58,6 +58,15 @@ if (WIN32)
 		${LUAJIT_LIBRARIES}
 		${CMAKE_SOURCE_DIR}/deps/lib/lua51.lib
 	)
+	set(OPENAL_INCLUDE_DIRS
+		${OPENAL_INCLUDE_DIRS}
+		${CMAKE_SOURCE_DIR}/deps/include/OpenAL
+	)
+	set(OPENAL_LIBRARIES
+		${OPENAL_LIBRARIES}
+		${CMAKE_SOURCE_DIR}/deps/lib/OpenAL32.lib
+		${CMAKE_SOURCE_DIR}/deps/lib/EFX-Util.lib
+	)
 endif ()
 
 if (APPLE)
@@ -67,6 +76,7 @@ elseif (UNIX)
 	pkg_search_module(GLFW REQUIRED glfw3)
 	pkg_search_module(GLEW REQUIRED glew)
 	pkg_search_module(FREEIMAGE REQURIED freeimage)
+	pkg_search_module(LUAJIT REQUIRED luajit)
 	pkg_search_module(LUAJIT REQUIRED luajit)
 	set(TIDYENGINE_LIBRARIES
 		${TIDYENGINE_LIBRARIES}
