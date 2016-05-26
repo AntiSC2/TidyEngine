@@ -1,4 +1,5 @@
 ﻿/*
+TidyEngine
 Copyright (C) 2016 Jakob Sinclair
 
 This program is free software: you can redistribute it and/or modify
@@ -13,36 +14,32 @@ GNU Lesser General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Contact the author at: jakob.sinclair99@gmail.com
 */
 
-#pragma once
-
-#include "screen.hpp"
-#include "render.hpp"
-#include "spriterenderer.hpp"
-#include "input.hpp"
-#include "objectmanager.hpp"
 #include "audio.hpp"
 
-class Core {
-	public:
-		Core();
-		virtual ~Core();
+AudioSystem::AudioSystem(bool create)
+{
+	if (create == true) {
+		m_Device = alcOpenDevice(nullptr);
+		m_Context = alcCreateContext(m_Device, nullptr);
+		alcMakeContextCurrent(m_Context);
+	}
+}
 
-		virtual void Run();
-	protected:
-		virtual bool InitSubSystems();
-		virtual bool Init() = 0;
-		virtual void GameLoop();
-		virtual void Update() = 0;
-		virtual void DrawGame() = 0;
-		virtual void Quit();
+AudioSystem::~AudioSystem()
+{
+	if (m_Context != nullptr)
+		alcDestroyContext(m_Context);
+	if (m_Device != nullptr)
+		alcCloseDevice(m_Device);
 
-		bool m_Initialized = false;
-		AudioSystem m_Audio;
-		Screen m_Screen;
-		Render m_Render;
-		SpriteRenderer m_DrawSprite;
-		Input m_Input;
-		ObjectManager m_ObjectManager;
-};
+	m_Context = nullptr;
+	m_Device = nullptr;
+}
+
+const ALCdevice *AudioSystem::GetDevice() const
+{
+	return m_Device;
+}

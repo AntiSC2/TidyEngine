@@ -26,7 +26,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include "cache.hpp"
 #include "config.hpp"
 
-Core::Core()
+Core::Core() : m_Audio(true)
 {
 	;
 }
