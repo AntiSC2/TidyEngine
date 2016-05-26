@@ -18,6 +18,8 @@ Contact the author at: jakob.sinclair99@gmail.com
 */
 
 #include "audio.hpp"
+#include <cstdio>
+#include <al.h>
 
 AudioSystem::AudioSystem(bool create)
 {
@@ -25,6 +27,15 @@ AudioSystem::AudioSystem(bool create)
 		m_Device = alcOpenDevice(nullptr);
 		m_Context = alcCreateContext(m_Device, nullptr);
 		alcMakeContextCurrent(m_Context);
+
+		int error = alcGetError(m_Device);
+		if (error != ALC_NO_ERROR) {
+			std::printf("OpenAL error: %d\n", error);
+			alcDestroyContext(m_Context);
+			alcCloseDevice(m_Device);
+			m_Context = nullptr;
+			m_Device = nullptr;
+		}
 	}
 }
 
