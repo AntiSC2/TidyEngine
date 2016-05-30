@@ -50,6 +50,7 @@ void AudioSystem::CreateSystem()
 
 void AudioSystem::DestroySystem()
 {
+	alcMakeContextCurrent(nullptr);
 	if (m_Context != nullptr)
 		alcDestroyContext(m_Context);
 	if (m_Device != nullptr)
