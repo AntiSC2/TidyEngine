@@ -25,6 +25,8 @@ public:
 	AudioSystem(bool create);
 	~AudioSystem();
 
+	void CreateSystem();
+	void DestroySystem();
 	const ALCdevice *GetDevice() const;
 private:
 	ALCdevice *m_Device = nullptr;

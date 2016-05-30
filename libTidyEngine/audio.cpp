@@ -23,23 +23,32 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 AudioSystem::AudioSystem(bool create)
 {
-	if (create == true) {
-		m_Device = alcOpenDevice(nullptr);
-		m_Context = alcCreateContext(m_Device, nullptr);
-		alcMakeContextCurrent(m_Context);
-
-		int error = alcGetError(m_Device);
-		if (error != ALC_NO_ERROR) {
-			std::printf("OpenAL error: %d\n", error);
-			alcDestroyContext(m_Context);
-			alcCloseDevice(m_Device);
-			m_Context = nullptr;
-			m_Device = nullptr;
-		}
-	}
+	if (create == true)
+		CreateSystem();
 }
 
 AudioSystem::~AudioSystem()
+{
+	DestroySystem();
+}
+
+void AudioSystem::CreateSystem()
+{
+	m_Device = alcOpenDevice(nullptr);
+	m_Context = alcCreateContext(m_Device, nullptr);
+	alcMakeContextCurrent(m_Context);
+
+	int error = alcGetError(m_Device);
+	if (error != ALC_NO_ERROR) {
+		std::printf("OpenAL error: %d\n", error);
+		alcDestroyContext(m_Context);
+		alcCloseDevice(m_Device);
+		m_Context = nullptr;
+		m_Device = nullptr;
+	}
+}
+
+void AudioSystem::DestroySystem()
 {
 	if (m_Context != nullptr)
 		alcDestroyContext(m_Context);
