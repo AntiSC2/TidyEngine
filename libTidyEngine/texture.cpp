@@ -34,7 +34,7 @@ Texture::Texture(FIBITMAP *bitmap, bool mipmap, bool linear)
 Texture::~Texture()
 {
 	if (m_TexID != 0) {
-		DeleteTex();
+		DestroyTex();
 	}
 }
 
@@ -60,7 +60,7 @@ bool Texture::CreateTex(FIBITMAP *bitmap, bool mipmap, bool linear)
 
 	FIBITMAP *temp = FreeImage_ConvertTo32Bits(bitmap);
 	if (temp == nullptr) {
-		DeleteTex();
+		DestroyTex();
 		FreeImage_Unload(temp);
 		std::printf("Error: could not convert texture to 32 bits!\n");
 		return false;
@@ -90,7 +90,7 @@ bool Texture::CreateTex(FIBITMAP *bitmap, bool mipmap, bool linear)
 	return true;
 }
 
-void Texture::DeleteTex()
+void Texture::DestroyTex()
 {
 	if (m_TexID != 0)
 		glDeleteTextures(1, &m_TexID);

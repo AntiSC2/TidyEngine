@@ -17,11 +17,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 Contact the author at: jakob.sinclair99@gmail.com
 */
 
+/* TODO:
+- Implement default resources in code.
+*/
+
 #pragma once
 
 #include <map>
 #include <string>
 #include "texture.hpp"
+#include "sample.hpp"
 
 class Cache {
 public:
@@ -29,8 +34,13 @@ public:
 	~Cache();
 
 	const Texture &CreateTexture(std::string name, std::string filepath);
-	void DeleteTexture(std::string name);
+	void DestroyTexture(std::string name);
 	const Texture &GetTexture(std::string name);
+
+	const Sample &CreateSample(std::string name, std::string filepath);
+	void DestroySample(std::string name);
+	const Sample &GetSample(std::string name);
 private:
 	std::map<std::string, Texture> m_Textures;
+	std::map<std::string, Sample> m_Samples;
 } extern Resources;

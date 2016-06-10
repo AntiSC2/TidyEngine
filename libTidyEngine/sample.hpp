@@ -23,10 +23,12 @@ Contact the author at: jakob.sinclair99@gmail.com
 class Sample {
 public:
 	Sample();
+	Sample(int f, const void *d, size_t size, size_t freq);
 	~Sample();
 
-	void CreateSample();
-	ALuint GetBuffer();
+	void CreateBuffer(int f, const void *d, size_t size, size_t freq);
+	void DestroyBuffer();
+	unsigned int GetBuffer() const;
 private:
 	ALuint m_Buffer;
 };

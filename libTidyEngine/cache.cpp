@@ -32,7 +32,7 @@ Cache::Cache()
 Cache::~Cache()
 {
 	for (auto it : m_Textures)
-		it.second.DeleteTex();
+		it.second.DestroyTex();
 }
 
 const Texture &Cache::CreateTexture(std::string name, std::string filepath)
@@ -54,9 +54,9 @@ const Texture &Cache::CreateTexture(std::string name, std::string filepath)
 	}
 }
 
-void Cache::DeleteTexture(std::string name)
+void Cache::DestroyTexture(std::string name)
 {
-	m_Textures[name].DeleteTex();
+	m_Textures[name].DestroyTex();
 	m_Textures.erase(name);
 }
 
@@ -66,4 +66,26 @@ const Texture &Cache::GetTexture(std::string name)
 		return m_Textures[name];
 	std::printf("Warning: could not find texture %s!", name.c_str());
 	return m_Textures["default"];
+}
+
+const Sample &Cache::CreateSample(std::string name, std::string filepath)
+{
+	/* TODO:
+	- Find a library to load sound files
+	- Implement load function here and in IOManager
+	*/
+}
+
+void Cache::DestroySample(std::string name)
+{
+	m_Samples[name].DestroyBuffer();
+	m_Samples.erase(name);
+}
+
+const Sample &Cache::GetSample(std::string name)
+{
+	if (m_Samples.find(name) != m_Samples.end())
+		return m_Samples[name];
+	std::printf("Warning: could not find sample %s!", name.c_str());
+	return m_Samples["default"];
 }

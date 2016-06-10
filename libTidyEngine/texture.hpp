@@ -32,7 +32,7 @@ public:
 
 	bool CreateTex(FIBITMAP *bitmap, bool mipmap = false,
 			bool linear = false);
-	void DeleteTex();
+	void DestroyTex();
 	const GLuint &GetTex() const;
 	const uint32_t &GetWidth() const;
 	const uint32_t &GetHeight() const;

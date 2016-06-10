@@ -21,20 +21,39 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 Sample::Sample()
 {
+	;
+}
 
+Sample::Sample(int f, const void *d, size_t size, size_t freq)
+{
+	CreateBuffer(f, d, size, freq);
 }
 
 Sample::~Sample()
 {
-
+	DestroyBuffer();
 }
 
-void Sample::CreateSample()
+void Sample::CreateBuffer(int f, const void *d, size_t size, size_t freq)
 {
+	if (alIsBuffer(m_Buffer) == AL_TRUE) {
+		alDeleteBuffers(1, &m_Buffer);
+		m_Buffer = 0;
+	}
 
+	alGenBuffers(1, &m_Buffer);
+	alBufferData(m_Buffer, f, d, size, freq);
 }
 
-ALuint Sample::GetBuffer()
+void Sample::DestroyBuffer()
+{
+	if (alIsBuffer(m_Buffer) == AL_TRUE) {
+		alDeleteBuffers(1, &m_Buffer);
+		m_Buffer = 0;
+	}
+}
+
+unsigned int Sample::GetBuffer() const
 {
 	return m_Buffer;
 }
