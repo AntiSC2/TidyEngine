@@ -19,6 +19,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 #pragma once
 #include <al.h>
+#include <cstddef>
 
 class Sample {
 public:
