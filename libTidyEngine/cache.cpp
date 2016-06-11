@@ -74,6 +74,7 @@ const Sample &Cache::CreateSample(std::string name, std::string filepath)
 	- Find a library to load sound files
 	- Implement load function here and in IOManager
 	*/
+	return Sample();
 }
 
 void Cache::DestroySample(std::string name)
@@ -87,5 +88,5 @@ const Sample &Cache::GetSample(std::string name)
 	if (m_Samples.find(name) != m_Samples.end())
 		return m_Samples[name];
 	std::printf("Warning: could not find sample %s!", name.c_str());
-	return m_Samples["default"];
+	return Sample();
 }
