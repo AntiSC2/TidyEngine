@@ -27,7 +27,7 @@ struct FIBITMAP;
 class Texture {
 public:
 	Texture();
-	Texture(FIBITMAP *bitmap, bool mipmap = false, bool linear = false);
+	Texture(FIBITMAP *bitmap, bool mipmap = false, bool linear = true);
 	~Texture();
 
 	bool CreateTex(FIBITMAP *bitmap, bool mipmap = false,

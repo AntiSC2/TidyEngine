@@ -18,7 +18,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 */
 
 /* TODO:
-- Implement default resources in code.
+- Implement default resources in code. DONE FOR TEXTURES
 */
 
 #pragma once

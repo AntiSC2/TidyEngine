@@ -26,7 +26,33 @@ Cache Resources;
 
 Cache::Cache()
 {
-	;
+	FIBITMAP *bitmap = FreeImage_Allocate(2, 2, 32, FI_RGBA_RED_MASK,
+			FI_RGBA_GREEN_MASK, FI_RGBA_BLUE_MASK);
+
+	uint16_t byte_space = FreeImage_GetLine(bitmap) /
+			FreeImage_GetHeight(bitmap);
+
+	for (uint8_t y = 0; y < 2; y++) {
+		BYTE *bits = FreeImage_GetScanLine(bitmap, y);
+		
+		for (uint8_t x = 0; x < 2; x++) {
+			bits[FI_RGBA_RED] = 255;
+			bits[FI_RGBA_GREEN] = 255;
+			bits[FI_RGBA_BLUE] = 255;
+			bits[FI_RGBA_ALPHA] = 255;
+
+			bits += byte_space;
+		}
+	}
+
+	bool success = m_Textures["default"].CreateTex(bitmap);
+
+	FreeImage_Unload(bitmap);
+
+	if (success == false) {
+		Error e("Exception: could not create default texture!");
+		throw e;
+	}
 }
 
 Cache::~Cache()
@@ -39,13 +65,16 @@ const Texture &Cache::CreateTexture(std::string name, std::string filepath)
 {
 	if (m_Textures.find(name) == m_Textures.end()) {
 		FIBITMAP *bitmap = IO.LoadImage(filepath);
-		bool success = m_Textures[name].CreateTex(bitmap, true, true);
+		bool success = m_Textures[name].CreateTex(bitmap, true, false);
+		
+		FreeImage_Unload(bitmap);
+		
 		if (success == false) {
 			Error e("Exception: could not create texture " +
 					filepath);
 			throw e;
 		}
-		FreeImage_Unload(bitmap);
+
 		return m_Textures[name];
 	} else {
 		std::printf("Warning: texture %s already exists!\n",

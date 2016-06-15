@@ -74,15 +74,6 @@ bool Core::InitSubSystems()
 	m_DrawSprite.Initialise(m_Render.GetShader("default"),
 			&m_Render.GetBatch());
 	
-	try {
-		Resources.CreateTexture("default", "default.png");
-	}
-	catch (std::exception &e) {
-		printf("%s", e.what());
-		printf("Error: Could not load default texture: default.png\n");
-		return false;
-	}
-	
 	m_Input.Initialise(m_Screen.GetWindow());
 
 	printf("TidyEngine Version: %d.%d\n",
