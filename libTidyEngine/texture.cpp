@@ -40,12 +40,14 @@ Texture::~Texture()
 
 bool Texture::CreateTex(FIBITMAP *bitmap, bool mipmap, bool linear)
 {
-        if (bitmap == nullptr)
-                return false;
+	if (bitmap == nullptr)
+		return false;
+
 	glGenTextures(1, &m_TexID);
 	glBindTexture(GL_TEXTURE_2D, m_TexID);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+
 	if (linear == true && mipmap == false) {
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,
 				GL_LINEAR);
