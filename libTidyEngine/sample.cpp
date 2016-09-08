@@ -24,9 +24,9 @@ Sample::Sample()
 	;
 }
 
-Sample::Sample(int f, const void *d, size_t size, size_t freq)
+Sample::Sample(int format, const void *data, size_t size, size_t bit_rate)
 {
-	CreateBuffer(f, d, size, freq);
+	CreateBuffer(format, data, size, bit_rate);
 }
 
 Sample::~Sample()
@@ -34,7 +34,8 @@ Sample::~Sample()
 	DestroyBuffer();
 }
 
-void Sample::CreateBuffer(int f, const void *d, size_t size, size_t freq)
+void Sample::CreateBuffer(int format, const void *data, size_t size,
+                          size_t bit_rate)
 {
 	if (alIsBuffer(m_Buffer) == AL_TRUE) {
 		alDeleteBuffers(1, &m_Buffer);
@@ -42,7 +43,7 @@ void Sample::CreateBuffer(int f, const void *d, size_t size, size_t freq)
 	}
 
 	alGenBuffers(1, &m_Buffer);
-	alBufferData(m_Buffer, f, d, size, freq);
+	alBufferData(m_Buffer, format, data, size, bit_rate);
 }
 
 void Sample::DestroyBuffer()

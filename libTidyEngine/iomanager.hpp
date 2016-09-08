@@ -21,6 +21,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 #include <string>
 #include <FreeImage.h>
+#include "sample.hpp"
 
 class IOManager {
 public:
@@ -29,5 +30,6 @@ public:
 
 	FIBITMAP *LoadImage(std::string filepath);
 	std::string ReadFile(std::string filepath);
+	Sample *LoadVorbis(std::string filepath);
 private:
 } extern IO;

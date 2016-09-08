@@ -18,9 +18,8 @@ Contact the author at: jakob.sinclair99@gmail.com
 */
 
 #include "iomanager.hpp"
-#include <FreeImage.h>
-#include <string>
 #include <fstream>
+#include <vorbis/vorbisfile.h>
 
 IOManager IO;
 
@@ -42,6 +41,7 @@ FIBITMAP *IOManager::LoadImage(std::string filepath)
 		return FreeImage_Load(FIF_BMP, filepath.c_str(), BMP_DEFAULT);
 	else if (filepath.find(".jpeg") != std::string::npos)
 		return FreeImage_Load(FIF_JPEG, filepath.c_str());
+
 	printf("Warning: image %s has an unsupported file format!",
 		       filepath.c_str());
 	return nullptr;
@@ -63,4 +63,73 @@ std::string IOManager::ReadFile(std::string filepath)
 
 	source.close();
 	return source_contents;
+}
+
+Sample *IOManager::LoadVorbis(std::string filepath) {
+	std::ifstream source(filepath, std::ifstream::binary);
+	if (source.is_open() == false) {
+		printf("Warning: failed to open %s!\n", filepath.c_str());
+		//Exit function
+	}
+	
+	source.seekg(0, source.end);
+	int length = source.tellg();
+	source.seekg(0, source.beg);
+
+	char *pcm = new char[length];
+	char *buffer = new char[4096];
+	source.read(pcm, length);
+	if (source.fail()) {
+		printf("Warning: failed to read %s!\n", filepath.c_str());
+		delete[] pcm;
+		source.close();
+		return nullptr;
+	}
+	
+	source.close();
+	OggVorbis_File vorbis;
+
+	if (ov_open_callbacks(pcm, &vorbis, nullptr,
+	    0, OV_CALLBACKS_NOCLOSE) < 0) {
+		printf("Warning: %s does not seem to be in Ogg format!\n",
+		       filepath.c_str());
+		delete[] pcm;
+		return nullptr;
+	}
+
+	vorbis_info *info = ov_info(&vorbis, -1);
+	printf("Channel: %d\nFreq: %d", info->channels, info->rate);
+
+	int current_section;
+	int pos = 0;
+	while (true) {
+		long ret = ov_read(&vorbis, buffer, sizeof(char) * length, 
+		                   0, 2, 1, &current_section);
+		if (ret == 0) {
+			break;
+		} else if (ret < 0) {
+			printf("Warning: error in stream %s!\n",
+			       filepath.c_str());
+			delete[] pcm;
+			return nullptr;
+		} else {
+			int i = pos;
+			int offset = i;
+			pos += ret;
+			for (;i < pos; i++)
+				pcm[i] = buffer[i - offset];
+		}
+	}
+	ov_clear(&vorbis);
+	delete[] pcm;
+
+	if (info->channels >= 2) {
+		Sample sound(AL_FORMAT_STEREO16, pcm, length, info->rate);
+		return &sound;
+	}
+	else if (info->channels < 2) {
+		Sample sound(AL_FORMAT_MONO16, pcm, length, info->rate);
+		return &sound;
+	}
+	return nullptr;
 }
