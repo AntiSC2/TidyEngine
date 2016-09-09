@@ -17,9 +17,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 Contact the author at: jakob.sinclair99@gmail.com
 */
 
-#include "iomanager.hpp"
 #include <fstream>
 #include <vorbis/vorbisfile.h>
+#include "error.hpp"
+#include "iomanager.hpp"
 
 IOManager IO;
 
@@ -65,11 +66,11 @@ std::string IOManager::ReadFile(std::string filepath)
 	return source_contents;
 }
 
-Sample *IOManager::LoadVorbis(std::string filepath) {
+Sample IOManager::LoadVorbis(std::string filepath) {
 	std::ifstream source(filepath, std::ifstream::binary);
-	if (source.is_open() == false) {
-		printf("Warning: failed to open %s!\n", filepath.c_str());
-		//Exit function
+	if (source.fail()) {
+		Error e("Warning: failed to open " + filepath + '!');
+		throw e;
 	}
 	
 	source.seekg(0, source.end);
@@ -80,10 +81,10 @@ Sample *IOManager::LoadVorbis(std::string filepath) {
 	char *buffer = new char[4096];
 	source.read(pcm, length);
 	if (source.fail()) {
-		printf("Warning: failed to read %s!\n", filepath.c_str());
 		delete[] pcm;
 		source.close();
-		return nullptr;
+		Error e("Warning: failed to read " + filepath + '!');
+		throw e;
 	}
 	
 	source.close();
@@ -91,10 +92,9 @@ Sample *IOManager::LoadVorbis(std::string filepath) {
 
 	if (ov_open_callbacks(pcm, &vorbis, nullptr,
 	    0, OV_CALLBACKS_NOCLOSE) < 0) {
-		printf("Warning: %s does not seem to be in Ogg format!\n",
-		       filepath.c_str());
 		delete[] pcm;
-		return nullptr;
+		Error e("Warning: " + filepath + " is not in ogg format!");
+		throw e;
 	}
 
 	vorbis_info *info = ov_info(&vorbis, -1);
@@ -108,10 +108,9 @@ Sample *IOManager::LoadVorbis(std::string filepath) {
 		if (ret == 0) {
 			break;
 		} else if (ret < 0) {
-			printf("Warning: error in stream %s!\n",
-			       filepath.c_str());
 			delete[] pcm;
-			return nullptr;
+			Error e("Warning: error in stream " + filepath + '!');
+			throw e;
 		} else {
 			int i = pos;
 			int offset = i;
@@ -120,16 +119,21 @@ Sample *IOManager::LoadVorbis(std::string filepath) {
 				pcm[i] = buffer[i - offset];
 		}
 	}
-	ov_clear(&vorbis);
-	delete[] pcm;
 
 	if (info->channels >= 2) {
 		Sample sound(AL_FORMAT_STEREO16, pcm, length, info->rate);
-		return &sound;
+		delete[] pcm;
+		ov_clear(&vorbis);
+		return sound;
 	}
 	else if (info->channels < 2) {
 		Sample sound(AL_FORMAT_MONO16, pcm, length, info->rate);
-		return &sound;
+		delete[] pcm;
+		ov_clear(&vorbis);
+		return sound;
 	}
-	return nullptr;
+	delete[] pcm;
+	ov_clear(&vorbis);
+	Error e("Warning: failed to read " + filepath + '!');
+	throw e;
 }

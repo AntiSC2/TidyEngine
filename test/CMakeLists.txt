@@ -67,6 +67,23 @@ if (WIN32)
 		${CMAKE_SOURCE_DIR}/deps/lib/OpenAL32.lib
 		${CMAKE_SOURCE_DIR}/deps/lib/EFX-Util.lib
 	)
+	set(OGG_INCLUDE_DIRS
+		${OGG_INCLUDE_DIRS}
+		${CMAKE_SOURCE_DIR}/deps/include/ogg
+	)
+	set(OGG_LIBRARIES
+		${OPENAL_LIBRARIES}
+		${CMAKE_SOURCE_DIR}/deps/lib/libogg.lib
+	)
+	set(VORBIS_INCLUDE_DIRS
+		${VORBIS_INCLUDE_DIRS}
+		${CMAKE_SOURCE_DIR}/deps/include/vorbis
+	)
+	set(VORBIS_LIBRARIES
+		${OPENAL_LIBRARIES}
+		${CMAKE_SOURCE_DIR}/deps/lib/libvorbis.lib
+		${CMAKE_SOURCE_DIR}/deps/lib/libvorbisfile.lib
+	)
 endif ()
 
 if (APPLE)
@@ -88,6 +105,8 @@ include_directories(${GLFW_INCLUDE_DIRS})
 include_directories(${GLEW_INCLUDE_DIRS})
 include_directories(${FREEIMAGE_INCLUDE_DIRS})
 include_directories(${OPENAL_INCLUDE_DIRS})
+include_directories(${OGG_INCLUDE_DIRS})
+include_directories(${VORBIS_INCLUDE_DIRS})
 
 add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS})
 target_link_libraries(${PROJECT_NAME} ${GLFW_LIBRARIES})
@@ -95,6 +114,8 @@ target_link_libraries(${PROJECT_NAME} ${TIDYENGINE_LIBRARIES})
 target_link_libraries(${PROJECT_NAME} ${GLEW_LIBRARIES})
 target_link_libraries(${PROJECT_NAME} ${FREEIMAGE_LIBRARIES})
 target_link_libraries(${PROJECT_NAME} ${OPENAL_LIBRARIES})
+target_link_libraries(${PROJECT_NAME} ${OGG_LIBRARIES})
+target_link_libraries(${PROJECT_NAME} ${VORBIS_LIBRARIES})
 
 if (WIN32)
 	target_link_libraries(${PROJECT_NAME} opengl32.lib)

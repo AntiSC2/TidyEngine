@@ -30,6 +30,6 @@ public:
 
 	FIBITMAP *LoadImage(std::string filepath);
 	std::string ReadFile(std::string filepath);
-	Sample *LoadVorbis(std::string filepath);
+	Sample LoadVorbis(std::string filepath);
 private:
 } extern IO;

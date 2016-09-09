@@ -106,6 +106,23 @@ if (WIN32)
 		${CMAKE_SOURCE_DIR}/deps/lib/OpenAL32.lib
 		${CMAKE_SOURCE_DIR}/deps/lib/EFX-Util.lib
 	)
+	set(OGG_INCLUDE_DIRS
+		${OGG_INCLUDE_DIRS}
+		${CMAKE_SOURCE_DIR}/deps/include/ogg
+	)
+	set(OGG_LIBRARIES
+		${OPENAL_LIBRARIES}
+		${CMAKE_SOURCE_DIR}/deps/lib/libogg.lib
+	)
+	set(VORBIS_INCLUDE_DIRS
+		${VORBIS_INCLUDE_DIRS}
+		${CMAKE_SOURCE_DIR}/deps/include/vorbis
+	)
+	set(VORBIS_LIBRARIES
+		${OPENAL_LIBRARIES}
+		${CMAKE_SOURCE_DIR}/deps/lib/libvorbis.lib
+		${CMAKE_SOURCE_DIR}/deps/lib/libvorbisfile.lib
+	)
 endif ()
 
 if (APPLE)
@@ -117,6 +134,8 @@ elseif (UNIX)
 	pkg_search_module(FREEIMAGE REQURIED freeimage)
 	pkg_search_module(LUAJIT REQUIRED luajit)
 	pkg_search_module(OPENAL REQUIRED openal)
+	pkg_search_module(OGG REQUIRED ogg)
+	pkg_search_module(VORBIS REQUIRED vorbis)
 endif ()
 
 include_directories(${GLFW_INCLUDE_DIRS})
@@ -124,13 +143,17 @@ include_directories(${GLEW_INCLUDE_DIRS})
 include_directories(${FREEIMAGE_INCLUDE_DIRS})
 include_directories(${LUAJIT_INCLUDE_DIRS})
 include_directories(${OPENAL_INCLUDE_DIRS})
+include_directories(${OGG_INCLUDE_DIRS})
+include_directories(${VORBIS_INCLUDE_DIRS})
 
 add_library(${PROJECT_NAME} STATIC ${SOURCE} ${HEADERS})
 target_link_libraries(${PROJECT_NAME} ${GLFW_LIBRARIES}
 				   ${GLEW_LIBRARIES}
 				   ${FREEIMAGE_LIBRARIES}
 				   ${LUAJIT_LIBRARIES}
-				   ${OPENAL_LIBRARIES})
+				   ${OPENAL_LIBRARIES}
+				   ${OGG_LIBRARIES}
+                                   ${VORBIS_LIBRARIES})
 
 if (WIN32)
 	target_link_libraries(${PROJECT_NAME} opengl32.lib)

@@ -99,11 +99,14 @@ const Texture &Cache::GetTexture(std::string name)
 
 const Sample &Cache::CreateSample(std::string name, std::string filepath)
 {
-	/* TODO:
-	- Find a library to load sound files
-	- Implement load function here and in IOManager
-	*/
-	return Sample();
+	try {
+		m_Samples[name] = IO.LoadVorbis(filepath);
+		return m_Samples[name];
+	}
+	catch (std::exception &e) {
+		printf("%s\n", e.what());
+	}
+	return m_Samples["default"];
 }
 
 void Cache::DestroySample(std::string name)
