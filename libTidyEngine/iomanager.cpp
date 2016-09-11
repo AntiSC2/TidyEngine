@@ -72,7 +72,7 @@ Sample IOManager::LoadVorbis(std::string filepath) {
 		Error e("Warning: failed to open " + filepath + '!');
 		throw e;
 	}
-	
+
 	source.seekg(0, source.end);
 	int length = source.tellg();
 	source.seekg(0, source.beg);
@@ -80,19 +80,23 @@ Sample IOManager::LoadVorbis(std::string filepath) {
 	char *pcm = new char[length];
 	char *buffer = new char[4096];
 	source.read(pcm, length);
+	printf("%d", length);
+
 	if (source.fail()) {
 		delete[] pcm;
+		delete[] buffer;
 		source.close();
 		Error e("Warning: failed to read " + filepath + '!');
 		throw e;
 	}
-	
+
 	source.close();
 	OggVorbis_File vorbis;
 
 	if (ov_open_callbacks(pcm, &vorbis, nullptr,
 	    0, OV_CALLBACKS_NOCLOSE) < 0) {
 		delete[] pcm;
+		delete[] buffer;
 		Error e("Warning: " + filepath + " is not in ogg format!");
 		throw e;
 	}

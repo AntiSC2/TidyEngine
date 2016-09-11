@@ -95,6 +95,9 @@ elseif (UNIX)
 	pkg_search_module(FREEIMAGE REQURIED freeimage)
 	pkg_search_module(LUAJIT REQUIRED luajit)
 	pkg_search_module(LUAJIT REQUIRED luajit)
+	pkg_search_module(OGG REQUIRED ogg)
+	pkg_search_module(VORBIS REQUIRED vorbis)
+	pkg_search_module(VORBISFILE REQUIRED vorbisfile)
 	set(TIDYENGINE_LIBRARIES
 		${TIDYENGINE_LIBRARIES}
 		${CMAKE_BINARY_DIR}/libTidyEngine/libTidyEngine.a
@@ -107,6 +110,8 @@ include_directories(${FREEIMAGE_INCLUDE_DIRS})
 include_directories(${OPENAL_INCLUDE_DIRS})
 include_directories(${OGG_INCLUDE_DIRS})
 include_directories(${VORBIS_INCLUDE_DIRS})
+include_directories(${VORBISFILE_INCLUDE_DIRS})
+
 
 add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS})
 target_link_libraries(${PROJECT_NAME} ${GLFW_LIBRARIES})
@@ -116,6 +121,7 @@ target_link_libraries(${PROJECT_NAME} ${FREEIMAGE_LIBRARIES})
 target_link_libraries(${PROJECT_NAME} ${OPENAL_LIBRARIES})
 target_link_libraries(${PROJECT_NAME} ${OGG_LIBRARIES})
 target_link_libraries(${PROJECT_NAME} ${VORBIS_LIBRARIES})
+target_link_libraries(${PROJECT_NAME} ${VORBISFILE_LIBRARIES})
 
 if (WIN32)
 	target_link_libraries(${PROJECT_NAME} opengl32.lib)

@@ -136,6 +136,7 @@ elseif (UNIX)
 	pkg_search_module(OPENAL REQUIRED openal)
 	pkg_search_module(OGG REQUIRED ogg)
 	pkg_search_module(VORBIS REQUIRED vorbis)
+	pkg_search_module(VORBISFILE REQUIRED vorbisfile)
 endif ()
 
 include_directories(${GLFW_INCLUDE_DIRS})
@@ -145,6 +146,7 @@ include_directories(${LUAJIT_INCLUDE_DIRS})
 include_directories(${OPENAL_INCLUDE_DIRS})
 include_directories(${OGG_INCLUDE_DIRS})
 include_directories(${VORBIS_INCLUDE_DIRS})
+include_directories(${VORBISFILE_INCLUDE_DIRS})
 
 add_library(${PROJECT_NAME} STATIC ${SOURCE} ${HEADERS})
 target_link_libraries(${PROJECT_NAME} ${GLFW_LIBRARIES}
@@ -153,7 +155,8 @@ target_link_libraries(${PROJECT_NAME} ${GLFW_LIBRARIES}
 				   ${LUAJIT_LIBRARIES}
 				   ${OPENAL_LIBRARIES}
 				   ${OGG_LIBRARIES}
-                                   ${VORBIS_LIBRARIES})
+                                   ${VORBIS_LIBRARIES}
+                                   ${VORBISFILE_LIBRARIES})
 
 if (WIN32)
 	target_link_libraries(${PROJECT_NAME} opengl32.lib)

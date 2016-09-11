@@ -43,7 +43,7 @@ bool Game::Init()
 	m_ObjectManager.AddObject(temp);
 	temp = nullptr;
 	Resources.CreateTexture("sprite", "sprite.png");
-	Resources.CreateSample("sound", "Sound.ogg");
+	Resources.CreateSample("sound", "sound.ogg");
 	return true;
 }
 
