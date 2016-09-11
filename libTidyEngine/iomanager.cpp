@@ -76,16 +76,10 @@ Sample IOManager::LoadVorbis(std::string filepath) {
 	source.seekg(0, source.end);
 	int length = source.tellg();
 	source.seekg(0, source.beg);
-
-	char *pcm = new char[length];
-	char *buffer = new char[4096];
-	source.read(pcm, length);
-	printf("%d", length);
-
+	
 	if (source.fail()) {
-		delete[] pcm;
-		delete[] buffer;
 		source.close();
+		printf("Failure:");
 		Error e("Warning: failed to read " + filepath + '!');
 		throw e;
 	}
