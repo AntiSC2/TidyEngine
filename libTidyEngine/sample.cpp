@@ -67,10 +67,13 @@ void Sample::CreateBuffer(int format, const void *data, size_t size,
 	}
 
 	alSourcei(m_Source, AL_BUFFER, m_Buffer);
+	alSource3f(m_Source, AL_POSITION, 0.0f, 0.0f, 0.0f);
+	alSourcef(m_Source, AL_GAIN, 1.0f);
 }
 
 void Sample::DestroyBuffer()
 {
+	printf("Bad news\n");
 	if (alIsSource(m_Source) == AL_TRUE) {
 		alSourcei(m_Source, AL_BUFFER, NULL);
 		alDeleteSources(1, &m_Source);

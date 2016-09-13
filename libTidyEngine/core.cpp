@@ -76,6 +76,7 @@ bool Core::InitSubSystems()
 			&m_Render.GetBatch());
 	
 	m_Input.Initialise(m_Screen.GetWindow());
+	m_Audio.CreateSystem();
 
 	printf("TidyEngine Version: %d.%d\n",
 	       TidyEngine_VERSION_MAJOR, TidyEngine_VERSION_MINOR);

@@ -44,6 +44,7 @@ bool Game::Init()
 	temp = nullptr;
 	Resources.CreateTexture("sprite", "sprite.png");
 	Resources.CreateSample("sound", "sound.ogg");
+	Resources.GetSample("sound").Play();
 	return true;
 }
 

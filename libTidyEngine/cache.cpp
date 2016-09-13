@@ -100,7 +100,7 @@ const Texture &Cache::GetTexture(std::string name)
 const Sample &Cache::CreateSample(std::string name, std::string filepath)
 {
 	try {
-		m_Samples[name] = IO.LoadVorbis(filepath);
+		IO.LoadVorbis(filepath, &m_Samples[name]);
 		return m_Samples[name];
 	}
 	catch (std::exception &e) {
