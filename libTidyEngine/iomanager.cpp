@@ -19,6 +19,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 #include <fstream>
 #include <vorbis/vorbisfile.h>
+#include <vector>
 #include "error.hpp"
 #include "iomanager.hpp"
 
@@ -52,8 +53,8 @@ std::string IOManager::ReadFile(std::string filepath)
 {
 	std::ifstream source(filepath);
 	if (source.fail()) {
-		printf("Warning: failed to open %s!\n", filepath.c_str());
-		return "";
+		Error e("Warning: failed to open " + filepath + "!");
+		throw e;
 	}
 
 	std::string source_contents = "";
@@ -66,72 +67,94 @@ std::string IOManager::ReadFile(std::string filepath)
 	return source_contents;
 }
 
-Sample IOManager::LoadVorbis(std::string filepath) {
+size_t IfsRead(void *out, size_t size, size_t bytesize, void *in)
+{
+	auto& stream = *static_cast<std::ifstream *> (in);
+	stream.read(static_cast<char *> (out), size * bytesize);
+
+	return stream.gcount();
+}
+
+int IfsClose(void *in)
+{
+	auto& stream = *static_cast<std::ifstream *> (in);
+	stream.close();
+
+	return 0;
+}
+
+Sample IOManager::LoadVorbis(std::string filepath)
+{
 	std::ifstream source(filepath, std::ifstream::binary);
-	if (source.fail()) {
+	
+	if (source.is_open() == false) {
 		Error e("Warning: failed to open " + filepath + '!');
 		throw e;
 	}
 
-	source.seekg(0, source.end);
-	int length = source.tellg();
-	source.seekg(0, source.beg);
-	
-	if (source.fail()) {
-		source.close();
-		printf("Failure:");
-		Error e("Warning: failed to read " + filepath + '!');
-		throw e;
-	}
-
-	source.close();
+	ov_callbacks cbs {IfsRead, nullptr, IfsClose, nullptr};
 	OggVorbis_File vorbis;
 
-	if (ov_open_callbacks(pcm, &vorbis, nullptr,
-	    0, OV_CALLBACKS_NOCLOSE) < 0) {
-		delete[] pcm;
-		delete[] buffer;
+	if (ov_open_callbacks(&source, &vorbis, nullptr,
+	    0, cbs) < 0) {
+		ov_clear(&vorbis);
 		Error e("Warning: " + filepath + " is not in ogg format!");
 		throw e;
 	}
 
-	vorbis_info *info = ov_info(&vorbis, -1);
-	printf("Channel: %d\nFreq: %d", info->channels, info->rate);
-
+	vorbis_info *info = ov_info(&vorbis, -1);	
+	char buffer[4096];
 	int current_section;
-	int pos = 0;
+	long pos = 0;
+	std::vector<char *> buffers;
+	std::vector<long> index;
+
 	while (true) {
-		long ret = ov_read(&vorbis, buffer, sizeof(char) * length, 
+		long ret = ov_read(&vorbis, buffer, sizeof(buffer), 
 		                   0, 2, 1, &current_section);
 		if (ret == 0) {
 			break;
 		} else if (ret < 0) {
-			delete[] pcm;
+			ov_clear(&vorbis);
+			for (int i = 0; i < buffers.size(); i++)
+				delete buffers[i];
 			Error e("Warning: error in stream " + filepath + '!');
 			throw e;
 		} else {
-			int i = pos;
-			int offset = i;
 			pos += ret;
-			for (;i < pos; i++)
-				pcm[i] = buffer[i - offset];
+			char *temp = new char[ret];
+
+			for (int i = 0; i < ret; i++)
+				temp[i] = buffer[i];
+
+			buffers.push_back(temp);
+			index.push_back(ret);
 		}
 	}
 
-	if (info->channels >= 2) {
-		Sample sound(AL_FORMAT_STEREO16, pcm, length, info->rate);
+	char *pcm = new char[pos];
+	size_t length = (size_t)pos;
+
+	for (size_t x = 0; x < buffers.size(); x++) {
+		for (int y = 0; y < index[x]; y++) {
+			pcm[x] = buffers[x][y];
+		}
+	}
+
+	for (int i = 0; i < buffers.size(); i++)
+		delete buffers[i];
+
+	buffers.clear();
+	index.clear();
+	size_t bitrate = info->bitrate_nominal;
+
+	if (info->channels > 1) {
 		delete[] pcm;
 		ov_clear(&vorbis);
-		return sound;
+		return {AL_FORMAT_STEREO16, pcm, length, bitrate};
 	}
-	else if (info->channels < 2) {
-		Sample sound(AL_FORMAT_MONO16, pcm, length, info->rate);
-		delete[] pcm;
-		ov_clear(&vorbis);
-		return sound;
-	}
+	
 	delete[] pcm;
 	ov_clear(&vorbis);
-	Error e("Warning: failed to read " + filepath + '!');
-	throw e;
+	return {AL_FORMAT_MONO16, pcm, length, bitrate};
 }

@@ -30,7 +30,10 @@ public:
 	void CreateBuffer(int format, const void *data, size_t size,
 	                  size_t bit_rate);
 	void DestroyBuffer();
+	void Play() const;
 	unsigned int GetBuffer() const;
+	unsigned int GetSource() const;
 private:
+	ALuint m_Source;
 	ALuint m_Buffer;
 };

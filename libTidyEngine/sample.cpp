@@ -18,6 +18,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 */
 
 #include "sample.hpp"
+#include <stdio.h>
 
 Sample::Sample()
 {
@@ -41,20 +42,58 @@ void Sample::CreateBuffer(int format, const void *data, size_t size,
 		alDeleteBuffers(1, &m_Buffer);
 		m_Buffer = 0;
 	}
+	if (alIsSource(m_Source) == AL_TRUE) {
+		alDeleteSources(1, &m_Source);
+		m_Source = 0;
+	}
 
 	alGenBuffers(1, &m_Buffer);
 	alBufferData(m_Buffer, format, data, size, bit_rate);
+	
+	int error = alGetError();
+	if (error != AL_NO_ERROR) {
+		printf("OpenAL error: %d\n", error);
+		alDeleteBuffers(1, &m_Buffer);
+		m_Buffer = 0;
+	}
+
+	alGenSources(1, &m_Source);
+
+	error = alGetError();
+	if (error != AL_NO_ERROR) {
+		printf("OpenAL error: %d\n", error);
+		alDeleteSources(1, &m_Source);
+		m_Source = 0;
+	}
+
+	alSourcei(m_Source, AL_BUFFER, m_Buffer);
 }
 
 void Sample::DestroyBuffer()
 {
+	if (alIsSource(m_Source) == AL_TRUE) {
+		alSourcei(m_Source, AL_BUFFER, NULL);
+		alDeleteSources(1, &m_Source);
+		m_Source = 0;
+	}
 	if (alIsBuffer(m_Buffer) == AL_TRUE) {
 		alDeleteBuffers(1, &m_Buffer);
 		m_Buffer = 0;
 	}
+
+}
+
+void Sample::Play() const
+{
+	alSourcePlay(m_Source);
 }
 
 unsigned int Sample::GetBuffer() const
 {
 	return m_Buffer;
+}
+
+unsigned int Sample::GetSource() const
+{
+	return m_Source;
 }

@@ -53,6 +53,8 @@ void Game::Update()
 	m_ObjectManager.Update();
 	if (m_Input.GetKey(GLFW_KEY_ESCAPE))
 		glfwSetWindowShouldClose(m_Screen.GetWindow(), GL_TRUE);
+	else if (m_Input.GetKey(GLFW_KEY_SPACE))
+		Resources.GetSample("sound").Play();
 }
 
 void Game::DrawGame()

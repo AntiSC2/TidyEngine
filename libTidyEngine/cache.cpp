@@ -29,8 +29,8 @@ Cache::Cache()
 	FIBITMAP *bitmap = FreeImage_Allocate(2, 2, 32, FI_RGBA_RED_MASK,
 			FI_RGBA_GREEN_MASK, FI_RGBA_BLUE_MASK);
 
-	uint16_t byte_space = FreeImage_GetLine(bitmap) /
-			FreeImage_GetHeight(bitmap);
+	uint16_t byte_space = (uint16_t)(FreeImage_GetLine(bitmap) /
+	                      FreeImage_GetHeight(bitmap));
 
 	for (uint8_t y = 0; y < 2; y++) {
 		BYTE *bits = FreeImage_GetScanLine(bitmap, y);
