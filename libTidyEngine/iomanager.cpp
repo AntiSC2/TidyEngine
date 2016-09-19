@@ -146,13 +146,12 @@ void IOManager::LoadVorbis(std::string filepath, Sample *out)
 
 	buffers.clear();
 	index.clear();
-	size_t bitrate = info->bitrate_nominal;
 
 	if (info->channels > 1) {
 		ov_clear(&vorbis);
-		out->CreateBuffer(AL_FORMAT_STEREO16, pcm, length, bitrate);
+		out->CreateBuffer(AL_FORMAT_STEREO16, pcm, length, info->rate);
 	} else {
 		ov_clear(&vorbis);
-		out->CreateBuffer(AL_FORMAT_MONO16, pcm, length, bitrate);
+		out->CreateBuffer(AL_FORMAT_MONO16, pcm, length, info->rate);
 	}
 }

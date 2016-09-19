@@ -24,11 +24,11 @@ Contact the author at: jakob.sinclair99@gmail.com
 class Sample {
 public:
 	Sample();
-	Sample(int format, const void *data, size_t size, size_t bit_rate);
+	Sample(int format, const void *data, size_t size, size_t freq);
 	~Sample();
 
 	void CreateBuffer(int format, const void *data, size_t size,
-	                  size_t bit_rate);
+	                  size_t freq);
 	void DestroyBuffer();
 	void Play() const;
 	unsigned int GetBuffer() const;

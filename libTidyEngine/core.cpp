@@ -96,6 +96,7 @@ void Core::GameLoop()
 
 void Core::Quit()
 {
+	m_Audio.DestroySystem();
 	glfwTerminate();
 	FreeImage_DeInitialise();
 }

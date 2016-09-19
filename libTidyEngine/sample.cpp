@@ -25,9 +25,9 @@ Sample::Sample()
 	;
 }
 
-Sample::Sample(int format, const void *data, size_t size, size_t bit_rate)
+Sample::Sample(int format, const void *data, size_t size, size_t freq)
 {
-	CreateBuffer(format, data, size, bit_rate);
+	CreateBuffer(format, data, size, freq);
 }
 
 Sample::~Sample()
@@ -36,7 +36,7 @@ Sample::~Sample()
 }
 
 void Sample::CreateBuffer(int format, const void *data, size_t size,
-                          size_t bit_rate)
+                          size_t freq)
 {
 	if (alIsBuffer(m_Buffer) == AL_TRUE) {
 		alDeleteBuffers(1, &m_Buffer);
@@ -48,7 +48,7 @@ void Sample::CreateBuffer(int format, const void *data, size_t size,
 	}
 
 	alGenBuffers(1, &m_Buffer);
-	alBufferData(m_Buffer, format, data, size, bit_rate);
+	alBufferData(m_Buffer, format, data, size, freq);
 	
 	int error = alGetError();
 	if (error != AL_NO_ERROR) {
@@ -66,9 +66,7 @@ void Sample::CreateBuffer(int format, const void *data, size_t size,
 		m_Source = 0;
 	}
 
-	alSourcei(m_Source, AL_BUFFER, m_Buffer);
-	alSource3f(m_Source, AL_POSITION, 0.0f, 0.0f, 0.0f);
-	alSourcef(m_Source, AL_GAIN, 1.0f);
+	alSourceQueueBuffers(m_Source, 1, &m_Buffer);
 }
 
 void Sample::DestroyBuffer()
