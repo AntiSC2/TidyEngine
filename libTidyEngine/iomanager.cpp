@@ -105,53 +105,24 @@ void IOManager::LoadVorbis(std::string filepath, Sample *out)
 	vorbis_info *info = ov_info(&vorbis, -1);	
 	char buffer[4096];
 	int current_section;
-	long pos = 0;
-	std::vector<char *> buffers;
-	std::vector<long> index;
+	std::vector<char> pcm;
 
 	while (true) {
-		long ret = ov_read(&vorbis, buffer, sizeof(buffer), 
+		long ret = ov_read(&vorbis, buffer, sizeof(char) * 4096, 
 		                   0, 2, 1, &current_section);
 		if (ret == 0) {
 			break;
 		} else if (ret < 0) {
 			ov_clear(&vorbis);
-			for (int i = 0; i < buffers.size(); i++)
-				delete buffers[i];
 			Error e("Warning: error in stream " + filepath + '!');
 			throw e;
 		} else {
-			pos += ret;
-			char *temp = new char[ret];
-
 			for (int i = 0; i < ret; i++)
-				temp[i] = buffer[i];
-
-			buffers.push_back(temp);
-			index.push_back(ret);
+				pcm.push_back(buffer[i]);
 		}
 	}
-
-	char *pcm = new char[pos];
-	size_t length = (size_t)pos;
-
-	for (size_t x = 0; x < buffers.size(); x++) {
-		for (int y = 0; y < index[x]; y++) {
-			pcm[x] = buffers[x][y];
-		}
-	}
-
-	for (int i = 0; i < buffers.size(); i++)
-		delete buffers[i];
-
-	buffers.clear();
-	index.clear();
-
-	if (info->channels > 1) {
-		ov_clear(&vorbis);
-		out->CreateBuffer(AL_FORMAT_STEREO16, pcm, length, info->rate);
-	} else {
-		ov_clear(&vorbis);
-		out->CreateBuffer(AL_FORMAT_MONO16, pcm, length, info->rate);
-	}
+	ALenum format = (info->channels > 1) ? AL_FORMAT_STEREO16 :
+	                                       AL_FORMAT_MONO16;
+	out->CreateBuffer(format, pcm.data(), pcm.size(), info->rate);
+	ov_clear(&vorbis);
 }
