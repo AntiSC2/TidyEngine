@@ -27,7 +27,7 @@ public:
 	Sample(int format, const void *data, size_t size, size_t freq);
 	~Sample();
 
-	void CreateBuffer(int format, const void *data, size_t size,
+	bool CreateBuffer(int format, const void *data, size_t size,
 	                  size_t freq);
 	void DestroyBuffer();
 	void Play() const;

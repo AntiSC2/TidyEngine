@@ -84,6 +84,12 @@ if (WIN32)
 		${CMAKE_SOURCE_DIR}/deps/lib/libvorbis.lib
 		${CMAKE_SOURCE_DIR}/deps/lib/libvorbisfile.lib
 	)
+	set(FREETYPE2_INCLUDE_DIRS
+		${FREETYPE2_INCLUDE_DIRS}
+	)
+	set(FREETYPE2_LIBRARIES
+		${FREETYPE2_LIBRARIES}
+	)
 endif ()
 
 if (APPLE)
@@ -98,6 +104,7 @@ elseif (UNIX)
 	pkg_search_module(OGG REQUIRED ogg)
 	pkg_search_module(VORBIS REQUIRED vorbis)
 	pkg_search_module(VORBISFILE REQUIRED vorbisfile)
+	pkg_search_module(FREETYPE2 REQUIRED freetype2)
 	set(TIDYENGINE_LIBRARIES
 		${TIDYENGINE_LIBRARIES}
 		${CMAKE_BINARY_DIR}/libTidyEngine/libTidyEngine.a

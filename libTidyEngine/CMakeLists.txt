@@ -123,6 +123,12 @@ if (WIN32)
 		${CMAKE_SOURCE_DIR}/deps/lib/libvorbis.lib
 		${CMAKE_SOURCE_DIR}/deps/lib/libvorbisfile.lib
 	)
+	set(FREETYPE2_INCLUDE_DIRS
+		${FREETYPE2_INCLUDE_DIRS}
+	)
+	set(FREETYPE2_LIBRARIES
+		${FREETYPE2_LIBRARIES}
+	)
 endif ()
 
 if (APPLE)
@@ -137,6 +143,7 @@ elseif (UNIX)
 	pkg_search_module(OGG REQUIRED ogg)
 	pkg_search_module(VORBIS REQUIRED vorbis)
 	pkg_search_module(VORBISFILE REQUIRED vorbisfile)
+	pkg_search_module(FREETYPE2 REQUIRED freetype2)
 endif ()
 
 include_directories(${GLFW_INCLUDE_DIRS})
@@ -147,6 +154,7 @@ include_directories(${OPENAL_INCLUDE_DIRS})
 include_directories(${OGG_INCLUDE_DIRS})
 include_directories(${VORBIS_INCLUDE_DIRS})
 include_directories(${VORBISFILE_INCLUDE_DIRS})
+include_directories(${FREETYPE2_INCLUDE_DIRS})
 
 add_library(${PROJECT_NAME} STATIC ${SOURCE} ${HEADERS})
 target_link_libraries(${PROJECT_NAME} ${GLFW_LIBRARIES}
@@ -156,7 +164,8 @@ target_link_libraries(${PROJECT_NAME} ${GLFW_LIBRARIES}
 				   ${OPENAL_LIBRARIES}
 				   ${OGG_LIBRARIES}
                                    ${VORBIS_LIBRARIES}
-                                   ${VORBISFILE_LIBRARIES})
+                                   ${VORBISFILE_LIBRARIES}
+				   ${FREETYPE2_LIBRARIES})
 
 if (WIN32)
 	target_link_libraries(${PROJECT_NAME} opengl32.lib)

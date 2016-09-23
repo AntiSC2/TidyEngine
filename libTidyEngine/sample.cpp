@@ -35,16 +35,18 @@ Sample::~Sample()
 	DestroyBuffer();
 }
 
-void Sample::CreateBuffer(int format, const void *data, size_t size,
+bool Sample::CreateBuffer(int format, const void *data, size_t size,
                           size_t freq)
 {
 	if (alIsBuffer(m_Buffer) == AL_TRUE) {
 		alDeleteBuffers(1, &m_Buffer);
 		m_Buffer = 0;
+		return false;
 	}
 	if (alIsSource(m_Source) == AL_TRUE) {
 		alDeleteSources(1, &m_Source);
 		m_Source = 0;
+		return false;
 	}
 
 	alGenBuffers(1, &m_Buffer);
@@ -55,6 +57,7 @@ void Sample::CreateBuffer(int format, const void *data, size_t size,
 		printf("OpenAL error: %d\n", error);
 		alDeleteBuffers(1, &m_Buffer);
 		m_Buffer = 0;
+		return false;
 	}
 
 	alGenSources(1, &m_Source);
@@ -64,15 +67,17 @@ void Sample::CreateBuffer(int format, const void *data, size_t size,
 		printf("OpenAL error: %d\n", error);
 		alDeleteSources(1, &m_Source);
 		m_Source = 0;
+		return false;
 	}
 
 	alSourceQueueBuffers(m_Source, 1, &m_Buffer);
+	return true;
 }
 
 void Sample::DestroyBuffer()
 {
 	if (alIsSource(m_Source) == AL_TRUE) {
-		alSourcei(m_Source, AL_BUFFER, NULL);
+		alSourcei(m_Source, AL_BUFFER, 0);
 		alDeleteSources(1, &m_Source);
 		m_Source = 0;
 	}

@@ -53,6 +53,13 @@ Cache::Cache()
 		Error e("Exception: could not create default texture!");
 		throw e;
 	}
+
+//	success = m_Samples["default"].CreateBuffer(AL_FORMAT_MONO16, data,
+//	                                            4, 44100);
+	if (success == false) {
+		Error e("Exception: could not create default sample!");
+		throw e;
+	}
 }
 
 Cache::~Cache()
@@ -120,5 +127,5 @@ const Sample &Cache::GetSample(std::string name)
 	if (m_Samples.find(name) != m_Samples.end())
 		return m_Samples[name];
 	std::printf("Warning: could not find sample %s!", name.c_str());
-	return Sample();
+	return m_Samples["default"];
 }
