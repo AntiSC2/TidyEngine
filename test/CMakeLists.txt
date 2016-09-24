@@ -65,7 +65,6 @@ if (WIN32)
 	set(OPENAL_LIBRARIES
 		${OPENAL_LIBRARIES}
 		${CMAKE_SOURCE_DIR}/deps/lib/OpenAL32.lib
-		${CMAKE_SOURCE_DIR}/deps/lib/EFX-Util.lib
 	)
 	set(OGG_INCLUDE_DIRS
 		${OGG_INCLUDE_DIRS}
@@ -120,7 +119,7 @@ include_directories(${OPENAL_INCLUDE_DIRS})
 include_directories(${OGG_INCLUDE_DIRS})
 include_directories(${VORBIS_INCLUDE_DIRS})
 include_directories(${VORBISFILE_INCLUDE_DIRS})
-
+include_directories(${FREETYPE2_INCLUDE_DIRS})
 
 add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS})
 target_link_libraries(${PROJECT_NAME} ${GLFW_LIBRARIES})
@@ -131,6 +130,7 @@ target_link_libraries(${PROJECT_NAME} ${OPENAL_LIBRARIES})
 target_link_libraries(${PROJECT_NAME} ${OGG_LIBRARIES})
 target_link_libraries(${PROJECT_NAME} ${VORBIS_LIBRARIES})
 target_link_libraries(${PROJECT_NAME} ${VORBISFILE_LIBRARIES})
+target_link_libraries(${PROJECT_NAME} ${FREETYPE2_LIBRARIES})
 
 if (WIN32)
 	target_link_libraries(${PROJECT_NAME} opengl32.lib)

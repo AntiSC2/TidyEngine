@@ -104,7 +104,6 @@ if (WIN32)
 	set(OPENAL_LIBRARIES
 		${OPENAL_LIBRARIES}
 		${CMAKE_SOURCE_DIR}/deps/lib/OpenAL32.lib
-		${CMAKE_SOURCE_DIR}/deps/lib/EFX-Util.lib
 	)
 	set(OGG_INCLUDE_DIRS
 		${OGG_INCLUDE_DIRS}
@@ -165,8 +164,8 @@ target_link_libraries(${PROJECT_NAME} ${GLFW_LIBRARIES}
 				   ${LUAJIT_LIBRARIES}
 				   ${OPENAL_LIBRARIES}
 				   ${OGG_LIBRARIES}
-                                   ${VORBIS_LIBRARIES}
-                                   ${VORBISFILE_LIBRARIES}
+                   ${VORBIS_LIBRARIES}
+                   ${VORBISFILE_LIBRARIES}
 				   ${FREETYPE2_LIBRARIES})
 
 if (WIN32)
