@@ -41,12 +41,10 @@ bool Sample::CreateBuffer(int format, const void *data, size_t size,
 	if (alIsBuffer(m_Buffer) == AL_TRUE) {
 		alDeleteBuffers(1, &m_Buffer);
 		m_Buffer = 0;
-		return false;
 	}
 	if (alIsSource(m_Source) == AL_TRUE) {
 		alDeleteSources(1, &m_Source);
 		m_Source = 0;
-		return false;
 	}
 
 	alGenBuffers(1, &m_Buffer);
@@ -71,6 +69,7 @@ bool Sample::CreateBuffer(int format, const void *data, size_t size,
 	}
 
 	alSourceQueueBuffers(m_Source, 1, &m_Buffer);
+	alSource3f(m_Source, AL_POSITION, 0.0f, 0.0f, 0.0f);
 	return true;
 }
 
