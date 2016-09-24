@@ -125,9 +125,11 @@ if (WIN32)
 	)
 	set(FREETYPE2_INCLUDE_DIRS
 		${FREETYPE2_INCLUDE_DIRS}
+		${CMAKE_SOURCE_DIR}/deps/include/freetype
 	)
 	set(FREETYPE2_LIBRARIES
 		${FREETYPE2_LIBRARIES}
+		${CMAKE_SOURCE_DIR}/deps/lib/freetype.lib
 	)
 endif ()
 
