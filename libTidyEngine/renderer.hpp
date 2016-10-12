@@ -24,6 +24,7 @@ class Batch;
 class Renderable;
 
 #include <GL/glew.h>
+#include <string>
 
 class Renderer {
 public:
@@ -33,6 +34,8 @@ public:
 	virtual void Initialise(Shader *shader, Batch *batch) = 0;
 	virtual void Begin();
 	virtual void Draw(const Renderable *object);
+	virtual void DrawText(std::string text, glm::vec2 pos,
+	                      glm::vec4 color);
 	virtual void End();
 	virtual void Present();
 protected:

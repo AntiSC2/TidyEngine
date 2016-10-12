@@ -17,6 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 Contact the author at: jakob.sinclair99@gmail.com
 */
 
+#include <freetype.h>
 #include "renderer.hpp"
 #include "shader.hpp"
 #include "batch.hpp"
@@ -44,6 +45,11 @@ void Renderer::Begin()
 void Renderer::Draw(const Renderable *object)
 {
 	m_Batch->Draw(object);
+}
+
+void Renderer::DrawText(std::string text, glm::vec2 pos, glm::vec4 color)
+{
+	
 }
 
 void Renderer::End()

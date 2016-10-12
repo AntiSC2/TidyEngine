@@ -124,6 +124,7 @@ void IOManager::LoadVorbis(std::string filepath, Sample *out)
 	
 	ALenum format = (info->channels > 1) ? AL_FORMAT_STEREO16 :
 	                                       AL_FORMAT_MONO16;
+
 	out->CreateBuffer(format, pcm.data(), pcm.size(), info->rate);
 	ov_clear(&vorbis);
 }

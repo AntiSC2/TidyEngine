@@ -1,4 +1,4 @@
-﻿/*
+/*
 TidyEngine
 Copyright (C) 2016 Jakob Sinclair
 
@@ -13,26 +13,18 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU Lesser General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public License
-along with this program. If not, see <http://www.gnu.org/licenses/>.
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 Contact the author at: jakob.sinclair99@gmail.com
 */
 
-#pragma once
+#include <variant>
+#include "texture.hpp"
 
-#include <GL/glew.h>
-#include <vector>
-#include "vertex.hpp"
-
-class Renderable {
+class RID {
 public:
-	Renderable();
-	virtual ~Renderable();
-	
-	virtual void Update(bool render = false);
-	virtual void AddVertex(const Vertex &vertex);
-	virtual const std::vector<Vertex> &GetVertices() const;
-	virtual GLuint GetTex();
-protected:
-	std::vector<Vertex> m_Vertices;
-	GLuint m_Tex = 0;
+	RID();
+	~RID();
+
+	std::variant<Texture*> ID;
+private:
 };

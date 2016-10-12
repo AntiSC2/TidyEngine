@@ -70,6 +70,7 @@ bool Sample::CreateBuffer(int format, const void *data, size_t size,
 
 	alSourceQueueBuffers(m_Source, 1, &m_Buffer);
 	alSource3f(m_Source, AL_POSITION, 0.0f, 0.0f, 0.0f);
+	alSource3f(m_Source, AL_VELOCITY, 0.0f, 0.0f, 0.0f);
 	return true;
 }
 

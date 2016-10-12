@@ -47,6 +47,7 @@ void AudioSystem::CreateSystem()
 		m_Device = nullptr;
 	}
 	alListener3f(AL_POSITION, 0.0f, 0.0f, 0.0f);
+	alListener3f(AL_VELOCITY, 0.0f, 0.0f, 0.0f);
 }
 
 void AudioSystem::DestroySystem()
