@@ -17,7 +17,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 Contact the author at: jakob.sinclair99@gmail.com
 */
 
-#include <freetype.h>
+#include <ft2build.h>
+#include FT_FREETYPE_H
 #include "renderer.hpp"
 #include "shader.hpp"
 #include "batch.hpp"
