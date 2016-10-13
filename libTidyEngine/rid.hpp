@@ -19,14 +19,33 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 #pragma once
 
-#include <variant>
-#include "texture.hpp"
+class Texture;
+class Sample;
+class Renderable;
+class Spritesheet;
+class Shader;
+
+enum class ID {None, Texture, Sample, Music, Font, Renderable, Spritesheet,
+               Shader};
+
+union ResourcePointers {
+	Texture *tex;
+	Sample *sample;
+//	Music *music:
+//	Font *font;
+	Renderable *render;
+	Spritesheet *sheet;
+	Shader *shader;
+}
 
 class RID {
 public:
 	RID();
 	~RID();
 
-	std::variant<Texture*> ID;
+	ID State();
+	void *Data();
 private:
+	ID *m_ID = ID::None;
+	ResourcePointers m_Pointers;
 };

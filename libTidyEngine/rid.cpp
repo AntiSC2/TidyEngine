@@ -28,3 +28,24 @@ RID::~RID
 {
 	;
 }
+
+ID RID::State()
+{
+	return m_ID;
+}
+
+void *RID::Data()
+{
+	if (m_ID == ID::None)
+		return nullptr;
+	else if (m_ID == ID::Texture)
+		return m_Pointers.tex;
+	else if (m_ID == ID::Sample)
+		return m_Pointers.sample;
+	else if (m_ID == ID::Renderable)
+		return m_Pointers.render;
+	else if (m_ID == ID::Spritesheet)
+		return m_Pointers.sheet;
+	else if (m_ID == ID::Shader)
+		return m_Pointers.shader;
+}
