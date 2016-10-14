@@ -44,7 +44,7 @@ bool Game::Init()
 	temp = nullptr;
 	Resources.CreateTexture("sprite", "sprite.png");
 	Resources.CreateSample("sound", "sound.ogg");
-	Resources.GetSample("sound").Play();
+	Resources.GetSample("sound")->Play();
 	return true;
 }
 
@@ -55,7 +55,7 @@ void Game::Update()
 	if (m_Input.GetKey(GLFW_KEY_ESCAPE))
 		glfwSetWindowShouldClose(m_Screen.GetWindow(), GL_TRUE);
 	else if (m_Input.GetKey(GLFW_KEY_SPACE))
-		Resources.GetSample("sound").Play();
+		Resources.GetSample("sound")->Play();
 }
 
 void Game::DrawGame()

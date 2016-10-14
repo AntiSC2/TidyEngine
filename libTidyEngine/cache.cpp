@@ -68,7 +68,7 @@ Cache::~Cache()
 		it.second.DestroyTex();
 }
 
-const Texture &Cache::CreateTexture(std::string name, std::string filepath)
+const Texture *Cache::CreateTexture(std::string name, std::string filepath)
 {
 	if (m_Textures.find(name) == m_Textures.end()) {
 		FIBITMAP *bitmap = IO.LoadImage(filepath);
@@ -77,16 +77,16 @@ const Texture &Cache::CreateTexture(std::string name, std::string filepath)
 		FreeImage_Unload(bitmap);
 		
 		if (success == false) {
-			Error e("Exception: could not create texture " +
-					filepath);
-			throw e;
+			printf("Exception: could not create texture %s",
+			       filepath.c_str());
+			return nullptr;
 		}
 
-		return m_Textures[name];
+		return &m_Textures[name];
 	} else {
 		std::printf("Warning: texture %s already exists!\n",
 				name.c_str());
-		return m_Textures[name];
+		return nullptr;
 	}
 }
 
@@ -96,24 +96,23 @@ void Cache::DestroyTexture(std::string name)
 	m_Textures.erase(name);
 }
 
-const Texture &Cache::GetTexture(std::string name)
+const Texture *Cache::GetTexture(std::string name)
 {
 	if (m_Textures.find(name) != m_Textures.end())
-		return m_Textures[name];
+		return &m_Textures[name];
 	std::printf("Warning: could not find texture %s!", name.c_str());
-	return m_Textures["default"];
+	return nullptr;
 }
 
-const Sample &Cache::CreateSample(std::string name, std::string filepath)
+const Sample *Cache::CreateSample(std::string name, std::string filepath)
 {
-	try {
-		IO.LoadVorbis(filepath, &m_Samples[name]);
-		return m_Samples[name];
+	bool success = IO.LoadVorbis(filepath, &m_Samples[name]);
+	if (success == true) {
+		return &m_Samples[name];
+	} else {
+		printf("Error: could not load sample %s!", filepath.c_str());
+		return nullptr;
 	}
-	catch (std::exception &e) {
-		printf("%s\n", e.what());
-	}
-	return m_Samples["default"];
 }
 
 void Cache::DestroySample(std::string name)
@@ -122,10 +121,10 @@ void Cache::DestroySample(std::string name)
 	m_Samples.erase(name);
 }
 
-const Sample &Cache::GetSample(std::string name)
+const Sample *Cache::GetSample(std::string name)
 {
 	if (m_Samples.find(name) != m_Samples.end())
-		return m_Samples[name];
+		return &m_Samples[name];
 	std::printf("Warning: could not find sample %s!", name.c_str());
-	return m_Samples["default"];
+	return nullptr;
 }

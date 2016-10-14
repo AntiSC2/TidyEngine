@@ -83,13 +83,13 @@ int IfsClose(void *in)
 	return 0;
 }
 
-void IOManager::LoadVorbis(std::string filepath, Sample *out)
+bool IOManager::LoadVorbis(std::string filepath, Sample *out)
 {
 	std::ifstream source(filepath, std::ifstream::binary);
 	
 	if (source.is_open() == false) {
-		Error e("Warning: failed to open " + filepath + '!');
-		throw e;
+		printf("Warning: failed to open %s!", filepath.c_str());
+		return false;
 	}
 
 	ov_callbacks cbs {IfsRead, nullptr, IfsClose, nullptr};
@@ -98,8 +98,7 @@ void IOManager::LoadVorbis(std::string filepath, Sample *out)
 	if (ov_open_callbacks(&source, &vorbis, nullptr,
 	    0, cbs) < 0) {
 		ov_clear(&vorbis);
-		Error e("Warning: " + filepath + " is not in ogg format!");
-		throw e;
+		return false;
 	}
 
 	vorbis_info *info = ov_info(&vorbis, -1);	
@@ -114,8 +113,8 @@ void IOManager::LoadVorbis(std::string filepath, Sample *out)
 			break;
 		} else if (ret < 0) {
 			ov_clear(&vorbis);
-			Error e("Warning: error in stream " + filepath + '!');
-			throw e;
+			printf("Warning: error in stream %s!", filepath.c_str());
+			return false;
 		} else {
 			for (int i = 0; i < ret; i++)
 				pcm.push_back(buffer[i]);
@@ -127,4 +126,5 @@ void IOManager::LoadVorbis(std::string filepath, Sample *out)
 
 	out->CreateBuffer(format, pcm.data(), pcm.size(), info->rate);
 	ov_clear(&vorbis);
+	return true;
 }

@@ -33,13 +33,13 @@ public:
 	Cache();
 	~Cache();
 
-	const Texture &CreateTexture(std::string name, std::string filepath);
+	const Texture *CreateTexture(std::string name, std::string filepath);
 	void DestroyTexture(std::string name);
-	const Texture &GetTexture(std::string name);
+	const Texture *GetTexture(std::string name);
 
-	const Sample &CreateSample(std::string name, std::string filepath);
+	const Sample *CreateSample(std::string name, std::string filepath);
 	void DestroySample(std::string name);
-	const Sample &GetSample(std::string name);
+	const Sample *GetSample(std::string name);
 private:
 	std::map<std::string, Texture> m_Textures;
 	std::map<std::string, Sample> m_Samples;

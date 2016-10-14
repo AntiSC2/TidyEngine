@@ -24,7 +24,7 @@ RID::RID()
 	;
 }
 
-RID::~RID
+RID::~RID()
 {
 	;
 }
@@ -34,7 +34,7 @@ ID RID::State()
 	return m_ID;
 }
 
-void *RID::Data()
+std::shared_ptr<void> RID::Data()
 {
 	if (m_ID == ID::None)
 		return nullptr;
