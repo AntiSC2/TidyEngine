@@ -50,15 +50,11 @@ Cache::Cache()
 	FreeImage_Unload(bitmap);
 
 	if (success == false) {
-		Error e("Exception: could not create default texture!");
-		throw e;
+		printf("Error: could not create default texture!");
 	}
 
-//	success = m_Samples["default"].CreateBuffer(AL_FORMAT_MONO16, data,
-//	                                            4, 44100);
 	if (success == false) {
-		Error e("Exception: could not create default sample!");
-		throw e;
+		printf("Error: could not create default sample!");
 	}
 }
 

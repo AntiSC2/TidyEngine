@@ -53,8 +53,8 @@ std::string IOManager::ReadFile(std::string filepath)
 {
 	std::ifstream source(filepath);
 	if (source.fail()) {
-		Error e("Warning: failed to open " + filepath + "!");
-		throw e;
+		printf("Warning: failed to open %s!", filepath.c_str());
+		return "";
 	}
 
 	std::string source_contents = "";

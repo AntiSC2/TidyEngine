@@ -21,7 +21,6 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <cstdio>
-#include "error.hpp"
 #include "shader.hpp"
 
 Render::Render()
@@ -34,21 +33,21 @@ Render::~Render()
 	m_Shaders.clear();
 }
 
-void Render::LoadShaders(std::string name, std::string v, std::string f,
+bool Render::LoadShaders(std::string name, std::string v, std::string f,
 		std::vector<std::string> attributes)
 {
 	m_Shaders[name] = std::unique_ptr<Shader>(new Shader(v, f));
 	if (m_Shaders[name]->InitProgram() == false) {
-		Error e("Exception: could not initialize shader!");
-		throw e;
+		printf("Exception: could not initialize shader!");
+		return false;
 	}
 
 	for (size_t i = 0; i < attributes.size(); i++)
 		m_Shaders[name]->AddAttribute(attributes[i]);
 
 	if (m_Shaders[name]->LinkProgram() == false) {
-		Error e("Exception: could not link shader!");
-		throw e;
+		printf("Exception: could not link shader!");
+		return false;
 	}
 }
 

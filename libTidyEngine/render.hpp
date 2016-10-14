@@ -33,7 +33,7 @@ public:
 	Render();
 	~Render();
 
-	void LoadShaders(std::string name, std::string v, std::string f,
+	bool LoadShaders(std::string name, std::string v, std::string f,
 			std::vector<std::string> attributes = {});
 	Shader *GetShader(std::string name);
 	Batch &GetBatch();

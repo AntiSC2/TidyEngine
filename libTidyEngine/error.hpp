@@ -23,23 +23,4 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include <string>
 #include <FreeImage.h>
 
-class Error : public std::exception {
-public:
-	Error()
-	{
-		;
-	}
-	Error(std::string s)
-	{
-		text = s;
-	}
-
-	virtual const char *what() const noexcept
-	{
-		return text.c_str();
-	}
-private:
-	std::string text = "";
-};
-
 void FreeImageError(FREE_IMAGE_FORMAT fif, const char *message);
