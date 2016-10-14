@@ -68,7 +68,7 @@ bool Core::InitSubSystems()
 		return false;
 	}
 	
-	m_DrawSprite.Initialise(m_Render.GetShader("default"),
+	m_SpriteRenderer.Initialise(m_Render.GetShader("default"),
 			&m_Render.GetBatch());
 	
 	m_Input.Initialise(m_Screen.GetWindow());

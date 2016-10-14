@@ -53,7 +53,7 @@ void Game::Update()
 	m_Input.Update();
 	m_ObjectManager.Update();
 	if (m_Input.GetKey(GLFW_KEY_ESCAPE))
-		glfwSetWindowShouldClose(m_Screen.GetWindow(), GL_TRUE);
+		m_Screen.CloseWindow();
 	else if (m_Input.GetKey(GLFW_KEY_SPACE))
 		Resources.GetSample("sound")->Play();
 }
@@ -62,10 +62,10 @@ void Game::DrawGame()
 {
 	m_Render.Clear();
 
-	m_DrawSprite.Begin();
-	m_ObjectManager.Draw(&m_DrawSprite);
-	m_DrawSprite.End();
-	m_DrawSprite.Present(m_ObjectManager.GetCamera());
+	m_SpriteRenderer.Begin();
+	m_ObjectManager.Draw(&m_SpriteRenderer);
+	m_SpriteRenderer.End();
+	m_SpriteRenderer.Present(m_ObjectManager.GetCamera());
 
 	m_Render.Present(m_Screen.GetWindow());
 }

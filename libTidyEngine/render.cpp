@@ -38,7 +38,7 @@ bool Render::LoadShaders(std::string name, std::string v, std::string f,
 {
 	m_Shaders[name] = std::unique_ptr<Shader>(new Shader(v, f));
 	if (m_Shaders[name]->InitProgram() == false) {
-		printf("Exception: could not initialize shader!");
+		printf("Warning: could not initialize shader!");
 		return false;
 	}
 
@@ -46,7 +46,7 @@ bool Render::LoadShaders(std::string name, std::string v, std::string f,
 		m_Shaders[name]->AddAttribute(attributes[i]);
 
 	if (m_Shaders[name]->LinkProgram() == false) {
-		printf("Exception: could not link shader!");
+		printf("Warning: could not link shader!");
 		return false;
 	}
 }

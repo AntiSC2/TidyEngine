@@ -36,8 +36,9 @@ class Screen {
 				const char* title, 
 				int gl_major, int gl_minor);
 		bool InitGL();
-		void DestroyWindow();
+		void CloseWindow();
 	private:
+		void DestroyWindow();
 		uint16_t m_Width = 0;
 		uint16_t m_Height = 0;
 		char *m_Title = nullptr;

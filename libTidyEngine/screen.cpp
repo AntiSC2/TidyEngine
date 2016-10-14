@@ -96,6 +96,11 @@ bool Screen::InitGL()
 	return true;
 }
 
+void Screen::CloseWindow()
+{
+	glfwSetWindowShouldClose(m_Window, GL_TRUE);
+}
+
 void Screen::DestroyWindow()
 {
 	if (m_Window != nullptr)

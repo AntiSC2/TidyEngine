@@ -42,7 +42,7 @@ class Core {
 		AudioSystem m_Audio;
 		Screen m_Screen;
 		Render m_Render;
-		SpriteRenderer m_DrawSprite;
+		SpriteRenderer m_SpriteRenderer;
 		Input m_Input;
 		ObjectManager m_ObjectManager;
 };

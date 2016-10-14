@@ -49,11 +49,11 @@ Cache::Cache()
 	FreeImage_Unload(bitmap);
 
 	if (success == false) {
-		printf("Error: could not create default texture!");
+		printf("Warning: could not create default texture!");
 	}
 
 	if (success == false) {
-		printf("Error: could not create default sample!");
+		printf("Warning: could not create default sample!");
 	}
 }
 

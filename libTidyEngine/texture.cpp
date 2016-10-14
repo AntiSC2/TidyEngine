@@ -66,7 +66,7 @@ bool Texture::CreateTex(FIBITMAP *bitmap, bool mipmap, bool linear)
 	if (temp == nullptr) {
 		DestroyTex();
 		FreeImage_Unload(temp);
-		std::printf("Error: could not convert texture to 32 bits!\n");
+		std::printf("Warning: could not convert texture to 32 bits!\n");
 		return false;
 	}
 	m_Width = FreeImage_GetWidth(temp);
