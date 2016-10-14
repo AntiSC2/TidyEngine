@@ -16,17 +16,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "game.hpp"
-#include <exception>
 
 int main(int argc, char **argv)
 {
-	try {
-		Game g;
-		g.Run();
-		return 0;
-	}
-	catch (std::exception &e) {
-		std::printf("%s", e.what());
-	}
-	return -1;
+	Game g;
+	g.Run();
+	return 0;
 }

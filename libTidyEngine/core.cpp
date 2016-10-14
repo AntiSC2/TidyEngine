@@ -62,12 +62,9 @@ bool Core::InitSubSystems()
 		}
 	}
 
-	try {
-		m_Render.LoadShaders("default", "shader.vert", "shader.frag",
-		{"position", "color", "uv"});
-	}
-	catch (std::exception &e) {
-		printf("%s\n", e.what());
+	if (m_Render.LoadShaders("default", "shader.vert", "shader.frag",
+	   {"position", "color", "uv" }) == false) {
+		printf("Error: Failed to load shaders!\n");
 		return false;
 	}
 	

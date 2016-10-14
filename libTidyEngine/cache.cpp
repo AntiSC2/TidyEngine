@@ -19,7 +19,6 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 #include "cache.hpp"
 #include <cstdio>
-#include "error.hpp"
 #include "iomanager.hpp"
 
 Cache Resources;
@@ -73,7 +72,7 @@ const Texture *Cache::CreateTexture(std::string name, std::string filepath)
 		FreeImage_Unload(bitmap);
 		
 		if (success == false) {
-			printf("Exception: could not create texture %s",
+			printf("Warning: could not create texture %s",
 			       filepath.c_str());
 			return nullptr;
 		}
@@ -106,7 +105,7 @@ const Sample *Cache::CreateSample(std::string name, std::string filepath)
 	if (success == true) {
 		return &m_Samples[name];
 	} else {
-		printf("Error: could not load sample %s!", filepath.c_str());
+		printf("Warning: could not load sample %s!", filepath.c_str());
 		return nullptr;
 	}
 }
