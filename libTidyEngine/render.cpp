@@ -49,6 +49,8 @@ bool Render::LoadShaders(std::string name, std::string v, std::string f,
 		printf("Warning: could not link shader!");
 		return false;
 	}
+	
+	return true;
 }
 
 Shader *Render::GetShader(std::string name)
