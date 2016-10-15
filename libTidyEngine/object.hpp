@@ -20,28 +20,28 @@ Contact the author at: jakob.sinclair99@gmail.com
 #pragma once
 
 #include <glm/vec3.hpp>
+#include <vector>
 #include <string>
-#include <memory>
 #include "renderable.hpp"
+#include "rid.hpp"
 
 class Object {
 public:
 	Object(std::string name = "temp", std::string script = "none",
-	       Renderable *renderable = nullptr) : m_Name(name),
-	       m_Script(script), m_Renderable(renderable)
+	       std::vector<RID> resources = {}) : m_Name(name),
+		m_Script(script), m_Resources(resources)
 	{
 		;
 	}
 	virtual ~Object();
-	
+
 	virtual void Update(float delta = 0.0f);
 	virtual Renderable *Draw();
 	void SetName(std::string name);
 	void SetScript(std::string script);
-	void SetRenderable(Renderable *renderable);
 protected:
 	std::string m_Name = "temp";
 	std::string m_Script = "none";
-	std::unique_ptr<Renderable> m_Renderable = nullptr;
+	std::vector<RID> m_Resources = {};
 	glm::vec3 m_Position = glm::vec3(0.0f, 0.0f, 0.0f);
 };

@@ -19,6 +19,16 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 #include "rid.hpp"
 
+ResourcePointers::ResourcePointers()
+{
+	tex = nullptr;
+}
+
+ResourcePointers::~ResourcePointers()
+{
+	;
+}
+
 RID::RID()
 {
 	;
@@ -34,7 +44,37 @@ ID RID::State()
 	return m_ID;
 }
 
-std::shared_ptr<void> RID::Data()
+void RID::SetResource(Texture *res)
+{
+	m_ID = ID::Texture;
+	m_Pointers.tex = res;
+}
+
+void RID::SetResource(Sample *res)
+{
+	m_ID = ID::Sample;
+	m_Pointers.sample = res;
+}
+
+void RID::SetResource(Renderable *res)
+{
+	m_ID = ID::Renderable;
+	m_Pointers.render = res;
+}
+
+void RID::SetResource(Spritesheet *res)
+{
+	m_ID = ID::Spritesheet;
+	m_Pointers.sheet = res;
+}
+
+void RID::SetResource(Shader *res)
+{
+	m_ID = ID::Shader;
+	m_Pointers.shader = res;
+}
+
+void *RID::Data()
 {
 	if (m_ID == ID::None)
 		return nullptr;
@@ -48,4 +88,5 @@ std::shared_ptr<void> RID::Data()
 		return m_Pointers.sheet;
 	else if (m_ID == ID::Shader)
 		return m_Pointers.shader;
+	return nullptr;
 }

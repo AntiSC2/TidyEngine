@@ -26,13 +26,23 @@ Object::~Object()
 
 void Object::Update(float delta)
 {
-	if (m_Renderable != nullptr)
-		m_Renderable->Update(false);
+	for (auto i : m_Resources) {
+		if (i.State() == ID::Renderable) {
+			Renderable *temp = static_cast<Renderable *>(i.Data());
+			temp->Update(false);
+		}
+	}
 }
 
 Renderable *Object::Draw()
 {
-	return m_Renderable.get();
+	for (auto i : m_Resources) {
+		if (i.State() == ID::Renderable) {
+			Renderable *temp = static_cast<Renderable *>(i.Data());
+			return temp;
+		}
+	}
+	return nullptr;
 }
 
 void Object::SetName(std::string name)
@@ -43,9 +53,4 @@ void Object::SetName(std::string name)
 void Object::SetScript(std::string script)
 {
 	m_Script = script;
-}
-
-void Object::SetRenderable(Renderable *renderable)
-{
-	m_Renderable.reset(renderable);
 }
