@@ -22,10 +22,10 @@ Contact the author at: jakob.sinclair99@gmail.com
 class Texture;
 class Sample;
 class Renderable;
-class Spritesheet;
+class Sheet;
 class Shader;
 
-enum class ID {None, Texture, Sample, Music, Font, Renderable, Spritesheet,
+enum class ID {None, Texture, Sample, Music, Font, Renderable, Sheet,
                Shader};
 
 union ResourcePointers {
@@ -37,20 +37,21 @@ union ResourcePointers {
 //	Music *music:
 //	Font *font;
 	Renderable* render;
-	Spritesheet* sheet;
+	Sheet* sheet;
 	Shader* shader;
 };
 
 class RID {
 public:
 	RID();
+	RID(ID id, void *data);
 	~RID();
 
 	ID State();
 	void SetResource(Texture *res);
 	void SetResource(Sample *res);
 	void SetResource(Renderable *res);
-	void SetResource(Spritesheet *res);
+	void SetResource(Sheet *res);
 	void SetResource(Shader *res);
 	void *Data();
 private:

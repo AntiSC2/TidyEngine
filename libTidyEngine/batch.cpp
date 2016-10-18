@@ -64,14 +64,14 @@ void Batch::Present()
 	for (size_t i = 0; i < m_RenderBatches.size(); i++) {
 		glBindTexture(GL_TEXTURE_2D, m_RenderBatches[i].Tex);
 		glDrawArrays(GL_TRIANGLES, (GLsizei)m_RenderBatches[i].Offset,
-				(GLsizei)m_RenderBatches[i].Vertices);
+		            (GLsizei)m_RenderBatches[i].Vertices);
 	}
 }
 
 void Batch::SortGlyphs()
 {
 	std::stable_sort(m_SortedGlyphs.begin(), m_SortedGlyphs.end(),
-			CompareTex);
+	                 CompareTex);
 }
 
 void Batch::CreateBatches()
@@ -97,7 +97,7 @@ void Batch::CreateBatches()
 
 		if (temp_tex != m_SortedGlyphs[g - 1]->GetTex())
 			m_RenderBatches.emplace_back(temp_tex, num_vert,
-					offset);
+			                             offset);
 		else
 			m_RenderBatches.back().Vertices += num_vert;
 
@@ -106,14 +106,14 @@ void Batch::CreateBatches()
 
 		for (; (i - offset) < size_vert; i++)
 			vertex_data[i] = m_SortedGlyphs[g]->
-					GetVertices()[i - offset];
+			                 GetVertices()[i - offset];
 
 		offset += num_vert;
 	}
 
 	glBindBuffer(GL_ARRAY_BUFFER, m_VBOID);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * vertex_data.size(), 
-			vertex_data.data(), GL_STREAM_DRAW);
+	             vertex_data.data(), GL_STREAM_DRAW);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 

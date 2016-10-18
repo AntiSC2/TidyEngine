@@ -85,7 +85,12 @@ void Sprite::Update(bool render)
 		m_Update = false;
 	} else {
 		m_ImageBuffer += m_ImageSpeed;
+		uint32_t change = m_ImageIndex;
 		m_ImageIndex = (uint32_t)std::round(m_ImageBuffer);
+
+		if (m_ImageIndex != change)
+			m_Update = true;
+
 		while (m_ImageIndex > (uint32_t)m_Frames.size()) {
 			m_ImageBuffer -= (float)m_Frames.size();
 			m_ImageIndex -= (uint32_t)m_Frames.size();
@@ -157,4 +162,9 @@ void Sprite::SetImageIndex(uint32_t image_index)
 {
 	m_ImageIndex = image_index;
 	m_Update = true;
+}
+
+void Sprite::SetImageSpeed(float speed)
+{
+	m_ImageSpeed = speed;
 }

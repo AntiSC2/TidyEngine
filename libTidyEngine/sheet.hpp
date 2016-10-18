@@ -27,7 +27,7 @@ class Texture;
 
 class Sheet {
 public:
-	/* x and y stand for the number of tiles to divide the texture in
+	/* x and y stand for the number of tiles to divide the texture in,
 	 * not the overall size of the texture
 	 */
 	Sheet(uint32_t x = 0, uint32_t y = 0, const Texture *tex = nullptr);

@@ -23,10 +23,11 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 #pragma once
 
-#include <map>
+#include <unordered_map>
 #include <string>
 #include "texture.hpp"
 #include "sample.hpp"
+#include "rid.hpp"
 
 class Cache {
 public:
@@ -40,7 +41,12 @@ public:
 	const Sample *CreateSample(std::string name, std::string filepath);
 	void DestroySample(std::string name);
 	const Sample *GetSample(std::string name);
+
+	const RID *CreateResource(std::string name, ID type);
+	void DestroyResource(std::string name);
+	const RID *GetResource();
 private:
-	std::map<std::string, Texture> m_Textures;
-	std::map<std::string, Sample> m_Samples;
+	std::unordered_map<std::string, Texture> m_Textures;
+	std::unordered_map<std::string, Sample> m_Samples;
+	std::unordered_map<std::string, RID> m_Resources;
 } extern Resources;

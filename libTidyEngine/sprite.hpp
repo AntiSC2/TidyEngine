@@ -31,12 +31,12 @@ class Sheet;
 class Sprite : public Renderable {
 public:
 	Sprite(Sheet *sheet, uint32_t w = 0, uint32_t h = 0,
-			const std::vector<uint32_t> &frames = {0, 0});
+	       const std::vector<uint32_t> &frames = {0, 0});
 	virtual ~Sprite();
 
 	virtual void Update(bool render = false);
 	virtual bool Initialise(Sheet *sheet, uint32_t w = 0, uint32_t h = 0, 
-			const std::vector<uint32_t> &frames = {0, 0});
+	                        const std::vector<uint32_t> &frames = {0, 0});
 	virtual const glm::vec3 &GetPos() const;
 	virtual const uint32_t &GetWidth() const;
 	virtual const uint32_t &GetHeight() const;
@@ -44,6 +44,7 @@ public:
 	virtual void SetWidth(uint32_t w);
 	virtual void SetHeight(uint32_t h);
 	virtual void SetImageIndex(uint32_t image_index);
+	virtual void SetImageSpeed(float speed);
 protected:
 	float m_ImageSpeed = 0.0f;
 	float m_ImageBuffer = 0.0f;

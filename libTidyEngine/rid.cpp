@@ -34,6 +34,13 @@ RID::RID()
 	;
 }
 
+RID::RID(ID id, void *data)
+{
+	m_ID = id;
+	if (m_ID == ID::Renderable)
+		m_Pointers.render = static_cast<Renderable *>(data);
+}
+
 RID::~RID()
 {
 	;
@@ -62,9 +69,9 @@ void RID::SetResource(Renderable *res)
 	m_Pointers.render = res;
 }
 
-void RID::SetResource(Spritesheet *res)
+void RID::SetResource(Sheet *res)
 {
-	m_ID = ID::Spritesheet;
+	m_ID = ID::Sheet;
 	m_Pointers.sheet = res;
 }
 
@@ -84,7 +91,7 @@ void *RID::Data()
 		return m_Pointers.sample;
 	else if (m_ID == ID::Renderable)
 		return m_Pointers.render;
-	else if (m_ID == ID::Spritesheet)
+	else if (m_ID == ID::Sheet)
 		return m_Pointers.sheet;
 	else if (m_ID == ID::Shader)
 		return m_Pointers.shader;
