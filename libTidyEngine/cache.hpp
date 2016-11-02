@@ -42,9 +42,9 @@ public:
 	void DestroySample(std::string name);
 	const Sample *GetSample(std::string name);
 
-	const RID *CreateResource(std::string name, ID type);
+	RID *CreateResource(std::string name, ID type, void *data);
 	void DestroyResource(std::string name);
-	const RID *GetResource();
+	RID *GetResource(std::string name);
 private:
 	std::unordered_map<std::string, Texture> m_Textures;
 	std::unordered_map<std::string, Sample> m_Samples;

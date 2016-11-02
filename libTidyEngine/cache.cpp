@@ -101,6 +101,12 @@ const Texture *Cache::GetTexture(std::string name)
 
 const Sample *Cache::CreateSample(std::string name, std::string filepath)
 {
+	if (m_Samples.find(name) != m_Samples.end()) {
+		std::printf("Warning: sample %s already exists!",
+		            name.c_str());
+		return nullptr;
+	}
+
 	bool success = IO.LoadVorbis(filepath, &m_Samples[name]);
 	if (success == true) {
 		return &m_Samples[name];
@@ -122,4 +128,30 @@ const Sample *Cache::GetSample(std::string name)
 		return &m_Samples[name];
 	std::printf("Warning: could not find sample %s!", name.c_str());
 	return nullptr;
+}
+
+RID *Cache::CreateResource(std::string name, ID type, void *data)
+{
+	if (m_Resources.find(name) == m_Resources.end()) {
+		m_Resources.emplace(name, RID(type, data));
+		return &m_Resources[name];
+	} else {
+		printf("Warning: resource %s already exists!", name.c_str());
+		return nullptr;
+	}
+}
+
+void Cache::DestroyResource(std::string name)
+{
+	m_Resources.erase(name);
+}
+
+RID *Cache::GetResource(std::string name)
+{
+	if (m_Resources.find(name) != m_Resources.end()) {
+		return &m_Resources[name];
+	} else {
+		printf("Warning: could not find %s!", name.c_str());
+		return nullptr;
+	}
 }

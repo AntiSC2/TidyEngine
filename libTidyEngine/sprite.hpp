@@ -20,6 +20,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 #pragma once
 
 class Sheet;
+class RID;
 
 #include <cstdint>
 #include <vector>
@@ -31,6 +32,8 @@ class Sheet;
 class Sprite : public Renderable {
 public:
 	Sprite(Sheet *sheet, uint32_t w = 0, uint32_t h = 0,
+	       const std::vector<uint32_t> &frames = {0, 0});
+	Sprite(RID *res, uint32_t w = 0, uint32_t h = 0,
 	       const std::vector<uint32_t> &frames = {0, 0});
 	virtual ~Sprite();
 

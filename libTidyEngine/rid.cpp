@@ -19,16 +19,6 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 #include "rid.hpp"
 
-ResourcePointers::ResourcePointers()
-{
-	tex = nullptr;
-}
-
-ResourcePointers::~ResourcePointers()
-{
-	;
-}
-
 RID::RID()
 {
 	;
@@ -37,8 +27,7 @@ RID::RID()
 RID::RID(ID id, void *data)
 {
 	m_ID = id;
-	if (m_ID == ID::Renderable)
-		m_Pointers.render = static_cast<Renderable *>(data);
+	m_Data.reset(data);
 }
 
 RID::~RID()
@@ -54,46 +43,37 @@ ID RID::State()
 void RID::SetResource(Texture *res)
 {
 	m_ID = ID::Texture;
-	m_Pointers.tex = res;
+	m_Data.reset(res);
 }
 
 void RID::SetResource(Sample *res)
 {
 	m_ID = ID::Sample;
-	m_Pointers.sample = res;
+	m_Data.reset(res);
 }
 
 void RID::SetResource(Renderable *res)
 {
 	m_ID = ID::Renderable;
-	m_Pointers.render = res;
+	m_Data.reset(res);
 }
 
 void RID::SetResource(Sheet *res)
 {
 	m_ID = ID::Sheet;
-	m_Pointers.sheet = res;
+	m_Data.reset(res);
 }
 
 void RID::SetResource(Shader *res)
 {
 	m_ID = ID::Shader;
-	m_Pointers.shader = res;
+	m_Data.reset(res);
 }
 
 void *RID::Data()
 {
 	if (m_ID == ID::None)
 		return nullptr;
-	else if (m_ID == ID::Texture)
-		return m_Pointers.tex;
-	else if (m_ID == ID::Sample)
-		return m_Pointers.sample;
-	else if (m_ID == ID::Renderable)
-		return m_Pointers.render;
-	else if (m_ID == ID::Sheet)
-		return m_Pointers.sheet;
-	else if (m_ID == ID::Shader)
-		return m_Pointers.shader;
-	return nullptr;
+	else
+		return m_Data.get();
 }

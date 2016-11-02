@@ -19,6 +19,8 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 #pragma once
 
+#include <memory>
+
 class Texture;
 class Sample;
 class Renderable;
@@ -27,19 +29,6 @@ class Shader;
 
 enum class ID {None, Texture, Sample, Music, Font, Renderable, Sheet,
                Shader};
-
-union ResourcePointers {
-	ResourcePointers();
-	~ResourcePointers();
-
-	Texture* tex;
-	Sample* sample;
-//	Music *music:
-//	Font *font;
-	Renderable* render;
-	Sheet* sheet;
-	Shader* shader;
-};
 
 class RID {
 public:
@@ -56,5 +45,5 @@ public:
 	void *Data();
 private:
 	ID m_ID = ID::None;
-	ResourcePointers m_Pointers;
+	std::shared_ptr<void> m_Data;
 };

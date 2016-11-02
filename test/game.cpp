@@ -46,10 +46,17 @@ bool Game::Init()
 	Resources.CreateTexture("sprite", "sprite.png");
 	Resources.CreateSample("sound", "sound.ogg");
 	Resources.GetSample("sound")->Play();
-	Sheet *temp3 = new Sheet(2, 2, Resources.GetTexture("sprite"));
-	Sprite *temp4 = new Sprite(temp3, 32, 32, {0, 0, 1, 0, 0, 1, 1, 1});
-	temp4->SetImageSpeed(0.01f);
-	Object *temp2 = new Object("hello", "none", {RID(ID::Renderable, temp4)});
+	Resources.CreateResource("sheet", ID::Sheet,
+	                         new Sheet(2, 2,
+	                                   Resources.GetTexture("sprite")));
+	Resources.CreateResource("sprite", ID::Renderable,
+	                         new Sprite(
+	                         Resources.GetResource("sheet"), 32, 32,
+	                         {0, 0, 1, 0,0, 1, 1, 1}));
+	static_cast<Sprite *>(Resources.GetResource("sprite")->Data())->
+	                                           SetImageSpeed(0.01f);
+	Object *temp2 = new Object("hello", "none",
+	                          {*Resources.GetResource("sprite")});
 	m_ObjectManager.AddObject(temp2);
 	return true;
 }
