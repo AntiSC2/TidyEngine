@@ -24,8 +24,9 @@ class Texture;
 #include <GL/glew.h>
 #include <cstdint>
 #include <glm/vec4.hpp>
+#include "resource.hpp"
 
-class Sheet {
+class Sheet: Resource {
 public:
 	/* x and y stand for the number of tiles to divide the texture in,
 	 * not the overall size of the texture

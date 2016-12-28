@@ -42,7 +42,7 @@ public:
 	void DestroySample(std::string name);
 	const Sample *GetSample(std::string name);
 
-	RID *CreateResource(std::string name, ID type, void *data);
+	RID *CreateResource(std::string name, void *data);
 	void DestroyResource(std::string name);
 	RID *GetResource(std::string name);
 private:

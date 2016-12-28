@@ -38,23 +38,27 @@ Game::~Game()
 
 bool Game::Init()
 {
-	Camera2D *temp = new Camera2D("MainCamera");
-	temp->Initialise(1280, 720);
-	m_ObjectManager.SetCamera(temp);
-	m_ObjectManager.AddObject(temp);
-	temp = nullptr;
+	Camera2D *cam = new Camera2D("MainCamera");
+	cam->Initialise(1280, 720);
+	m_ObjectManager.SetCamera(cam);
+	m_ObjectManager.AddObject(cam);
+	cam = nullptr;
+
 	Resources.CreateTexture("sprite", "sprite.png");
 	Resources.CreateSample("sound", "sound.ogg");
 	Resources.GetSample("sound")->Play();
-	Resources.CreateResource("sheet", ID::Sheet,
-	                         new Sheet(2, 2,
-	                                   Resources.GetTexture("sprite")));
-	Resources.CreateResource("sprite", ID::Renderable,
-	                         new Sprite(
-	                         Resources.GetResource("sheet"), 32, 32,
+
+	RID *temp = nullptr;
+	temp = Resources.CreateResource("sheet", new Sheet(2, 2,
+	                                Resources.GetTexture("sprite")));
+	Resources.CreateResource("sprite", new Sprite(temp, 32, 32,
 	                         {0, 0, 1, 0,0, 1, 1, 1}));
-	static_cast<Sprite *>(Resources.GetResource("sprite")->Data())->
-	                                           SetImageSpeed(0.01f);
+	temp = nullptr;
+	Sprite *temp3 = boost::any_cast<Sprite *>(Resources.GetResource("sprite")->Data());
+	if (temp3 == nullptr) {
+		printf("Fuck");
+	}
+	
 	Object *temp2 = new Object("hello", "none",
 	                          {*Resources.GetResource("sprite")});
 	m_ObjectManager.AddObject(temp2);

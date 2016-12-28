@@ -17,32 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 Contact the author at: jakob.sinclair99@gmail.com
 */
 
-#pragma once
-
-#include <memory>
-#include "resource.hpp"
-
-class Texture;
-class Sample;
-class Renderable;
-class Sheet;
-class Shader;
-
-enum class ID{Renderable, Sample, Shader, Sheet, Texture};
-
-class RID {
+class Resource {
 public:
-	RID();
-	RID(ID state, Resource *data);
-	~RID();
-
-	void SetResource(Texture *res);
-	void SetResource(Sample *res);
-	void SetResource(Renderable *res);
-	void SetResource(Sheet *res);
-	void SetResource(Shader *res);
-	Resource *Data() const;
-private:
-	ID m_State;
-	std::shared_ptr<Resource> m_Data;
-};
+	virtual ~Resource();
+}

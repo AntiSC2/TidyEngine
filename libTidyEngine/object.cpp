@@ -18,6 +18,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 */
 
 #include "object.hpp"
+#include <boost/any.hpp>
 
 Object::~Object()
 {
@@ -27,8 +28,8 @@ Object::~Object()
 void Object::Update(float delta)
 {
 	for (auto i : m_Resources) {
-		if (i.State() == ID::Renderable) {
-			Renderable *temp = static_cast<Renderable *>(i.Data());
+		if (i.Data().type() == typeid(Renderable)) {
+			Renderable *temp = boost::any_cast<Renderable *>(i.Data());
 			temp->Update(false);
 		}
 	}
@@ -37,8 +38,8 @@ void Object::Update(float delta)
 Renderable *Object::Draw()
 {
 	for (auto i : m_Resources) {
-		if (i.State() == ID::Renderable) {
-			Renderable *temp = static_cast<Renderable *>(i.Data());
+		if (i.Data().type() == typeid(Renderable)) {
+			Renderable *temp = boost::any_cast<Renderable *>(i.Data());
 			return temp;
 		}
 	}

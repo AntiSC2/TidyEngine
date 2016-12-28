@@ -130,10 +130,10 @@ const Sample *Cache::GetSample(std::string name)
 	return nullptr;
 }
 
-RID *Cache::CreateResource(std::string name, ID type, void *data)
+RID *Cache::CreateResource(std::string name, void *data)
 {
 	if (m_Resources.find(name) == m_Resources.end()) {
-		m_Resources.emplace(name, RID(type, data));
+		m_Resources.emplace(name, RID(data));
 		return &m_Resources[name];
 	} else {
 		printf("Warning: resource %s already exists!", name.c_str());

@@ -22,8 +22,9 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include <GL/glew.h>
 #include <vector>
 #include "vertex.hpp"
+#include "resource.hpp"
 
-class Renderable {
+class Renderable: Resource {
 public:
 	Renderable();
 	virtual ~Renderable();

@@ -18,16 +18,20 @@ Contact the author at: jakob.sinclair99@gmail.com
 */
 
 #include "rid.hpp"
+#include "texture.hpp" 
+#include "sample.hpp"
+#include "renderable.hpp"
+#include "sheet.hpp"
+#include "shader.hpp"
 
 RID::RID()
 {
 	;
 }
 
-RID::RID(ID id, void *data)
+RID::RID(Resource *res)
 {
-	m_ID = id;
-	m_Data.reset(data);
+	m_Data.reset(res);
 }
 
 RID::~RID()
@@ -35,45 +39,35 @@ RID::~RID()
 	;
 }
 
-ID RID::State()
-{
-	return m_ID;
-}
-
 void RID::SetResource(Texture *res)
 {
-	m_ID = ID::Texture;
-	m_Data.reset(res);
+	/* std::any moves the content when it is a double reference, this
+	   ensures that we don't leave dangling pointers around
+	*/
+	m_Data.reset(new boost::any(res));
 }
 
 void RID::SetResource(Sample *res)
 {
-	m_ID = ID::Sample;
-	m_Data.reset(res);
+	m_Data.reset(new boost::any(res));
 }
 
 void RID::SetResource(Renderable *res)
 {
-	m_ID = ID::Renderable;
-	m_Data.reset(res);
+	m_Data.reset(new boost::any(res));
 }
 
 void RID::SetResource(Sheet *res)
 {
-	m_ID = ID::Sheet;
-	m_Data.reset(res);
+	m_Data.reset(new boost::any(res));
 }
 
 void RID::SetResource(Shader *res)
 {
-	m_ID = ID::Shader;
-	m_Data.reset(res);
+	m_Data.reset(new boost::any(res));
 }
 
-void *RID::Data()
+Resource *RID::Data() const
 {
-	if (m_ID == ID::None)
-		return nullptr;
-	else
-		return m_Data.get();
+	return m_Data.get();
 }

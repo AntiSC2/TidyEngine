@@ -25,8 +25,9 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include <glm/vec4.hpp>
 #include <glm/mat4x4.hpp>
 #include <string>
+#include "Resource.hpp"
 
-class Shader {
+class Shader: Resource {
 public:
 	Shader();
 	Shader(const std::string &vertex, const std::string &fragment);

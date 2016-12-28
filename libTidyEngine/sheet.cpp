@@ -18,6 +18,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 */
 
 #include "sheet.hpp"
+#include <cstdio>
 #include "texture.hpp"
 
 Sheet::Sheet(uint32_t x, uint32_t y, const Texture *tex)
@@ -61,6 +62,7 @@ GLuint Sheet::GetTex() const
 {
 	if (m_Tex == nullptr)
 		return 0;
+	std::printf("%d", m_Tex->GetTex());
 	return m_Tex->GetTex();
 }
 

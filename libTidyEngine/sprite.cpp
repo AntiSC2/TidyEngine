@@ -20,6 +20,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include "sprite.hpp"
 #include <cmath>
 #include <glm/vec2.hpp>
+#include <boost/any.hpp>
 #include "renderable.hpp"
 #include "vertex.hpp"
 #include "sheet.hpp"
@@ -34,12 +35,12 @@ Sprite::Sprite(Sheet *sheet, uint32_t w, uint32_t h,
 Sprite::Sprite(RID *res, uint32_t w, uint32_t h,
 	       const std::vector<uint32_t> &frames)
 {
-	if (res->State() == ID::Sheet) {
+	if (res->Data().type().hash_code() == typeid(Sheet *).hash_code()) {
 		Sheet *temp = nullptr;
-		temp = static_cast<Sheet *>(res->Data());
+		temp = boost::any_cast<Sheet *>(res->Data());
 		Initialise(temp, w, h, frames);
 	} else {
-		std::printf("Warning: a sheet was not passed onto a sprite!\n");
+		std::printf("%s\n", res->Data().type().name());
 	}
 }
 

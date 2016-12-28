@@ -20,8 +20,9 @@ Contact the author at: jakob.sinclair99@gmail.com
 #pragma once
 #include <al.h>
 #include <cstddef>
+#include "resource.hpp"
 
-class Sample {
+class Sample: Resource {
 public:
 	Sample();
 	Sample(int format, const void *data, size_t size, size_t freq);

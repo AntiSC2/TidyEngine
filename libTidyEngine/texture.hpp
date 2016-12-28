@@ -23,8 +23,9 @@ struct FIBITMAP;
 
 #include <cstdint>
 #include <GL/glew.h>
+#include "resource.hpp"
 
-class Texture {
+class Texture: Resource {
 public:
 	Texture();
 	Texture(FIBITMAP *bitmap, bool mipmap = false, bool linear = true);
