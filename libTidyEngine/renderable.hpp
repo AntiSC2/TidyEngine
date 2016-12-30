@@ -24,10 +24,12 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include "vertex.hpp"
 #include "resource.hpp"
 
-class Renderable: Resource {
+class Renderable: public Resource {
 public:
 	Renderable();
 	virtual ~Renderable();
+	
+	virtual std::string Type();
 	
 	virtual void Update(bool render = false);
 	virtual void AddVertex(const Vertex &vertex);

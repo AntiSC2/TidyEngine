@@ -54,9 +54,9 @@ bool Game::Init()
 	Resources.CreateResource("sprite", new Sprite(temp, 32, 32,
 	                         {0, 0, 1, 0,0, 1, 1, 1}));
 	temp = nullptr;
-	Sprite *temp3 = boost::any_cast<Sprite *>(Resources.GetResource("sprite")->Data());
+	Sprite *temp3 = static_cast<Sprite *>(Resources.GetResource("sprite")->Data());
 	if (temp3 == nullptr) {
-		printf("Fuck");
+		printf("Error when casting to Sprite*!\n");
 	}
 	
 	Object *temp2 = new Object("hello", "none",

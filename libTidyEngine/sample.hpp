@@ -22,11 +22,13 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include <cstddef>
 #include "resource.hpp"
 
-class Sample: Resource {
+class Sample: public Resource {
 public:
 	Sample();
 	Sample(int format, const void *data, size_t size, size_t freq);
 	~Sample();
+
+	virtual std::string Type();
 
 	bool CreateBuffer(int format, const void *data, size_t size,
 	                  size_t freq);

@@ -29,6 +29,8 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include "sample.hpp"
 #include "rid.hpp"
 
+class Resource;
+
 class Cache {
 public:
 	Cache();
@@ -42,7 +44,7 @@ public:
 	void DestroySample(std::string name);
 	const Sample *GetSample(std::string name);
 
-	RID *CreateResource(std::string name, void *data);
+	RID *CreateResource(std::string name, Resource *data);
 	void DestroyResource(std::string name);
 	RID *GetResource(std::string name);
 private:

@@ -17,7 +17,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 Contact the author at: jakob.sinclair99@gmail.com
 */
 
+#pragma once
+
+#include <string>
+
 class Resource {
 public:
-	virtual ~Resource();
-}
+	virtual ~Resource()
+	{
+		;
+	}
+	virtual std::string Type() = 0;
+};

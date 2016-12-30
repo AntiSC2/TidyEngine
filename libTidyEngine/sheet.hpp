@@ -26,13 +26,15 @@ class Texture;
 #include <glm/vec4.hpp>
 #include "resource.hpp"
 
-class Sheet: Resource {
+class Sheet: public Resource {
 public:
 	/* x and y stand for the number of tiles to divide the texture in,
 	 * not the overall size of the texture
 	 */
 	Sheet(uint32_t x = 0, uint32_t y = 0, const Texture *tex = nullptr);
 	virtual ~Sheet();
+	
+	virtual std::string Type();
 
 	bool Initialise(uint32_t x, uint32_t y, const Texture *tex);
 	const glm::vec4 GetTexCoords(uint32_t x, uint32_t y) const;

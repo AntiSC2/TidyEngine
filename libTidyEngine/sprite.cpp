@@ -35,12 +35,12 @@ Sprite::Sprite(Sheet *sheet, uint32_t w, uint32_t h,
 Sprite::Sprite(RID *res, uint32_t w, uint32_t h,
 	       const std::vector<uint32_t> &frames)
 {
-	if (res->Data().type().hash_code() == typeid(Sheet *).hash_code()) {
+	if (res->Data()->Type() == "Sheet") {
 		Sheet *temp = nullptr;
-		temp = boost::any_cast<Sheet *>(res->Data());
+		temp = static_cast<Sheet *>(res->Data());
 		Initialise(temp, w, h, frames);
 	} else {
-		std::printf("%s\n", res->Data().type().name());
+		std::printf("%s\n", res->Data()->Type());
 	}
 }
 

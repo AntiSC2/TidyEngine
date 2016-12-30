@@ -35,6 +35,10 @@ Sample::~Sample()
 	DestroyBuffer();
 }
 
+std::string Sample::Type() {
+	return "Sample";
+}
+
 bool Sample::CreateBuffer(int format, const void *data, size_t size,
                           size_t freq)
 {

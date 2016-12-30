@@ -28,12 +28,10 @@ class Renderable;
 class Sheet;
 class Shader;
 
-enum class ID{Renderable, Sample, Shader, Sheet, Texture};
-
 class RID {
 public:
 	RID();
-	RID(ID state, Resource *data);
+	RID(Resource *data);
 	~RID();
 
 	void SetResource(Texture *res);
@@ -43,6 +41,5 @@ public:
 	void SetResource(Shader *res);
 	Resource *Data() const;
 private:
-	ID m_State;
 	std::shared_ptr<Resource> m_Data;
 };

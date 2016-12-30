@@ -20,6 +20,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include "cache.hpp"
 #include <cstdio>
 #include "iomanager.hpp"
+#include "resource.hpp"
 
 Cache Resources;
 
@@ -130,7 +131,7 @@ const Sample *Cache::GetSample(std::string name)
 	return nullptr;
 }
 
-RID *Cache::CreateResource(std::string name, void *data)
+RID *Cache::CreateResource(std::string name, Resource *data)
 {
 	if (m_Resources.find(name) == m_Resources.end()) {
 		m_Resources.emplace(name, RID(data));

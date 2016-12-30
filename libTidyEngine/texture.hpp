@@ -22,14 +22,17 @@ Contact the author at: jakob.sinclair99@gmail.com
 struct FIBITMAP;
 
 #include <cstdint>
+#include <string>
 #include <GL/glew.h>
 #include "resource.hpp"
 
-class Texture: Resource {
+class Texture: public Resource {
 public:
 	Texture();
 	Texture(FIBITMAP *bitmap, bool mipmap = false, bool linear = true);
 	~Texture();
+
+	virtual std::string Type();
 
 	bool CreateTex(FIBITMAP *bitmap, bool mipmap = false,
 			bool linear = false);

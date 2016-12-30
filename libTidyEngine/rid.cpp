@@ -26,7 +26,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 RID::RID()
 {
-	;
+	m_Data.reset();
 }
 
 RID::RID(Resource *res)
@@ -44,27 +44,27 @@ void RID::SetResource(Texture *res)
 	/* std::any moves the content when it is a double reference, this
 	   ensures that we don't leave dangling pointers around
 	*/
-	m_Data.reset(new boost::any(res));
+	m_Data.reset(static_cast<Resource *>(res));
 }
 
 void RID::SetResource(Sample *res)
 {
-	m_Data.reset(new boost::any(res));
+	m_Data.reset(static_cast<Resource *>(res));
 }
 
 void RID::SetResource(Renderable *res)
 {
-	m_Data.reset(new boost::any(res));
+	m_Data.reset(static_cast<Resource *>(res));
 }
 
 void RID::SetResource(Sheet *res)
 {
-	m_Data.reset(new boost::any(res));
+	m_Data.reset(static_cast<Resource *>(res));
 }
 
 void RID::SetResource(Shader *res)
 {
-	m_Data.reset(new boost::any(res));
+	m_Data.reset(static_cast<Resource *>(res));
 }
 
 Resource *RID::Data() const

@@ -38,6 +38,10 @@ Texture::~Texture()
 	}
 }
 
+std::string Texture::Type() {
+	return "Texture";
+}
+
 bool Texture::CreateTex(FIBITMAP *bitmap, bool mipmap, bool linear)
 {
 	if (bitmap == nullptr)

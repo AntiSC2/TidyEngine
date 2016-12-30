@@ -38,6 +38,10 @@ Shader::~Shader()
 		glDeleteProgram(m_ProgramID);
 }
 
+std::string Shader::Type() {
+	return "Shader";
+}
+
 void Shader::SetSources(const std::string &vertex, const std::string &fragment)
 {
 	m_VertexSource = vertex;

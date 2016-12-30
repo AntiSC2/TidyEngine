@@ -25,13 +25,15 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include <glm/vec4.hpp>
 #include <glm/mat4x4.hpp>
 #include <string>
-#include "Resource.hpp"
+#include "resource.hpp"
 
-class Shader: Resource {
+class Shader: public Resource {
 public:
 	Shader();
 	Shader(const std::string &vertex, const std::string &fragment);
 	~Shader();
+
+	virtual std::string Type();
 
 	void SetSources(const std::string &vertex, const std::string &fragment);
 	void AddAttribute(const std::string &attribute);

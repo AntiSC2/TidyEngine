@@ -31,6 +31,11 @@ Sheet::~Sheet()
 	m_Tex = nullptr;
 }
 
+std::string Sheet::Type()
+{
+	return "Sheet";
+}
+
 bool Sheet::Initialise(uint32_t x, uint32_t y, const Texture *tex)
 {
 	if (x == 0 || y == 0 || tex == nullptr)
