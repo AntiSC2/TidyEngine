@@ -36,6 +36,7 @@ set(SOURCE
 	${CMAKE_CURRENT_SOURCE_DIR}/audio.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/sample.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/rid.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/font.cpp
 )
 set(HEADERS
 	${HEADERS}
@@ -63,6 +64,7 @@ set(HEADERS
 	${CMAKE_CURRENT_SOURCE_DIR}/audio.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/sample.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/rid.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/font.hpp
 )
 
 if (WIN32)
@@ -166,8 +168,8 @@ target_link_libraries(${PROJECT_NAME} ${GLFW_LIBRARIES}
 				   ${LUAJIT_LIBRARIES}
 				   ${OPENAL_LIBRARIES}
 				   ${OGG_LIBRARIES}
-                   ${VORBIS_LIBRARIES}
-                   ${VORBISFILE_LIBRARIES}
+                                   ${VORBIS_LIBRARIES}
+                                   ${VORBISFILE_LIBRARIES}
 				   ${FREETYPE2_LIBRARIES})
 
 if (WIN32)

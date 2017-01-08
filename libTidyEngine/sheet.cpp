@@ -67,7 +67,6 @@ GLuint Sheet::GetTex() const
 {
 	if (m_Tex == nullptr)
 		return 0;
-	std::printf("%d", m_Tex->GetTex());
 	return m_Tex->GetTex();
 }
 

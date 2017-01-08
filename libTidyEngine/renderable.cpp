@@ -43,6 +43,12 @@ void Renderable::AddVertex(const Vertex& vertex)
 	m_Vertices.push_back(vertex);
 }
 
+void Renderable::DelVertex(size_t index)
+{
+	if (index < m_Vertices.size())
+		m_Vertices.erase(m_Vertices.begin() + index);
+}
+
 const std::vector<Vertex> &Renderable::GetVertices() const
 {
 	return m_Vertices;

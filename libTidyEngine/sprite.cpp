@@ -40,7 +40,7 @@ Sprite::Sprite(RID *res, uint32_t w, uint32_t h,
 		temp = static_cast<Sheet *>(res->Data());
 		Initialise(temp, w, h, frames);
 	} else {
-		std::printf("%s\n", res->Data()->Type());
+		std::printf("Warning: a sheet was not passed to a sprite!\n");
 	}
 }
 
@@ -59,9 +59,8 @@ void Sprite::Update(bool render)
 				AddVertex(temp);
 		}
 		if (m_Frames.size() != 0) {
-			for (; m_ImageIndex >= m_Frames.size(); m_ImageIndex -=
-					(uint32_t)m_Frames.size())
-				;
+			while (m_ImageIndex >= m_Frames.size())
+			m_ImageIndex -= (uint32_t)m_Frames.size();
 		}
 		glm::vec4 tex_coords = m_Frames[m_ImageIndex];
 		/* OpenGL starts counting the texture coordinates from the

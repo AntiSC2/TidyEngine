@@ -23,26 +23,29 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "input.hpp"
 #include "objectmanager.hpp"
 #include "audio.hpp"
+#include <ft2build.h>
+#include FT_FREETYPE_H
 
 class Core {
-	public:
-		Core();
-		virtual ~Core();
+public:
+	Core();
+	virtual ~Core();
 
-		virtual void Run();
-	protected:
-		virtual bool InitSubSystems();
-		virtual bool Init() = 0;
-		virtual void GameLoop();
-		virtual void Update() = 0;
-		virtual void DrawGame() = 0;
-		virtual void Quit();
+	virtual void Run();
+protected:
+	virtual bool InitSubSystems();
+	virtual bool Init() = 0;
+	virtual void GameLoop();
+	virtual void Update() = 0;
+	virtual void DrawGame() = 0;
+	virtual void Quit();
 
-		bool m_Initialized = false;
-		AudioSystem m_Audio;
-		Screen m_Screen;
-		Render m_Render;
-		SpriteRenderer m_SpriteRenderer;
-		Input m_Input;
-		ObjectManager m_ObjectManager;
+	bool m_Initialized = false;
+	AudioSystem m_Audio;
+	Screen m_Screen;
+	Render m_Render;
+	FT_Library m_FontLib;
+	SpriteRenderer m_SpriteRenderer;
+	Input m_Input;
+	ObjectManager m_ObjectManager;
 };

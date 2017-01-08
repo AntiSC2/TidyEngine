@@ -33,6 +33,7 @@ public:
 	
 	virtual void Update(bool render = false);
 	virtual void AddVertex(const Vertex &vertex);
+	virtual void DelVertex(size_t index);
 	virtual const std::vector<Vertex> &GetVertices() const;
 	virtual GLuint GetTex();
 protected:

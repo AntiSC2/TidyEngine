@@ -49,6 +49,12 @@ bool Core::InitSubSystems()
 	if (glfwInit() == GL_FALSE)
 		return false;
 
+	int error = FT_Init_FreeType(&m_FontLib);
+	if (error) {
+		printf("Error: Could not initialize Freetype2!\n");
+		return false;
+	}
+
 	FreeImage_Initialise();
 	FreeImage_SetOutputMessage(FreeImageError);
 
@@ -92,6 +98,7 @@ void Core::GameLoop()
 
 void Core::Quit()
 {
+	FT_Done_FreeType(m_FontLib);
 	m_Audio.DestroySystem();
 	glfwTerminate();
 	FreeImage_DeInitialise();

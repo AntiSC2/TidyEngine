@@ -23,19 +23,19 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include <freetype/freetype.h>
 #include <freetype/ftglyph.h>
 #include <freetype/ftoutln.h>
-#include <freetype/fttrigon>
 #include <GL/glew.h>
-#include <memory>
+#include <vector>
+#include "texture.hpp"
 
 class Font {
 public:
 	Font();
 	virtual ~Font();
 
-	void Init();
+	bool Initialize(FT_Library *lib, std::string path, uint32_t height);
 	void Clean();
-	
 private:
-	float m_Height = 0.0f;
-	std::shared_ptr<GLuint> m_TextureIDs;
-}
+	uint32_t m_Height = 0;
+	uint32_t m_Size = 0;
+	std::vector<Texture> m_Textures;
+};

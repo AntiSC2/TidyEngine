@@ -41,9 +41,6 @@ RID::~RID()
 
 void RID::SetResource(Texture *res)
 {
-	/* std::any moves the content when it is a double reference, this
-	   ensures that we don't leave dangling pointers around
-	*/
 	m_Data.reset(static_cast<Resource *>(res));
 }
 
