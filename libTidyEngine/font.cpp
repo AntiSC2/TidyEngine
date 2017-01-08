@@ -18,6 +18,10 @@ Contact the author at: jakob.sinclair99@gmail.com
 */
 
 #include "font.hpp"
+#include <ft2build.h>
+#include <freetype/freetype.h>
+#include <freetype/ftglyph.h>
+#include <freetype/ftoutln.h>
 #include "texture.hpp"
 
 Font::Font()

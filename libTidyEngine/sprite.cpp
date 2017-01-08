@@ -60,7 +60,7 @@ void Sprite::Update(bool render)
 		}
 		if (m_Frames.size() != 0) {
 			while (m_ImageIndex >= m_Frames.size())
-			m_ImageIndex -= (uint32_t)m_Frames.size();
+				m_ImageIndex -= (uint32_t)m_Frames.size();
 		}
 		glm::vec4 tex_coords = m_Frames[m_ImageIndex];
 		/* OpenGL starts counting the texture coordinates from the

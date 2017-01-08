@@ -19,13 +19,11 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 #pragma once
 
-#include <ft2build.h>
-#include <freetype/freetype.h>
-#include <freetype/ftglyph.h>
-#include <freetype/ftoutln.h>
 #include <GL/glew.h>
 #include <vector>
 #include "texture.hpp"
+
+typedef struct FT_LibraryRec_ *FT_Library;
 
 class Font {
 public:
