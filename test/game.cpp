@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "sheet.hpp"
 #include "cache.hpp"
 #include "rid.hpp"
-#include "font.hpp"
 
 Game::Game()
 {
@@ -44,8 +43,7 @@ bool Game::Init()
 	m_ObjectManager.SetCamera(cam);
 	m_ObjectManager.AddObject(cam);
 	cam = nullptr;
-	Font font;
-	font.Initialize(&m_FontLib, "modern_squared2.ttf", 14);
+	m_Font.Initialize(&m_FontLib, "modern_squared2.ttf", 14);
 
 	Resources.CreateTexture("sprite", "sprite.png");
 	Resources.CreateSample("sound", "sound.ogg");
@@ -80,6 +78,7 @@ void Game::DrawGame()
 {
 	Rect2D rect(glm::vec4(64, 64, 128, 128));
 	rect.SetColor(glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
+	rect.SetTexture(m_Font.GetChar('a'));
 	m_Render.Clear();
 
 	m_SpriteRenderer.Begin();

@@ -26,6 +26,24 @@ Texture::Texture()
 	;
 }
 
+Texture::Texture(const Texture &tex)
+{
+	m_TexID = tex.m_TexID;
+	m_Width = tex.m_Width;
+	m_Height = tex.m_Height;
+}
+
+Texture::Texture(Texture &&tex) noexcept
+{
+	m_TexID = tex.m_TexID;
+	m_Width = tex.m_Width;
+	m_Height = tex.m_Height;
+
+	tex.m_TexID = 0;
+	tex.m_Width = 0;
+	tex.m_Height = 0;
+}
+
 Texture::Texture(FIBITMAP *bitmap, bool mipmap, bool linear)
 {
 	CreateTex(bitmap, mipmap, linear);

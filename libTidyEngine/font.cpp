@@ -22,7 +22,6 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include <freetype/freetype.h>
 #include <freetype/ftglyph.h>
 #include <freetype/ftoutln.h>
-#include "texture.hpp"
 
 Font::Font()
 {
@@ -47,6 +46,7 @@ uint32_t next_power(unsigned int u)
 
 bool Font::Initialize(FT_Library *lib, std::string path, uint32_t height)
 {
+	Clean();
 	FT_Face face;
 	m_Height = height;
 
@@ -98,4 +98,9 @@ bool Font::Initialize(FT_Library *lib, std::string path, uint32_t height)
 void Font::Clean()
 {
 	m_Textures.clear();	
+}
+
+const Texture &Font::GetChar(char c)
+{
+	return m_Textures[50];
 }

@@ -29,6 +29,8 @@ struct FIBITMAP;
 class Texture: public Resource {
 public:
 	Texture();
+	Texture(const Texture &tex);
+	Texture(Texture &&tex) noexcept;
 	Texture(FIBITMAP *bitmap, bool mipmap = false, bool linear = false);
 	Texture(GLubyte *bitmap, uint32_t w, uint32_t h, bool mipmap = false,
 	        bool linear = false);

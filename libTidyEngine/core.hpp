@@ -25,6 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "audio.hpp"
 #include <ft2build.h>
 #include FT_FREETYPE_H
+#include "font.hpp"
 
 class Core {
 public:
@@ -47,5 +48,6 @@ protected:
 	FT_Library m_FontLib;
 	SpriteRenderer m_SpriteRenderer;
 	Input m_Input;
+	Font m_Font;
 	ObjectManager m_ObjectManager;
 };

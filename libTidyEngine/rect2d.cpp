@@ -56,23 +56,28 @@ void Rect2D::SetRect(float x, float y, float w, float h)
 	temp.Color = m_Color;
 
 	temp.Position = glm::vec3(x, y, 0.0f);
+	temp.TexUV = glm::vec2(0.0f, 0.0f);
 	AddVertex(temp);
 
 	temp.Position = glm::vec3(x + w, y, 0.0f);
+	temp.TexUV = glm::vec2(1.0f, 0.0f);
 	AddVertex(temp);
 
 	temp.Position = glm::vec3(x, y + h, 0.0f);
+	temp.TexUV = glm::vec2(0.0f, 1.0f);
 	AddVertex(temp);
 
 	temp.Position = glm::vec3(x, y + h, 0.0f);
+	temp.TexUV = glm::vec2(0.0f, 1.0f);
 	AddVertex(temp);
 
 	temp.Position = glm::vec3(x + w, y, 0.0f);
+	temp.TexUV = glm::vec2(1.0f, 0.0f);
 	AddVertex(temp);
 
 	temp.Position = glm::vec3(x + w, y + h, 0.0f);
+	temp.TexUV = glm::vec2(1.0f, 1.0f);
 	AddVertex(temp);
-
 }
 
 void Rect2D::SetColor(glm::vec4 color)
@@ -85,4 +90,10 @@ void Rect2D::SetColor(glm::vec4 color)
 void Rect2D::SetColor(float r, float g, float b, float a)
 {
 	SetColor(glm::vec4(r, g, b, a));
+}
+
+void Rect2D::SetTexture(const Texture &tex)
+{
+	m_Tex = tex.GetTex();
+
 }
