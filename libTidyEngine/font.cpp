@@ -102,5 +102,5 @@ void Font::Clean()
 
 const Texture &Font::GetChar(char c)
 {
-	return m_Textures[50];
+	return m_Textures[(uint8_t)c];
 }

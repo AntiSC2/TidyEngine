@@ -152,6 +152,9 @@ bool Texture::CreateTex(GLubyte *bitmap, uint32_t w, uint32_t h, bool mipmap,
 				GL_NEAREST);
 	}
 
+	GLint swizzle_mask[4] = {GL_RED, GL_RED, GL_RED, GL_GREEN};
+	glTexParameteriv(GL_TEXTURE_2D, GL_TEXTURE_SWIZZLE_RGBA, swizzle_mask);
+
 	m_Width = w;
 	m_Height = h;
 

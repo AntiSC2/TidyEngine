@@ -43,7 +43,7 @@ bool Game::Init()
 	m_ObjectManager.SetCamera(cam);
 	m_ObjectManager.AddObject(cam);
 	cam = nullptr;
-	m_Font.Initialize(&m_FontLib, "modern_squared2.ttf", 14);
+	m_Font.Initialize(&m_FontLib, "modern_squared2.ttf", 64);
 
 	Resources.CreateTexture("sprite", "sprite.png");
 	Resources.CreateSample("sound", "sound.ogg");
