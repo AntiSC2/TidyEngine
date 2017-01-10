@@ -58,7 +58,7 @@ Shader *Render::GetShader(std::string name)
 	if (m_Shaders.find(name) != m_Shaders.end())
 		return m_Shaders[name].get();
 	else
-		std::printf("Warning: could not find shader %s!\n",
+		printf("Warning: could not find shader %s!\n",
 				name.c_str());
 	return nullptr;
 }

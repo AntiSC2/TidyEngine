@@ -40,7 +40,7 @@ Sprite::Sprite(RID *res, uint32_t w, uint32_t h,
 		temp = static_cast<Sheet *>(res->Data());
 		Initialise(temp, w, h, frames);
 	} else {
-		std::printf("Warning: a sheet was not passed to a sprite!\n");
+		printf("Warning: a sheet was not passed to a sprite!\n");
 	}
 }
 

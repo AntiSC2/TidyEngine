@@ -27,5 +27,5 @@ void FreeImageError(FREE_IMAGE_FORMAT fif, const char *message)
 		printf("Error with %s format!\n",
 			FreeImage_GetFormatFromFIF(fif));
 	}
-	std::printf(message);
+	printf(message);
 }

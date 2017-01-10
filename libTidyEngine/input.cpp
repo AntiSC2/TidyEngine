@@ -54,7 +54,7 @@ void Input::Process(GLFWwindow *window, int key, int scancode, int action,
 	int mode)
 {
 	if (key == GLFW_KEY_UNKNOWN) {
-		std::printf("Warning: key unknown!\n");
+		printf("Warning: key unknown!\n");
 		return;
 	}
 	
@@ -83,7 +83,7 @@ void Input::MousePress(GLFWwindow *window, int button, int action, int mods)
 bool Input::GetKey(int key)
 {
 	if (key < 0 || key >= 350) {
-		std::printf("Warning: key unknown!\n");
+		printf("Warning: key unknown!\n");
 		return false;
 	}
 	return m_Keys[key];
@@ -97,7 +97,7 @@ const glm::vec2 &Input::GetMousePos()
 bool Input::GetMouseButton(int button)
 {
 	if (button < 0 || button > 7) {
-		std::printf("Warning: key unknown!\n");
+		printf("Warning: key unknown!\n");
 		return false;
 	}
 	return m_Buttons[button];

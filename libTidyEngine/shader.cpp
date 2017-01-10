@@ -60,7 +60,7 @@ bool Shader::InitProgram()
 	m_VertexID = glCreateShader(GL_VERTEX_SHADER);
 	m_FragmentID = glCreateShader(GL_FRAGMENT_SHADER);
 	if (m_ProgramID == 0 || m_VertexID == 0 || m_FragmentID == 0) {
-		std::printf("Error: failed to create shader program!\n");
+		printf("Error: failed to create shader program!\n");
 		return false;
 	}
 
@@ -92,10 +92,10 @@ bool Shader::LinkProgram()
 		glDeleteShader(m_VertexID);
 		glDeleteShader(m_FragmentID);
 
-		std::printf("%s\n", log);
+		printf("%s\n", log);
 		delete log;
 		log = nullptr;
-		std::printf("Error: shaders failed to link!\n");
+		printf("Error: shaders failed to link!\n");
 		return false;
 	}
 	
@@ -128,10 +128,10 @@ bool Shader::CompileShader(const std::string &filepath, GLuint shader_id)
 
 		glDeleteShader(shader_id);
 
-		std::printf("%s\n", log);
+		printf("%s\n", log);
 		delete log;
 		log = nullptr;
-		std::printf("Error: shader failed to compile!\n");
+		printf("Error: shader failed to compile!\n");
 		return false;
 	}
 	return true;

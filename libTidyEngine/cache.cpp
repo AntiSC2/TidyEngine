@@ -89,7 +89,7 @@ const Texture *Cache::CreateTexture(std::string name, std::string filepath)
 
 		return &m_Textures[name];
 	} else {
-		std::printf("Warning: texture %s already exists!\n",
+		printf("Warning: texture %s already exists!\n",
 				name.c_str());
 		return nullptr;
 	}
@@ -105,14 +105,14 @@ const Texture *Cache::GetTexture(std::string name)
 {
 	if (m_Textures.find(name) != m_Textures.end())
 		return &m_Textures[name];
-	std::printf("Warning: could not find texture %s!", name.c_str());
+	printf("Warning: could not find texture %s!", name.c_str());
 	return nullptr;
 }
 
 const Sample *Cache::CreateSample(std::string name, std::string filepath)
 {
 	if (m_Samples.find(name) != m_Samples.end()) {
-		std::printf("Warning: sample %s already exists!",
+		printf("Warning: sample %s already exists!",
 		            name.c_str());
 		return nullptr;
 	}
@@ -136,7 +136,7 @@ const Sample *Cache::GetSample(std::string name)
 {
 	if (m_Samples.find(name) != m_Samples.end())
 		return &m_Samples[name];
-	std::printf("Warning: could not find sample %s!", name.c_str());
+	printf("Warning: could not find sample %s!", name.c_str());
 	return nullptr;
 }
 
