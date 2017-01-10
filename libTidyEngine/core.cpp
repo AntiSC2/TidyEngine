@@ -80,6 +80,9 @@ bool Core::InitSubSystems()
 	m_Input.Initialise(m_Screen.GetWindow());
 	m_Audio.CreateSystem();
 
+	if (Resources.CreateDefaultResources() == false)
+		return false;
+
 	printf("TidyEngine Version: %d.%d\n",
 	       TidyEngine_VERSION_MAJOR, TidyEngine_VERSION_MINOR);
 	

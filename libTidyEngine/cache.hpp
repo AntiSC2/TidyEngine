@@ -36,6 +36,8 @@ public:
 	Cache();
 	~Cache();
 
+	bool CreateDefaultResources();
+
 	const Texture *CreateTexture(std::string name, std::string filepath);
 	void DestroyTexture(std::string name);
 	const Texture *GetTexture(std::string name);

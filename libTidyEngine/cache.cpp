@@ -26,10 +26,21 @@ Cache Resources;
 
 Cache::Cache()
 {
-	FIBITMAP *bitmap = FreeImage_Allocate(2, 2, 32, FI_RGBA_RED_MASK,
-			FI_RGBA_GREEN_MASK, FI_RGBA_BLUE_MASK);
+	;	
+}
 
-	uint16_t byte_space = (uint16_t)(FreeImage_GetLine(bitmap) /
+Cache::~Cache()
+{
+	for (auto it : m_Textures)
+		it.second.DestroyTex();
+}
+
+bool Cache::CreateDefaultResources()
+{
+	FIBITMAP *bitmap = FreeImage_Allocate(2, 2, 32, FI_RGBA_RED_MASK,
+	                                 FI_RGBA_GREEN_MASK, FI_RGBA_BLUE_MASK);
+	
+	uint8_t byte_space = (uint8_t)(FreeImage_GetLine(bitmap) /
 	                      FreeImage_GetHeight(bitmap));
 
 	for (uint8_t y = 0; y < 2; y++) {
@@ -46,22 +57,20 @@ Cache::Cache()
 	}
 
 	bool success = m_Textures["default"].CreateTex(bitmap);
-
+	
 	FreeImage_Unload(bitmap);
 
 	if (success == false) {
-		printf("Warning: could not create default texture!");
+		printf("Warning: could not create default texture!\n");
+		return false;
 	}
 
 	if (success == false) {
-		printf("Warning: could not create default sample!");
+		printf("Warning: could not create default sample!\n");
+		return false;
 	}
-}
 
-Cache::~Cache()
-{
-	for (auto it : m_Textures)
-		it.second.DestroyTex();
+	return true;
 }
 
 const Texture *Cache::CreateTexture(std::string name, std::string filepath)

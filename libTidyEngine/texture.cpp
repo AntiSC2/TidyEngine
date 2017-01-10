@@ -39,9 +39,8 @@ Texture::Texture(GLubyte *bitmap, uint32_t w, uint32_t h, bool mipmap,
 
 Texture::~Texture()
 {
-	if (m_TexID != 0) {
+	if (m_TexID != 0)
 		DestroyTex();
-	}
 }
 
 std::string Texture::Type() {
@@ -56,6 +55,12 @@ bool Texture::CreateTex(FIBITMAP *bitmap, bool mipmap, bool linear)
 	DestroyTex();
 
 	glGenTextures(1, &m_TexID);
+
+	if (m_TexID == 0) {
+		printf("Warning: could not create OpenGL texture!\n");
+		return false;
+	}
+
 	glBindTexture(GL_TEXTURE_2D, m_TexID);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
@@ -73,12 +78,13 @@ bool Texture::CreateTex(FIBITMAP *bitmap, bool mipmap, bool linear)
 	}
 
 	FIBITMAP *temp = FreeImage_ConvertTo32Bits(bitmap);
-	if (temp == nullptr) {
+	if (!temp) {
 		DestroyTex();
 		FreeImage_Unload(temp);
 		std::printf("Warning: could not convert texture to 32 bits!\n");
 		return false;
 	}
+	
 	m_Width = FreeImage_GetWidth(temp);
 	m_Height = FreeImage_GetHeight(temp);
 

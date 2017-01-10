@@ -79,7 +79,7 @@ void Game::Update()
 void Game::DrawGame()
 {
 	Rect2D rect(glm::vec4(64, 64, 128, 128));
-	rect.SetColor(glm::vec4(0.0f, 0.5f, 0.5f, 1.0f));
+	rect.SetColor(glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
 	m_Render.Clear();
 
 	m_SpriteRenderer.Begin();
