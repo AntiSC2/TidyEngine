@@ -49,10 +49,10 @@ Texture::Texture(FIBITMAP *bitmap, bool mipmap, bool linear)
 	CreateTex(bitmap, mipmap, linear);
 }
 
-Texture::Texture(GLubyte *bitmap, uint32_t w, uint32_t h, bool mipmap,
-                 bool linear)
+Texture::Texture(GLubyte *bitmap, uint32_t w, uint32_t h, bool dual,
+                 bool mipmap, bool linear)
 {
-	CreateTex(bitmap, w, h, mipmap, linear);
+	CreateTex(bitmap, w, h, dual, mipmap, linear);
 }
 
 Texture::~Texture()
@@ -127,8 +127,8 @@ bool Texture::CreateTex(FIBITMAP *bitmap, bool mipmap, bool linear)
 	return true;
 }
 
-bool Texture::CreateTex(GLubyte *bitmap, uint32_t w, uint32_t h, bool mipmap,
-                        bool linear)
+bool Texture::CreateTex(GLubyte *bitmap, uint32_t w, uint32_t h, bool dual,
+                        bool mipmap, bool linear)
 {
 	if (bitmap == nullptr)
 		return false;
@@ -152,14 +152,19 @@ bool Texture::CreateTex(GLubyte *bitmap, uint32_t w, uint32_t h, bool mipmap,
 				GL_NEAREST);
 	}
 
-	GLint swizzle_mask[4] = {GL_RED, GL_RED, GL_RED, GL_GREEN};
-	glTexParameteriv(GL_TEXTURE_2D, GL_TEXTURE_SWIZZLE_RGBA, swizzle_mask);
-
 	m_Width = w;
 	m_Height = h;
-
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_Width, m_Height, 0, 
-	             GL_RG, GL_UNSIGNED_BYTE, bitmap);
+	
+	if (dual == true) {
+		GLint swizzle_mask[4] = {GL_RED, GL_RED, GL_RED, GL_GREEN};
+		glTexParameteriv(GL_TEXTURE_2D, GL_TEXTURE_SWIZZLE_RGBA, 
+		                 swizzle_mask);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_Width, m_Height, 0, 
+		             GL_RG, GL_UNSIGNED_BYTE, bitmap);
+	} else {
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_Width, m_Height, 0,
+		             GL_BGRA, GL_UNSIGNED_BYTE, bitmap);
+	}
 
 	if (linear == true && mipmap == true) {
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,

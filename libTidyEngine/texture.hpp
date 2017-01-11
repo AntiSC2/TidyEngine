@@ -32,16 +32,17 @@ public:
 	Texture(const Texture &tex);
 	Texture(Texture &&tex) noexcept;
 	Texture(FIBITMAP *bitmap, bool mipmap = false, bool linear = false);
-	Texture(GLubyte *bitmap, uint32_t w, uint32_t h, bool mipmap = false,
-	        bool linear = false);
+	Texture(GLubyte *bitmap, uint32_t w, uint32_t h, bool dual = false, 
+	        bool mipmap = false, bool linear = false);
 	~Texture();
 
 	virtual std::string Type();
 
 	bool CreateTex(FIBITMAP *bitmap, bool mipmap = false,
 	               bool linear = false);
-	bool CreateTex(GLubyte *bitmap, uint32_t w, uint32_t h,
-	               bool mipmap = false, bool linear = false);
+	bool CreateTex(GLubyte *bitmap, uint32_t w, uint32_t h, 
+	               bool dual = false, bool mipmap = false,
+	               bool linear = false);
 	void DestroyTex();
 	const GLuint &GetTex() const;
 	const uint32_t &GetWidth() const;

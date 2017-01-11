@@ -87,7 +87,7 @@ bool Font::Initialize(FT_Library *lib, std::string path, uint32_t height)
 			}
 		}
 		
-		m_Textures.emplace_back(final_bitmap, width, height);
+		m_Textures.emplace_back(final_bitmap, width, height, true);
 
 		delete []final_bitmap;
 	}
