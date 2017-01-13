@@ -2,6 +2,9 @@
 *.swp
 *.swo
 
+#Ignore vscode
+.vscode/
+
 #Ignore deps folder
 deps/include*/
 deps/lib*/
