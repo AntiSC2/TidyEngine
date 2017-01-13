@@ -20,7 +20,6 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include "sprite.hpp"
 #include <cmath>
 #include <glm/vec2.hpp>
-#include <boost/any.hpp>
 #include "renderable.hpp"
 #include "vertex.hpp"
 #include "sheet.hpp"
