@@ -60,7 +60,7 @@ if (WIN32)
 	)
 	set(OPENAL_INCLUDE_DIRS
 		${OPENAL_INCLUDE_DIRS}
-		${CMAKE_SOURCE_DIR}/deps/include/OpenAL
+		${CMAKE_SOURCE_DIR}/deps/include/AL
 	)
 	set(OPENAL_LIBRARIES
 		${OPENAL_LIBRARIES}

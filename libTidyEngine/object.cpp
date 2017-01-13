@@ -18,7 +18,6 @@ Contact the author at: jakob.sinclair99@gmail.com
 */
 
 #include "object.hpp"
-#include <boost/any.hpp>
 
 Object::~Object()
 {
