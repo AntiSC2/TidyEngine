@@ -17,12 +17,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 Contact the author at: jakob.sinclair99@gmail.com
 */
 
-#include <ft2build.h>
-#include FT_FREETYPE_H
 #include "renderer.hpp"
 #include "shader.hpp"
 #include "batch.hpp"
 #include "renderable.hpp"
+#include "font.hpp"
+#include "rect2d.hpp"
 
 Renderer::Renderer()
 {
@@ -48,9 +48,16 @@ void Renderer::Draw(const Renderable *object)
 	m_Batch->Draw(object);
 }
 
-void Renderer::DrawText(std::string text, glm::vec2 pos, glm::vec4 color)
+void Renderer::DrawText(std::string text, glm::vec2 pos, glm::vec4 color,
+                        Font &font)
 {
-	
+	for (size_t i = 0; i < text.size(); i++) {
+		Rect2D &rect = font.GetChar(text[i]);
+		rect.SetColor(color);
+		rect.SetPos(pos.x, pos.y);
+
+		m_Batch->Draw(static_cast<Renderable *>(&rect));
+	}
 }
 
 void Renderer::End()

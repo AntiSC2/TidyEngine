@@ -80,6 +80,19 @@ void Rect2D::SetRect(float x, float y, float w, float h)
 	AddVertex(temp);
 }
 
+void Rect2D::SetPos(float x, float y)
+{
+	glm::vec3 offset(0.0f, 0.0f, 0.0f);
+
+	if (m_Vertices.empty() == false)
+		glm::vec3 offset = m_Vertices[0].Position;
+	
+	for (size_t i = 0; i < m_Vertices.size(); i++) {
+		m_Vertices[i].Position -= offset;
+		m_Vertices[i].Position += glm::vec3(x, y, 0.0f);
+	}
+}
+
 void Rect2D::SetColor(glm::vec4 color)
 {
 	m_Color = color;

@@ -76,14 +76,14 @@ void Game::Update()
 
 void Game::DrawGame()
 {
-	Rect2D rect(glm::vec4(64, 64, 128, 128));
+	Rect2D &rect = m_Font.GetChar('a');
 	rect.SetColor(glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
-	rect.SetTexture(m_Font.GetChar('a'));
+	rect.SetPos(100.0f, 100.0f);
 	m_Render.Clear();
 
 	m_SpriteRenderer.Begin();
 	m_ObjectManager.Draw(&m_SpriteRenderer);
-	m_SpriteRenderer.Draw(&rect);
+	m_SpriteRenderer.Draw(rect);
 	m_SpriteRenderer.End();
 	m_SpriteRenderer.Present(m_ObjectManager.GetCamera());
 

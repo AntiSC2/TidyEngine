@@ -27,6 +27,7 @@ class Renderable;
 #include <string>
 #include <glm/vec2.hpp>
 #include <glm/vec4.hpp>
+#include "font.hpp"
 
 class Renderer {
 public:
@@ -37,7 +38,7 @@ public:
 	virtual void Begin();
 	virtual void Draw(const Renderable *object);
 	virtual void DrawText(std::string text, glm::vec2 pos,
-	                      glm::vec4 color);
+	                      glm::vec4 color, Font &font);
 	virtual void End();
 	virtual void Present();
 protected:

@@ -31,6 +31,7 @@ public:
 	virtual ~Rect2D();
 
 	virtual void SetRect(float x, float y, float w, float h);
+	virtual void SetPos(float x, float y);
 	virtual void SetColor(glm::vec4 color);
 	virtual void SetColor(float r, float g, float b, float a);
 	virtual void SetTexture(const Texture &tex);

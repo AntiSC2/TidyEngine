@@ -66,7 +66,9 @@ bool Font::Initialize(FT_Library *lib, std::string path, uint32_t height)
 		return false;
 	}
 
-	for (uint8_t i = 0; i < m_Size; i++) {
+	uint32_t index = 0;
+
+	for (uint32_t i = 0; i < m_Size; i++) {
 		error = FT_Load_Char(face, (char)i, FT_LOAD_RENDER);
 		if (error)
 			continue;
@@ -89,6 +91,12 @@ bool Font::Initialize(FT_Library *lib, std::string path, uint32_t height)
 		
 		m_Textures.emplace_back(final_bitmap, width, height, true);
 
+		Rect2D rect(0.0f, 0.0f, m_Textures[index].GetWidth(),
+		            m_Textures[index].GetHeight());
+		rect.SetTexture(m_Textures[index].GetTex());
+
+		index++;
+
 		delete []final_bitmap;
 	}
 	
@@ -100,7 +108,7 @@ void Font::Clean()
 	m_Textures.clear();	
 }
 
-const Texture &Font::GetChar(char c)
+Rect2D &Font::GetChar(char c)
 {
-	return m_Textures[(uint8_t)c];
+	return m_Rects[(uint32_t)c];
 }
