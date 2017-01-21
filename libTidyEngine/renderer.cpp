@@ -52,11 +52,11 @@ void Renderer::DrawText(std::string text, glm::vec2 pos, glm::vec4 color,
                         Font &font)
 {
 	for (size_t i = 0; i < text.size(); i++) {
-		Rect2D &rect = font.GetChar(text[i]);
+		Rect2D rect = font.GetChar(text[i]);
 		rect.SetColor(color);
-		rect.SetPos(pos.x, pos.y);
+		rect.SetPos(pos.x + (i * 128), pos.y);
 
-		m_Batch->Draw(static_cast<Renderable *>(&rect));
+		m_Batch->Draw(&rect);
 	}
 }
 

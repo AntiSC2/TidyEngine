@@ -91,9 +91,9 @@ bool Font::Initialize(FT_Library *lib, std::string path, uint32_t height)
 		
 		m_Textures.emplace_back(final_bitmap, width, height, true);
 
-		Rect2D rect(0.0f, 0.0f, m_Textures[index].GetWidth(),
+		m_Rects.emplace_back(0.0f, 0.0f, m_Textures[index].GetWidth(),
 		            m_Textures[index].GetHeight());
-		rect.SetTexture(m_Textures[index].GetTex());
+		m_Rects[index].SetTexture(m_Textures[index]);
 
 		index++;
 
