@@ -90,10 +90,17 @@ bool Font::Initialize(FT_Library *lib, std::string path, uint32_t height)
 		}
 		
 		m_Textures.emplace_back(final_bitmap, width, height, true);
+		Texture &temp = m_Textures[index];
 
-		m_Rects.emplace_back(0.0f, 0.0f, m_Textures[index].GetWidth(),
-		            m_Textures[index].GetHeight());
-		m_Glyphs[index].SetTexture(m_Textures[index]);
+		m_Glyphs.emplace_back(0.0f, 0.0f, temp.GetWidth(), temp.GetHeight(), 
+		                      temp.GetTex());
+		m_Glyphs[index].SetPenX(face->glyph->bitmap_left);
+		m_Glyphs[index].SetPenY(face->glyph->bitmap_top);
+		m_Glyphs[index].SetAdvanceX(face->glyph->advance.x >> 6);
+		m_Glyphs[index].SetAdvanceY(face->glyph->advance.y >> 6);
+		
+		if (m_TexHeight < face->glyph->bitmap_top)
+			m_TexHeight = face->glyph->bitmap_top;
 
 		index++;
 
@@ -103,9 +110,20 @@ bool Font::Initialize(FT_Library *lib, std::string path, uint32_t height)
 	return true;
 }
 
+uint32_t Font::GetHeight()
+{
+	return m_Height;
+}
+
+uint32_t Font::GetTexHeight()
+{
+	return m_TexHeight;
+}
+
 void Font::Clean()
 {
-	m_Glyphs.clean();	
+	m_Textures.clear();
+	m_Glyphs.clear();	
 }
 
 FontGlyph &Font::GetChar(char c)

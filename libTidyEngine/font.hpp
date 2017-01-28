@@ -22,7 +22,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include <GL/glew.h>
 #include <vector>
 #include "texture.hpp"
-#include "rect2d.hpp"
+#include "fontglyph.hpp"
 
 typedef struct FT_LibraryRec_ *FT_Library;
 
@@ -33,9 +33,13 @@ public:
 
 	bool Initialize(FT_Library *lib, std::string path, uint32_t height);
 	void Clean();
+	uint32_t GetHeight();
+	uint32_t GetTexHeight();
 	FontGlyph &GetChar(char c);
 private:
 	uint32_t m_Height = 0;
+	uint32_t m_TexHeight = 0;
 	uint32_t m_Size = 0;
+	std::vector<Texture> m_Textures;
 	std::vector<FontGlyph> m_Glyphs;
 };

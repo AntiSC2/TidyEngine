@@ -77,14 +77,14 @@ void Game::Update()
 void Game::DrawGame()
 {
 	Rect2D rect;
-	rect.SetColor(glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
-	rect.SetPos(100.0f, 100.0f);
+	rect.SetColor(glm::vec4(0.2f, 0.7f, 0.5f, 1.0f));
+	rect.SetRect(640.0f, 360.0f, 640.0f, 360.0f);
 	m_Render.Clear();
 
 	m_SpriteRenderer.Begin();
 	m_ObjectManager.Draw(&m_SpriteRenderer);
 	m_SpriteRenderer.Draw(&rect);
-	m_SpriteRenderer.DrawText("TidYEngine", glm::vec2(64.0f, 300.0f), glm::vec4(1.0f, 0.0f, 0.0f, 1.0f), m_Font);
+	m_SpriteRenderer.DrawText("TidyEngine V0.2", glm::vec2(0.0f, 64.0f), glm::vec4(1.0f, 0.0f, 0.0f, 1.0f), m_Font);
 	m_SpriteRenderer.End();
 	m_SpriteRenderer.Present(m_ObjectManager.GetCamera());
 

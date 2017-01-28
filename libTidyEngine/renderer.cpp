@@ -22,7 +22,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include "batch.hpp"
 #include "renderable.hpp"
 #include "font.hpp"
-#include "rect2d.hpp"
+#include "fontglyph.hpp"
 
 Renderer::Renderer()
 {
@@ -51,12 +51,16 @@ void Renderer::Draw(const Renderable *object)
 void Renderer::DrawText(std::string text, glm::vec2 pos, glm::vec4 color,
                         Font &font)
 {
+	float pen_x = 0.0f;
+	float pen_y = (float)font.GetTexHeight();
+	
 	for (size_t i = 0; i < text.size(); i++) {
-		Rect2D rect = font.GetChar(text[i]);
-		rect.SetColor(color);
-		rect.SetPos(pos.x + (i * 128), pos.y);
-
-		m_Batch->Draw(&rect);
+		FontGlyph glyph = font.GetChar(text[i]);
+		glyph.SetColor(color);
+		glyph.SetPos(pos.x + pen_x + glyph.GetPenX(), pos.y + pen_y - glyph.GetPenY());
+		pen_x += (float)glyph.GetAdvanceX();
+		
+		m_Batch->Draw(&glyph);
 	}
 }
 

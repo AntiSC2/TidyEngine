@@ -23,7 +23,21 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 class FontGlyph: public Rect2D {
 public:
-	FontGlyph();
+	FontGlyph(float x, float y, float w, float h, GLuint tex);
 	~FontGlyph();
-private:
+
+	virtual void SetPenX(int32_t pen_x);
+	virtual void SetPenY(int32_t pen_y);
+	virtual int32_t GetPenX();
+	virtual int32_t GetPenY();
+	virtual void SetAdvanceX(int32_t pen_x);
+	virtual void SetAdvanceY(int32_t pen_y);
+	virtual int32_t GetAdvanceX();
+	virtual int32_t GetAdvanceY();
+protected:
+	int32_t m_PenX = 0;
+	int32_t m_PenY = 0;
+	int32_t m_AdvanceX = 0;
+	int32_t m_AdvanceY = 0;
+	int32_t m_OffsetBaseline = 0;
 };
