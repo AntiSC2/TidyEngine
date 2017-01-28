@@ -34,7 +34,6 @@ public:
 	virtual void SetPos(float x, float y);
 	virtual void SetColor(glm::vec4 color);
 	virtual void SetColor(float r, float g, float b, float a);
-	virtual void SetTexture(const Texture &tex);
 protected:
 	glm::vec4 m_Color = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
 };

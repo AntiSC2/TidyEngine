@@ -93,7 +93,7 @@ bool Font::Initialize(FT_Library *lib, std::string path, uint32_t height)
 
 		m_Rects.emplace_back(0.0f, 0.0f, m_Textures[index].GetWidth(),
 		            m_Textures[index].GetHeight());
-		m_Rects[index].SetTexture(m_Textures[index]);
+		m_Glyphs[index].SetTexture(m_Textures[index]);
 
 		index++;
 
@@ -105,10 +105,10 @@ bool Font::Initialize(FT_Library *lib, std::string path, uint32_t height)
 
 void Font::Clean()
 {
-	m_Textures.clear();	
+	m_Glyphs.clean();	
 }
 
-Rect2D &Font::GetChar(char c)
+FontGlyph &Font::GetChar(char c)
 {
-	return m_Rects[(uint32_t)c];
+	return m_Glyphs[(uint32_t)c];
 }

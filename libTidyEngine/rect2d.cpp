@@ -104,9 +104,3 @@ void Rect2D::SetColor(float r, float g, float b, float a)
 {
 	SetColor(glm::vec4(r, g, b, a));
 }
-
-void Rect2D::SetTexture(const Texture &tex)
-{
-	m_Tex = tex.GetTex();
-
-}
