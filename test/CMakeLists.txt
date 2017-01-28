@@ -20,19 +20,58 @@ if (WIN32)
 			${TIDYENGINE_LIBRARIES}
 			${CMAKE_BINARY_DIR}/libTidyEngine/Debug/TidyEngine.lib
 		)
+		set(GLFW_LIBRARIES
+			${GLFW_LIBRARIES}
+			${CMAKE_SOURCE_DIR}/deps/lib/glfw3dll.lib
+		)
+		set(OGG_LIBRARIES
+			${OGG_LIBRARIES}
+			${CMAKE_SOURCE_DIR}/deps/lib/libogg.lib
+		)
+		set(VORBISFILE_LIBRARIES
+			${VORBISFILE_LIBRARIES}
+			${CMAKE_SOURCE_DIR}/deps/lib/libvorbisfile.lib
+		)
+		set(VORBIS_LIBRARIES
+			${VORBIS_LIBRARIES}
+			${CMAKE_SOURCE_DIR}/deps/lib/libvorbis.lib
+		)
+		set(FREETYPE2_LIBRARIES
+			${FREETYPE2_LIBRARIES}
+			${CMAKE_SOURCE_DIR}/deps/lib/freetype.lib
+		)
 	else ()
 		set(TIDYENGINE_LIBRARIES
 			${TIDYENGINE_LIBRARIES}
-			${CMAKE_BINARY_DIR}/libTidyEngine/TidyEngine.lib
+			${CMAKE_BINARY_DIR}/libTidyEngine/libTidyEngine.a
 		)
+		set(GLFW_LIBRARIES
+			${GLFW_LIBRARIES}
+			${CMAKE_SOURCE_DIR}/deps/lib/libglfw3.a
+		)
+		set(OGG_LIBRARIES
+			${OPENAL_LIBRARIES}
+			${CMAKE_SOURCE_DIR}/deps/lib/libogg.a
+		)
+		set(VORBISFILE_LIBRARIES
+			${VORBISFILE_LIBRARIES}
+			${CMAKE_SOURCE_DIR}/deps/lib/libvorbisfile.a
+		)
+		set(VORBIS_LIBRARIES
+			${OPENAL_LIBRARIES}
+			${CMAKE_SOURCE_DIR}/deps/lib/libvorbis.a
+		)
+		set(FREETYPE2_LIBRARIES
+			${FREETYPE2_LIBRARIES}
+			${CMAKE_SOURCE_DIR}/deps/lib/libfreetype.a
+		)
+		find_package(BZip2 REQUIRED)
+		find_package(ZLIB REQUIRED)
 	endif ()
+
 	set(GLFW_INCLUDE_DIRS
 		${GLFW_INCLUDE_DIRS}
 		${CMAKE_SOURCE_DIR}/deps/include/
-	)
-	set(GLFW_LIBRARIES
-		${GLFW_LIBRARIES}
-		${CMAKE_SOURCE_DIR}/deps/lib/glfw3dll.lib
 	)
 	set(GLEW_INCLUDE_DIRS
 		${GLEW_INCLUDE_DIRS}
@@ -70,31 +109,16 @@ if (WIN32)
 		${OGG_INCLUDE_DIRS}
 		${CMAKE_SOURCE_DIR}/deps/include/ogg
 	)
-	set(OGG_LIBRARIES
-		${OPENAL_LIBRARIES}
-		${CMAKE_SOURCE_DIR}/deps/lib/libogg.lib
-	)
 	set(VORBIS_INCLUDE_DIRS
 		${VORBIS_INCLUDE_DIRS}
 		${CMAKE_SOURCE_DIR}/deps/include/vorbis
-	)
-	set(VORBIS_LIBRARIES
-		${OPENAL_LIBRARIES}
-		${CMAKE_SOURCE_DIR}/deps/lib/libvorbis.lib
-		${CMAKE_SOURCE_DIR}/deps/lib/libvorbisfile.lib
 	)
 	set(FREETYPE2_INCLUDE_DIRS
 		${FREETYPE2_INCLUDE_DIRS}
 		${CMAKE_SOURCE_DIR}/deps/include/freetype
 	)
-	set(FREETYPE2_LIBRARIES
-		${FREETYPE2_LIBRARIES}
-		${CMAKE_SOURCE_DIR}/deps/lib/freetype.lib
-	)
-endif ()
-
-if (APPLE)
-
+elseif (APPLE)
+	message("MACOSX: Not yet supported")
 elseif (UNIX)
 	find_package(PkgConfig REQUIRED)
 	pkg_search_module(GLFW REQUIRED glfw3)
@@ -118,19 +142,21 @@ include_directories(${FREEIMAGE_INCLUDE_DIRS})
 include_directories(${OPENAL_INCLUDE_DIRS})
 include_directories(${OGG_INCLUDE_DIRS})
 include_directories(${VORBIS_INCLUDE_DIRS})
-include_directories(${VORBISFILE_INCLUDE_DIRS})
 include_directories(${FREETYPE2_INCLUDE_DIRS})
 
 add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS})
-target_link_libraries(${PROJECT_NAME} ${GLFW_LIBRARIES})
-target_link_libraries(${PROJECT_NAME} ${TIDYENGINE_LIBRARIES})
-target_link_libraries(${PROJECT_NAME} ${GLEW_LIBRARIES})
-target_link_libraries(${PROJECT_NAME} ${FREEIMAGE_LIBRARIES})
-target_link_libraries(${PROJECT_NAME} ${OPENAL_LIBRARIES})
-target_link_libraries(${PROJECT_NAME} ${OGG_LIBRARIES})
-target_link_libraries(${PROJECT_NAME} ${VORBIS_LIBRARIES})
-target_link_libraries(${PROJECT_NAME} ${VORBISFILE_LIBRARIES})
-target_link_libraries(${PROJECT_NAME} ${FREETYPE2_LIBRARIES})
+target_link_libraries(${PROJECT_NAME}
+                      ${TIDYENGINE_LIBRARIES}
+                      ${GLFW_LIBRARIES}
+                      ${GLEW_LIBRARIES}
+                      ${FREEIMAGE_LIBRARIES}
+                      ${OPENAL_LIBRARIES}
+                      ${VORBISFILE_LIBRARIES}
+                      ${VORBIS_LIBRARIES}
+                      ${OGG_LIBRARIES}
+                      ${FREETYPE2_LIBRARIES}
+					  ${BZIP2_LIBRARIES}
+					  ${ZLIB_LIBRARIES})
 
 if (WIN32)
 	target_link_libraries(${PROJECT_NAME} opengl32.lib)
