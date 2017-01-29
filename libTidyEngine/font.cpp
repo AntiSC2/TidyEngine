@@ -57,8 +57,6 @@ bool Font::Initialize(FT_Library *lib, std::string path, uint32_t height)
 		return false;
 	}
 
-	m_Size = face->num_glyphs;
-
 	error = FT_Set_Pixel_Sizes(face, 0, m_Height);
 
 	if (error) {
@@ -67,13 +65,29 @@ bool Font::Initialize(FT_Library *lib, std::string path, uint32_t height)
 	}
 
 	uint32_t index = 0;
+	uint32_t count = 0;
 
-	for (uint32_t i = 0; i < m_Size; i++) {
-		error = FT_Load_Char(face, (char)i, FT_LOAD_RENDER);
-		if (error)
+	while(index < (uint32_t)face->num_glyphs) {
+		error = FT_Load_Char(face, count, FT_LOAD_RENDER);
+		if (error) {
+			count++;
+
+			if (count > index + 100) // Big risk of infinite loop otherwise
+				break; // 100 is just an arbitary number
+
 			continue;
+		}
 
 		FT_Bitmap &bitmap= face->glyph->bitmap;
+
+		if (bitmap.width == 0 && (char)count != ' ') {
+			count++;
+
+			if (count > index + 100)
+				break;
+
+			continue;
+		}
 
 		uint32_t width = next_power(bitmap.width);
 		uint32_t height = next_power(bitmap.rows);
@@ -92,17 +106,23 @@ bool Font::Initialize(FT_Library *lib, std::string path, uint32_t height)
 		m_Textures.emplace_back(final_bitmap, width, height, true);
 		Texture &temp = m_Textures[index];
 
-		m_Glyphs.emplace_back(0.0f, 0.0f, temp.GetWidth(), temp.GetHeight(), 
-		                      temp.GetTex());
-		m_Glyphs[index].SetPenX(face->glyph->bitmap_left);
-		m_Glyphs[index].SetPenY(face->glyph->bitmap_top);
-		m_Glyphs[index].SetAdvanceX(face->glyph->advance.x >> 6);
-		m_Glyphs[index].SetAdvanceY(face->glyph->advance.y >> 6);
+		m_Glyphs.emplace(std::piecewise_construct,
+		                 std::forward_as_tuple(count), 
+		                 std::forward_as_tuple(0.0f, 0.0f,
+						 temp.GetWidth(), 
+				         temp.GetHeight(), 
+				         temp.GetTex()));
+		FontGlyph &temp_glyph = m_Glyphs[count];
+		temp_glyph.SetPenX(face->glyph->bitmap_left);
+	    temp_glyph.SetPenY(face->glyph->bitmap_top);
+		temp_glyph.SetAdvanceX(face->glyph->advance.x >> 6);
+		temp_glyph.SetAdvanceY(face->glyph->advance.y >> 6);
 		
 		if (m_TexHeight < face->glyph->bitmap_top)
 			m_TexHeight = face->glyph->bitmap_top;
 
 		index++;
+		count++;
 
 		delete []final_bitmap;
 	}
@@ -115,7 +135,7 @@ uint32_t Font::GetHeight()
 	return m_Height;
 }
 
-uint32_t Font::GetTexHeight()
+int32_t Font::GetTexHeight()
 {
 	return m_TexHeight;
 }
@@ -128,5 +148,8 @@ void Font::Clean()
 
 FontGlyph &Font::GetChar(char c)
 {
-	return m_Glyphs[(uint32_t)c];
+	if (m_Glyphs.find((uint32_t)c) != m_Glyphs.end())
+		return m_Glyphs[(uint32_t)c];
+	else
+		return m_Glyphs[(uint32_t)' '];
 }

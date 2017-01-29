@@ -23,6 +23,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 class FontGlyph: public Rect2D {
 public:
+	FontGlyph();
 	FontGlyph(float x, float y, float w, float h, GLuint tex);
 	~FontGlyph();
 

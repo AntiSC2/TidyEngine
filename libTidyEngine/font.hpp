@@ -21,6 +21,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 #include <GL/glew.h>
 #include <vector>
+#include <map>
 #include "texture.hpp"
 #include "fontglyph.hpp"
 
@@ -34,12 +35,11 @@ public:
 	bool Initialize(FT_Library *lib, std::string path, uint32_t height);
 	void Clean();
 	uint32_t GetHeight();
-	uint32_t GetTexHeight();
+	int32_t GetTexHeight();
 	FontGlyph &GetChar(char c);
 private:
 	uint32_t m_Height = 0;
-	uint32_t m_TexHeight = 0;
-	uint32_t m_Size = 0;
+	int32_t m_TexHeight = 0;
 	std::vector<Texture> m_Textures;
-	std::vector<FontGlyph> m_Glyphs;
+	std::map<uint32_t, FontGlyph> m_Glyphs;
 };

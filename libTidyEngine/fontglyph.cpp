@@ -19,6 +19,11 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 #include "fontglyph.hpp"
 
+FontGlyph::FontGlyph()
+{
+    ;
+}
+
 FontGlyph::FontGlyph(float x, float y, float w, float h, GLuint tex)
 {
     SetRect(x, y, w, h);
