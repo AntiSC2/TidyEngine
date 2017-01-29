@@ -70,7 +70,7 @@ bool Core::InitSubSystems()
 
 	if (m_Render.LoadShaders("default", "shader.vert", "shader.frag",
 	   {"position", "color", "uv" }) == false) {
-		printf("Error: Failed to load shaders!\n");
+		printf("Error: Failed to load default shaders!\n");
 		return false;
 	}
 	

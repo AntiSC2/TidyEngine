@@ -53,7 +53,7 @@ std::string IOManager::ReadFile(std::string filepath)
 {
 	std::ifstream source(filepath);
 	if (source.fail()) {
-		printf("Warning: failed to open %s!", filepath.c_str());
+		printf("Warning: failed to open %s!\n", filepath.c_str());
 		return "";
 	}
 
@@ -88,7 +88,7 @@ bool IOManager::LoadVorbis(std::string filepath, Sample *out)
 	std::ifstream source(filepath, std::ifstream::binary);
 	
 	if (source.is_open() == false) {
-		printf("Warning: failed to open %s!", filepath.c_str());
+		printf("Warning: failed to open %s!\n", filepath.c_str());
 		return false;
 	}
 
@@ -113,7 +113,8 @@ bool IOManager::LoadVorbis(std::string filepath, Sample *out)
 			break;
 		} else if (ret < 0) {
 			ov_clear(&vorbis);
-			printf("Warning: error in stream %s!", filepath.c_str());
+			printf("Warning: error in stream %s!",
+			       filepath.c_str());
 			return false;
 		} else {
 			for (int i = 0; i < ret; i++)
