@@ -21,56 +21,56 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 FontGlyph::FontGlyph()
 {
-    ;
+	;
 }
 
 FontGlyph::FontGlyph(float x, float y, float w, float h, GLuint tex)
 {
-    SetRect(x, y, w, h);
-    m_Tex = tex;
+	SetRect(x, y, w, h);
+	m_Tex = tex;
 }
 
 FontGlyph::~FontGlyph()
 {
-    ;
+	;
 }
 
 void FontGlyph::SetPenX(int32_t pen_x)
 {
-    m_PenX = pen_x;
+	m_PenX = pen_x;
 }
 
 void FontGlyph::SetPenY(int32_t pen_y)
 {
-    m_PenY = pen_y;
+	m_PenY = pen_y;
 }
 
 int32_t FontGlyph::GetPenX()
 {
-    return m_PenX;
+	return m_PenX;
 }
 
 int32_t FontGlyph::GetPenY()
 {
-    return m_PenY;
+	return m_PenY;
 }
 
 void FontGlyph::SetAdvanceX(int32_t pen_x)
 {
-    m_AdvanceX = pen_x;
+	m_AdvanceX = pen_x;
 }
 
 void FontGlyph::SetAdvanceY(int32_t pen_y)
 {
-    m_AdvanceY = pen_y;
+	m_AdvanceY = pen_y;
 }
 
 int32_t FontGlyph::GetAdvanceX()
 {
-    return m_AdvanceX;
+	return m_AdvanceX;
 }
 
 int32_t FontGlyph::GetAdvanceY()
 {
-    return m_AdvanceY;
+	return m_AdvanceY;
 }

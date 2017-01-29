@@ -71,10 +71,11 @@ bool Font::Initialize(FT_Library *lib, std::string path, uint32_t height)
 		error = FT_Load_Char(face, count, FT_LOAD_RENDER);
 		if (error) {
 			count++;
-
-			if (count > index + 100) // Big risk of infinite loop otherwise
-				break; // 100 is just an arbitary number
-
+			/* Big risk of infinite loop otherwise,
+			 * 100 is just an arbitary number
+			 */
+			if (count > index + 100)
+				break;
 			continue;
 		}
 
@@ -109,12 +110,12 @@ bool Font::Initialize(FT_Library *lib, std::string path, uint32_t height)
 		m_Glyphs.emplace(std::piecewise_construct,
 		                 std::forward_as_tuple(count), 
 		                 std::forward_as_tuple(0.0f, 0.0f,
-						 temp.GetWidth(), 
-				         temp.GetHeight(), 
-				         temp.GetTex()));
+		                 temp.GetWidth(), 
+		                 temp.GetHeight(), 
+		                 temp.GetTex()));
 		FontGlyph &temp_glyph = m_Glyphs[count];
 		temp_glyph.SetPenX(face->glyph->bitmap_left);
-	    temp_glyph.SetPenY(face->glyph->bitmap_top);
+		temp_glyph.SetPenY(face->glyph->bitmap_top);
 		temp_glyph.SetAdvanceX(face->glyph->advance.x >> 6);
 		temp_glyph.SetAdvanceY(face->glyph->advance.y >> 6);
 		
@@ -126,7 +127,9 @@ bool Font::Initialize(FT_Library *lib, std::string path, uint32_t height)
 
 		delete []final_bitmap;
 	}
-	
+
+	FT_Done_Face(face);
+
 	return true;
 }
 

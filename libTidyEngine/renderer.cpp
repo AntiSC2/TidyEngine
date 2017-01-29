@@ -57,7 +57,8 @@ void Renderer::DrawText(std::string text, glm::vec2 pos, glm::vec4 color,
 	for (size_t i = 0; i < text.size(); i++) {
 		FontGlyph glyph = font.GetChar(text[i]);
 		glyph.SetColor(color);
-		glyph.SetPos(pos.x + pen_x + glyph.GetPenX(), pos.y + pen_y - glyph.GetPenY());
+		glyph.SetPos(pos.x + pen_x + glyph.GetPenX(),
+		             pos.y + pen_y - glyph.GetPenY());
 		pen_x += (float)glyph.GetAdvanceX();
 		
 		m_Batch->Draw(&glyph);

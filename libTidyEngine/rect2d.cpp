@@ -85,7 +85,7 @@ void Rect2D::SetPos(float x, float y)
 	glm::vec3 offset(0.0f, 0.0f, 0.0f);
 
 	if (m_Vertices.empty() == false)
-		glm::vec3 offset = m_Vertices[0].Position;
+		offset = m_Vertices[0].Position;
 	
 	for (size_t i = 0; i < m_Vertices.size(); i++) {
 		m_Vertices[i].Position -= offset;
