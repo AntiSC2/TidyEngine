@@ -1,8 +1,8 @@
 # TidyEngine
-TidyEngine is a game engine that was created for making games in a C++ framework. V0.2 moved away from SDL2 and instead uses GLFW for window and input handling. It also uses glew for fast modern OpenGL rendering. It also uses the FreeImage library, which is licensed under the FIPL, for bitmap loading.
+TidyEngine is a game engine that was created for making games in a C++ framework. V0.2 moved away from SDL2 and instead uses GLFW for window and input handling. It also uses glad and GLFW for fast modern OpenGL rendering. It also uses the FreeImage library, which is licensed under the FIPL, for bitmap loading.
 
 # Features
-- All rendering is done through OpenGL
+- All rendering is done through modern OpenGL
 - Fully cross-platform
 - Object management
 - Lua scripting
@@ -12,7 +12,7 @@ I really appreciate any help I can get. If you want to start contributing to thi
 
 - CMake, used for building the project
 - GLFW, used for handling windows and the input.
-- glew, used for OpenGL rendering.
+- glad, used for OpenGL rendering. (glad is already included)
 - glm, used for math when rendering.
 - FreeImage, used for bitmap loading.
 - OpenAL, used for audio
