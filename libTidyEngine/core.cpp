@@ -58,7 +58,7 @@ bool Core::InitSubSystems()
 	FreeImage_Initialise();
 	FreeImage_SetOutputMessage(FreeImageError);
 
-	if (m_Screen.CreateWindow(1280, 720, "TidyEngine", 4, 0) != true) {
+	if (m_Screen.CreateWindow(1280, 720, "TidyEngine", 4, 5) != true) {
 		printf("Error: glfw could not create window!\n");
 		return false;
 	} else {
