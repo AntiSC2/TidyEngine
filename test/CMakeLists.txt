@@ -40,6 +40,10 @@ if (WIN32)
 			${FREETYPE2_LIBRARIES}
 			${CMAKE_SOURCE_DIR}/deps/lib/freetype.lib
 		)
+		set(GLAD_LIBRARIES
+			${GLAD_LIBRARIES}
+			${CMAKE_BINARY_DIR}/GLAD/Debug/GLAD.lib
+		)
 	else ()
 		set(TIDYENGINE_LIBRARIES
 			${TIDYENGINE_LIBRARIES}
@@ -65,6 +69,10 @@ if (WIN32)
 			${FREETYPE2_LIBRARIES}
 			${CMAKE_SOURCE_DIR}/deps/lib/libfreetype.a
 		)
+		set(GLAD_LIBRARIES
+			${GLAD_LIBRARIES}
+			${CMAKE_BINARY_DIR}/GLAD/libGLAD.a
+		)
 		find_package(BZip2 REQUIRED)
 		find_package(ZLIB REQUIRED)
 	endif ()
@@ -72,14 +80,6 @@ if (WIN32)
 	set(GLFW_INCLUDE_DIRS
 		${GLFW_INCLUDE_DIRS}
 		${CMAKE_SOURCE_DIR}/deps/include/
-	)
-	set(GLEW_INCLUDE_DIRS
-		${GLEW_INCLUDE_DIRS}
-		${CMAKE_SOURCE_DIR}/deps/include/GL
-	)
-	set(GLEW_LIBRARIES
-		${GLEW_LIBRARIES}
-		${CMAKE_SOURCE_DIR}/deps/lib/glew32.lib
 	)
 	set(FREEIMAGE_INCLUDE_DIRS
 		${FREEIMAGE_INCLUDE_DIRS}
@@ -122,7 +122,6 @@ elseif (APPLE)
 elseif (UNIX)
 	find_package(PkgConfig REQUIRED)
 	pkg_search_module(GLFW REQUIRED glfw3)
-	pkg_search_module(GLEW REQUIRED glew)
 	pkg_search_module(FREEIMAGE REQURIED freeimage)
 	pkg_search_module(LUAJIT REQUIRED luajit)
 	pkg_search_module(LUAJIT REQUIRED luajit)
@@ -134,10 +133,15 @@ elseif (UNIX)
 		${TIDYENGINE_LIBRARIES}
 		${CMAKE_BINARY_DIR}/libTidyEngine/libTidyEngine.a
 	)
+	set(GLAD_LIBRARIES
+		${GLAD_LIBRARIES}
+		-ldl
+		${CMAKE_BINARY_DIR}/GLAD/libGLAD.a
+	)
 endif ()
 
+include_directories(${CMAKE_SOURCE_DIR}/deps/include)
 include_directories(${GLFW_INCLUDE_DIRS})
-include_directories(${GLEW_INCLUDE_DIRS})
 include_directories(${FREEIMAGE_INCLUDE_DIRS})
 include_directories(${OPENAL_INCLUDE_DIRS})
 include_directories(${OGG_INCLUDE_DIRS})
@@ -147,16 +151,16 @@ include_directories(${FREETYPE2_INCLUDE_DIRS})
 add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS})
 target_link_libraries(${PROJECT_NAME}
                       ${TIDYENGINE_LIBRARIES}
+		      ${GLAD_LIBRARIES}
                       ${GLFW_LIBRARIES}
-                      ${GLEW_LIBRARIES}
                       ${FREEIMAGE_LIBRARIES}
                       ${OPENAL_LIBRARIES}
                       ${VORBISFILE_LIBRARIES}
                       ${VORBIS_LIBRARIES}
                       ${OGG_LIBRARIES}
                       ${FREETYPE2_LIBRARIES}
-					  ${BZIP2_LIBRARIES}
-					  ${ZLIB_LIBRARIES})
+                      ${BZIP2_LIBRARIES}
+                      ${ZLIB_LIBRARIES})
 
 if (WIN32)
 	target_link_libraries(${PROJECT_NAME} opengl32.lib)

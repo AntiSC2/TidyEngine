@@ -91,6 +91,10 @@ if (WIN32)
 			${FREETYPE2_LIBRARIES}
 			${CMAKE_SOURCE_DIR}/deps/lib/freetype.lib
 		)
+		set(GLAD_LIBRARIES
+			${GLAD_LIBRARIES}
+			${CMAKE_BINARY_DIR}/GLAD/Debug/GLAD.lib
+		)
 	else ()
 		set(GLFW_LIBRARIES
 			${GLFW_LIBRARIES}
@@ -112,19 +116,15 @@ if (WIN32)
 			${FREETYPE2_LIBRARIES}
 			${CMAKE_SOURCE_DIR}/deps/lib/libfreetype.a
 		)
+		set(GLAD_LIBRARIES
+			${GLAD_LIBRARIES}
+			${CMAKE_BINARY_DIR}/GLAD/libGLAD.a
+		)
 	endif ()
 	
 	set(GLFW_INCLUDE_DIRS
 		${GLFW_INCLUDE_DIRS}
 		${CMAKE_SOURCE_DIR}/deps/include/
-	)
-	set(GLEW_INCLUDE_DIRS
-		${GLEW_INCLUDE_DIRS}
-		${CMAKE_SOURCE_DIR}/deps/include/GL
-	)
-	set(GLEW_LIBRARIES
-		${GLEW_LIBRARIES}
-		${CMAKE_SOURCE_DIR}/deps/lib/glew32.lib
 	)
 	set(FREEIMAGE_INCLUDE_DIRS
 		${FREEIMAGE_INCLUDE_DIRS}
@@ -151,23 +151,22 @@ if (WIN32)
 		${CMAKE_SOURCE_DIR}/deps/lib/OpenAL32.lib
 	)
 	set(OGG_INCLUDE_DIRS
-			${OGG_INCLUDE_DIRS}
-			${CMAKE_SOURCE_DIR}/deps/include/ogg
+		${OGG_INCLUDE_DIRS}
+		${CMAKE_SOURCE_DIR}/deps/include/ogg
 	)
 	set(VORBIS_INCLUDE_DIRS
-			${VORBIS_INCLUDE_DIRS}
-			${CMAKE_SOURCE_DIR}/deps/include/vorbis
+		${VORBIS_INCLUDE_DIRS}
+		${CMAKE_SOURCE_DIR}/deps/include/vorbis
 	)
 	set(FREETYPE2_INCLUDE_DIRS
-			${FREETYPE2_INCLUDE_DIRS}
-			${CMAKE_SOURCE_DIR}/deps/include/freetype
+		${FREETYPE2_INCLUDE_DIRS}
+		${CMAKE_SOURCE_DIR}/deps/include/freetype
 	)
 elseif (APPLE)
 	message("MACOSX: Not yet supported!")
 elseif (UNIX)
 	find_package(PkgConfig REQUIRED)
 	pkg_search_module(GLFW REQUIRED glfw3)
-	pkg_search_module(GLEW REQUIRED glew)
 	pkg_search_module(FREEIMAGE REQURIED freeimage)
 	pkg_search_module(LUAJIT REQUIRED luajit)
 	pkg_search_module(OPENAL REQUIRED openal)
@@ -175,10 +174,15 @@ elseif (UNIX)
 	pkg_search_module(VORBIS REQUIRED vorbis)
 	pkg_search_module(VORBISFILE REQUIRED vorbisfile)
 	pkg_search_module(FREETYPE2 REQUIRED freetype2)
+	set(GLAD_LIBRARIES
+		${GLAD_LIBRARIES}
+		-ldl
+		${CMAKE_BINARY_DIR}/GLAD/libGLAD.a
+	)
 endif ()
 
+include_directories(${CMAKE_SOURCE_DIR}/deps/include/)
 include_directories(${GLFW_INCLUDE_DIRS})
-include_directories(${GLEW_INCLUDE_DIRS})
 include_directories(${FREEIMAGE_INCLUDE_DIRS})
 include_directories(${LUAJIT_INCLUDE_DIRS})
 include_directories(${OPENAL_INCLUDE_DIRS})
@@ -188,13 +192,13 @@ include_directories(${FREETYPE2_INCLUDE_DIRS})
 
 add_library(${PROJECT_NAME} STATIC ${SOURCE} ${HEADERS})
 target_link_libraries(${PROJECT_NAME} ${GLFW_LIBRARIES}
-				      ${GLEW_LIBRARIES}
+                                      ${GLAD_LIBRARIES}
 				      ${FREEIMAGE_LIBRARIES}
 				      ${LUAJIT_LIBRARIES}
 				      ${OPENAL_LIBRARIES}
 				      ${OGG_LIBRARIES}
-                      ${VORBIS_LIBRARIES}
-                      ${VORBISFILE_LIBRARIES}
+                                      ${VORBIS_LIBRARIES}
+                                      ${VORBISFILE_LIBRARIES}
 				      ${FREETYPE2_LIBRARIES})
 
 if (WIN32)

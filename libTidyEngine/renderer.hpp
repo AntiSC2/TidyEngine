@@ -23,7 +23,7 @@ class Shader;
 class Batch;
 class Renderable;
 
-#include <GL/glew.h>
+#include <glad/glad.h>
 #include <string>
 #include <glm/vec2.hpp>
 #include <glm/vec4.hpp>

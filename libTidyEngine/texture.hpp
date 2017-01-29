@@ -23,7 +23,7 @@ struct FIBITMAP;
 
 #include <cstdint>
 #include <string>
-#include <GL/glew.h>
+#include <glad/glad.h>
 #include "resource.hpp"
 
 class Texture: public Resource {

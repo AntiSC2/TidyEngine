@@ -19,7 +19,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 #pragma once
 
-#include <GL/glew.h>
+#include <glad/glad.h>
 #include <vector>
 #include "vertex.hpp"
 #include "resource.hpp"

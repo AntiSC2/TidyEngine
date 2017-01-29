@@ -21,7 +21,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 class Texture;
 
-#include <GL/glew.h>
+#include <glad/glad.h>
 #include <cstdint>
 #include <glm/vec4.hpp>
 #include "resource.hpp"

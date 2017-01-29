@@ -18,7 +18,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 */
 
 #include "render.hpp"
-#include <GL/glew.h>
+#include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <cstdio>
 #include "shader.hpp"

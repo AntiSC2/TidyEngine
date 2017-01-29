@@ -19,7 +19,6 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 #pragma once
 
-#include <GL/glew.h>
 #include <vector>
 #include <map>
 #include "texture.hpp"

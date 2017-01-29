@@ -18,7 +18,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 */
 
 #include "screen.hpp"
-#include <GL/glew.h>
+#include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <stdio.h>
 
@@ -81,11 +81,8 @@ bool Screen::CreateWindow(uint16_t width, uint16_t height, const char* title,
 
 bool Screen::InitGL()
 {
-	glewExperimental = GL_TRUE;
-	GLenum err;
-	err = glewInit();
-	if (err != GLEW_OK) {
-		printf("Error: %s\n", glewGetErrorString(err));
+	if (!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress)) {
+		printf("Warning: failed to initialize OpenGL context!\n");
 		return false;
 	}
 	
