@@ -1,5 +1,5 @@
 cmake_minimum_required (VERSION 3.2.3)
-project(GLAD)
+project(glad)
 
 include_directories(${CMAKE_SOURCE_DIR}/deps/include)
 

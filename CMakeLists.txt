@@ -30,7 +30,7 @@ elseif (MSVC)
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4127 /wd4201")
 endif ()
 
-add_subdirectory("${CMAKE_SOURCE_DIR}/GLAD")
+add_subdirectory("${CMAKE_SOURCE_DIR}/glad")
 add_subdirectory("${CMAKE_SOURCE_DIR}/libTidyEngine")
 
 option(BUILD_TEST "Build a test along side the engine" TRUE)

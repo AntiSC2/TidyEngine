@@ -42,7 +42,7 @@ if (WIN32)
 		)
 		set(GLAD_LIBRARIES
 			${GLAD_LIBRARIES}
-			${CMAKE_BINARY_DIR}/GLAD/Debug/GLAD.lib
+			${CMAKE_BINARY_DIR}/glad/Debug/glad.lib
 		)
 	else ()
 		set(TIDYENGINE_LIBRARIES
@@ -71,7 +71,7 @@ if (WIN32)
 		)
 		set(GLAD_LIBRARIES
 			${GLAD_LIBRARIES}
-			${CMAKE_BINARY_DIR}/GLAD/libGLAD.a
+			${CMAKE_BINARY_DIR}/glad/libglad.a
 		)
 		find_package(BZip2 REQUIRED)
 		find_package(ZLIB REQUIRED)
@@ -136,7 +136,7 @@ elseif (UNIX)
 	set(GLAD_LIBRARIES
 		${GLAD_LIBRARIES}
 		-ldl
-		${CMAKE_BINARY_DIR}/GLAD/libGLAD.a
+		${CMAKE_BINARY_DIR}/glad/libglad.a
 	)
 endif ()
 
