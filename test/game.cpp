@@ -39,7 +39,7 @@ Game::~Game()
 bool Game::Init()
 {
 	Camera2D *cam = new Camera2D("MainCamera");
-	cam->Initialise(1280, 720);
+	cam->Initialise(1280, 720, &m_Screen);
 	m_ObjectManager.SetCamera(cam);
 	m_ObjectManager.AddObject(cam);
 	cam = nullptr;
@@ -78,7 +78,7 @@ void Game::DrawGame()
 {
 	Rect2D rect;
 	rect.SetColor(glm::vec4(0.2f, 0.7f, 0.5f, 1.0f));
-	rect.SetRect(640.0f, 360.0f, 640.0f, 360.0f);
+	rect.SetRect(640.0f, -180.0f, 640.0f, 360.0f);
 	m_Render.Clear();
 
 	m_SpriteRenderer.Begin();

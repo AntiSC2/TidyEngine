@@ -23,6 +23,8 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include <cstdint>
 #include "object.hpp"
 
+class Screen;
+
 class Camera2D : public Object {
 public:
 	Camera2D(std::string name) : Object(name) 
@@ -31,8 +33,9 @@ public:
 	}
 	virtual ~Camera2D();
 
-	void Initialise(uint16_t width = 0, uint16_t height = 0);
-	virtual void Update();
+	void Initialise(uint16_t width = 0, uint16_t height = 0,
+	                Screen *s = nullptr);
+	virtual void Update(float delta = 0.0f);
 	void SetScale(float scale = 1.0f);
 	void SetPosition(glm::vec3 position);
 	const float &GetScale() const;
@@ -41,6 +44,7 @@ public:
 	const glm::mat4 &GetView() const;
 	const glm::mat4 &GetModel() const;
 private:
+	Screen *m_CurrentScreen = nullptr;
 	float m_Scale = 1.0f;
 	bool m_Update = false;
 	uint16_t m_Width = 0;

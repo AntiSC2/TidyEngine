@@ -22,6 +22,8 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include <GLFW/glfw3.h>
 #include <stdio.h>
 
+GLFWwindow *Screen::m_NeedUpdate = nullptr;
+
 Screen::Screen()
 {
 	;
@@ -50,6 +52,17 @@ const char *Screen::GetTitle()
 GLFWwindow *Screen::GetWindow()
 {
 	return m_Window;
+}
+
+bool Screen::NeedUpdate()
+{
+	if (m_Window == m_NeedUpdate) {
+		glfwGetWindowSize(m_Window, (int*)&m_Width, (int*)&m_Height);
+		m_NeedUpdate = nullptr;
+		return true;
+	} else {
+		return false;
+	}
 }
 
 bool Screen::CreateWindow(uint16_t width, uint16_t height, const char* title,
@@ -98,8 +111,15 @@ void Screen::CloseWindow()
 	glfwSetWindowShouldClose(m_Window, GL_TRUE);
 }
 
+void Screen::WindowSizeCallback(GLFWwindow *window, int width, int height)
+{
+	m_NeedUpdate = window;
+}
+
 void Screen::DestroyWindow()
 {
-	if (m_Window != nullptr)
+	if (m_Window != nullptr) {
 		glfwDestroyWindow(m_Window);
+		m_Window = nullptr;
+	}
 }

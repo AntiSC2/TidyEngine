@@ -77,6 +77,8 @@ bool Core::InitSubSystems()
 	m_SpriteRenderer.Initialise(m_Render.GetShader("default"),
 			&m_Render.GetBatch());
 	
+	glfwSetWindowSizeCallback(m_Screen.GetWindow(),
+	                          Screen::WindowSizeCallback);
 	m_Input.Initialise(m_Screen.GetWindow());
 	m_Audio.CreateSystem();
 

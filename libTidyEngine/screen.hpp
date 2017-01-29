@@ -32,14 +32,18 @@ public:
 	uint16_t GetHeight();
 	const char *GetTitle();
 	GLFWwindow *GetWindow();
+	bool NeedUpdate();
 	bool CreateWindow(uint16_t width, uint16_t height, const char* title,
 	                  int gl_major, int gl_minor);
 	bool InitGL();
 	void CloseWindow();
+	static void WindowSizeCallback(GLFWwindow *window, int width,
+	                               int height);
 private:
 	void DestroyWindow();
 	uint16_t m_Width = 0;
 	uint16_t m_Height = 0;
 	char *m_Title = nullptr;
+	static GLFWwindow *m_NeedUpdate;
 	GLFWwindow *m_Window = nullptr;
 };
