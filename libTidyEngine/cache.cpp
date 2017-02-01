@@ -17,6 +17,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 Contact the author at: jakob.sinclair99@gmail.com
 */
 
+#ifdef _WIN32
+#define APIENTRY __stdcall
+#endif
+
 #include "cache.hpp"
 #include <cstdio>
 #include "iomanager.hpp"
@@ -38,7 +42,8 @@ Cache::~Cache()
 bool Cache::CreateDefaultResources()
 {
 	FIBITMAP *bitmap = FreeImage_Allocate(2, 2, 32, FI_RGBA_RED_MASK,
-	                                 FI_RGBA_GREEN_MASK, FI_RGBA_BLUE_MASK);
+	                                      FI_RGBA_GREEN_MASK,
+	                                      FI_RGBA_BLUE_MASK);
 	
 	uint8_t byte_space = (uint8_t)(FreeImage_GetLine(bitmap) /
 	                      FreeImage_GetHeight(bitmap));
@@ -62,11 +67,6 @@ bool Cache::CreateDefaultResources()
 
 	if (success == false) {
 		printf("Warning: could not create default texture!\n");
-		return false;
-	}
-
-	if (success == false) {
-		printf("Warning: could not create default sample!\n");
 		return false;
 	}
 

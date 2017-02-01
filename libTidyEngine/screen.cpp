@@ -17,6 +17,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 Contact the author at: jakob.sinclair99@gmail.com
 */
 
+/* Make sure that glad does
+ * not include windows.h
+ */
+#ifdef _WIN32
+#define APIENTRY __stdcall
+#endif
+
 #include "screen.hpp"
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>

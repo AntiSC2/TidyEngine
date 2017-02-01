@@ -17,11 +17,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 Contact the author at: jakob.sinclair99@gmail.com
 */
 
+#include "iomanager.hpp"
 #include <fstream>
 #include <vorbis/vorbisfile.h>
 #include <vector>
 #include "error.hpp"
-#include "iomanager.hpp"
 
 IOManager IO;
 

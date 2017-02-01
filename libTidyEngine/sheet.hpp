@@ -19,6 +19,10 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 #pragma once
 
+#ifdef _WIN32
+#define APIENTRY __stdcall
+#endif
+
 class Texture;
 
 #include <glad/glad.h>
