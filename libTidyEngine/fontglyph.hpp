@@ -36,8 +36,8 @@ public:
 	virtual int32_t GetAdvanceX();
 	virtual int32_t GetAdvanceY();
 protected:
-	int32_t m_PenX = 0;
-	int32_t m_PenY = 0;
+	int32_t m_Left = 0; /* Distance in pixels from the left side */
+	int32_t m_Top = 0; /* Distance in pixels from the top side */
 	int32_t m_AdvanceX = 0;
 	int32_t m_AdvanceY = 0;
 	int32_t m_OffsetBaseline = 0;

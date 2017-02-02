@@ -37,22 +37,22 @@ FontGlyph::~FontGlyph()
 
 void FontGlyph::SetPenX(int32_t pen_x)
 {
-	m_PenX = pen_x;
+	m_Left = pen_x;
 }
 
 void FontGlyph::SetPenY(int32_t pen_y)
 {
-	m_PenY = pen_y;
+	m_Top = pen_y;
 }
 
 int32_t FontGlyph::GetPenX()
 {
-	return m_PenX;
+	return m_Left;
 }
 
 int32_t FontGlyph::GetPenY()
 {
-	return m_PenY;
+	return m_Top;
 }
 
 void FontGlyph::SetAdvanceX(int32_t pen_x)
