@@ -49,6 +49,11 @@ void Renderable::DelVertex(size_t index)
 		m_Vertices.erase(m_Vertices.begin() + index);
 }
 
+void Renderable::SetTex(GLuint tex) 
+{
+	m_Tex = tex;
+}
+
 const std::vector<Vertex> &Renderable::GetVertices() const
 {
 	return m_Vertices;

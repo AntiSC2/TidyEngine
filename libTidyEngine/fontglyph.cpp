@@ -26,13 +26,62 @@ FontGlyph::FontGlyph()
 
 FontGlyph::FontGlyph(float x, float y, float w, float h, GLuint tex)
 {
-	SetRect(x, y, w, h);
+	m_Width = x;
+	m_Height = y;
+	
+	Vertex temp;
+	temp.Color = m_Color;
+	temp.Position = glm::vec3(x, y, 0.0f);
+	temp.TexUV = glm::vec2(m_TexCoords.x, m_TexCoords.y);
+	AddVertex(temp);
+
+	temp.Position = glm::vec3(x + w, y, 0.0f);
+	temp.TexUV = glm::vec2(m_TexCoords.z, m_TexCoords.y);
+	AddVertex(temp);
+
+	temp.Position = glm::vec3(x, y + h, 0.0f);
+	temp.TexUV = glm::vec2(m_TexCoords.x, m_TexCoords.w);
+	AddVertex(temp);
+
+	temp.Position = glm::vec3(x, y + h, 0.0f);
+	temp.TexUV = glm::vec2(m_TexCoords.x, m_TexCoords.w);
+	AddVertex(temp);
+
+	temp.Position = glm::vec3(x + w, y, 0.0f);
+	temp.TexUV = glm::vec2(m_TexCoords.z, m_TexCoords.y);
+	AddVertex(temp);
+
+	temp.Position = glm::vec3(x + w, y + h, 0.0f);
+	temp.TexUV = glm::vec2(m_TexCoords.z, m_TexCoords.w);
+	AddVertex(temp);
+
 	m_Tex = tex;
 }
 
 FontGlyph::~FontGlyph()
 {
 	;
+}
+
+void FontGlyph::SetPos(float x, float y)
+{
+	glm::vec3 offset(0.0f, 0.0f, 0.0f);
+
+	if (m_Vertices.empty() == false)
+		offset = m_Vertices[0].Position;
+	
+	for (size_t i = 0; i < m_Vertices.size(); i++) {
+		m_Vertices[i].Position -= offset;
+		m_Vertices[i].Position += glm::vec3(x, y, 0.0f);
+	}
+}
+
+void FontGlyph::SetColor(glm::vec4 color)
+{
+	m_Color = color;
+	for (size_t i = 0; i < m_Vertices.size(); i++)
+		m_Vertices[i].Color = m_Color;
+
 }
 
 void FontGlyph::SetPenX(int32_t pen_x)
@@ -73,4 +122,14 @@ int32_t FontGlyph::GetAdvanceX()
 int32_t FontGlyph::GetAdvanceY()
 {
 	return m_AdvanceY;
+}
+
+uint32_t FontGlyph::GetWidth()
+{
+	return (uint32_t)m_Width;
+}
+
+uint32_t FontGlyph::GetHeight()
+{
+	return (uint32_t)m_Height;
 }

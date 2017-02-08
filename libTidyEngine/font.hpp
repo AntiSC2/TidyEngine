@@ -39,6 +39,6 @@ public:
 private:
 	uint32_t m_Height = 0;
 	int32_t m_TexHeight = 0;
-	std::vector<Texture> m_Textures;
+	Texture m_Texture;
 	std::map<uint32_t, FontGlyph> m_Glyphs;
 };
