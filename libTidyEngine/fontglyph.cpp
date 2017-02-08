@@ -84,6 +84,19 @@ void FontGlyph::SetColor(glm::vec4 color)
 
 }
 
+void FontGlyph::SetTexCoords(glm::vec4 coords)
+{
+	m_TexCoords = coords;
+	if (m_Vertices.size() == 6) {
+		m_Vertices[0].TexUV = glm::vec2(m_TexCoords.x, m_TexCoords.y);
+		m_Vertices[1].TexUV = glm::vec2(m_TexCoords.z, m_TexCoords.y);
+		m_Vertices[2].TexUV = glm::vec2(m_TexCoords.x, m_TexCoords.w);
+		m_Vertices[3].TexUV = glm::vec2(m_TexCoords.x, m_TexCoords.w);
+		m_Vertices[4].TexUV = glm::vec2(m_TexCoords.z, m_TexCoords.y);
+		m_Vertices[5].TexUV = glm::vec2(m_TexCoords.z, m_TexCoords.w);
+	}
+}
+
 void FontGlyph::SetPenX(int32_t pen_x)
 {
 	m_Left = pen_x;

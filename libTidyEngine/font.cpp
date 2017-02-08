@@ -74,48 +74,47 @@ bool Font::Initialize(FT_Library *lib, std::string path, uint32_t height)
 	
 	std::vector<GLubyte *> temp_bitmaps;
 	
-	while(temp_bitmaps.size() < (uint32_t)face->num_glyphs){
+	while(m_Glyphs.size() < (uint32_t)face->num_glyphs){
 		error = FT_Load_Char(face, count, FT_LOAD_RENDER);
 		if (error) {
 			count++;
 			/* Big risk of infinite loop otherwise,
 			 * 100 is just an arbitary number
 			 */
-			if (count > temp_bitmaps.size() + 100)
+			if (count > m_Glyphs.size() + 100)
 				break;
 			continue;
 		}
 
 		FT_Bitmap &bitmap= face->glyph->bitmap;
-
-		if (bitmap.width == 0 && (char)count != ' ') {
+		
+		if ((bitmap.width == 0 || bitmap.rows == 0) &&
+		    (char)count != ' ') {
 			count++;
-
-			if (count > temp_bitmaps.size() + 100)
+			if (count > m_Glyphs.size() + 100)
 				break;
-
 			continue;
 		}
-
+		
 		b_width += bitmap.width;
 		if (bitmap.rows > b_height)
 			b_height = bitmap.rows;
-
-		GLubyte *temp_bitmap = new GLubyte[b_width * b_height];
 		
-		for (uint32_t y = 0; y < bitmap.width; y++) {
-			for (uint32_t x = 0; x < bitmap.rows; x++) {
+		GLubyte *temp_bitmap = new GLubyte[bitmap.width * bitmap.rows
+		                                   * 2];
+		
+		for (uint32_t y = 0; y < bitmap.rows; y++) {
+			for (uint32_t x = 0; x < bitmap.width; x++) {
 				temp_bitmap[2 * (x + y * bitmap.width)] =
 				temp_bitmap[2 * (x + y * bitmap.width) + 1] =
 				bitmap.buffer[x + bitmap.width * y];
 			}
 		}
+		
 		temp_bitmaps.push_back(temp_bitmap);
-		m_Glyphs.emplace(std::piecewise_construct,
-		                 std::forward_as_tuple(count), 
-		                 std::forward_as_tuple(0.0f, 0.0f,
-		                 (float)bitmap.width,
-						 (float)bitmap.rows, 0));
+		m_Glyphs[count] = FontGlyph(0.0f, 0.0f, (float)bitmap.width,
+		                           (float)bitmap.rows, 0);
+		
 		FontGlyph &temp_glyph = m_Glyphs[m_Glyphs.size() - 1];
 		temp_glyph.SetPenX(face->glyph->bitmap_left);
 		temp_glyph.SetPenY(face->glyph->bitmap_top);
@@ -128,24 +127,44 @@ bool Font::Initialize(FT_Library *lib, std::string path, uint32_t height)
 		count++;
 	}
 
-	b_width = next_power(b_width);
-	b_height = next_power(b_height);
-
-	GLubyte *final_bitmap = new GLubyte[b_width * b_height];
+	uint32_t f_width = next_power(b_width);
+	uint32_t f_height = next_power(b_height);
+	uint32_t index = 0;
+	uint32_t offset = 0;
+	GLubyte *final_bitmap = new GLubyte[f_width * f_height * 2];
 	
-	for (size_t i = 0; i < m_Glyphs.size(); i++) {
-		for (uint32_t x = 0; x < m_Glyphs[i].GetWidth(); x++) {
-			for (uint32_t y = 0; x < m_Glyphs[i].GetHeight(); y++) {
-				final_bitmap[y * b_height + x] = temp_bitmaps[i][y * b_height + x];
+	for (uint32_t x = 0; x < f_width; x++) {
+		for (uint32_t y = 0; y < f_height; y++) {
+			if (x >= b_width || y >= m_Glyphs[index].GetHeight()) {
+				final_bitmap[2 * (x + y * f_width)] = 
+				final_bitmap[2 * (x + y * f_width) + 1] = 0;
+			} else if (x >= m_Glyphs[index].GetWidth() + offset) {
+				offset += m_Glyphs[index].GetWidth();
+				index++;
+
+				final_bitmap[2 * (x + y * f_width)] = 
+				final_bitmap[2 * (x + y * f_width) + 1] =
+				temp_bitmaps[index][2 * ((x - offset) + y * m_Glyphs[index].GetWidth())];
+			} else {
+				final_bitmap[2 * (x + y * f_width)] = 
+				final_bitmap[2 * (x + y * f_width) + 1] =
+				temp_bitmaps[index][2 * ((x - offset) + y * m_Glyphs[index].GetWidth())];
 			}
 		}
-		delete[] temp_bitmaps[i];
 	}
+		
+	for (auto i: temp_bitmaps) {
+		delete[] i;
+	}
+	
 	temp_bitmaps.clear();
-	m_Texture.CreateTex(final_bitmap, b_width, b_height, true);
+	m_Texture.CreateTex(final_bitmap, f_width, f_height, true);
 	delete []final_bitmap;
 
 	for (size_t i = 0; i < m_Glyphs.size(); i++) {
+		glm::vec4 coords;
+		coords.x = m_Glyphs.GetWidth();
+		m_Glyphs[i].
 		m_Glyphs[i].SetTex(m_Texture.GetTex());
 	}
 
