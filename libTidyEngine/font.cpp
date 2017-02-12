@@ -112,8 +112,8 @@ bool Font::Initialize(FT_Library *lib, std::string path, uint32_t height)
 		}
 		
 		temp_bitmaps.push_back(temp_bitmap);
-		m_Glyphs[count] = FontGlyph(0.0f, 0.0f, next_power(bitmap.width),
-		                           next_power(bitmap.rows), 1);
+		m_Glyphs[count] = FontGlyph(0.0f, 0.0f, bitmap.width,
+		                           bitmap.rows, 1);
 		
 		FontGlyph &temp_glyph = m_Glyphs[m_Glyphs.size() - 1];
 		temp_glyph.SetPenX(face->glyph->bitmap_left);
@@ -137,7 +137,7 @@ bool Font::Initialize(FT_Library *lib, std::string path, uint32_t height)
 		for (uint32_t y = 0; y < f_height; y++) {
 			if (x >= b_width || y >= (uint32_t)m_Glyphs[index].GetRect().w) {
 				final_bitmap[2 * (x + y * f_width)] = 
-				final_bitmap[2 * (x + y * f_width) + 1] = 0;
+				final_bitmap[2 * (x + y * f_width) + 1] = 255;
 			} else if (x >= (uint32_t)m_Glyphs[index].GetRect().z + offset) {
 				offset += (uint32_t)m_Glyphs[index].GetRect().z;
 				index++;
@@ -145,10 +145,12 @@ bool Font::Initialize(FT_Library *lib, std::string path, uint32_t height)
 				final_bitmap[2 * (x + y * f_width)] = 
 				final_bitmap[2 * (x + y * f_width) + 1] =
 				temp_bitmaps[index][2 * ((x - offset) + y * (uint32_t)m_Glyphs[index].GetRect().z)];
+				printf("THIS IS NOT WORKING!");
 			} else {
 				final_bitmap[2 * (x + y * f_width)] = 
 				final_bitmap[2 * (x + y * f_width) + 1] =
 				temp_bitmaps[index][2 * ((x - offset) + y * (uint32_t)m_Glyphs[index].GetRect().z)];
+				printf("HELLO\n");
 			}
 		}
 	}
@@ -168,7 +170,7 @@ bool Font::Initialize(FT_Library *lib, std::string path, uint32_t height)
 		coords.z = coords.x + (m_Glyphs[i].GetRect().z / f_width);
 		coords.w = coords.y + (m_Glyphs[i].GetRect().w / f_height);
 		m_Glyphs[i].SetTexCoords(coords);
-		//m_Glyphs[i].SetTex(m_Texture.GetTex());
+		m_Glyphs[i].SetTex(m_Texture.GetTex());
 	}
 
 	FT_Done_Face(face);
