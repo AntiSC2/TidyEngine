@@ -26,8 +26,10 @@ FontGlyph::FontGlyph()
 
 FontGlyph::FontGlyph(float x, float y, float w, float h, GLuint tex)
 {
-	m_Width = x;
-	m_Height = y;
+	m_Rect.x = x;
+	m_Rect.y = y;
+	m_Rect.z = w;
+	m_Rect.w = h;
 	
 	Vertex temp;
 	temp.Color = m_Color;
@@ -65,6 +67,8 @@ FontGlyph::~FontGlyph()
 
 void FontGlyph::SetPos(float x, float y)
 {
+	m_Rect.x = x;
+	m_Rect.y = y;
 	glm::vec3 offset(0.0f, 0.0f, 0.0f);
 
 	if (m_Vertices.empty() == false)
@@ -137,12 +141,7 @@ int32_t FontGlyph::GetAdvanceY()
 	return m_AdvanceY;
 }
 
-uint32_t FontGlyph::GetWidth()
+glm::vec4 FontGlyph::GetRect()
 {
-	return (uint32_t)m_Width;
-}
-
-uint32_t FontGlyph::GetHeight()
-{
-	return (uint32_t)m_Height;
+	return m_Rect;
 }

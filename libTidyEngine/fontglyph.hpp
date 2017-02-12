@@ -38,16 +38,14 @@ public:
 	virtual void SetAdvanceY(int32_t pen_y);
 	virtual int32_t GetAdvanceX();
 	virtual int32_t GetAdvanceY();
-	virtual uint32_t GetWidth();
-	virtual uint32_t GetHeight();
+	virtual glm::vec4 GetRect();
 protected:
+	glm::vec4 m_Rect = glm::vec4(0.0f, 0.0f, 0.0f, 0.0f);
 	glm::vec4 m_Color = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
-	glm::vec4 m_TexCoords = glm::vec4(0.0f, 0.0f, 1.0f, 1.0f);
+	glm::vec4 m_TexCoords = glm::vec4(0.0f, 0.0f, 0.05f, 1.0f);
 	int32_t m_Left = 0; /* Distance in pixels from the left side */
 	int32_t m_Top = 0; /* Distance in pixels from the top side */
 	int32_t m_AdvanceX = 0;
 	int32_t m_AdvanceY = 0;
 	int32_t m_OffsetBaseline = 0;
-	float m_Width = 0.0f;
-	float m_Height = 0.0f;
 };

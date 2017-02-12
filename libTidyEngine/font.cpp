@@ -112,8 +112,8 @@ bool Font::Initialize(FT_Library *lib, std::string path, uint32_t height)
 		}
 		
 		temp_bitmaps.push_back(temp_bitmap);
-		m_Glyphs[count] = FontGlyph(0.0f, 0.0f, (float)bitmap.width,
-		                           (float)bitmap.rows, 0);
+		m_Glyphs[count] = FontGlyph(0.0f, 0.0f, next_power(bitmap.width),
+		                           next_power(bitmap.rows), 1);
 		
 		FontGlyph &temp_glyph = m_Glyphs[m_Glyphs.size() - 1];
 		temp_glyph.SetPenX(face->glyph->bitmap_left);
@@ -135,20 +135,20 @@ bool Font::Initialize(FT_Library *lib, std::string path, uint32_t height)
 	
 	for (uint32_t x = 0; x < f_width; x++) {
 		for (uint32_t y = 0; y < f_height; y++) {
-			if (x >= b_width || y >= m_Glyphs[index].GetHeight()) {
+			if (x >= b_width || y >= (uint32_t)m_Glyphs[index].GetRect().w) {
 				final_bitmap[2 * (x + y * f_width)] = 
 				final_bitmap[2 * (x + y * f_width) + 1] = 0;
-			} else if (x >= m_Glyphs[index].GetWidth() + offset) {
-				offset += m_Glyphs[index].GetWidth();
+			} else if (x >= (uint32_t)m_Glyphs[index].GetRect().z + offset) {
+				offset += (uint32_t)m_Glyphs[index].GetRect().z;
 				index++;
 
 				final_bitmap[2 * (x + y * f_width)] = 
 				final_bitmap[2 * (x + y * f_width) + 1] =
-				temp_bitmaps[index][2 * ((x - offset) + y * m_Glyphs[index].GetWidth())];
+				temp_bitmaps[index][2 * ((x - offset) + y * (uint32_t)m_Glyphs[index].GetRect().z)];
 			} else {
 				final_bitmap[2 * (x + y * f_width)] = 
 				final_bitmap[2 * (x + y * f_width) + 1] =
-				temp_bitmaps[index][2 * ((x - offset) + y * m_Glyphs[index].GetWidth())];
+				temp_bitmaps[index][2 * ((x - offset) + y * (uint32_t)m_Glyphs[index].GetRect().z)];
 			}
 		}
 	}
@@ -163,9 +163,12 @@ bool Font::Initialize(FT_Library *lib, std::string path, uint32_t height)
 
 	for (size_t i = 0; i < m_Glyphs.size(); i++) {
 		glm::vec4 coords;
-		coords.x = m_Glyphs.GetWidth();
-		m_Glyphs[i].
-		m_Glyphs[i].SetTex(m_Texture.GetTex());
+		coords.x = m_Glyphs[i].GetRect().x / f_width;
+		coords.y = m_Glyphs[i].GetRect().y / f_height;
+		coords.z = coords.x + (m_Glyphs[i].GetRect().z / f_width);
+		coords.w = coords.y + (m_Glyphs[i].GetRect().w / f_height);
+		m_Glyphs[i].SetTexCoords(coords);
+		//m_Glyphs[i].SetTex(m_Texture.GetTex());
 	}
 
 	FT_Done_Face(face);
