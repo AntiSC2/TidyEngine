@@ -96,24 +96,18 @@ bool Font::Initialize(FT_Library *lib, std::string path, uint32_t height)
 			continue;
 		}
 		
-		b_width += bitmap.width;
-		if (bitmap.rows > b_height)
-			b_height = bitmap.rows;
-		
-		GLubyte *temp_bitmap = new GLubyte[bitmap.width * bitmap.rows
-		                                   * 2];
+		GLubyte *temp_bitmap = new GLubyte[bitmap.width * bitmap.rows];
 		
 		for (uint32_t y = 0; y < bitmap.rows; y++) {
 			for (uint32_t x = 0; x < bitmap.width; x++) {
-				temp_bitmap[2 * (x + y * bitmap.width)] =
-				temp_bitmap[2 * (x + y * bitmap.width) + 1] =
-				bitmap.buffer[x + bitmap.width * y];
+				temp_bitmap[x + y * bitmap.width] =
+				bitmap.buffer[x + y * bitmap.width];
 			}
 		}
 		
 		temp_bitmaps.push_back(temp_bitmap);
-		m_Glyphs[count] = FontGlyph(0.0f, 0.0f, next_power(bitmap.width),
-		                           next_power(bitmap.rows), 1);
+		m_Glyphs[count] = FontGlyph((float)b_width, 0.0f, (float)bitmap.width,
+		                            (float)bitmap.rows, 1);
 		
 		FontGlyph &temp_glyph = m_Glyphs[m_Glyphs.size() - 1];
 		temp_glyph.SetPenX(face->glyph->bitmap_left);
@@ -123,34 +117,44 @@ bool Font::Initialize(FT_Library *lib, std::string path, uint32_t height)
 		
 		if (m_TexHeight < face->glyph->bitmap_top)
 			m_TexHeight = face->glyph->bitmap_top;
-	
+
+		b_width += bitmap.width;
+		if (bitmap.rows > b_height)
+			b_height = bitmap.rows;
+
 		count++;
 	}
 
 	uint32_t f_width = next_power(b_width);
 	uint32_t f_height = next_power(b_height);
-	uint32_t index = 0;
 	uint32_t offset = 0;
-	GLubyte *final_bitmap = new GLubyte[f_width * f_height * 2];
+	uint32_t index = 0;
 	
-	for (uint32_t x = 0; x < f_width; x++) {
-		for (uint32_t y = 0; y < f_height; y++) {
-			if (x >= b_width || y >= (uint32_t)m_Glyphs[index].GetRect().w) {
-				final_bitmap[2 * (x + y * f_width)] = 
-				final_bitmap[2 * (x + y * f_width) + 1] = 0;
-			} else if (x >= (uint32_t)m_Glyphs[index].GetRect().z + offset) {
-				offset += (uint32_t)m_Glyphs[index].GetRect().z;
-				index++;
+	GLubyte *final_bitmap = new GLubyte[f_width * f_height * 2];
+	printf("Working...\n");
+	for (auto i: m_Glyphs) {
+		FontGlyph &temp = i.second;
+		uint32_t width = (uint32_t)temp.GetRect().z;
+		uint32_t height = (uint32_t)temp.GetRect().w;
+		
+		glm::vec4 uv;
+		uv.x = temp.GetRect().x / (float)f_width;
+		uv.y = 0.0f;
+		uv.z = temp.GetRect().z / (float)f_width + uv.x;
+		uv.w = temp.GetRect().w / (float)f_height;
+		temp.SetTexCoords(uv);
 
-				final_bitmap[2 * (x + y * f_width)] = 
+		for (uint32_t x = offset; x < width + offset; x++) {
+			for (uint32_t y = 0; y < f_height; y++) {
+				final_bitmap[2 * (x + y * f_width)] =
 				final_bitmap[2 * (x + y * f_width) + 1] =
-				temp_bitmaps[index][2 * ((x - offset) + y * (uint32_t)m_Glyphs[index].GetRect().z)];
-			} else {
-				final_bitmap[2 * (x + y * f_width)] = 
-				final_bitmap[2 * (x + y * f_width) + 1] =
-				temp_bitmaps[index][2 * ((x - offset) + y * (uint32_t)m_Glyphs[index].GetRect().z)];
+				(x >= b_width || y >= height || index >= temp_bitmaps.size()) ?
+				0 : temp_bitmaps[index][(x - offset) + y * width];
 			}
 		}
+
+		offset += width;
+		index++;
 	}
 		
 	for (auto i: temp_bitmaps) {
@@ -160,15 +164,9 @@ bool Font::Initialize(FT_Library *lib, std::string path, uint32_t height)
 	temp_bitmaps.clear();
 	m_Texture.CreateTex(final_bitmap, f_width, f_height, true);
 	delete []final_bitmap;
-
-	for (size_t i = 0; i < m_Glyphs.size(); i++) {
-		glm::vec4 coords;
-		coords.x = m_Glyphs[i].GetRect().x / f_width;
-		coords.y = m_Glyphs[i].GetRect().y / f_height;
-		coords.z = coords.x + (m_Glyphs[i].GetRect().z / f_width);
-		coords.w = coords.y + (m_Glyphs[i].GetRect().w / f_height);
-		m_Glyphs[i].SetTexCoords(coords);
-		//m_Glyphs[i].SetTex(m_Texture.GetTex());
+	
+	for (auto i : m_Glyphs) {
+		i.second.SetTex(m_Texture.GetTex());
 	}
 
 	FT_Done_Face(face);
