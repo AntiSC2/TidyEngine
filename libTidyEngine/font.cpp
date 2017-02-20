@@ -106,8 +106,13 @@ bool Font::Initialize(FT_Library *lib, std::string path, uint32_t height)
 		}
 		
 		temp_bitmaps.push_back(temp_bitmap);
+<<<<<<< HEAD
 		m_Glyphs[count] = FontGlyph((float)b_width, 0.0f, (float)bitmap.width,
 		                            (float)bitmap.rows, 1);
+=======
+		m_Glyphs[count] = FontGlyph(0.0f, 0.0f, bitmap.width,
+		                           bitmap.rows, 1);
+>>>>>>> 804d2e5fc80d7da892819a08ada9c4bf39a9327f
 		
 		FontGlyph &temp_glyph = m_Glyphs[m_Glyphs.size() - 1];
 		temp_glyph.SetPenX(face->glyph->bitmap_left);
@@ -131,7 +136,7 @@ bool Font::Initialize(FT_Library *lib, std::string path, uint32_t height)
 	uint32_t index = 0;
 	
 	GLubyte *final_bitmap = new GLubyte[f_width * f_height * 2];
-	printf("Working...\n");
+	
 	for (auto i: m_Glyphs) {
 		FontGlyph &temp = i.second;
 		uint32_t width = (uint32_t)temp.GetRect().z;
@@ -164,9 +169,21 @@ bool Font::Initialize(FT_Library *lib, std::string path, uint32_t height)
 	temp_bitmaps.clear();
 	m_Texture.CreateTex(final_bitmap, f_width, f_height, true);
 	delete []final_bitmap;
+<<<<<<< HEAD
 	
 	for (auto i : m_Glyphs) {
 		i.second.SetTex(m_Texture.GetTex());
+=======
+
+	for (size_t i = 0; i < m_Glyphs.size(); i++) {
+		glm::vec4 coords;
+		coords.x = m_Glyphs[i].GetRect().x / f_width;
+		coords.y = m_Glyphs[i].GetRect().y / f_height;
+		coords.z = coords.x + (m_Glyphs[i].GetRect().z / f_width);
+		coords.w = coords.y + (m_Glyphs[i].GetRect().w / f_height);
+		m_Glyphs[i].SetTexCoords(coords);
+		m_Glyphs[i].SetTex(m_Texture.GetTex());
+>>>>>>> 804d2e5fc80d7da892819a08ada9c4bf39a9327f
 	}
 
 	FT_Done_Face(face);
