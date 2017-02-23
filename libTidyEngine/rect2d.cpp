@@ -28,7 +28,7 @@ Rect2D::Rect2D()
 Rect2D::Rect2D(float x, float y, float w, float h)
 {
 	SetRect(x, y, w, h);
-	m_Tex = /*Resources.GetTexture("default")->GetTex()*/2;
+	m_Tex = Resources.GetTexture("default")->GetTex();
 }
 
 Rect2D::Rect2D(glm::vec2 position, glm::vec2 dimensions)
