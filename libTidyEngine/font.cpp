@@ -109,7 +109,7 @@ bool Font::Initialize(FT_Library *lib, std::string path, uint32_t height)
 		m_Glyphs[count] = FontGlyph((float)b_width, 0.0f, (float)bitmap.width,
 		                            (float)bitmap.rows, 1);
 		
-		FontGlyph &temp_glyph = m_Glyphs[m_Glyphs.size() - 1];
+		FontGlyph &temp_glyph = m_Glyphs[count];
 		temp_glyph.SetPenX(face->glyph->bitmap_left);
 		temp_glyph.SetPenY(face->glyph->bitmap_top);
 		temp_glyph.SetAdvanceX(face->glyph->advance.x >> 6);
@@ -138,30 +138,30 @@ bool Font::Initialize(FT_Library *lib, std::string path, uint32_t height)
 		uint32_t height = (uint32_t)temp.GetRect().w;
 		
 		glm::vec4 uv;
-		uv.x = temp.GetRect().x / (float)f_width;
+		uv.x = 0.0f;
 		uv.y = 0.0f;
-		uv.z = temp.GetRect().z / (float)f_width + uv.x;
-		uv.w = temp.GetRect().w / (float)f_height;
-		temp.SetTexCoords(uv);
+		uv.z = 1.0f;
+		uv.w = 1.0f;
+		temp.SetTexUV(uv);
 
-		for (uint32_t x = offset; x < width + offset; x++) {
+		for (uint32_t x = offset; x < f_width; x++) {
 			for (uint32_t y = 0; y < f_height; y++) {
 				final_bitmap[2 * (x + y * f_width)] =
-				final_bitmap[2 * (x + y * f_width) + 1] =
-				(x >= b_width || y >= height || index >= temp_bitmaps.size()) ?
-				0 : temp_bitmaps[index][(x - offset) + y * width];
+				final_bitmap[2 * (x + y * f_width) + 1] = 0;
+				/*(x >= b_width || y >= height) ?
+				0 : temp_bitmaps[index][(x - offset) + y * width]*/;
 			}
 		}
-
+		break;
 		offset += width;
 		index++;
 	}
 		
-	for (auto i: temp_bitmaps) {
+	for (auto i: temp_bitmaps)
 		delete[] i;
-	}
 	
 	temp_bitmaps.clear();
+	printf("%d, %d", final_bitmap[0], final_bitmap[1]);
 	m_Texture.CreateTex(final_bitmap, f_width, f_height, true);
 	delete []final_bitmap;
 	

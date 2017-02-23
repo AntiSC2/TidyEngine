@@ -77,7 +77,7 @@ void Game::Update()
 void Game::DrawGame()
 {
 	Rect2D rect;
-	rect.SetColor(glm::vec4(0.2f, 0.7f, 0.5f, 1.0f));
+	rect.SetColor(glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
 	rect.SetRect(640.0f, -180.0f, 640.0f, 360.0f);
 	m_Render.Clear();
 

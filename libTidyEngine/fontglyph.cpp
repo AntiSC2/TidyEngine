@@ -88,7 +88,7 @@ void FontGlyph::SetColor(glm::vec4 color)
 
 }
 
-void FontGlyph::SetTexCoords(glm::vec4 coords)
+void FontGlyph::SetTexUV(glm::vec4 coords)
 {
 	m_TexCoords = coords;
 	if (m_Vertices.size() == 6) {

@@ -29,7 +29,7 @@ public:
 
 	virtual void SetPos(float x, float y);
 	virtual void SetColor(glm::vec4 color);
-	virtual void SetTexCoords(glm::vec4 coords);
+	virtual void SetTexUV(glm::vec4 coords);
 	virtual void SetPenX(int32_t pen_x);
 	virtual void SetPenY(int32_t pen_y);
 	virtual int32_t GetPenX();
