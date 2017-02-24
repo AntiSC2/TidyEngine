@@ -17,17 +17,35 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 Contact the author at: jakob.sinclair99@gmail.com
 */
 
-#pragma once
+#include "luascript.hpp"
+#include "objectmanager.hpp"
 
-#include <string>
-#include "lua.hpp"
+LuaScript::LuaScript()
+{
+	m_L = luaL_newstate();
+	if (m_L != nullptr)
+		Expose();
+}
 
-class LuaVM {
-public:
-	LuaVM();
-	~LuaVM();
+LuaScript::~LuaScript()
+{
+	if (m_L != nullptr) {
+		lua_close(m_L);
+		m_L = nullptr;
+	}
+}
 
-	int LoadScript(const std::string &file);
-private:
-	lua_State *m_State = nullptr;
-};
+bool LuaScript::LoadScript(const std::string &file)
+{
+	if (luaL_loadfile(m_L, file.c_str()) || lua_pcall(m_L, 0, 0, 0)) {
+		printf("Warning: could not load script %s!\n", file.c_str());
+		return false;
+	}
+
+	return true;
+}
+
+void LuaScript::Expose()
+{
+	;
+}

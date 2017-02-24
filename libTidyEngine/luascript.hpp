@@ -17,20 +17,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 Contact the author at: jakob.sinclair99@gmail.com
 */
 
-#include "vm.hpp"
+#pragma once
 
-LuaVM::LuaVM()
-{
-	m_State = luaL_newstate();
-	luaL_openlibs(m_State);
-}
+#include <string>
+#include "lua.hpp"
 
-LuaVM::~LuaVM()
-{
-	lua_close(m_State);
-}
+class LuaScript {
+public:
+	LuaScript();
+	~LuaScript();
 
-int LuaVM::LoadScript(const std::string &file)
-{
-	return luaL_loadfile(m_State, file.c_str());
-}
+	bool LoadScript(const std::string &file);
+protected:
+	void Expose();
+	lua_State *m_L = nullptr;
+};

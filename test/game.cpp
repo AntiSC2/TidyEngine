@@ -84,7 +84,7 @@ void Game::DrawGame()
 	m_SpriteRenderer.Begin();
 	m_ObjectManager.Draw(&m_SpriteRenderer);
 	m_SpriteRenderer.Draw(&rect);
-	m_SpriteRenderer.DrawText("TidyEngine V0.2", glm::vec2(0.0f, 64.0f), glm::vec4(1.0f, 1.0f, 0.0f, 1.0f), m_Font);
+	m_SpriteRenderer.DrawText("TidyEngine V0.2", glm::vec2(0.0f, 64.0f), glm::vec4(1.0f, 0.0f, 0.0f, 1.0f), m_Font);
 	m_SpriteRenderer.End();
 	m_SpriteRenderer.Present(m_ObjectManager.GetCamera());
 
