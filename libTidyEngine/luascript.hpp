@@ -25,10 +25,18 @@ Contact the author at: jakob.sinclair99@gmail.com
 class LuaScript {
 public:
 	LuaScript();
+	LuaScript(const std::string &file);
 	~LuaScript();
 
 	bool LoadScript(const std::string &file);
+	template<typename T>
+	std::string lua_getdefault();
+	template<typename T>
+	T lua_get();
+	template<typename T>
+	T Get(const std::string &name);
 protected:
-	void Expose();
+	void Error(const std::string &file);
 	lua_State *m_L = nullptr;
+	uint32_t m_Level = 0;
 };

@@ -22,9 +22,14 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 LuaScript::LuaScript()
 {
+	;
+}
+
+LuaScript::LuaScript(const std::string &file)
+{
 	m_L = luaL_newstate();
-	if (m_L != nullptr)
-		Expose();
+	if (LoadScript(file) == false)
+		m_L = nullptr;
 }
 
 LuaScript::~LuaScript()
@@ -37,6 +42,9 @@ LuaScript::~LuaScript()
 
 bool LuaScript::LoadScript(const std::string &file)
 {
+	if (m_L == nullptr)
+		m_L = luaL_newstate();
+
 	if (luaL_loadfile(m_L, file.c_str()) || lua_pcall(m_L, 0, 0, 0)) {
 		printf("Warning: could not load script %s!\n", file.c_str());
 		return false;
@@ -45,7 +53,31 @@ bool LuaScript::LoadScript(const std::string &file)
 	return true;
 }
 
-void LuaScript::Expose()
+template<>
+std::string LuaScript::lua_getdefault()
 {
-	;
+	return "null";
+}
+
+template<typename T>
+T LuaScript::Get(const std::string &name)
+{
+	if (m_L == nullptr) {
+		Error();
+		return lua_getdefault<T>();
+	}
+
+	/*T result;
+	if (lua_gettostack(name)) {
+		result = lua_get<T>(name)
+	} else {
+		result = lua_getdefault<T>();
+	}
+
+	lua_pop(m_L, m_Level + 1);*/
+}
+
+void LuaScript::Error(const std::string &name)
+{
+	printf("Error: could not get variable %s from script!\n" name.c_str());
 }
