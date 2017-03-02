@@ -27,16 +27,18 @@ public:
 	LuaScript();
 	LuaScript(const std::string &file);
 	~LuaScript();
-
+	
 	bool LoadScript(const std::string &file);
-	template<typename T>
-	std::string lua_getdefault();
-	template<typename T>
-	T lua_get();
+	bool Lua_GetToStack(const std::string &name);
+
 	template<typename T>
 	T Get(const std::string &name);
+	template<typename T>
+	T Lua_Get(const std::string &name);
+	template<typename T>
+	T Lua_GetDefault();
 protected:
-	void Error(const std::string &file);
+	void Error(const std::string &name);
 	lua_State *m_L = nullptr;
 	uint32_t m_Level = 0;
 };

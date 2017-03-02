@@ -193,13 +193,13 @@ include_directories(${FREETYPE2_INCLUDE_DIRS})
 add_library(${PROJECT_NAME} STATIC ${SOURCE} ${HEADERS})
 target_link_libraries(${PROJECT_NAME} ${GLFW_LIBRARIES}
                                       ${GLAD_LIBRARIES}
-				      ${FREEIMAGE_LIBRARIES}
-				      ${LUAJIT_LIBRARIES}
-				      ${OPENAL_LIBRARIES}
-				      ${OGG_LIBRARIES}
+                                      ${FREEIMAGE_LIBRARIES}
+                                      ${LUAJIT_LIBRARIES}
+                                      ${OPENAL_LIBRARIES}
+                                      ${OGG_LIBRARIES}
                                       ${VORBIS_LIBRARIES}
                                       ${VORBISFILE_LIBRARIES}
-				      ${FREETYPE2_LIBRARIES})
+                                      ${FREETYPE2_LIBRARIES})
 
 if (WIN32)
 	target_link_libraries(${PROJECT_NAME} opengl32.lib)
