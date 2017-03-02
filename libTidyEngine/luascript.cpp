@@ -40,6 +40,11 @@ LuaScript::~LuaScript()
 	}
 }
 
+std::string LuaScript::Type()
+{
+	return "LuaScript";
+}
+
 bool LuaScript::LoadScript(const std::string &file)
 {
 	if (m_L == nullptr)
@@ -66,7 +71,7 @@ bool LuaScript::Lua_GetToStack(const std::string &name)
 				lua_getfield(m_L, -1, var.c_str());
 		
 			if (lua_isnil(m_L, -1)) {
-				Error(name);
+				printf("Warning: %s is not in stack!\n", name.c_str());
 				return false;
 			} else {
 				var = "";
@@ -83,7 +88,7 @@ bool LuaScript::Lua_GetToStack(const std::string &name)
 		lua_getfield(m_L, -1, var.c_str());
 
 	if (lua_isnil(m_L, -1)) {
-		Error(name);
+		printf("Warning: %s is not in stack!\n", name.c_str());
 		return false;
 	}
 
@@ -94,7 +99,7 @@ template<typename T>
 T LuaScript::Get(const std::string &name)
 {
 	if (!m_L) {
-		Error(name);
+		printf("Warning: script is not loaded!\n");
 		return Lua_GetDefault<T>();
 	}
 
@@ -125,7 +130,7 @@ template<>
 float LuaScript::Lua_Get(const std::string &name)
 {
 	if (lua_isnumber(m_L, -1) == false)
-		printf("Warning: Lua var %s is not a number!", name.c_str());
+		printf("Warning: Lua var %s is not a number!\n", name.c_str());
 	return (float)lua_tonumber(m_L, -1);
 }
 
@@ -133,7 +138,7 @@ template<>
 int LuaScript::Lua_Get(const std::string &name)
 {
 	if (lua_isnumber(m_L, -1) == false)
-		printf("Warning: Lua var %s is not a number!", name.c_str());
+		printf("Warning: Lua var %s is not a number!\n", name.c_str());
 	return (int)lua_tonumber(m_L, -1);
 }
 
@@ -143,7 +148,7 @@ std::string LuaScript::Lua_Get(const std::string &name)
 	if (lua_isstring(m_L, -1)) {
 		return std::string(lua_tostring(m_L, -1));
 	} else {
-		printf("Warning: Lua var %s is not a string!", name.c_str());
+		printf("Warning: Lua var %s is not a string!\n", name.c_str());
 		return "null";
 	}
 }
@@ -158,9 +163,4 @@ template<>
 std::string LuaScript::Lua_GetDefault()
 {
 	return "null";
-}
-
-void LuaScript::Error(const std::string &name)
-{
-	printf("Error: could not get variable %s from script!\n", name.c_str());
 }

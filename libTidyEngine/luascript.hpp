@@ -21,13 +21,15 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 #include <string>
 #include "lua.hpp"
+#include "resource.hpp"
 
-class LuaScript {
+class LuaScript: public Renderable {
 public:
 	LuaScript();
 	LuaScript(const std::string &file);
 	~LuaScript();
-	
+
+	virtual std::string Type();	
 	bool LoadScript(const std::string &file);
 	bool Lua_GetToStack(const std::string &name);
 
@@ -38,7 +40,6 @@ public:
 	template<typename T>
 	T Lua_GetDefault();
 protected:
-	void Error(const std::string &name);
 	lua_State *m_L = nullptr;
 	uint32_t m_Level = 0;
 };
