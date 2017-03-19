@@ -95,6 +95,12 @@ bool LuaScript::Lua_GetToStack(const std::string &name)
 	return true;
 }
 
+void LuaScript::CleanStack()
+{
+	int n = lua_gettop(m_L);
+	lua_pop(m_L, n);
+}
+
 template<typename T>
 T LuaScript::Get(const std::string &name)
 {

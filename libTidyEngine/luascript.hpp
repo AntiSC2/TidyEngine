@@ -23,7 +23,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include "lua.hpp"
 #include "resource.hpp"
 
-class LuaScript: public Renderable {
+class LuaScript: public Resource {
 public:
 	LuaScript();
 	LuaScript(const std::string &file);
@@ -32,6 +32,7 @@ public:
 	virtual std::string Type();	
 	bool LoadScript(const std::string &file);
 	bool Lua_GetToStack(const std::string &name);
+	void CleanStack();
 
 	template<typename T>
 	T Get(const std::string &name);
