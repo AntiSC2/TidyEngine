@@ -122,7 +122,7 @@ void Core::GameLoop()
 		frames++;
 
 		if (current_time - timer > 1.0) {
-			printf("Updates: %d\nFPS: %d\n", updates, frames);
+			printf("Updates: %llu\nFPS: %llu\n", updates, frames);
 			timer = current_time;
 			updates = 0;
 			frames = 0;
