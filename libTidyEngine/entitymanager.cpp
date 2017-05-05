@@ -1,4 +1,4 @@
-/*
+﻿/*
 TidyEngine
 Copyright (C) 2016 Jakob Sinclair
 
@@ -17,40 +17,47 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 Contact the author at: jakob.sinclair99@gmail.com
 */
 
-#include "object.hpp"
+#include "entitymanager.hpp"
+#include "entity.hpp"
+#include "renderer.hpp"
 
-Object::~Object()
+EntityManager::EntityManager()
 {
 	;
 }
 
-void Object::Update(float delta)
+EntityManager::~EntityManager()
 {
-	for (auto i : m_Resources) {
-		if (i.Data()->Type() == "Renderable") {
-			Renderable *temp = static_cast<Renderable *>(i.Data());
-			temp->Update(false);
+	;
+}
+
+void EntityManager::AddEntity(Entity *entity)
+{
+	m_Entities.emplace_back(entity);
+}
+
+void EntityManager::Update()
+{
+	for (size_t i = 0; i < m_Objects.size(); i++)
+		m_Entities[i]->Update();
+}
+
+void EntityManager::Draw(Renderer *renderer)
+{
+	for (size_t i = 0; i < m_Objects.size(); i++) {
+		if (m_Entities[i]->Draw() != nullptr) {
+			m_Entities[i]->Draw()->Update(true);
+			renderer->Draw(m_Entities[i]->Draw());
 		}
 	}
 }
 
-Renderable *Object::Draw()
+void EntityManager::SetCamera(Camera2D *camera)
 {
-	for (auto i : m_Resources) {
-		if (i.Data()->Type() == "Renderable") {
-			Renderable *temp = static_cast<Renderable *>(i.Data());
-			return temp;
-		}
-	}
-	return nullptr;
+	m_CurrentCamera = camera;
 }
 
-void Object::SetName(std::string name)
+const Camera2D *EntityManager::GetCamera()
 {
-	m_Name = name;
-}
-
-void Object::SetScript(std::string script)
-{
-	m_Script = script;
+	return m_CurrentCamera;
 }

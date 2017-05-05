@@ -1,4 +1,4 @@
-﻿/*
+/*
 TidyEngine
 Copyright (C) 2016 Jakob Sinclair
 
@@ -17,47 +17,31 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 Contact the author at: jakob.sinclair99@gmail.com
 */
 
-#include "objectmanager.hpp"
-#include "object.hpp"
-#include "renderer.hpp"
+#pragma once
 
-ObjectManager::ObjectManager()
-{
-	;
-}
+#include <glm/vec3.hpp>
+#include <vector>
+#include <string>
+#include "renderable.hpp"
+#include "rid.hpp"
 
-ObjectManager::~ObjectManager()
-{
-	;
-}
-
-void ObjectManager::AddObject(Object *object)
-{
-	m_Objects.emplace_back(object);
-}
-
-void ObjectManager::Update()
-{
-	for (size_t i = 0; i < m_Objects.size(); i++)
-		m_Objects[i]->Update();
-}
-
-void ObjectManager::Draw(Renderer *renderer)
-{
-	for (size_t i = 0; i < m_Objects.size(); i++) {
-		if (m_Objects[i]->Draw() != nullptr) {
-			m_Objects[i]->Draw()->Update(true);
-			renderer->Draw(m_Objects[i]->Draw());
-		}
+class Entity {
+public:
+	Entity(std::string name = "temp", std::string script = "none",
+	       std::vector<RID> resources = {}) : m_Name(name),
+		m_Script(script), m_Resources(resources)
+	{
+		;
 	}
-}
+	virtual ~Entity();
 
-void ObjectManager::SetCamera(Camera2D *camera)
-{
-	m_CurrentCamera = camera;
-}
-
-const Camera2D *ObjectManager::GetCamera()
-{
-	return m_CurrentCamera;
-}
+	virtual void Update(float delta = 0.0f);
+	virtual Renderable *Draw();
+	void SetName(std::string name);
+	void SetScript(std::string script);
+protected:
+	std::string m_Name = "temp";
+	std::string m_Script = "none";
+	std::vector<RID> m_Resources = {};
+	glm::vec3 m_Position = glm::vec3(0.0f, 0.0f, 0.0f);
+};

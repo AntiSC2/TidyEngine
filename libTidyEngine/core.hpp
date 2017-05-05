@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "render.hpp"
 #include "spriterenderer.hpp"
 #include "input.hpp"
-#include "objectmanager.hpp"
+#include "entitymanager.hpp"
 #include "audio.hpp"
 #include <ft2build.h>
 #include FT_FREETYPE_H
@@ -49,5 +49,5 @@ protected:
 	SpriteRenderer m_SpriteRenderer;
 	Input m_Input;
 	Font m_Font;
-	ObjectManager m_ObjectManager;
+	EntityManager m_EntityManager;
 };

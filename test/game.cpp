@@ -40,8 +40,8 @@ bool Game::Init()
 {
 	Camera2D *cam = new Camera2D("MainCamera");
 	cam->Initialise(1280, 720, &m_Screen);
-	m_ObjectManager.SetCamera(cam);
-	m_ObjectManager.AddObject(cam);
+	m_EntityManager.SetCamera(cam);
+	m_EntityManager.AddObject(cam);
 	cam = nullptr;
 	m_Font.Initialize(&m_FontLib, "modern_squared2.ttf", 128);
 
@@ -57,9 +57,9 @@ bool Game::Init()
 	                         {0, 0, 1, 0,0, 1, 1, 1}));
 	temp = nullptr;
 	
-	Object *temp2 = new Object("hello", "none",
+	Entity *temp2 = new Entity("hello", "none",
 	                          {*Resources.GetResource("sprite")});
-	m_ObjectManager.AddObject(temp2);
+	m_EntityManager.AddObject(temp2);
 	
 	return true;
 }
@@ -67,7 +67,7 @@ bool Game::Init()
 void Game::Update()
 {
 	m_Input.Update();
-	m_ObjectManager.Update();
+	m_EntityManager.Update();
 	if (m_Input.GetKey(GLFW_KEY_ESCAPE))
 		m_Screen.CloseWindow();
 	else if (m_Input.GetKey(GLFW_KEY_SPACE))
@@ -82,11 +82,11 @@ void Game::DrawGame()
 	m_Render.Clear();
 
 	m_SpriteRenderer.Begin();
-	m_ObjectManager.Draw(&m_SpriteRenderer);
+	m_EntityManager.Draw(&m_SpriteRenderer);
 	m_SpriteRenderer.Draw(&rect);
 	m_SpriteRenderer.DrawText("TidyEngine V0.2", glm::vec2(0.0f, 64.0f), glm::vec4(1.0f, 0.0f, 0.0f, 1.0f), m_Font);
 	m_SpriteRenderer.End();
-	m_SpriteRenderer.Present(m_ObjectManager.GetCamera());
+	m_SpriteRenderer.Present(m_EntityManager.GetCamera());
 
 	m_Render.Present(m_Screen.GetWindow());
 }

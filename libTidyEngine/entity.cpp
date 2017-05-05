@@ -1,4 +1,4 @@
-﻿/*
+/*
 TidyEngine
 Copyright (C) 2016 Jakob Sinclair
 
@@ -17,26 +17,40 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 Contact the author at: jakob.sinclair99@gmail.com
 */
 
-#pragma once
+#include "entity.hpp"
 
-class Object;
-class Renderer;
+Entity::~Entity()
+{
+	;
+}
 
-#include <memory>
-#include <vector>
-#include "camera2d.hpp"
+void Entity::Update(float delta)
+{
+	for (auto i : m_Resources) {
+		if (i.Data()->Type() == "Renderable") {
+			Renderable *temp = static_cast<Renderable *>(i.Data());
+			temp->Update(false);
+		}
+	}
+}
 
-class ObjectManager {
-public:
-	ObjectManager();
-	virtual ~ObjectManager();
-	
-	virtual void Update();
-	virtual void Draw(Renderer *renderer);
-	virtual void AddObject(Object *object);
-	virtual void SetCamera(Camera2D *camera);
-	virtual const Camera2D *GetCamera();
-protected:
-	std::vector<std::unique_ptr<Object>> m_Objects;
-	Camera2D *m_CurrentCamera = nullptr;
-};
+Renderable *Entity::Draw()
+{
+	for (auto i : m_Resources) {
+		if (i.Data()->Type() == "Renderable") {
+			Renderable *temp = static_cast<Renderable *>(i.Data());
+			return temp;
+		}
+	}
+	return nullptr;
+}
+
+void Entity::SetName(std::string name)
+{
+	m_Name = name;
+}
+
+void Entity::SetScript(std::string script)
+{
+	m_Script = script;
+}

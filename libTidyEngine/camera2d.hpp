@@ -21,13 +21,13 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 #include <glm/mat4x4.hpp>
 #include <cstdint>
-#include "object.hpp"
+#include "entity.hpp"
 
 class Screen;
 
-class Camera2D : public Object {
+class Camera2D : public Entity {
 public:
-	Camera2D(std::string name) : Object(name) 
+	Camera2D(std::string name) : Entity(name) 
 	{
 		;
 	}

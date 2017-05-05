@@ -1,4 +1,4 @@
-/*
+﻿/*
 TidyEngine
 Copyright (C) 2016 Jakob Sinclair
 
@@ -19,29 +19,24 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 #pragma once
 
-#include <glm/vec3.hpp>
+class Entity;
+class Renderer;
+
+#include <memory>
 #include <vector>
-#include <string>
-#include "renderable.hpp"
-#include "rid.hpp"
+#include "camera2d.hpp"
 
-class Object {
+class EntityManager {
 public:
-	Object(std::string name = "temp", std::string script = "none",
-	       std::vector<RID> resources = {}) : m_Name(name),
-		m_Script(script), m_Resources(resources)
-	{
-		;
-	}
-	virtual ~Object();
+	EntityManager();
+	virtual ~EntityManager();
 
-	virtual void Update(float delta = 0.0f);
-	virtual Renderable *Draw();
-	void SetName(std::string name);
-	void SetScript(std::string script);
+	virtual void Update();
+	virtual void Draw(Renderer *renderer);
+	virtual void AddEntity(Entity *entity);
+	virtual void SetCamera(Camera2D *camera);
+	virtual const Camera2D *GetCamera();
 protected:
-	std::string m_Name = "temp";
-	std::string m_Script = "none";
-	std::vector<RID> m_Resources = {};
-	glm::vec3 m_Position = glm::vec3(0.0f, 0.0f, 0.0f);
+	std::vector<std::unique_ptr<Entity>> m_Entities;
+	Camera2D *m_CurrentCamera = nullptr;
 };

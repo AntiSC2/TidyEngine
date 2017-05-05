@@ -18,7 +18,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 */
 
 #include "luascript.hpp"
-#include "objectmanager.hpp"
+#include "entitymanager.hpp"
 
 LuaScript::LuaScript()
 {
