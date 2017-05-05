@@ -22,7 +22,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "rect2d.hpp"
 #include "camera2d.hpp"
 #include "sprite.hpp"
-#include "sheet.hpp"
 #include "cache.hpp"
 #include "rid.hpp"
 

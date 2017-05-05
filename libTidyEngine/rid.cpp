@@ -21,7 +21,6 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include "texture.hpp" 
 #include "sample.hpp"
 #include "renderable.hpp"
-#include "sheet.hpp"
 #include "shader.hpp"
 
 RID::RID()
@@ -50,11 +49,6 @@ void RID::SetResource(Sample *res)
 }
 
 void RID::SetResource(Renderable *res)
-{
-	m_Data.reset(static_cast<Resource *>(res));
-}
-
-void RID::SetResource(Sheet *res)
 {
 	m_Data.reset(static_cast<Resource *>(res));
 }

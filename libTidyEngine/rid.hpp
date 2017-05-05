@@ -25,7 +25,6 @@ Contact the author at: jakob.sinclair99@gmail.com
 class Texture;
 class Sample;
 class Renderable;
-class Sheet;
 class Shader;
 
 class RID {
@@ -37,7 +36,6 @@ public:
 	void SetResource(Texture *res);
 	void SetResource(Sample *res);
 	void SetResource(Renderable *res);
-	void SetResource(Sheet *res);
 	void SetResource(Shader *res);
 	Resource *Data() const;
 private:
