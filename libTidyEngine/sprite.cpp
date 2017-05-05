@@ -22,24 +22,24 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include <glm/vec2.hpp>
 #include "renderable.hpp"
 #include "vertex.hpp"
-#include "sheet.hpp"
 #include "rid.hpp"
+#include "texture.hpp"
 
-Sprite::Sprite(Sheet *sheet, uint32_t w, uint32_t h,
+Sprite::Sprite(const Texture *tex, uint32_t w, uint32_t h,
 		const std::vector<uint32_t> &frames)
 {
-	Initialise(sheet, w, h, frames);
+	Initialise(tex, w, h, frames);
 }
 
 Sprite::Sprite(RID *res, uint32_t w, uint32_t h,
 	       const std::vector<uint32_t> &frames)
 {
-	if (res->Data()->Type() == "Sheet") {
-		Sheet *temp = nullptr;
-		temp = static_cast<Sheet *>(res->Data());
+	if (res->Data()->Type() == "Texture") {
+		Texture *temp = nullptr;
+		temp = static_cast<Texture *>(res->Data());
 		Initialise(temp, w, h, frames);
 	} else {
-		printf("Warning: a sheet was not passed to a sprite!\n");
+		printf("Warning: a texture was not passed to a sprite!\n");
 	}
 }
 
@@ -109,26 +109,34 @@ void Sprite::Update(bool render)
 		}
 	}
 }
-
-/* frames must contain an even number of elements, else it returns false */
-bool Sprite::Initialise(Sheet *sheet, uint32_t w, uint32_t h,
+/* frames contain texture coordinates of all the frames in the sprite if the
+ * sprite is animated, therefore the number of elements need to be dividable
+ * by 4
+ */
+bool Sprite::Initialise(const Texture *tex, uint32_t w, uint32_t h,
 		const std::vector<uint32_t> &frames)
 {
-	if (frames.size() % 2 != 0 || sheet == nullptr)
+	if (frames.size() % 4 != 0 || tex == nullptr)
 		return false;
 
-	m_Tex = sheet->GetTex();
+	m_Tex = tex->GetTex();
+	m_Texture = tex;
 	m_Frames.clear();
-	for (size_t i = 1; i < frames.size(); i += 2)
-		m_Frames.push_back(sheet->GetTexCoords(frames[i - 1],
-				frames[i]));
+	for (size_t i = 0; i < frames.size(); i += 4) {
+		glm::vec4 temp;
+		temp.x = (float)frames[i] / (float)m_Texture->GetWidth();
+		temp.z = (float)frames[i + 1] / (float)m_Texture->GetWidth();
+		temp.y = (float)frames[i + 2] / (float)m_Texture->GetHeight();
+		temp.w = (float)frames[i + 3] / (float)m_Texture->GetHeight();
+		m_Frames.push_back(temp);
+	}
 
 	if (w == 0)
-		m_Width = sheet->GetWidth();
+		m_Width = m_Texture->GetWidth();
 	else
 		m_Width = w;
 	if (h == 0)
-		m_Height = sheet->GetHeight();
+		m_Height = m_Texture->GetHeight();
 	else
 		m_Height = h;
 

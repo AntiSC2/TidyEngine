@@ -49,17 +49,12 @@ bool Game::Init()
 	Resources.CreateSample("sound", "sound.ogg");
 	Resources.GetSample("sound")->Play();
 
-	RID *temp = nullptr;
-	temp = Resources.CreateResource("sheet", new Sheet(2, 2,
-	                                Resources.GetTexture("sprite")));
+	Resources.CreateResource("sprite", new Sprite(Resources.GetTexture("sprite"), 32, 32,
+	                         {0, 0, 64, 64}));
 	
-	Resources.CreateResource("sprite", new Sprite(temp, 32, 32,
-	                         {0, 0, 1, 0,0, 1, 1, 1}));
-	temp = nullptr;
-	
-	Entity *temp2 = new Entity("hello", "none",
+	Entity *temp = new Entity("hello", "none",
 	                          {*Resources.GetResource("sprite")});
-	m_EntityManager.AddEntity(temp2);
+	m_EntityManager.AddEntity(temp);
 	
 	return true;
 }

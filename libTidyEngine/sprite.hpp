@@ -19,7 +19,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 #pragma once
 
-class Sheet;
+class Texture;
 class RID;
 
 #include <cstdint>
@@ -31,15 +31,15 @@ class RID;
 
 class Sprite : public Renderable {
 public:
-	Sprite(Sheet *sheet, uint32_t w = 0, uint32_t h = 0,
+	Sprite(const Texture *tex, uint32_t w = 0, uint32_t h = 0,
 	       const std::vector<uint32_t> &frames = {0, 0});
 	Sprite(RID *res, uint32_t w = 0, uint32_t h = 0,
 	       const std::vector<uint32_t> &frames = {0, 0});
 	virtual ~Sprite();
 
 	virtual void Update(bool render = false);
-	virtual bool Initialise(Sheet *sheet, uint32_t w = 0, uint32_t h = 0, 
-	                        const std::vector<uint32_t> &frames = {0, 0});
+	virtual bool Initialise(const Texture *tex, uint32_t w = 0, uint32_t h = 0, 
+	                        const std::vector<uint32_t> &frames = {0, 0, 0, 0});
 	virtual const glm::vec3 &GetPos() const;
 	virtual const uint32_t &GetWidth() const;
 	virtual const uint32_t &GetHeight() const;
@@ -55,6 +55,7 @@ protected:
 	uint32_t m_Width = 0;
 	uint32_t m_Height = 0;
 	glm::vec3 m_Position = glm::vec3(0.0f, 0.0f, 0.0f);
-	std::vector<glm::vec4> m_Frames;
+	std::vector<glm::vec4> m_Frames = {};
+	const Texture *m_Texture = nullptr;
 	bool m_Update = false;
 };
