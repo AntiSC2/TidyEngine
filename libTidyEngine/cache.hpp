@@ -38,13 +38,13 @@ public:
 
 	bool CreateDefaultResources();
 
-	const Texture *CreateTexture(std::string name, std::string filepath);
+	Texture *CreateTexture(std::string name, std::string filepath);
 	void DestroyTexture(std::string name);
-	const Texture *GetTexture(std::string name);
+	Texture *GetTexture(std::string name);
 
-	const Sample *CreateSample(std::string name, std::string filepath);
+	Sample *CreateSample(std::string name, std::string filepath);
 	void DestroySample(std::string name);
-	const Sample *GetSample(std::string name);
+	Sample *GetSample(std::string name);
 
 	RID *CreateResource(std::string name, Resource *data);
 	void DestroyResource(std::string name);

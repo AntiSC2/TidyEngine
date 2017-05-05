@@ -53,7 +53,7 @@ bool Cache::CreateDefaultResources()
 	return true;
 }
 
-const Texture *Cache::CreateTexture(std::string name, std::string filepath)
+Texture *Cache::CreateTexture(std::string name, std::string filepath)
 {
 	if (m_Textures.find(name) == m_Textures.end()) {
 		FIBITMAP *bitmap = IO.LoadImage(filepath);
@@ -81,7 +81,7 @@ void Cache::DestroyTexture(std::string name)
 	m_Textures.erase(name);
 }
 
-const Texture *Cache::GetTexture(std::string name)
+Texture *Cache::GetTexture(std::string name)
 {
 	if (m_Textures.find(name) != m_Textures.end())
 		return &m_Textures[name];
@@ -89,7 +89,7 @@ const Texture *Cache::GetTexture(std::string name)
 	return nullptr;
 }
 
-const Sample *Cache::CreateSample(std::string name, std::string filepath)
+Sample *Cache::CreateSample(std::string name, std::string filepath)
 {
 	if (m_Samples.find(name) != m_Samples.end()) {
 		printf("Warning: sample %s already exists!\n",
@@ -112,7 +112,7 @@ void Cache::DestroySample(std::string name)
 	m_Samples.erase(name);
 }
 
-const Sample *Cache::GetSample(std::string name)
+Sample *Cache::GetSample(std::string name)
 {
 	if (m_Samples.find(name) != m_Samples.end())
 		return &m_Samples[name];

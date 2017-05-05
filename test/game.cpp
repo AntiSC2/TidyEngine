@@ -48,9 +48,10 @@ bool Game::Init()
 	Resources.CreateSample("sound", "sound.ogg");
 	Resources.GetSample("sound")->Play();
 
-	Resources.CreateResource("sprite", new Sprite(Resources.GetTexture("sprite"), 32, 32,
-	                         {0, 0, 32, 32, 0, 32, 32, 64}));
-	static_cast<Sprite *>(Resources.GetResource("sprite")->Data())->SetImageSpeed(0.1f);
+	Sprite *sprite_ref = static_cast<Sprite *>(Resources.CreateResource(
+	                     "sprite", new Sprite(Resources.GetTexture("sprite"),
+	                     32, 32, {0, 0, 32, 32, 0, 32, 32, 64}))->Data());
+	sprite_ref->SetImageSpeed(0.1f);
 	Entity *temp = new Entity("hello", "none",
 	                          {*Resources.GetResource("sprite")});
 	m_EntityManager.AddEntity(temp);
