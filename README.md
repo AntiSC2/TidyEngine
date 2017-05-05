@@ -21,6 +21,7 @@ Here is all the dependencies you need for building the engine:
 - Freetype2, used for font loading and rendering
 
 <h3>Linux Instructions</h3>
+
 - Clone the repository using the `git clone https://github.com/AntiSC2/TidyEngine.git` command.
 - Install all the dependencies listed above.
 - Copy the `freeimage.pc` file into your pkgconfig directory. Usually located in `/usr/lib/pkgconfig`. NOTE: YOU WILL NEED ROOT ACCESS TO DO THIS.
@@ -30,6 +31,7 @@ Here is all the dependencies you need for building the engine:
 - Before you start the test application, copy over the shaders from `shaders/` folder into the `bin/` folder. You can now run the test application from the `bin/` folder with the command `./test/TEST`.
 
 <h3>Windows Instructions with Visual Studio</h3>
+
 - The windows version is working. I just haven't got around to making the instructions for it. Basicly put all the libraries and include files in the `deps` folder. Then run CMake to generate the project files, works with both MinGW and Visual Studio.
 
 # Presentation
