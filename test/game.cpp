@@ -50,7 +50,7 @@ bool Game::Init()
 	Resources.GetSample("sound")->Play();
 
 	Resources.CreateResource("sprite", new Sprite(Resources.GetTexture("sprite"), 32, 32,
-	                         {0, 0, 64, 64}));
+	                         {0, 0, 32, 32}));
 	
 	Entity *temp = new Entity("hello", "none",
 	                          {*Resources.GetResource("sprite")});
