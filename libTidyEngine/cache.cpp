@@ -62,7 +62,7 @@ const Texture *Cache::CreateTexture(std::string name, std::string filepath)
 		FreeImage_Unload(bitmap);
 		
 		if (success == false) {
-			printf("Warning: could not create texture %s",
+			printf("Warning: could not create texture %s\n",
 			       filepath.c_str());
 			return nullptr;
 		}
@@ -85,14 +85,14 @@ const Texture *Cache::GetTexture(std::string name)
 {
 	if (m_Textures.find(name) != m_Textures.end())
 		return &m_Textures[name];
-	printf("Warning: could not find texture %s!", name.c_str());
+	printf("Warning: could not find texture %s!\n", name.c_str());
 	return nullptr;
 }
 
 const Sample *Cache::CreateSample(std::string name, std::string filepath)
 {
 	if (m_Samples.find(name) != m_Samples.end()) {
-		printf("Warning: sample %s already exists!",
+		printf("Warning: sample %s already exists!\n",
 		            name.c_str());
 		return nullptr;
 	}
@@ -101,7 +101,7 @@ const Sample *Cache::CreateSample(std::string name, std::string filepath)
 	if (success == true) {
 		return &m_Samples[name];
 	} else {
-		printf("Warning: could not load sample %s!", filepath.c_str());
+		printf("Warning: could not load sample %s!\n", filepath.c_str());
 		return nullptr;
 	}
 }
@@ -116,7 +116,7 @@ const Sample *Cache::GetSample(std::string name)
 {
 	if (m_Samples.find(name) != m_Samples.end())
 		return &m_Samples[name];
-	printf("Warning: could not find sample %s!", name.c_str());
+	printf("Warning: could not find sample %s!\n", name.c_str());
 	return nullptr;
 }
 
@@ -126,7 +126,7 @@ RID *Cache::CreateResource(std::string name, Resource *data)
 		m_Resources.emplace(name, RID(data));
 		return &m_Resources[name];
 	} else {
-		printf("Warning: resource %s already exists!", name.c_str());
+		printf("Warning: resource %s already exists!\n", name.c_str());
 		return nullptr;
 	}
 }
@@ -141,7 +141,7 @@ RID *Cache::GetResource(std::string name)
 	if (m_Resources.find(name) != m_Resources.end()) {
 		return &m_Resources[name];
 	} else {
-		printf("Warning: could not find %s!", name.c_str());
+		printf("Warning: could not find %s!\n", name.c_str());
 		return nullptr;
 	}
 }
