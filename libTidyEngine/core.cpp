@@ -97,12 +97,38 @@ bool Core::InitSubSystems()
 
 void Core::GameLoop()
 {
-	printf("Main loop was entered.\n");
+	printf("Game loop was entered.\n");
+
+	const double dt = 1.0 / 60.0;
+	double current_time = glfwGetTime();
+	double accumulator = 0.0;
+	double timer = current_time;
+	size_t frames = 0;
+	size_t updates = 0;
+
 	while (!glfwWindowShouldClose(m_Screen.GetWindow())) {
-		Update();
+		double new_time = glfwGetTime();
+		double frame_time = new_time - current_time;
+		current_time = new_time;
+		accumulator += frame_time;
+
+		while (accumulator > dt) {
+			Update();
+			accumulator -= dt;
+			updates++;
+		}
+
 		DrawGame();
+		frames++;
+
+		if (current_time - timer > 1.0) {
+			printf("Updates: %d\nFPS: %d\n", updates, frames);
+			timer = current_time;
+			updates = 0;
+			frames = 0;
+		}
 	}
-	printf("Main loop was closed.\n");
+	printf("Game loop was closed.\n");
 }
 
 void Core::Quit()
