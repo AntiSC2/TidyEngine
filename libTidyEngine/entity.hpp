@@ -31,17 +31,24 @@ public:
 	       std::vector<RID> components = {}) : m_Name(name),
 		m_Script(script), m_Components(components)
 	{
-		;
+		for (auto i: m_Components) {
+			if (i.Data()->Type() == "Renderable")
+				m_Graphics.push_back(static_cast<Renderable *>(i.Data()));
+		}
 	}
 	virtual ~Entity();
 
 	virtual void Update(float delta = 0.0f);
-	virtual Renderable *Draw();
-	void SetName(std::string name);
-	void SetScript(std::string script);
+	virtual std::vector<Renderable *> &Draw();
+	virtual void AddComponents(std::vector<RID> components);
+	virtual void RemoveComponents(std::vector<size_t> id);
+	virtual RID *GetComponent(size_t id);
+	virtual void SetName(std::string name);
+	virtual void SetScript(std::string script);
 protected:
 	std::string m_Name = "temp";
 	std::string m_Script = "none";
 	std::vector<RID> m_Components = {};
+	std::vector<Renderable *> m_Graphics = {};
 	glm::vec3 m_Position = glm::vec3(0.0f, 0.0f, 0.0f);
 };

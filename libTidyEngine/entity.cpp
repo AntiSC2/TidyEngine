@@ -34,15 +34,39 @@ void Entity::Update(float delta)
 	}
 }
 
-Renderable *Entity::Draw()
+std::vector<Renderable *> &Entity::Draw()
 {
-	for (auto i : m_Components) {
-		if (i.Data()->Type() == "Renderable") {
-			Renderable *temp = static_cast<Renderable *>(i.Data());
-			return temp;
-		}
+	return m_Graphics;
+}
+
+void Entity::AddComponents(std::vector<RID> components)
+{
+	m_Components.insert(m_Components.end(), components.begin(), components.end());
+
+	for (auto i: components) {
+		if (i.Data()->Type() == "Renderable")
+			m_Graphics.push_back(static_cast<Renderable *>(i.Data()));
 	}
-	return nullptr;
+}
+
+void Entity::RemoveComponents(std::vector<size_t> id)
+{
+	for (auto i: id) {
+		if (i >= m_Components.size())
+			continue;
+
+		if (m_Components[i].Data()->Type() == "Renderable")
+			m_Graphics.erase(m_Graphics.begin());
+		m_Components.erase(m_Components.begin() + i);
+	}
+}
+
+RID *Entity::GetComponent(size_t id)
+{
+	if (id >= m_Components.size())
+		return nullptr;
+
+	return &m_Components[id];
 }
 
 void Entity::SetName(std::string name)

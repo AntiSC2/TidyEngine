@@ -45,9 +45,12 @@ void EntityManager::Update()
 void EntityManager::Draw(Renderer *renderer)
 {
 	for (size_t i = 0; i < m_Entities.size(); i++) {
-		if (m_Entities[i]->Draw() != nullptr) {
-			m_Entities[i]->Draw()->Update(true);
-			renderer->Draw(m_Entities[i]->Draw());
+		std::vector<Renderable *> temp = m_Entities[i]->Draw();
+		if (temp.size() != 0) {
+			for (auto i: temp) {
+				i->Update(true);
+				renderer->Draw(i);
+			}
 		}
 	}
 }
