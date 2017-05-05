@@ -38,13 +38,13 @@ void EntityManager::AddEntity(Entity *entity)
 
 void EntityManager::Update()
 {
-	for (size_t i = 0; i < m_Objects.size(); i++)
+	for (size_t i = 0; i < m_Entities.size(); i++)
 		m_Entities[i]->Update();
 }
 
 void EntityManager::Draw(Renderer *renderer)
 {
-	for (size_t i = 0; i < m_Objects.size(); i++) {
+	for (size_t i = 0; i < m_Entities.size(); i++) {
 		if (m_Entities[i]->Draw() != nullptr) {
 			m_Entities[i]->Draw()->Update(true);
 			renderer->Draw(m_Entities[i]->Draw());

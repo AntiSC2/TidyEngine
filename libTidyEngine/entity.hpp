@@ -28,8 +28,8 @@ Contact the author at: jakob.sinclair99@gmail.com
 class Entity {
 public:
 	Entity(std::string name = "temp", std::string script = "none",
-	       std::vector<RID> resources = {}) : m_Name(name),
-		m_Script(script), m_Resources(resources)
+	       std::vector<RID> components = {}) : m_Name(name),
+		m_Script(script), m_Components(components)
 	{
 		;
 	}
@@ -42,6 +42,6 @@ public:
 protected:
 	std::string m_Name = "temp";
 	std::string m_Script = "none";
-	std::vector<RID> m_Resources = {};
+	std::vector<RID> m_Components = {};
 	glm::vec3 m_Position = glm::vec3(0.0f, 0.0f, 0.0f);
 };

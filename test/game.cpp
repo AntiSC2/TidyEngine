@@ -41,7 +41,7 @@ bool Game::Init()
 	Camera2D *cam = new Camera2D("MainCamera");
 	cam->Initialise(1280, 720, &m_Screen);
 	m_EntityManager.SetCamera(cam);
-	m_EntityManager.AddObject(cam);
+	m_EntityManager.AddEntity(cam);
 	cam = nullptr;
 	m_Font.Initialize(&m_FontLib, "modern_squared2.ttf", 128);
 
@@ -59,7 +59,7 @@ bool Game::Init()
 	
 	Entity *temp2 = new Entity("hello", "none",
 	                          {*Resources.GetResource("sprite")});
-	m_EntityManager.AddObject(temp2);
+	m_EntityManager.AddEntity(temp2);
 	
 	return true;
 }
