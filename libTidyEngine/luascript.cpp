@@ -95,6 +95,43 @@ bool LuaScript::Lua_GetToStack(const std::string &name)
 	return true;
 }
 
+void LuaScript::LoadGetKeysFunction()
+{
+	std::string code =
+		R"(function getKeys(t)
+		s = {}
+		for k, v in pairs(t) do
+			table.insert(s, k)
+			end 
+		return s 
+		end)";
+	luaL_dostring(m_L, code.c_str());
+}
+
+std::vector<std::string> LuaScript::GetTableKeys(const std::string &table)
+{
+	lua_getglobal(m_L, "GetKeys");
+	if (lua_isnil(m_L, -1)) {
+		printf("Lua Warning: Get keys function is not loaded. Loading...\n");
+		LoadGetKeysFunction();
+		lua_getglobal(m_L, "getKeys");
+	}
+
+	std::vector<std::string> keys;
+	Lua_GetToStack(table);
+	lua_pcall(m_L, 1, 1, 0);
+
+	while (lua_next(m_L, -2)) {
+		if (lua_type(m_L, -1) == LUA_TSTRING) {
+			keys.push_back(lua_tostring(m_L, -1));
+		}
+		lua_pop(m_L, 1);
+	}
+	
+	lua_settop(m_L, 0);
+	return keys;
+}
+
 void LuaScript::CleanStack()
 {
 	int n = lua_gettop(m_L);

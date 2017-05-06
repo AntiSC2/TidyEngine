@@ -20,6 +20,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 #pragma once
 
 #include <string>
+#include <vector>
 #include "lua.hpp"
 #include "resource.hpp"
 
@@ -32,6 +33,8 @@ public:
 	virtual std::string Type();	
 	bool LoadScript(const std::string &file);
 	bool Lua_GetToStack(const std::string &name);
+	void LoadGetKeysFunction();
+	std::vector<std::string> GetTableKeys(const std::string &table);
 	void CleanStack();
 
 	template<typename T>
