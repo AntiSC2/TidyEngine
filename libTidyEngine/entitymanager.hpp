@@ -21,11 +21,11 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 class Entity;
 class Renderer;
+class Camera2D;
 
 #include <memory>
 #include <vector>
 #include <Box2D/Box2D.h>
-#include "camera2d.hpp"
 
 class EntityManager {
 public:
@@ -39,6 +39,6 @@ public:
 	virtual const Camera2D *GetCamera();
 protected:
 	std::vector<std::unique_ptr<Entity>> m_Entities;
-	std::shared_ptr<Camera2D> m_CurrentCamera = nullptr;
-	std::unique_ptr<b2World> m_World = nullptr;
+	Camera2D *m_CurrentCamera = nullptr;
+	std::unique_ptr<b2World> m_World;
 };

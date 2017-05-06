@@ -20,6 +20,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include "entitymanager.hpp"
 #include "entity.hpp"
 #include "renderer.hpp"
+#include "camera2d.hpp"
 
 EntityManager::EntityManager(float gravity)
 {
@@ -28,7 +29,7 @@ EntityManager::EntityManager(float gravity)
 
 EntityManager::~EntityManager()
 {
-	;
+	m_CurrentCamera = nullptr;
 }
 
 void EntityManager::AddEntity(Entity *entity)
@@ -57,10 +58,15 @@ void EntityManager::Draw(Renderer *renderer)
 
 void EntityManager::SetCamera(Camera2D *camera)
 {
-	m_CurrentCamera.reset(camera);
+	m_CurrentCamera = camera;
+
+	if (camera == nullptr)
+		return;
+
+	this->AddEntity(camera);
 }
 
 const Camera2D *EntityManager::GetCamera()
 {
-	return m_CurrentCamera.get();
+	return m_CurrentCamera;
 }
