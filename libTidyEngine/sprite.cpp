@@ -32,7 +32,7 @@ Sprite::Sprite(const Texture *tex, uint32_t w, uint32_t h,
 }
 
 Sprite::Sprite(RID *res, uint32_t w, uint32_t h,
-	       const std::vector<uint32_t> &frames)
+               const std::vector<uint32_t> &frames)
 {
 	if (res->Data()->Type() == "Texture") {
 		Texture *temp = nullptr;

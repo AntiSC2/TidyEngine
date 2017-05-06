@@ -24,11 +24,12 @@ class Renderer;
 
 #include <memory>
 #include <vector>
+#include <Box2D/Box2D.h>
 #include "camera2d.hpp"
 
 class EntityManager {
 public:
-	EntityManager();
+	EntityManager(float gravity = 9.82);
 	virtual ~EntityManager();
 
 	virtual void Update();
@@ -38,5 +39,6 @@ public:
 	virtual const Camera2D *GetCamera();
 protected:
 	std::vector<std::unique_ptr<Entity>> m_Entities;
-	Camera2D *m_CurrentCamera = nullptr;
+	std::shared_ptr<Camera2D> m_CurrentCamera = nullptr;
+	std::unique_ptr<b2World> m_World = nullptr;
 };

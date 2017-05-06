@@ -21,9 +21,9 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include "entity.hpp"
 #include "renderer.hpp"
 
-EntityManager::EntityManager()
+EntityManager::EntityManager(float gravity)
 {
-	;
+	m_World.reset(new b2World(b2Vec2(0.0f, -gravity)));
 }
 
 EntityManager::~EntityManager()
@@ -57,10 +57,10 @@ void EntityManager::Draw(Renderer *renderer)
 
 void EntityManager::SetCamera(Camera2D *camera)
 {
-	m_CurrentCamera = camera;
+	m_CurrentCamera.reset(camera);
 }
 
 const Camera2D *EntityManager::GetCamera()
 {
-	return m_CurrentCamera;
+	return m_CurrentCamera.get();
 }
