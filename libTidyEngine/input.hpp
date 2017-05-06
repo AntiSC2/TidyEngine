@@ -34,9 +34,9 @@ public:
 	static void MouseProcess(GLFWwindow *window, double xpos, double ypos);
 	static void MousePress(GLFWwindow *window, int button, int action,
 			int mods);
-	bool GetKey(int key);
+	bool GetKey(size_t key);
 	const glm::vec2 &GetMousePos();
-	bool GetMouseButton(int button);
+	bool GetMouseButton(size_t button);
 private:
 	static bool m_Keys[350];
 	static bool m_Buttons[8];

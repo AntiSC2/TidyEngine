@@ -80,9 +80,9 @@ void Input::MousePress(GLFWwindow *window, int button, int action, int mods)
 		m_Buttons[button] = false;
 }
 
-bool Input::GetKey(int key)
+bool Input::GetKey(size_t key)
 {
-	if (key < 0 || key >= 350) {
+	if (key >= 350) {
 		printf("Warning: key unknown!\n");
 		return false;
 	}
@@ -94,9 +94,9 @@ const glm::vec2 &Input::GetMousePos()
 	return m_MousePos;
 }
 
-bool Input::GetMouseButton(int button)
+bool Input::GetMouseButton(size_t button)
 {
-	if (button < 0 || button > 7) {
+	if (button >= 8) {
 		printf("Warning: key unknown!\n");
 		return false;
 	}
