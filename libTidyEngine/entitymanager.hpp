@@ -41,4 +41,5 @@ protected:
 	std::vector<std::unique_ptr<Entity>> m_Entities;
 	Camera2D *m_CurrentCamera = nullptr;
 	std::unique_ptr<b2World> m_World;
+	const float m_Pixelscale = 32.0f;
 };
