@@ -20,6 +20,10 @@ if (WIN32)
 			${TIDYENGINE_LIBRARIES}
 			${CMAKE_BINARY_DIR}/libTidyEngine/Debug/TidyEngine.lib
 		)
+		set(BOX2D_LIBRARIES
+			${BOX2D_LIBRARIES}
+			${CMAKE_SOURCE_DIR}/deps/lib/libBox2D.lib
+		)
 		set(GLFW_LIBRARIES
 			${GLFW_LIBRARIES}
 			${CMAKE_SOURCE_DIR}/deps/lib/glfw3dll.lib
@@ -48,6 +52,10 @@ if (WIN32)
 		set(TIDYENGINE_LIBRARIES
 			${TIDYENGINE_LIBRARIES}
 			${CMAKE_BINARY_DIR}/libTidyEngine/libTidyEngine.a
+		)
+		set(BOX2D_LIBRARIES
+			${BOX2D_LIBRARIES}
+			${CMAKE_SOURCE_DIR}/deps/lib/libBox2D.a
 		)
 		set(GLFW_LIBRARIES
 			${GLFW_LIBRARIES}
@@ -80,6 +88,10 @@ if (WIN32)
 	set(GLFW_INCLUDE_DIRS
 		${GLFW_INCLUDE_DIRS}
 		${CMAKE_SOURCE_DIR}/deps/include/
+	)
+	set(BOX2D_INCLUDE_DIRS
+		${GLFW_INCLUDE_DIRS}
+		${CMAKE_SOURCE_DIR}/deps/include/Box2D/
 	)
 	set(FREEIMAGE_INCLUDE_DIRS
 		${FREEIMAGE_INCLUDE_DIRS}
@@ -145,6 +157,7 @@ elseif (UNIX)
 endif ()
 
 include_directories(${CMAKE_SOURCE_DIR}/deps/include)
+include_directories(${BOX2D_INCLUDE_DIRS})
 include_directories(${GLFW_INCLUDE_DIRS})
 include_directories(${FREEIMAGE_INCLUDE_DIRS})
 include_directories(${OPENAL_INCLUDE_DIRS})
@@ -155,7 +168,7 @@ include_directories(${FREETYPE2_INCLUDE_DIRS})
 add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS})
 target_link_libraries(${PROJECT_NAME}
                       ${TIDYENGINE_LIBRARIES}
-		      ${GLAD_LIBRARIES}
+                      ${GLAD_LIBRARIES}
                       ${GLFW_LIBRARIES}
                       ${FREEIMAGE_LIBRARIES}
                       ${OPENAL_LIBRARIES}
