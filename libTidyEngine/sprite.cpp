@@ -57,11 +57,15 @@ void Sprite::Update(bool render)
 			for (uint8_t i = 0; i < 6; i++)
 				AddVertex(temp);
 		}
+
+		glm::vec4 tex_coords = glm::vec4(0.0f, 0.0f, 1.0f, 1.0f);
+
 		if (m_Frames.size() != 0) {
 			while (m_ImageIndex >= m_Frames.size())
 				m_ImageIndex -= (uint32_t)m_Frames.size();
+			tex_coords = m_Frames[m_ImageIndex];
 		}
-		glm::vec4 tex_coords = m_Frames[m_ImageIndex];
+		
 		/* OpenGL starts counting the texture coordinates from the
 		 * bottom left corner which makes the textures appear upside
 		 * down if we don't reverse the y coordinates here
@@ -96,6 +100,10 @@ void Sprite::Update(bool render)
 			(float)m_Height, 0.0f);
 		m_Update = false;
 	} else {
+		if (m_Frames.size() < 2) {
+			return;
+		}
+
 		m_ImageBuffer += m_ImageSpeed;
 		uint32_t change = m_ImageIndex;
 		m_ImageIndex = (uint32_t)std::round(m_ImageBuffer);
@@ -125,11 +133,9 @@ bool Sprite::Initialise(const Texture *tex, uint32_t w, uint32_t h,
 	for (size_t i = 0; i < frames.size(); i += 4) {
 		glm::vec4 temp;
 		temp.x = (float)frames[i] / (float)m_Texture->GetWidth();
-		temp.y = 1.0f - ((float)frames[i + 1] /
-		                 (float)m_Texture->GetHeight());
+		temp.y = (float)frames[i + 1] / (float)m_Texture->GetHeight();
 		temp.z = (float)frames[i + 2] / (float)m_Texture->GetWidth();
-		temp.w = 1.0f - ((float)frames[i + 3] /
-		                 (float)m_Texture->GetHeight());
+		temp.w = (float)frames[i + 3] / (float)m_Texture->GetHeight();
 		m_Frames.push_back(temp);
 	}
 

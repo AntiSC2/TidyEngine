@@ -49,7 +49,8 @@ bool Game::Init()
 
 	Sprite *sprite_ref = static_cast<Sprite *>(Resources.CreateResource(
 	                     "sprite", new Sprite(Resources.GetTexture("sprite"),
-	                     32, 32, {0, 0, 32, 32, 0, 32, 32, 64}))->Data());
+	                     200, 424, {0, 0, 200, 424, 200, 0, 400, 424, 400, 0, 600, 424, 600, 0, 800, 424, 800, 0, 1000, 424, 1000, 0, 1200, 424,
+						            0, 424, 200, 848, 200, 424, 400, 848, 400, 424, 600, 848, 600, 424, 800, 848}))->Data());
 	sprite_ref->SetImageSpeed(0.1f);
 	Entity *temp = new Entity("hello", "none",
 	                          {*Resources.GetResource("sprite")});
@@ -72,7 +73,7 @@ void Game::DrawGame()
 {
 	Rect2D rect;
 	rect.SetColor(glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
-	rect.SetRect(640.0f, -180.0f, 640.0f, 360.0f);
+	rect.SetRect(0.0f, 680.0f, 1280.0f, 720.0f);
 	m_Render.Clear();
 
 	m_SpriteRenderer.Begin();
