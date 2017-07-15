@@ -22,9 +22,9 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include "renderer.hpp"
 #include "camera2d.hpp"
 
-EntityManager::EntityManager(float gravity)
+EntityManager::EntityManager()
 {
-	m_World.reset(new b2World(b2Vec2(0.0f, -gravity)));
+	;
 }
 
 EntityManager::~EntityManager()

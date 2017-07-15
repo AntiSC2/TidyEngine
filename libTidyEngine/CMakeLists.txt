@@ -189,14 +189,9 @@ elseif (UNIX)
 		-ldl
 		${CMAKE_BINARY_DIR}/glad/libglad.a
 	)
-	set(BOX2D_LIBRARIES
-		${BOX2D_LIBRARIES}
-		-lBox2D
-	)
 endif ()
 
 include_directories(${CMAKE_SOURCE_DIR}/deps/include/)
-include_directories(${BOX2D_INCLUDE_DIRS})
 include_directories(${GLFW_INCLUDE_DIRS})
 include_directories(${FREEIMAGE_INCLUDE_DIRS})
 include_directories(${LUAJIT_INCLUDE_DIRS})
@@ -214,8 +209,7 @@ target_link_libraries(${PROJECT_NAME} ${GLFW_LIBRARIES}
                                       ${OGG_LIBRARIES}
                                       ${VORBIS_LIBRARIES}
                                       ${VORBISFILE_LIBRARIES}
-                                      ${FREETYPE2_LIBRARIES}
-                                      ${BOX2D_LIBRARIES})
+                                      ${FREETYPE2_LIBRARIES})
 
 if (WIN32)
 	target_link_libraries(${PROJECT_NAME} opengl32.lib)

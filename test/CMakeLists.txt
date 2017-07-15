@@ -150,10 +150,6 @@ elseif (UNIX)
 		-ldl
 		${CMAKE_BINARY_DIR}/glad/libglad.a
 	)
-	set(BOX2D_LIBRARIES
-		${BOX2D_LIBRARIES}
-		-lBox2D
-	)
 endif ()
 
 include_directories(${CMAKE_SOURCE_DIR}/deps/include)
@@ -177,8 +173,7 @@ target_link_libraries(${PROJECT_NAME}
                       ${OGG_LIBRARIES}
                       ${FREETYPE2_LIBRARIES}
                       ${BZIP2_LIBRARIES}
-                      ${ZLIB_LIBRARIES}
-                      ${BOX2D_LIBRARIES})
+                      ${ZLIB_LIBRARIES})
 
 if (WIN32)
 	target_link_libraries(${PROJECT_NAME} opengl32.lib)
