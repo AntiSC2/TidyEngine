@@ -44,7 +44,7 @@ FIBITMAP *IOManager::LoadImage(std::string filepath)
 	else if (filepath.find(".jpeg") != std::string::npos)
 		return FreeImage_Load(FIF_JPEG, filepath.c_str());
 
-	printf("Warning: image %s has an unsupported file format!",
+	printf("Warning: image %s has an unsupported file format!\n",
 		       filepath.c_str());
 	return nullptr;
 }
@@ -113,7 +113,7 @@ bool IOManager::LoadVorbis(std::string filepath, Sample *out)
 			break;
 		} else if (ret < 0) {
 			ov_clear(&vorbis);
-			printf("Warning: error in stream %s!",
+			printf("Warning: error in stream %s!\n",
 			       filepath.c_str());
 			return false;
 		} else {

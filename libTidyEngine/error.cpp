@@ -24,8 +24,8 @@ Contact the author at: jakob.sinclair99@gmail.com
 void FreeImageError(FREE_IMAGE_FORMAT fif, const char *message)
 {
 	if (fif != FIF_UNKNOWN) {
-		printf("Error with %s format!\n",
+		printf("Warning: error with %s format!\n",
 			FreeImage_GetFormatFromFIF(fif));
 	}
-	printf(message);
+	printf("%s\n", message);
 }

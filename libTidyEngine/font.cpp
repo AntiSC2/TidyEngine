@@ -57,14 +57,14 @@ bool Font::Initialize(FT_Library *lib, std::string path, uint32_t height)
 	int error = FT_New_Face(*lib, path.c_str(), 0, &face);
 	
 	if (error) {
-		printf("Error: Could not load font %s!\n", path.c_str());
+		printf("Warning: could not load font %s!\n", path.c_str());
 		return false;
 	}
 
 	error = FT_Set_Pixel_Sizes(face, 0, m_Height);
 
 	if (error) {
-		printf("Error: Could not set size for font %s\n", path.c_str());
+		printf("Warning: could not set size for font %s\n", path.c_str());
 		return false;
 	}
 

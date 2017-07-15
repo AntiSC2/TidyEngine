@@ -62,7 +62,7 @@ Texture *Cache::CreateTexture(std::string name, std::string filepath)
 		FreeImage_Unload(bitmap);
 		
 		if (success == false) {
-			printf("Warning: could not create texture %s\n",
+			printf("Warning: could not create texture %s!\n",
 			       filepath.c_str());
 			return nullptr;
 		}
