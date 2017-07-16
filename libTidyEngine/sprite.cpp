@@ -66,35 +66,31 @@ void Sprite::Update(bool render)
 			tex_coords = m_Frames[m_ImageIndex];
 		}
 		
-		/* OpenGL starts counting the texture coordinates from the
-		 * bottom left corner which makes the textures appear upside
-		 * down if we don't reverse the y coordinates here
-		 */
-		m_Vertices[0].TexUV = glm::vec2(tex_coords.x, tex_coords.w);
+		m_Vertices[0].TexUV = glm::vec2(tex_coords.x, tex_coords.y);
 		m_Vertices[0].Color = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
 		m_Vertices[0].Position = m_Position;
 
-		m_Vertices[1].TexUV = glm::vec2(tex_coords.z, tex_coords.w);
+		m_Vertices[1].TexUV = glm::vec2(tex_coords.z, tex_coords.y);
 		m_Vertices[1].Color = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
 		m_Vertices[1].Position = m_Position + glm::vec3((float)m_Width,
 			0.0f, 0.0f);
 
-		m_Vertices[2].TexUV = glm::vec2(tex_coords.x, tex_coords.y);
+		m_Vertices[2].TexUV = glm::vec2(tex_coords.x, tex_coords.w);
 		m_Vertices[2].Color = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
 		m_Vertices[2].Position = m_Position + glm::vec3(0.0f,
 			(float)m_Height, 0.0f);
 
-		m_Vertices[3].TexUV = glm::vec2(tex_coords.x, tex_coords.y);
+		m_Vertices[3].TexUV = glm::vec2(tex_coords.x, tex_coords.w);
 		m_Vertices[3].Color = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
 		m_Vertices[3].Position = m_Position + glm::vec3(0.0f,
 			(float)m_Height, 0.0f);
 
-		m_Vertices[4].TexUV = glm::vec2(tex_coords.z, tex_coords.w);
+		m_Vertices[4].TexUV = glm::vec2(tex_coords.z, tex_coords.y);
 		m_Vertices[4].Color = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
 		m_Vertices[4].Position = m_Position + glm::vec3((float)m_Width,
 			0.0f, 0.0f);
 
-		m_Vertices[5].TexUV = glm::vec2(tex_coords.z, tex_coords.y);
+		m_Vertices[5].TexUV = glm::vec2(tex_coords.z, tex_coords.w);
 		m_Vertices[5].Color = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
 		m_Vertices[5].Position = m_Position + glm::vec3((float)m_Width,
 			(float)m_Height, 0.0f);
@@ -130,12 +126,17 @@ bool Sprite::Initialise(const Texture *tex, uint32_t w, uint32_t h,
 	m_Tex = tex->GetTex();
 	m_Texture = tex;
 	m_Frames.clear();
+
+	/* OpenGL starts counting Y coordinates from the bottom and up
+	 * TidyEngine uses Y coordinates that count from top to bottom
+	 * Therefore the Y coordinate needs to be reversed here
+	 */
 	for (size_t i = 0; i < frames.size(); i += 4) {
 		glm::vec4 temp;
 		temp.x = (float)frames[i] / (float)m_Texture->GetWidth();
-		temp.y = (float)frames[i + 1] / (float)m_Texture->GetHeight();
+		temp.y = 1.0f - ((float)frames[i + 1] / (float)m_Texture->GetHeight());
 		temp.z = (float)frames[i + 2] / (float)m_Texture->GetWidth();
-		temp.w = (float)frames[i + 3] / (float)m_Texture->GetHeight();
+		temp.w = 1.0f - ((float)frames[i + 3] / (float)m_Texture->GetHeight());
 		m_Frames.push_back(temp);
 	}
 

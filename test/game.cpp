@@ -49,7 +49,7 @@ bool Game::Init()
 
 	Sprite *sprite_ref = static_cast<Sprite *>(Resources.CreateResource(
 	                     "sprite", new Sprite(Resources.GetTexture("sprite"),
-	                     110, 200, {25, 76, 135, 276, 150, 76, 260, 276, 287, 76, 397, 276, 438, 76, 548, 276}))->Data());
+	                     110, 200, {25, 29, 135, 229, 150, 29, 260, 229, 287, 29, 397, 229, 438, 29, 548, 229}))->Data());
 	sprite_ref->SetImageSpeed(0.1f);
 	Entity *temp = new Entity("hello", "none",
 	                          {*Resources.GetResource("sprite")});
