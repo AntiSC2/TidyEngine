@@ -41,7 +41,7 @@ bool Game::Init()
 	cam->Initialise(1280, 720, &m_Screen);
 	m_EntityManager.SetCamera(cam);
 	cam = nullptr;
-	m_Font.Initialize(&m_FontLib, "modern_squared2.ttf", 128);
+	m_Font.Initialize(&m_FontLib, "Acme-Regular.ttf", 128);
 
 	Resources.CreateTexture("sprite", "sprite.png");
 	Resources.CreateSample("sound", "sound.ogg");
@@ -49,8 +49,7 @@ bool Game::Init()
 
 	Sprite *sprite_ref = static_cast<Sprite *>(Resources.CreateResource(
 	                     "sprite", new Sprite(Resources.GetTexture("sprite"),
-	                     200, 424, {0, 0, 200, 424, 200, 0, 400, 424, 400, 0, 600, 424, 600, 0, 800, 424, 800, 0, 1000, 424, 1000, 0, 1200, 424,
-						            0, 424, 200, 848, 200, 424, 400, 848, 400, 424, 600, 848, 600, 424, 800, 848}))->Data());
+	                     110, 200, {25, 76, 135, 276, 150, 76, 260, 276, 287, 76, 397, 276, 438, 76, 548, 276}))->Data());
 	sprite_ref->SetImageSpeed(0.1f);
 	Entity *temp = new Entity("hello", "none",
 	                          {*Resources.GetResource("sprite")});
