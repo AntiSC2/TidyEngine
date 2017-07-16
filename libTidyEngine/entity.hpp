@@ -45,6 +45,8 @@ public:
 	virtual RID *GetComponent(size_t id);
 	virtual void SetName(std::string name);
 	virtual void SetScript(std::string script);
+	virtual void SetPos(glm::vec3 pos);
+	virtual glm::vec3 GetPos();
 protected:
 	std::string m_Name = "temp";
 	std::string m_Script = "none";

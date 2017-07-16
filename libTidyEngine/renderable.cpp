@@ -49,6 +49,19 @@ void Renderable::DelVertex(size_t index)
 		m_Vertices.erase(m_Vertices.begin() + index);
 }
 
+void Renderable::SetPos(const glm::vec3& pos)
+{
+	glm::vec3 offset(0.0f, 0.0f, 0.0f);
+
+	if (m_Vertices.empty() == false)
+		offset = m_Vertices[0].Position;
+	
+	for (size_t i = 0; i < m_Vertices.size(); i++) {
+		m_Vertices[i].Position -= offset;
+		m_Vertices[i].Position += pos;
+	}
+}
+
 void Renderable::SetTex(GLuint tex) 
 {
 	m_Tex = tex;

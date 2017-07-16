@@ -78,3 +78,16 @@ void Entity::SetScript(std::string script)
 {
 	m_Script = script;
 }
+
+void Entity::SetPos(glm::vec3 pos) 
+{
+	m_Position = pos;
+	for (auto i: m_Graphics) {
+		i->SetPos(m_Position);
+	}
+}
+
+glm::vec3 Entity::GetPos()
+{
+	return m_Position;
+}
