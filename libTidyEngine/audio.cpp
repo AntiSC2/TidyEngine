@@ -40,7 +40,7 @@ void AudioSystem::CreateSystem()
 
 	int error = alcGetError(m_Device);
 	if (error != ALC_NO_ERROR) {
-		printf("OpenAL error: %d\n", error);
+		printf("Error: OpenAL %d\n", error);
 		alcDestroyContext(m_Context);
 		alcCloseDevice(m_Device);
 		m_Context = nullptr;
@@ -51,13 +51,9 @@ void AudioSystem::CreateSystem()
 }
 
 void AudioSystem::DestroySystem()
-{
-	if (m_Context != nullptr)
-		alcDestroyContext(m_Context);
-	if (m_Device != nullptr)
-		alcCloseDevice(m_Device);
-
-	alcMakeContextCurrent(nullptr);
+{	
+	alcDestroyContext(m_Context);	
+	alcCloseDevice(m_Device);
 
 	m_Context = nullptr;
 	m_Device = nullptr;
