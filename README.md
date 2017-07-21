@@ -39,4 +39,4 @@ Here's a google slide presentation showing off the general architecture for this
 WIP:https://docs.google.com/presentation/d/1KCC6VAwV4GwIKRrNTNlfntW5TLCluPvbB-OwTJ0mb2Q/edit?usp=sharing
 
 # License
-TidyEngine is under the LGPL v3. This software uses the FreeImage open source image library. See http://freeimage.sourceforge.net for details. FreeImage is used under the FIPL, version 1.0.
+TidyEngine is under the LGPL v3. This software uses the FreeImage open source image library. See http://freeimage.sourceforge.net for details. FreeImage is used under the FIPL, version 1.0. Certain files under the `bin/` folder have other licenses applied to them. Please check `LICENSE-ART.md` located under the `bin/` folder for more information.
