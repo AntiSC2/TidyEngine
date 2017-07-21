@@ -24,6 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "sprite.hpp"
 #include "cache.hpp"
 #include "rid.hpp"
+#include "luascript.hpp"
 
 Game::Game()
 {
@@ -55,7 +56,11 @@ bool Game::Init()
 	                          {*Resources.GetResource("sprite")});
 	temp->SetPos(glm::vec3(0.0f, 480.0f, 0.0f));
 	m_EntityManager.AddEntity(temp);
-	
+
+	LuaScript script("player.lua");
+	int posX = script.Get<int>("player.pos.X");
+	printf("X: %d\n", posX);
+
 	return true;
 }
 

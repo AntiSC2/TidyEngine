@@ -139,25 +139,6 @@ void LuaScript::CleanStack()
 }
 
 template<typename T>
-T LuaScript::Get(const std::string &name)
-{
-	if (!m_L) {
-		printf("Warning: script is not loaded!\n");
-		return Lua_GetDefault<T>();
-	}
-
-	T result;
-	if (Lua_GetToStack(name)) {
-		result = Lua_Get<T>(name);
-	} else {
-		result = Lua_GetDefault<T>();
-	}
-
-	lua_pop(m_L, m_Level + 1);
-	return result;
-}
-
-template<typename T>
 T LuaScript::Lua_Get(const std::string &name)
 {
 	return 0;
@@ -194,12 +175,6 @@ std::string LuaScript::Lua_Get(const std::string &name)
 		printf("Warning: Lua var %s is not a string!\n", name.c_str());
 		return "null";
 	}
-}
-
-template<typename T>
-T LuaScript::Lua_GetDefault()
-{
-	return 0;
 }
 
 template<>
