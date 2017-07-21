@@ -133,6 +133,7 @@ void Core::GameLoop()
 
 void Core::Quit()
 {
+	Resources.Clean();
 	FT_Done_FreeType(m_FontLib);
 	m_Audio.DestroySystem();
 	glfwTerminate();

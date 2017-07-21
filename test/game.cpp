@@ -54,12 +54,12 @@ bool Game::Init()
 	sprite_ref->SetImageSpeed(0.1f);
 	Entity *temp = new Entity("hello", "none",
 	                          {*Resources.GetResource("sprite")});
-	temp->SetPos(glm::vec3(0.0f, 480.0f, 0.0f));
-	m_EntityManager.AddEntity(temp);
-
 	LuaScript script("player.lua");
 	int posX = script.Get<int>("player.pos.X");
-	printf("X: %d\n", posX);
+	int posY = script.Get<int>("player.pos.Y");
+
+	temp->SetPos(glm::vec3((float)posX, (float)posY, 0.0f));
+	m_EntityManager.AddEntity(temp);	
 
 	return true;
 }

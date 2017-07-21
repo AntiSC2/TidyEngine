@@ -37,6 +37,7 @@ public:
 	~Cache();
 
 	bool CreateDefaultResources();
+	void Clean();
 
 	Texture *CreateTexture(std::string name, std::string filepath);
 	void DestroyTexture(std::string name);

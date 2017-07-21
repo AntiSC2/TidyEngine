@@ -35,8 +35,7 @@ Cache::Cache()
 
 Cache::~Cache()
 {
-	for (auto it : m_Textures)
-		it.second.DestroyTex();
+	Clean();	
 }
 
 bool Cache::CreateDefaultResources()
@@ -51,6 +50,12 @@ bool Cache::CreateDefaultResources()
 	}
 
 	return true;
+}
+
+void Cache::Clean()
+{
+	for (auto it : m_Textures)
+		it.second.DestroyTex();
 }
 
 Texture *Cache::CreateTexture(std::string name, std::string filepath)
