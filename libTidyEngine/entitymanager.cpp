@@ -49,7 +49,7 @@ void EntityManager::Draw(Renderer *renderer)
 		std::vector<Renderable *> temp = m_Entities[i]->Draw();
 		if (temp.size() != 0) {
 			for (auto i: temp) {
-				i->Update(true);
+				i->Render();
 				renderer->Draw(i);
 			}
 		}

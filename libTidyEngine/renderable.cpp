@@ -33,7 +33,7 @@ std::string Renderable::Type() {
 	return "Renderable";
 }
 
-void Renderable::Update(bool render)
+void Renderable::Render()
 {
 	;
 }

@@ -28,4 +28,5 @@ public:
 		;
 	}
 	virtual std::string Type() = 0;
+	virtual void Update() {;};
 };

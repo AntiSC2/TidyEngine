@@ -68,7 +68,7 @@ void SpriteRenderer::Initialise(Shader *shader, Batch *batch)
 void SpriteRenderer::Draw(Renderable *object)
 {
 	/* Updates the object to prepare for rendering */
-	object->Update(true);
+	object->Render();
 	m_Batch->Draw(object);
 }
 

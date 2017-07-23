@@ -35,7 +35,7 @@ public:
 	
 	virtual std::string Type();
 	
-	virtual void Update(bool render = false);
+	virtual void Render();
 	virtual void AddVertex(const Vertex &vertex);
 	virtual void DelVertex(size_t index);
 	virtual void SetPos(const glm::vec3& pos);

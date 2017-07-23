@@ -27,10 +27,7 @@ Entity::~Entity()
 void Entity::Update(float delta)
 {
 	for (auto i : m_Components) {
-		if (i.Data()->Type() == "Renderable") {
-			Renderable *temp = static_cast<Renderable *>(i.Data());
-			temp->Update(false);
-		}
+		i.Data()->Update();
 	}
 }
 
