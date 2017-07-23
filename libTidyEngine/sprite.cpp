@@ -95,7 +95,7 @@ void Sprite::Update(bool render)
 		m_Vertices[5].Position = m_Position + glm::vec3((float)m_Width,
 			(float)m_Height, 0.0f);
 		m_Update = false;
-	} else {
+	} else if (render == false) {
 		if (m_Frames.size() < 2) {
 			return;
 		}
