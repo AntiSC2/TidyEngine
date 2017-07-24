@@ -48,7 +48,7 @@ void Camera::Initialise(uint16_t width, uint16_t height, Screen *s)
 	if (s != nullptr)
 		glViewport(0, 0, s->GetWidth(), s->GetHeight());
 
-	m_OrthoMatrix = glm::ortho(0.0f, (float)m_Width, (float)m_Height, 0.0f,
+	m_Projection = glm::ortho(0.0f, (float)m_Width, (float)m_Height, 0.0f,
 			0.0f, 100.0f);
 	glm::vec3 translate = glm::vec3(-m_Position.x + m_Width / 2,
 	                                -m_Position.y + m_Height / 2,
@@ -106,7 +106,7 @@ const glm::vec3 &Camera::GetPos() const
 
 const glm::mat4 &Camera::GetProj() const
 {
-	return m_OrthoMatrix;
+	return m_Projection;
 }
 
 const glm::mat4 &Camera::GetView() const

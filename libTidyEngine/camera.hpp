@@ -51,5 +51,5 @@ private:
 	uint16_t m_Height = 0;
 	glm::mat4 m_Model;
 	glm::mat4 m_View;
-	glm::mat4 m_OrthoMatrix;
+	glm::mat4 m_Projection;
 };
