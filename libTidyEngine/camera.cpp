@@ -66,7 +66,7 @@ void Camera::Update(float delta)
 	if (m_Update == true) {
 		glm::vec3 translate = glm::vec3(-m_Position.x + m_Width / 2,
 		                                -m_Position.y + m_Height / 2,
-						m_Position.z);
+		                                 m_Position.z);
 		m_View = glm::translate(m_View, translate);
 
 		glm::vec3 scale = glm::vec3(m_Scale, m_Scale, 0.0f);
