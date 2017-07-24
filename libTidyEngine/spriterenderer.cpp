@@ -20,7 +20,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include "spriterenderer.hpp"
 #include "shader.hpp"
 #include "batch.hpp"
-#include "camera2d.hpp"
+#include "camera.hpp"
 
 SpriteRenderer::SpriteRenderer()
 {
@@ -72,7 +72,7 @@ void SpriteRenderer::Draw(Renderable *object)
 	m_Batch->Draw(object);
 }
 
-void SpriteRenderer::Present(const Camera2D *camera)
+void SpriteRenderer::Present(const Camera *camera)
 {
 	if (camera != nullptr) {
 		m_Shader->SetUniformMat4("projection", camera->GetProj());

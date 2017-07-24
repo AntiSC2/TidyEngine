@@ -20,7 +20,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include "entitymanager.hpp"
 #include "entity.hpp"
 #include "renderer.hpp"
-#include "camera2d.hpp"
+#include "camera.hpp"
 
 EntityManager::EntityManager()
 {
@@ -56,7 +56,7 @@ void EntityManager::Draw(Renderer *renderer)
 	}
 }
 
-void EntityManager::SetCamera(Camera2D *camera)
+void EntityManager::SetCamera(Camera *camera)
 {
 	m_CurrentCamera = camera;
 
@@ -66,7 +66,7 @@ void EntityManager::SetCamera(Camera2D *camera)
 	this->AddEntity(camera);
 }
 
-const Camera2D *EntityManager::GetCamera()
+const Camera *EntityManager::GetCamera()
 {
 	return m_CurrentCamera;
 }

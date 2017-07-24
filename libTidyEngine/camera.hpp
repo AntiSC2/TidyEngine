@@ -25,13 +25,13 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 class Screen;
 
-class Camera2D : public Entity {
+class Camera : public Entity {
 public:
-	Camera2D(std::string name) : Entity(name) 
+	Camera(std::string name) : Entity(name) 
 	{
 		;
 	}
-	virtual ~Camera2D();
+	virtual ~Camera();
 
 	void Initialise(uint16_t width = 0, uint16_t height = 0,
 	                Screen *s = nullptr);

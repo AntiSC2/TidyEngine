@@ -21,12 +21,12 @@ Contact the author at: jakob.sinclair99@gmail.com
 #define APIENTRY __stdcall
 #endif
 
-#include "camera2d.hpp"
+#include "camera.hpp"
 #include <glm/gtc/matrix_transform.hpp>
 #include <glad/glad.h>
 #include "screen.hpp"
 
-Camera2D::~Camera2D()
+Camera::~Camera()
 {
 	;
 }
@@ -36,7 +36,7 @@ Camera2D::~Camera2D()
 * to (-m_Scale) because that makes the positive
 * y direction to go down the screen
 */
-void Camera2D::Initialise(uint16_t width, uint16_t height, Screen *s)
+void Camera::Initialise(uint16_t width, uint16_t height, Screen *s)
 {
 	m_CurrentScreen = s;
 	m_Width = width;
@@ -60,7 +60,7 @@ void Camera2D::Initialise(uint16_t width, uint16_t height, Screen *s)
 	m_Update = false;
 }
 
-void Camera2D::Update(float delta)
+void Camera::Update(float delta)
 {
 	/* Only update the camera if it has moved, scaled or rotated */
 	if (m_Update == true) {
@@ -82,39 +82,39 @@ void Camera2D::Update(float delta)
 	}
 }
 
-void Camera2D::SetScale(float scale)
+void Camera::SetScale(float scale)
 {
 	m_Scale = scale;
 	m_Update = true;
 }
 
-void Camera2D::SetPosition(glm::vec3 position)
+void Camera::SetPosition(glm::vec3 position)
 {
 	m_Position = position;
 	m_Update = true;
 }
 
-const float &Camera2D::GetScale() const
+const float &Camera::GetScale() const
 {
 	return m_Scale;
 }
 
-const glm::vec3 &Camera2D::GetPos() const
+const glm::vec3 &Camera::GetPos() const
 {
 	return m_Position;
 }
 
-const glm::mat4 &Camera2D::GetProj() const
+const glm::mat4 &Camera::GetProj() const
 {
 	return m_OrthoMatrix;
 }
 
-const glm::mat4 &Camera2D::GetView() const
+const glm::mat4 &Camera::GetView() const
 {
 	return m_View;
 }
 
-const glm::mat4 &Camera2D::GetModel() const
+const glm::mat4 &Camera::GetModel() const
 {
 	return m_Model;
 }

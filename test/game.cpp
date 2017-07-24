@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "shader.hpp"
 #include "screen.hpp"
 #include "rect2d.hpp"
-#include "camera2d.hpp"
+#include "camera.hpp"
 #include "sprite.hpp"
 #include "cache.hpp"
 #include "rid.hpp"
@@ -38,7 +38,7 @@ Game::~Game()
 
 bool Game::Init()
 {
-	Camera2D *cam = new Camera2D("MainCamera");
+	Camera *cam = new Camera("MainCamera");
 	cam->Initialise(1280, 720, &m_Screen);
 	m_EntityManager.SetCamera(cam);
 	cam = nullptr;

@@ -21,7 +21,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 class Entity;
 class Renderer;
-class Camera2D;
+class Camera;
 
 #include <memory>
 #include <vector>
@@ -34,9 +34,9 @@ public:
 	virtual void Update();
 	virtual void Draw(Renderer *renderer);
 	virtual void AddEntity(Entity *entity);
-	virtual void SetCamera(Camera2D *camera);
-	virtual const Camera2D *GetCamera();
+	virtual void SetCamera(Camera *camera);
+	virtual const Camera *GetCamera();
 protected:
 	std::vector<std::unique_ptr<Entity>> m_Entities;
-	Camera2D *m_CurrentCamera = nullptr;
+	Camera *m_CurrentCamera = nullptr;
 };

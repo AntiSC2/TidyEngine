@@ -19,7 +19,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 #pragma once
 
-class Camera2D;
+class Camera;
 
 #include "renderer.hpp"
 
@@ -30,5 +30,5 @@ public:
 
 	virtual void Draw(Renderable* object);
 	virtual void Initialise(Shader *shader, Batch *batch);
-	virtual void Present(const Camera2D *camera);
+	virtual void Present(const Camera *camera);
 };
