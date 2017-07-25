@@ -112,8 +112,8 @@ void Batch::CreateBatches()
 	}
 
 	glBindBuffer(GL_ARRAY_BUFFER, m_VBOID);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * vertex_data.size(), 
-	             vertex_data.data(), GL_STREAM_DRAW);
+	glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(Vertex) * vertex_data.size(), 
+	             vertex_data.data());
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 

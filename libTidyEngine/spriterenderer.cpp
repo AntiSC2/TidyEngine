@@ -50,6 +50,7 @@ void SpriteRenderer::Initialise(Shader *shader, Batch *batch)
 
 	glGenBuffers(1, &m_VBOID);
 	glBindBuffer(GL_ARRAY_BUFFER, m_VBOID);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * 6000000, NULL, GL_DYNAMIC_DRAW);
 
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
