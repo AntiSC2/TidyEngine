@@ -16,7 +16,7 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 Contact the author at: jakob.sinclair99@gmail.com
 */
-
+#define SPRITE_COUNT 1000000
 #include "spriterenderer.hpp"
 #include "shader.hpp"
 #include "batch.hpp"
@@ -50,7 +50,7 @@ void SpriteRenderer::Initialise(Shader *shader, Batch *batch)
 
 	glGenBuffers(1, &m_VBOID);
 	glBindBuffer(GL_ARRAY_BUFFER, m_VBOID);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * 6000000, NULL, GL_DYNAMIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * SPRITE_COUNT * 6, NULL, GL_STREAM_DRAW);
 
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
