@@ -46,7 +46,7 @@ void Camera::Initialise(uint16_t width, uint16_t height, Screen *s, glm::vec3 po
 	if (ortho) {
 		m_Position.x = (float)(m_Width / 2) + pos.x;
 		m_Position.y = (float)(m_Height / 2) + pos.y;
-		m_Position.z = 0.0f;
+		m_Position.z = 1.0f;
 		InitOrtho();
 	} else {
 		m_Position = pos;
@@ -65,7 +65,7 @@ void Camera::Update(float delta)
 	if (m_Update == true && m_Ortho == true) {
 		glm::vec3 translate = glm::vec3(-m_Position.x + m_Width / 2,
 		                                -m_Position.y + m_Height / 2,
-		                                 m_Position.z);
+		                                -m_Position.z);
 		m_View = glm::translate(m_View, translate);
 
 		glm::vec3 scale = glm::vec3(m_Scale, m_Scale, 0.0f);
@@ -133,10 +133,10 @@ const glm::mat4 &Camera::GetModel() const
 void Camera::InitOrtho()
 {
 	m_Projection = glm::ortho(0.0f, (float)m_Width, (float)m_Height, 0.0f,
-			0.0f, 100.0f);
+			0.1f, 100.0f);
 	glm::vec3 translate = glm::vec3(-m_Position.x + m_Width / 2,
 	                                -m_Position.y + m_Height / 2,
-	                                 m_Position.z);
+	                                -m_Position.z);
 	m_View = glm::translate(m_View, translate);
 
 	glm::vec3 scale = glm::vec3(m_Scale, m_Scale, m_Scale);
