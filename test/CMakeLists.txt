@@ -107,7 +107,7 @@ if (WIN32)
 	)
 	set(LUAJIT_LIBRARIES
 		${LUAJIT_LIBRARIES}
-		${CMAKE_SOURCE_DIR}/deps/lib/lua51.lib
+		${CMAKE_SOURCE_DIR}/deps/lib/lua51.dll
 	)
 	set(OPENAL_INCLUDE_DIRS
 		${OPENAL_INCLUDE_DIRS}
