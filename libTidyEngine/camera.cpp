@@ -36,40 +36,51 @@ Camera::~Camera()
 * to (-m_Scale) because that makes the positive
 * y direction to go down the screen
 */
-void Camera::Initialise(uint16_t width, uint16_t height, Screen *s)
+void Camera::Initialise(uint16_t width, uint16_t height, Screen *s, glm::vec3 pos, bool ortho)
 {
 	m_CurrentScreen = s;
 	m_Width = width;
 	m_Height = height;
-	m_Position.x = (float)(m_Width / 2);
-	m_Position.y = (float)(m_Height / 2);
-	m_Position.z = 0.0f;
+	m_Ortho = ortho;
+
+	if (ortho) {
+		m_Position.x = (float)(m_Width / 2) + pos.x;
+		m_Position.y = (float)(m_Height / 2) + pos.y;
+		m_Position.z = 0.0f;
+		InitOrtho();
+	} else {
+		m_Position = pos;
+		InitProj();
+	}	
 	
 	if (s != nullptr)
 		glViewport(0, 0, s->GetWidth(), s->GetHeight());
-
-	m_Projection = glm::ortho(0.0f, (float)m_Width, (float)m_Height, 0.0f,
-			0.0f, 100.0f);
-	glm::vec3 translate = glm::vec3(-m_Position.x + m_Width / 2,
-	                                -m_Position.y + m_Height / 2,
-					m_Position.z);
-	m_View = glm::translate(m_View, translate);
-
-	glm::vec3 scale = glm::vec3(m_Scale, m_Scale, m_Scale);
-	m_Model = glm::scale(glm::mat4(1.0f), scale);
+	
 	m_Update = false;
 }
 
 void Camera::Update(float delta)
 {
 	/* Only update the camera if it has moved, scaled or rotated */
-	if (m_Update == true) {
+	if (m_Update == true && m_Ortho == true) {
 		glm::vec3 translate = glm::vec3(-m_Position.x + m_Width / 2,
 		                                -m_Position.y + m_Height / 2,
 		                                 m_Position.z);
 		m_View = glm::translate(m_View, translate);
 
 		glm::vec3 scale = glm::vec3(m_Scale, m_Scale, 0.0f);
+		m_Model = glm::scale(glm::mat4(1.0f), scale);
+		m_Update = false;
+	} else if (m_Update == true) {
+		m_Projection = glm::perspective(glm::radians(80.0f), (float)m_Width / (float)m_Height, 0.1f,
+			100.0f);
+		m_View = glm::lookAt(
+			m_Position,
+			glm::vec3(0.0f, 0.0f, 0.0f),
+			glm::vec3(0.0f, 0.0f, 1.0f)
+		);
+
+		glm::vec3 scale = glm::vec3(m_Scale, m_Scale, m_Scale);
 		m_Model = glm::scale(glm::mat4(1.0f), scale);
 		m_Update = false;
 	}
@@ -88,7 +99,7 @@ void Camera::SetScale(float scale)
 	m_Update = true;
 }
 
-void Camera::SetPosition(glm::vec3 position)
+void Camera::SetPos(glm::vec3 position)
 {
 	m_Position = position;
 	m_Update = true;
@@ -117,4 +128,31 @@ const glm::mat4 &Camera::GetView() const
 const glm::mat4 &Camera::GetModel() const
 {
 	return m_Model;
+}
+
+void Camera::InitOrtho()
+{
+	m_Projection = glm::ortho(0.0f, (float)m_Width, (float)m_Height, 0.0f,
+			0.0f, 100.0f);
+	glm::vec3 translate = glm::vec3(-m_Position.x + m_Width / 2,
+	                                -m_Position.y + m_Height / 2,
+	                                 m_Position.z);
+	m_View = glm::translate(m_View, translate);
+
+	glm::vec3 scale = glm::vec3(m_Scale, m_Scale, m_Scale);
+	m_Model = glm::scale(glm::mat4(1.0f), scale);
+}
+
+void Camera::InitProj()
+{
+	m_Projection = glm::perspective(glm::radians(80.0f), (float)m_Width / (float)m_Height, 0.1f,
+			100.0f);
+	m_View = glm::lookAt(
+		m_Position,
+		glm::vec3(0.0f, 0.0f, 0.0f),
+		glm::vec3(0.0f, 0.0f, 1.0f)
+	);
+
+	glm::vec3 scale = glm::vec3(m_Scale, m_Scale, m_Scale);
+	m_Model = glm::scale(glm::mat4(1.0f), scale);
 }

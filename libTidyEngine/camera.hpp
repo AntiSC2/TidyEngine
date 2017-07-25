@@ -34,18 +34,22 @@ public:
 	virtual ~Camera();
 
 	void Initialise(uint16_t width = 0, uint16_t height = 0,
-	                Screen *s = nullptr);
+	                Screen *s = nullptr, glm::vec3 pos = glm::vec3(0.0f, 0.0f, 0.0f), bool ortho = true);	
 	virtual void Update(float delta = 0.0f);
 	void SetScale(float scale = 1.0f);
-	void SetPosition(glm::vec3 position);
+	void SetPos(glm::vec3 position);
 	const float &GetScale() const;
 	const glm::vec3 &GetPos() const;
 	const glm::mat4 &GetProj() const;
 	const glm::mat4 &GetView() const;
 	const glm::mat4 &GetModel() const;
 private:
+	void InitOrtho();
+	void InitProj();
+
 	Screen *m_CurrentScreen = nullptr;
 	float m_Scale = 1.0f;
+	bool m_Ortho = true;
 	bool m_Update = false;
 	uint16_t m_Width = 0;
 	uint16_t m_Height = 0;
