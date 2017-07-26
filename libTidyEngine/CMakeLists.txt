@@ -37,6 +37,7 @@ set(SOURCE
 	${CMAKE_CURRENT_SOURCE_DIR}/rid.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/font.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/fontglyph.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/mesh.cpp
 )
 set(HEADERS
 	${HEADERS}
@@ -65,6 +66,7 @@ set(HEADERS
 	${CMAKE_CURRENT_SOURCE_DIR}/rid.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/font.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/fontglyph.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/mesh.hpp
 )
 
 if (WIN32)

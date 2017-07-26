@@ -23,8 +23,8 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 class Mesh: Renderable {
 public:
-    Mesh();
-    virtual ~Mesh();
+	Mesh();
+	virtual ~Mesh();
 
 private:
-}
+};

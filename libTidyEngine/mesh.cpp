@@ -21,10 +21,10 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 Mesh::Mesh()
 {
-    ;
+	;
 }
 
 Mesh::~Mesh()
 {
-    ;
+	;
 }
