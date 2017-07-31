@@ -168,7 +168,7 @@ target_link_libraries(${PROJECT_NAME}
                       ${GLAD_LIBRARIES}
                       ${GLFW_LIBRARIES}
                       ${FREEIMAGE_LIBRARIES}
-					  ${LUAJIT_LIBRARIES}
+                      ${LUAJIT_LIBRARIES}
                       ${OPENAL_LIBRARIES}
                       ${VORBISFILE_LIBRARIES}
                       ${VORBIS_LIBRARIES}
