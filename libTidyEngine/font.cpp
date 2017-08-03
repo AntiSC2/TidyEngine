@@ -133,7 +133,7 @@ bool Font::Initialize(FT_Library *lib, std::string path, uint32_t height)
 	uint32_t index = 0;
 	
 	std::unique_ptr<GLubyte[]> final_bitmap = std::make_unique<GLubyte[]>(f_width * f_height * 2);
-	final_bitmap.get()[2 * ((f_width - 1) + (f_height - 1) * f_width) + 1] = 1;
+	GLubyte *final_ptr = final_bitmap.get();
 	for (auto &i: m_Glyphs) {
 		FontGlyph &temp = i.second;
 		uint32_t width = (uint32_t)temp.GetRect().z;
@@ -148,8 +148,8 @@ bool Font::Initialize(FT_Library *lib, std::string path, uint32_t height)
 
 		for (uint32_t x = offset; x < f_width; x++) {
 			for (uint32_t y = 0; y < f_height; y++) {
-				final_bitmap.get()[2 * (x + y * f_width)] =
-				final_bitmap.get()[2 * (x + y * f_width) + 1] =
+				final_ptr[2 * (x + y * f_width)] =
+				final_ptr[2 * (x + y * f_width) + 1] =
 				((x - offset) >= width || y >= height) ?
 				0 : temp_bitmaps[index].get()[(x - offset) + y * width];
 			}
@@ -158,7 +158,7 @@ bool Font::Initialize(FT_Library *lib, std::string path, uint32_t height)
 		offset += width;
 		index++;
 	}
-		
+
 	temp_bitmaps.clear();
 	m_Texture.CreateTex(final_bitmap.get(), f_width, f_height, true);
 	final_bitmap.reset(nullptr);
