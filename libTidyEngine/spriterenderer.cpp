@@ -19,7 +19,6 @@ Contact the author at: jakob.sinclair99@gmail.com
 #define SPRITE_COUNT 1000000
 #include "spriterenderer.hpp"
 #include "shader.hpp"
-#include "batch.hpp"
 #include "camera.hpp"
 
 SpriteRenderer::SpriteRenderer()
@@ -35,10 +34,9 @@ SpriteRenderer::~SpriteRenderer()
 		glDeleteBuffers(1, &m_VBOID);
 }
 
-void SpriteRenderer::Initialise(Shader *shader, Batch *batch)
+void SpriteRenderer::Initialise(Shader *shader)
 {
 	m_Shader = shader;
-	m_Batch = batch;
 
 	if (m_VAOID != 0)
 		glDeleteVertexArrays(1, &m_VAOID);
@@ -66,13 +64,6 @@ void SpriteRenderer::Initialise(Shader *shader, Batch *batch)
 	glBindVertexArray(0);
 }
 
-void SpriteRenderer::Draw(Renderable *object)
-{
-	/* Updates the object to prepare for rendering */
-	object->Render();
-	m_Batch->Draw(object);
-}
-
 void SpriteRenderer::Present(const Camera *camera)
 {
 	if (camera != nullptr) {
@@ -80,5 +71,11 @@ void SpriteRenderer::Present(const Camera *camera)
 		m_Shader->SetUniformMat4("view", camera->GetView());
 		m_Shader->SetUniformMat4("model", camera->GetModel());
 	}
-	m_Batch->Present();
+
+	glBindVertexArray(m_VAOID);
+	for (size_t i = 0; i < m_RenderBatches.size(); i++) {
+		glBindTexture(GL_TEXTURE_2D, m_RenderBatches[i].Tex);
+		glDrawArrays(GL_TRIANGLES, (GLsizei)m_RenderBatches[i].Offset,
+		            (GLsizei)m_RenderBatches[i].Vertices);
+	}
 }

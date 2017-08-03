@@ -28,3 +28,8 @@ Mesh::~Mesh()
 {
 	;
 }
+
+void Mesh::Render()
+{
+	;
+}

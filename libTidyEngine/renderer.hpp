@@ -24,13 +24,13 @@ Contact the author at: jakob.sinclair99@gmail.com
 #endif
 
 class Shader;
-class Batch;
-class Renderable;
 
 #include <glad/glad.h>
-#include <string>
 #include <glm/vec2.hpp>
 #include <glm/vec4.hpp>
+#include <string>
+#include "vertex.hpp"
+#include "renderable.hpp"
 #include "font.hpp"
 
 class Renderer {
@@ -38,7 +38,7 @@ public:
 	Renderer();
 	virtual ~Renderer();
 
-	virtual void Initialise(Shader *shader, Batch *batch) = 0;
+	virtual void Initialise(Shader *shader) = 0;
 	virtual void Begin();
 	virtual void Draw(const Renderable *object);
 	virtual void DrawText(std::string text, glm::vec2 pos,
@@ -46,8 +46,13 @@ public:
 	virtual void End();
 	virtual void Present();
 protected:
+	void SortGlyphs();
+	void CreateBatches();
+	static bool CompareTex(Renderable *a, Renderable *b);
 	Shader *m_Shader = nullptr;
-	Batch *m_Batch = nullptr;
 	GLuint m_VAOID = 0;
 	GLuint m_VBOID = 0;
+	std::vector<Renderable> m_Glyphs;
+	std::vector<Renderable*> m_SortedGlyphs;
+	std::vector<RenderBatch> m_RenderBatches;
 };

@@ -77,10 +77,9 @@ bool Core::InitSubSystems()
 		printf("Error: Failed to load default shaders!\n");
 		return false;
 	}
-	
-	m_SpriteRenderer.Initialise(m_Render.GetShader("default"),
-			&m_Render.GetBatch());
-	
+
+	m_SpriteRenderer.Initialise(m_Render.GetShader("default"));
+
 	glfwSetWindowSizeCallback(m_Screen.GetWindow(),
 	                          Screen::WindowSizeCallback);
 	m_Input.Initialise(m_Screen.GetWindow());

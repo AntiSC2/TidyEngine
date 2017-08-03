@@ -26,7 +26,6 @@ class Shader;
 #include <map>
 #include <memory>
 #include <string>
-#include "batch.hpp"
 
 class Render {
 public:
@@ -36,10 +35,8 @@ public:
 	bool LoadShaders(std::string name, std::string v, std::string f,
 			std::vector<std::string> attributes = {});
 	Shader *GetShader(std::string name);
-	Batch &GetBatch();
 	void Clear();
 	void Present(GLFWwindow *window);
 private:
 	std::map<std::string, std::unique_ptr<Shader>> m_Shaders;
-	Batch m_Batch;
 };

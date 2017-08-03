@@ -20,7 +20,6 @@ set(SOURCE
 	${CMAKE_CURRENT_SOURCE_DIR}/error.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/texture.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/renderable.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/batch.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/iomanager.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/cache.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/rect2d.cpp
@@ -49,7 +48,6 @@ set(HEADERS
 	${CMAKE_CURRENT_SOURCE_DIR}/texture.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/vertex.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/renderable.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/batch.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/iomanager.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/cache.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/rect2d.hpp

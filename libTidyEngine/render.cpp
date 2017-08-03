@@ -68,11 +68,6 @@ Shader *Render::GetShader(std::string name)
 	return nullptr;
 }
 
-Batch &Render::GetBatch()
-{
-	return m_Batch;
-}
-
 void Render::Clear()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

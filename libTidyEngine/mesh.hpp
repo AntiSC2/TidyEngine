@@ -26,5 +26,7 @@ public:
 	Mesh();
 	virtual ~Mesh();
 
-private:
+	virtual void Render();
+protected:
+	std::vector<uint32_t> m_Indices;
 };
