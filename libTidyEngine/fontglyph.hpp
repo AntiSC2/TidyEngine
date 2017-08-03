@@ -42,7 +42,7 @@ public:
 protected:
 	glm::vec4 m_Rect = glm::vec4(0.0f, 0.0f, 0.0f, 0.0f);
 	glm::vec4 m_Color = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
-	glm::vec4 m_TexCoords = glm::vec4(0.0f, 0.0f, 0.05f, 1.0f);
+	glm::vec4 m_TexCoords = glm::vec4(0.0f, 0.0f, 0.0f, 0.0f);
 	int32_t m_Left = 0; /* Distance in pixels from the left side */
 	int32_t m_Top = 0; /* Distance in pixels from the top side */
 	int32_t m_AdvanceX = 0;

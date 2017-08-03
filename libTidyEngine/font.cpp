@@ -22,6 +22,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 #endif
 
 #include "font.hpp"
+#include <memory>
 #include <glad/glad.h>
 #include <ft2build.h>
 #include <freetype/freetype.h>
@@ -72,7 +73,7 @@ bool Font::Initialize(FT_Library *lib, std::string path, uint32_t height)
 	uint32_t b_width = 0;
 	uint32_t b_height = 0;
 	
-	std::vector<GLubyte *> temp_bitmaps;
+	std::vector<std::unique_ptr<GLubyte[]>> temp_bitmaps;
 	
 	while(m_Glyphs.size() < (uint32_t)face->num_glyphs){
 		error = FT_Load_Char(face, count, FT_LOAD_RENDER);
@@ -96,26 +97,26 @@ bool Font::Initialize(FT_Library *lib, std::string path, uint32_t height)
 			continue;
 		}
 		
-		GLubyte *temp_bitmap = new GLubyte[bitmap.width * bitmap.rows];
+		std::unique_ptr<GLubyte[]> temp_bitmap = std::make_unique<GLubyte[]>(bitmap.width * bitmap.rows);
 		
 		for (uint32_t y = 0; y < bitmap.rows; y++) {
 			for (uint32_t x = 0; x < bitmap.width; x++) {
-				temp_bitmap[x + y * bitmap.width] =
+				temp_bitmap.get()[x + y * bitmap.width] =
 				bitmap.buffer[x + y * bitmap.width];
 			}
 		}
 		
-		temp_bitmaps.push_back(temp_bitmap);
+		temp_bitmaps.push_back(std::move(temp_bitmap));
 		m_Glyphs[count] = FontGlyph((float)b_width, 0.0f,
 		                            (float)bitmap.width,
 		                            (float)bitmap.rows, 0);
-		
+
 		FontGlyph &temp_glyph = m_Glyphs[count];
 		temp_glyph.SetPenX(face->glyph->bitmap_left);
 		temp_glyph.SetPenY(face->glyph->bitmap_top);
 		temp_glyph.SetAdvanceX(face->glyph->advance.x >> 6);
 		temp_glyph.SetAdvanceY(face->glyph->advance.y >> 6);
-		
+
 		if (m_TexHeight < face->glyph->bitmap_top)
 			m_TexHeight = face->glyph->bitmap_top;
 
@@ -131,8 +132,8 @@ bool Font::Initialize(FT_Library *lib, std::string path, uint32_t height)
 	uint32_t offset = 0;
 	uint32_t index = 0;
 	
-	GLubyte *final_bitmap = new GLubyte[f_width * f_height * 2];
-	
+	std::unique_ptr<GLubyte[]> final_bitmap = std::make_unique<GLubyte[]>(f_width * f_height * 2);
+	final_bitmap.get()[2 * ((f_width - 1) + (f_height - 1) * f_width) + 1] = 1;
 	for (auto &i: m_Glyphs) {
 		FontGlyph &temp = i.second;
 		uint32_t width = (uint32_t)temp.GetRect().z;
@@ -147,11 +148,10 @@ bool Font::Initialize(FT_Library *lib, std::string path, uint32_t height)
 
 		for (uint32_t x = offset; x < f_width; x++) {
 			for (uint32_t y = 0; y < f_height; y++) {
-				final_bitmap[2 * (x + y * f_width)] =
-				final_bitmap[2 * (x + y * f_width) + 1] =
-				(x >= b_width || y >= height) ?
-				0 : temp_bitmaps[index][(x - offset) +
-				                         y * width];
+				final_bitmap.get()[2 * (x + y * f_width)] =
+				final_bitmap.get()[2 * (x + y * f_width) + 1] =
+				((x - offset) >= width || y >= height) ?
+				0 : temp_bitmaps[index].get()[(x - offset) + y * width];
 			}
 		}
 		
@@ -159,13 +159,10 @@ bool Font::Initialize(FT_Library *lib, std::string path, uint32_t height)
 		index++;
 	}
 		
-	for (auto &i: temp_bitmaps)
-		delete[] i;
-	
 	temp_bitmaps.clear();
-	m_Texture.CreateTex(final_bitmap, f_width, f_height, true);
-	delete []final_bitmap;
-	
+	m_Texture.CreateTex(final_bitmap.get(), f_width, f_height, true);
+	final_bitmap.reset(nullptr);
+
 	for (auto &i : m_Glyphs)
 		i.second.SetTex(m_Texture.GetTex());
 

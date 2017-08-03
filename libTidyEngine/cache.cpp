@@ -56,6 +56,8 @@ void Cache::Clean()
 {
 	for (auto it : m_Textures)
 		it.second.DestroyTex();
+	m_Samples.clear();
+	m_Resources.clear();
 }
 
 Texture *Cache::CreateTexture(std::string name, std::string filepath)

@@ -37,6 +37,6 @@ public:
 	unsigned int GetBuffer() const;
 	unsigned int GetSource() const;
 private:
-	ALuint m_Source;
-	ALuint m_Buffer;
+	ALuint m_Source = 0;
+	ALuint m_Buffer = 0;
 };
