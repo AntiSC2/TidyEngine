@@ -79,7 +79,7 @@ void Game::DrawGame()
 	Rect2D rect;
 	rect.SetColor(glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
 	rect.SetRect(0.0f, 680.0f, 1280.0f, 720.0f);
-	m_Render.Clear();
+	m_Graphics.Clear();
 
 	m_SpriteRenderer.Begin();
 	m_EntityManager.Draw(&m_SpriteRenderer);
@@ -88,5 +88,5 @@ void Game::DrawGame()
 	m_SpriteRenderer.End();
 	m_SpriteRenderer.Present(m_EntityManager.GetCamera());
 
-	m_Render.Present(m_Screen.GetWindow());
+	m_Graphics.Present(m_Screen.GetWindow());
 }

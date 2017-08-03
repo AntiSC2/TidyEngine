@@ -18,7 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 #include "screen.hpp"
-#include "render.hpp"
+#include "graphics.hpp"
 #include "spriterenderer.hpp"
 #include "input.hpp"
 #include "entitymanager.hpp"
@@ -44,7 +44,7 @@ protected:
 	bool m_Initialized = false;
 	AudioSystem m_Audio;
 	Screen m_Screen;
-	Render m_Render;
+	Graphics m_Graphics;
 	FT_Library m_FontLib;
 	SpriteRenderer m_SpriteRenderer;
 	Input m_Input;

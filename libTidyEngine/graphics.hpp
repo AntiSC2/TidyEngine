@@ -27,10 +27,10 @@ class Shader;
 #include <memory>
 #include <string>
 
-class Render {
+class Graphics {
 public:
-	Render();
-	~Render();
+	Graphics();
+	~Graphics();
 
 	bool LoadShaders(std::string name, std::string v, std::string f,
 			std::vector<std::string> attributes = {});

@@ -21,23 +21,23 @@ Contact the author at: jakob.sinclair99@gmail.com
 #define APIENTRY __stdcall
 #endif
 
-#include "render.hpp"
+#include "graphics.hpp"
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <cstdio>
 #include "shader.hpp"
 
-Render::Render()
+Graphics::Graphics()
 {
 	;
 }
 
-Render::~Render()
+Graphics::~Graphics()
 {
 	m_Shaders.clear();
 }
 
-bool Render::LoadShaders(std::string name, std::string v, std::string f,
+bool Graphics::LoadShaders(std::string name, std::string v, std::string f,
 		std::vector<std::string> attributes)
 {
 	m_Shaders[name] = std::unique_ptr<Shader>(new Shader(v, f));
@@ -58,7 +58,7 @@ bool Render::LoadShaders(std::string name, std::string v, std::string f,
 	return true;
 }
 
-Shader *Render::GetShader(std::string name)
+Shader *Graphics::GetShader(std::string name)
 {
 	if (m_Shaders.find(name) != m_Shaders.end())
 		return m_Shaders[name].get();
@@ -68,12 +68,12 @@ Shader *Render::GetShader(std::string name)
 	return nullptr;
 }
 
-void Render::Clear()
+void Graphics::Clear()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-void Render::Present(GLFWwindow *window)
+void Graphics::Present(GLFWwindow *window)
 {
 	glfwSwapBuffers(window);
 }
