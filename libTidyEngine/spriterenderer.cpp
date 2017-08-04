@@ -16,7 +16,7 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 Contact the author at: jakob.sinclair99@gmail.com
 */
-#define SPRITE_COUNT 1000000
+#define SPRITE_COUNT 500000
 #include "spriterenderer.hpp"
 #include "shader.hpp"
 #include "camera.hpp"

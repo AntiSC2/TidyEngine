@@ -37,6 +37,8 @@ set(SOURCE
 	${CMAKE_CURRENT_SOURCE_DIR}/font.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/fontglyph.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/mesh.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/modelrenderer.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/model.cpp
 )
 set(HEADERS
 	${HEADERS}
@@ -65,6 +67,8 @@ set(HEADERS
 	${CMAKE_CURRENT_SOURCE_DIR}/font.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/fontglyph.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/mesh.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/modelrenderer.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/model.hpp
 )
 
 if (WIN32)
@@ -176,6 +180,7 @@ elseif (APPLE)
 	message("MACOSX: Not yet supported!")
 elseif (UNIX)
 	find_package(PkgConfig REQUIRED)
+	pkg_search_module(ASSIMP REQUIRED assimp)
 	pkg_search_module(GLFW REQUIRED glfw3)
 	pkg_search_module(FREEIMAGE REQURIED freeimage)
 	pkg_search_module(LUAJIT REQUIRED luajit)
@@ -199,6 +204,7 @@ include_directories(${OPENAL_INCLUDE_DIRS})
 include_directories(${OGG_INCLUDE_DIRS})
 include_directories(${VORBIS_INCLUDE_DIRS})
 include_directories(${FREETYPE2_INCLUDE_DIRS})
+include_directories(${ASSIMP_INCLUDE_DIRS})
 
 add_library(${PROJECT_NAME} STATIC ${SOURCE} ${HEADERS})
 target_link_libraries(${PROJECT_NAME} ${GLFW_LIBRARIES}
@@ -209,7 +215,8 @@ target_link_libraries(${PROJECT_NAME} ${GLFW_LIBRARIES}
                                       ${OGG_LIBRARIES}
                                       ${VORBIS_LIBRARIES}
                                       ${VORBISFILE_LIBRARIES}
-                                      ${FREETYPE2_LIBRARIES})
+                                      ${FREETYPE2_LIBRARIES}
+                                      ${ASSIMP_LIBRARIES})
 
 if (WIN32)
 	target_link_libraries(${PROJECT_NAME} opengl32.lib)

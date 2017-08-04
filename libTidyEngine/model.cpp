@@ -1,6 +1,6 @@
 /*
 TidyEngine
-Copyright (C) 2016 Jakob Sinclair
+Copyright (C) 2017 Jakob Sinclair
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Lesser General Public License as published by
@@ -17,19 +17,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 Contact the author at: jakob.sinclair99@gmail.com
 */
 
-#pragma once
-
-class Camera;
-
-#include "renderer.hpp"
-
-class ModelRenderer : public Renderer {
-public:
-	ModelRenderer();
-	virtual ~ModelRenderer();
-
-	virtual void Initialise(Shader *shader);
-	virtual void Present(const Camera *camera);
-};
-
-extern bool CompareTex(Renderable *a, Renderable *b);
+#include "model.hpp"

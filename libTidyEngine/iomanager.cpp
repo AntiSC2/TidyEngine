@@ -21,6 +21,9 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include <fstream>
 #include <vorbis/vorbisfile.h>
 #include <vector>
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
 #include "error.hpp"
 
 IOManager IO;
@@ -65,6 +68,17 @@ std::string IOManager::ReadFile(std::string filepath)
 
 	source.close();
 	return source_contents;
+}
+
+void IOManager::LoadMesh(std::string filepath)
+{
+	Assimp::Importer importer;
+	const aiScene *scene = importer.ReadFile(filepath, aiProcess_Triangulate | aiProcess_FlipUVs);
+
+	if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) {
+		printf("Warning: could not load mesh %s\n", filepath.c_str());
+		printf("ASSIMP WARNING: %s\n", importer.GetErrorString());
+	}
 }
 
 size_t IfsRead(void *out, size_t size, size_t bytesize, void *in)

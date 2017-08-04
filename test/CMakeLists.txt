@@ -133,6 +133,7 @@ elseif (APPLE)
 	message("MACOSX: Not yet supported")
 elseif (UNIX)
 	find_package(PkgConfig REQUIRED)
+	pkg_search_module(ASSIMP REQUIRED assimp)
 	pkg_search_module(GLFW REQUIRED glfw3)
 	pkg_search_module(FREEIMAGE REQURIED freeimage)
 	pkg_search_module(LUAJIT REQUIRED luajit)
@@ -153,6 +154,7 @@ elseif (UNIX)
 endif ()
 
 include_directories(${CMAKE_SOURCE_DIR}/deps/include)
+include_directories(${ASSIMP_INCLUDE_DIRS})
 include_directories(${BOX2D_INCLUDE_DIRS})
 include_directories(${GLFW_INCLUDE_DIRS})
 include_directories(${FREEIMAGE_INCLUDE_DIRS})
@@ -175,7 +177,8 @@ target_link_libraries(${PROJECT_NAME}
                       ${OGG_LIBRARIES}
                       ${FREETYPE2_LIBRARIES}
                       ${BZIP2_LIBRARIES}
-                      ${ZLIB_LIBRARIES})
+                      ${ZLIB_LIBRARIES}
+                      ${ASSIMP_LIBRARIES})
 
 if (WIN32)
 	target_link_libraries(${PROJECT_NAME} opengl32.lib)
