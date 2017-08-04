@@ -23,13 +23,11 @@ class Camera;
 
 #include "renderer.hpp"
 
-class SpriteRenderer : public Renderer {
+class ModelRenderer : public Renderer {
 public:
-	SpriteRenderer();
-	virtual ~SpriteRenderer();
+	ModelRenderer();
+	virtual ~ModelRenderer();
 
 	virtual void Initialise(Shader *shader);
 	virtual void Present(const Camera *camera);
 };
-
-extern bool CompareTex(Renderable *a, Renderable *b);

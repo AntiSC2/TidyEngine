@@ -62,9 +62,15 @@ void Renderable::SetPos(const glm::vec3& pos)
 	}
 }
 
-void Renderable::SetTex(GLuint tex) 
+void Renderable::AddTex(GLuint tex) 
 {
-	m_Tex = tex;
+	m_Textures.push_back(tex);
+}
+
+void Renderable::DelTex(size_t index)
+{
+	if (index < m_Textures.size())
+		m_Textures.erase(m_Textures.begin() + index);
 }
 
 const std::vector<Vertex> &Renderable::GetVertices() const
@@ -72,7 +78,12 @@ const std::vector<Vertex> &Renderable::GetVertices() const
 	return m_Vertices;
 }
 
-GLuint Renderable::GetTex()
+GLuint Renderable::GetTex(size_t index) const
 {
-	return m_Tex;
+	return m_Textures[index];
+}
+
+const std::vector<GLuint> &Renderable::GetTextures() const
+{
+	return m_Textures;
 }

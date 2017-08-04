@@ -24,7 +24,7 @@ FontGlyph::FontGlyph()
 	;
 }
 
-FontGlyph::FontGlyph(float x, float y, float w, float h, GLuint tex)
+FontGlyph::FontGlyph(float x, float y, float w, float h)
 {
 	m_Rect.x = x;
 	m_Rect.y = y;
@@ -56,8 +56,6 @@ FontGlyph::FontGlyph(float x, float y, float w, float h, GLuint tex)
 	temp.Position = glm::vec3(x + w, y + h, 0.0f);
 	temp.TexUV = glm::vec2(m_TexCoords.z, m_TexCoords.w);
 	AddVertex(temp);
-
-	m_Tex = tex;
 }
 
 FontGlyph::~FontGlyph()

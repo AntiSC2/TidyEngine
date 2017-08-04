@@ -93,8 +93,7 @@ void Renderer::Present()
 
 void Renderer::SortGlyphs()
 {
-	std::stable_sort(m_SortedGlyphs.begin(), m_SortedGlyphs.end(),
-	                 CompareTex);
+	std::stable_sort(m_SortedGlyphs.begin(), m_SortedGlyphs.end(), Order);
 }
 
 void Renderer::CreateBatches()
@@ -106,7 +105,7 @@ void Renderer::CreateBatches()
 	std::vector<Vertex> vertex_data;
 	uint64_t offset = 0;
 	
-	m_RenderBatches.emplace_back(m_SortedGlyphs[0]->GetTex(),
+	m_RenderBatches.emplace_back(m_SortedGlyphs[0]->GetTex(0),
 			m_SortedGlyphs[0]->GetVertices().size(), offset);
 	offset += m_RenderBatches[0].Vertices;
 
@@ -115,10 +114,10 @@ void Renderer::CreateBatches()
 		vertex_data[i] = m_SortedGlyphs[0]->GetVertices()[i];
 
 	for (size_t g = 1; g < m_SortedGlyphs.size(); g++) {
-		GLuint temp_tex = m_SortedGlyphs[g]->GetTex();
+		GLuint temp_tex = m_SortedGlyphs[g]->GetTex(0);
 		size_t num_vert = m_SortedGlyphs[g]->GetVertices().size();
 
-		if (temp_tex != m_SortedGlyphs[g - 1]->GetTex())
+		if (temp_tex != m_SortedGlyphs[g - 1]->GetTex(0))
 			m_RenderBatches.emplace_back(temp_tex, num_vert,
 			                             offset);
 		else
@@ -138,9 +137,4 @@ void Renderer::CreateBatches()
 	glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(Vertex) * vertex_data.size(), 
 	                vertex_data.data());
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
-}
-
-bool Renderer::CompareTex(Renderable *a, Renderable *b)
-{
-	return a->GetTex() < b->GetTex();
 }

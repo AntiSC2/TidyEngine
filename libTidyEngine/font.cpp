@@ -79,20 +79,16 @@ bool Font::Initialize(FT_Library *lib, std::string path, uint32_t height)
 		error = FT_Load_Char(face, count, FT_LOAD_RENDER);
 		if (error) {
 			count++;
-			/* Big risk of infinite loop otherwise,
-			 * 100 is just an arbitary number
-			 */
-			if (count > m_Glyphs.size() + 100)
+			if (count > 255)
 				break;
 			continue;
 		}
 
 		FT_Bitmap &bitmap= face->glyph->bitmap;
 		
-		if ((bitmap.width == 0 || bitmap.rows == 0) &&
-		    (char)count != ' ') {
+		if ((bitmap.width == 0 || bitmap.rows == 0) && (char)count != ' ') {
 			count++;
-			if (count > m_Glyphs.size() + 100)
+			if (count > 255)
 				break;
 			continue;
 		}
@@ -109,7 +105,7 @@ bool Font::Initialize(FT_Library *lib, std::string path, uint32_t height)
 		temp_bitmaps.push_back(std::move(temp_bitmap));
 		m_Glyphs[count] = FontGlyph((float)b_width, 0.0f,
 		                            (float)bitmap.width,
-		                            (float)bitmap.rows, 0);
+		                            (float)bitmap.rows);
 
 		FontGlyph &temp_glyph = m_Glyphs[count];
 		temp_glyph.SetPenX(face->glyph->bitmap_left);
@@ -123,7 +119,6 @@ bool Font::Initialize(FT_Library *lib, std::string path, uint32_t height)
 		b_width += bitmap.width;
 		if (bitmap.rows > b_height)
 			b_height = bitmap.rows;
-
 		count++;
 	}
 
@@ -154,7 +149,7 @@ bool Font::Initialize(FT_Library *lib, std::string path, uint32_t height)
 				0 : temp_bitmaps[index].get()[(x - offset) + y * width];
 			}
 		}
-		
+
 		offset += width;
 		index++;
 	}
@@ -164,7 +159,7 @@ bool Font::Initialize(FT_Library *lib, std::string path, uint32_t height)
 	final_bitmap.reset(nullptr);
 
 	for (auto &i : m_Glyphs)
-		i.second.SetTex(m_Texture.GetTex());
+		i.second.AddTex(m_Texture.GetTex());
 
 	FT_Done_Face(face);
 

@@ -24,7 +24,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 class FontGlyph: public Renderable {
 public:
 	FontGlyph();
-	FontGlyph(float x, float y, float w, float h, GLuint tex);
+	FontGlyph(float x, float y, float w, float h);
 	~FontGlyph();
 
 	virtual void SetPos(float x, float y);

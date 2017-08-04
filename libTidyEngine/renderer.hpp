@@ -48,7 +48,7 @@ public:
 protected:
 	void SortGlyphs();
 	void CreateBatches();
-	static bool CompareTex(Renderable *a, Renderable *b);
+	bool (*Order)(Renderable*, Renderable*) = nullptr;
 	Shader *m_Shader = nullptr;
 	GLuint m_VAOID = 0;
 	GLuint m_VBOID = 0;

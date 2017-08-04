@@ -39,10 +39,12 @@ public:
 	virtual void AddVertex(const Vertex &vertex);
 	virtual void DelVertex(size_t index);
 	virtual void SetPos(const glm::vec3& pos);
-	virtual void SetTex(GLuint tex);
+	virtual void AddTex(GLuint tex);
+	virtual void DelTex(size_t index);
 	virtual const std::vector<Vertex> &GetVertices() const;
-	virtual GLuint GetTex();
+	virtual GLuint GetTex(size_t index) const;
+	virtual const std::vector<GLuint> &GetTextures() const;
 protected:
 	std::vector<Vertex> m_Vertices;
-	GLuint m_Tex = 0;
+	std::vector<GLuint> m_Textures;;
 };

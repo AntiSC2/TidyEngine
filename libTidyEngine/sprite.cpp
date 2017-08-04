@@ -127,7 +127,10 @@ bool Sprite::Initialise(const Texture *tex, uint32_t w, uint32_t h,
 	if (frames.size() % 4 != 0 || tex == nullptr)
 		return false;
 
-	m_Tex = tex->GetTex();
+	if (m_Textures.size() != 0)
+		m_Textures.clear();
+
+	m_Textures.push_back(tex->GetTex());
 	m_Texture = tex;
 	m_Frames.clear();
 

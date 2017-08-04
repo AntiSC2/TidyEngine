@@ -62,7 +62,7 @@ bool Core::InitSubSystems()
 	FreeImage_Initialise();
 	FreeImage_SetOutputMessage(FreeImageError);
 
-	if (m_Screen.CreateWindow(1280, 720, "TidyEngine", 4, 5) != true) {
+	if (m_Screen.CreateWindow(1280, 720, "TidyEngine", 4, 3) != true) {
 		printf("Error: glfw could not create window!\n");
 		return false;
 	} else {
@@ -72,13 +72,19 @@ bool Core::InitSubSystems()
 		}
 	}
 
-	if (m_Graphics.LoadShaders("default", "shader.vert", "shader.frag",
-	   {"position", "color", "uv" }) == false) {
-		printf("Error: Failed to load default shaders!\n");
+	if (m_Graphics.LoadShaders("sprite", "sprite.vert", "sprite.frag",
+	   {"position", "color", "uv"}) == false) {
+		printf("Error: Failed to load sprite shaders!\n");
 		return false;
 	}
 
-	m_SpriteRenderer.Initialise(m_Graphics.GetShader("default"));
+	if (m_Graphics.LoadShaders("model", "model.vert", "model.frag",
+	   {"position", "color", "uv", "normal"}) == false) {
+		printf("Error: Failed to load model shaders!\n");
+		return false;
+	}
+
+	m_SpriteRenderer.Initialise(m_Graphics.GetShader("sprite"));
 
 	glfwSetWindowSizeCallback(m_Screen.GetWindow(),
 	                          Screen::WindowSizeCallback);

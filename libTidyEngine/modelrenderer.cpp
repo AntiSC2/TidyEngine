@@ -16,17 +16,17 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 Contact the author at: jakob.sinclair99@gmail.com
 */
-#define SPRITE_COUNT 1000000
-#include "spriterenderer.hpp"
+
+#include "modelrenderer.hpp"
 #include "shader.hpp"
 #include "camera.hpp"
 
-SpriteRenderer::SpriteRenderer()
+ModelRenderer::ModelRenderer()
 {
-	Order = &CompareTex;	
+	;	
 }
 
-SpriteRenderer::~SpriteRenderer()
+ModelRenderer::~ModelRenderer()
 {
 	if (m_VAOID != 0)
 		glDeleteVertexArrays(1, &m_VAOID);
@@ -34,7 +34,7 @@ SpriteRenderer::~SpriteRenderer()
 		glDeleteBuffers(1, &m_VBOID);
 }
 
-void SpriteRenderer::Initialise(Shader *shader)
+void ModelRenderer::Initialise(Shader *shader)
 {
 	m_Shader = shader;
 
@@ -53,6 +53,7 @@ void SpriteRenderer::Initialise(Shader *shader)
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
 	glEnableVertexAttribArray(2);
+	glEnableVertexAttribArray(3);
 	
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex),
 			(void*)offsetof(Vertex, Position));
@@ -60,11 +61,13 @@ void SpriteRenderer::Initialise(Shader *shader)
 			(void*)offsetof(Vertex, Color));
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex),
 			(void*)offsetof(Vertex, TexUV));
+	glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex)),
+	        (void*)offsetof(Vertex, Normal));
 
 	glBindVertexArray(0);
 }
 
-void SpriteRenderer::Present(const Camera *camera)
+void ModelRenderer::Present(const Camera *camera)
 {
 	if (camera != nullptr) {
 		m_Shader->SetUniformMat4("projection", camera->GetProj());
@@ -78,9 +81,4 @@ void SpriteRenderer::Present(const Camera *camera)
 		glDrawArrays(GL_TRIANGLES, (GLsizei)m_RenderBatches[i].Offset,
 		            (GLsizei)m_RenderBatches[i].Vertices);
 	}
-}
-
-bool CompareTex(Renderable *a, Renderable *b)
-{
-	return a->GetTex(0) < b->GetTex(0);
 }
