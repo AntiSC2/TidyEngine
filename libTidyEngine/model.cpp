@@ -18,3 +18,23 @@ Contact the author at: jakob.sinclair99@gmail.com
 */
 
 #include "model.hpp"
+
+Model::Model()
+{
+    ;
+}
+
+Model::~Model()
+{
+    ;
+}
+
+std::string Model::Type()
+{
+    return "Model";
+}
+
+void Model::AddMesh(Mesh &m)
+{
+    m_Meshes.push_back(m);
+}

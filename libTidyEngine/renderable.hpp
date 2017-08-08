@@ -37,8 +37,9 @@ public:
 	
 	virtual void Render();
 	virtual void AddVertex(const Vertex &vertex);
+	virtual void SetVertices(std::vector<Vertex> &vertices);
 	virtual void DelVertex(size_t index);
-	virtual void SetPos(const glm::vec3& pos);
+	virtual void SetPos(const glm::vec3 &pos);
 	virtual void AddTex(GLuint tex);
 	virtual void DelTex(size_t index);
 	virtual const std::vector<Vertex> &GetVertices() const;
@@ -46,5 +47,5 @@ public:
 	virtual const std::vector<GLuint> &GetTextures() const;
 protected:
 	std::vector<Vertex> m_Vertices;
-	std::vector<GLuint> m_Textures;;
+	std::vector<GLuint> m_Textures;
 };

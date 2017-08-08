@@ -21,6 +21,11 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 #include <string>
 #include <FreeImage.h>
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
+#include "mesh.hpp"
+#include "model.hpp"
 #include "sample.hpp"
 
 class IOManager {
@@ -30,7 +35,11 @@ public:
 
 	FIBITMAP *LoadImage(std::string filepath);
 	std::string ReadFile(std::string filepath);
-	void LoadMesh(std::string filepath);
+	Model LoadMesh(std::string filepath);
 	bool LoadVorbis(std::string filepath, Sample *out);
-private:
+protected:
+	void ProcessTree(Model &m, aiNode *node, const aiScene *scene);
+	void ProcessNode(Model &m, aiNode *node, const aiScene *scene);
+	Mesh ProcessMesh(aiMesh *mesh, const aiScene *scene);
+	std::vector<GLuint> &LoadMatTextures(aiMaterial *mat, aiTextureType type);
 } extern IO;

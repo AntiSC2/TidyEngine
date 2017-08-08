@@ -38,9 +38,14 @@ void Renderable::Render()
 	;
 }
 
-void Renderable::AddVertex(const Vertex& vertex)
+void Renderable::AddVertex(const Vertex &vertex)
 {
 	m_Vertices.push_back(vertex);
+}
+
+void Renderable::SetVertices(std::vector<Vertex> &vertices)
+{
+	m_Vertices = vertices;
 }
 
 void Renderable::DelVertex(size_t index)
@@ -49,7 +54,7 @@ void Renderable::DelVertex(size_t index)
 		m_Vertices.erase(m_Vertices.begin() + index);
 }
 
-void Renderable::SetPos(const glm::vec3& pos)
+void Renderable::SetPos(const glm::vec3 &pos)
 {
 	glm::vec3 offset(0.0f, 0.0f, 0.0f);
 

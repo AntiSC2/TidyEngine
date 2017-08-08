@@ -19,10 +19,20 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 #pragma once
 
+#include <string>
+#include <vector>
 #include "resource.hpp"
+#include "mesh.hpp"
 
 class Model : public Resource {
 public:
     Model();
-    ~Model();
+    virtual ~Model();
+
+    virtual std::string Type();
+
+    void AddMesh(Mesh &m);
+protected:
+    std::string m_Dir = "";
+    std::vector<Mesh> m_Meshes;
 };

@@ -19,11 +19,14 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 #pragma once
 
+#include <vector>
 #include "renderable.hpp"
+#include "vertex.hpp"
 
-class Mesh: Renderable {
+class Mesh: public Renderable {
 public:
 	Mesh();
+	Mesh(std::vector<Vertex> &vertices, std::vector<uint32_t> &indices, std::vector<GLuint> &textures);
 	virtual ~Mesh();
 
 	virtual void Render();

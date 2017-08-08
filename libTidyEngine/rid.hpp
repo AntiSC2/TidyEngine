@@ -26,6 +26,7 @@ class Texture;
 class Sample;
 class Renderable;
 class Shader;
+class Model;
 
 class RID {
 public:
@@ -33,10 +34,12 @@ public:
 	RID(Resource *data);
 	~RID();
 
+	void SetResource(Resource *res);
 	void SetResource(Texture *res);
 	void SetResource(Sample *res);
 	void SetResource(Renderable *res);
 	void SetResource(Shader *res);
+	void SetResource(Model *res);
 	Resource *Data() const;
 private:
 	std::shared_ptr<Resource> m_Data;

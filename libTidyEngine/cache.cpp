@@ -78,7 +78,7 @@ Texture *Cache::CreateTexture(std::string name, std::string filepath)
 	} else {
 		printf("Warning: texture %s already exists!\n",
 				name.c_str());
-		return nullptr;
+		return &m_Textures[name];
 	}
 }
 

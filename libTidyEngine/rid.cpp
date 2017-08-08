@@ -22,6 +22,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include "sample.hpp"
 #include "renderable.hpp"
 #include "shader.hpp"
+#include "model.hpp"
 
 RID::RID()
 {
@@ -36,6 +37,11 @@ RID::RID(Resource *res)
 RID::~RID()
 {
 	;
+}
+
+void RID::SetResource(Resource *res)
+{
+	m_Data.reset(res);
 }
 
 void RID::SetResource(Texture *res)
@@ -54,6 +60,11 @@ void RID::SetResource(Renderable *res)
 }
 
 void RID::SetResource(Shader *res)
+{
+	m_Data.reset(static_cast<Resource *>(res));
+}
+
+void RID::SetResource(Model *res)
 {
 	m_Data.reset(static_cast<Resource *>(res));
 }

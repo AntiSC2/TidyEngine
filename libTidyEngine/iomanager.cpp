@@ -21,9 +21,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include <fstream>
 #include <vorbis/vorbisfile.h>
 #include <vector>
-#include <assimp/Importer.hpp>
-#include <assimp/scene.h>
-#include <assimp/postprocess.h>
+#include "cache.hpp"
 #include "error.hpp"
 
 IOManager IO;
@@ -70,7 +68,7 @@ std::string IOManager::ReadFile(std::string filepath)
 	return source_contents;
 }
 
-void IOManager::LoadMesh(std::string filepath)
+Model IOManager::LoadMesh(std::string filepath)
 {
 	Assimp::Importer importer;
 	const aiScene *scene = importer.ReadFile(filepath, aiProcess_Triangulate | aiProcess_FlipUVs);
@@ -79,6 +77,93 @@ void IOManager::LoadMesh(std::string filepath)
 		printf("Warning: could not load mesh %s\n", filepath.c_str());
 		printf("ASSIMP WARNING: %s\n", importer.GetErrorString());
 	}
+
+	Model m;
+	std::string dir = filepath.substr(0, filepath.find_last_of('/'));
+	ProcessNode(m, scene->mRootNode, scene);
+	ProcessTree(m, scene->mRootNode, scene);
+	return m;
+}
+
+void IOManager::ProcessTree(Model &m, aiNode *node, const aiScene *scene)
+{
+	for (uint32_t i = 0; i < node->mNumChildren; i++) {
+		ProcessNode(m, node->mChildren[i], scene);
+	}
+
+	for (uint32_t i = 0; i < node->mNumChildren; i++) {
+		ProcessTree(m, node->mChildren[i], scene);
+	}
+}
+
+void IOManager::ProcessNode(Model &m, aiNode *node, const aiScene *scene)
+{
+	for (size_t i = 0; i < node->mNumMeshes; i++) {
+		aiMesh *mesh = scene->mMeshes[node->mMeshes[i]];
+		Mesh temp = ProcessMesh(mesh, scene);
+		m.AddMesh(temp);
+	}
+}
+
+Mesh IOManager::ProcessMesh(aiMesh *mesh, const aiScene *scene)
+{
+	std::vector<Vertex> vertices;
+	std::vector<uint32_t> indices;
+    std::vector<GLuint> textures;
+
+    for (uint32_t i = 0; i < mesh->mNumVertices; i++)
+    {
+        Vertex vertex;
+		vertex.Color = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
+		glm::vec3 vector;
+
+        vector.x = mesh->mVertices[i].x;
+		vector.y = mesh->mVertices[i].y;
+		vector.z = mesh->mVertices[i].z;
+		vertex.Position = vector;
+
+		vector.x = mesh->mNormals[i].x;
+		vector.y = mesh->mNormals[i].y;
+		vector.z = mesh->mNormals[i].z;
+		vertex.Normal = vector;
+
+		if (mesh->mTextureCoords[0])
+		{
+		    glm::vec2 vec;
+		    vec.x = mesh->mTextureCoords[0][i].x; 
+		    vec.y = mesh->mTextureCoords[0][i].y;
+		    vertex.TexUV = vec;
+		}
+		else {
+			vertex.TexUV = glm::vec2(0.0f, 0.0f);
+		}
+        vertices.push_back(vertex);
+    }
+
+	for(uint32_t i = 0; i < mesh->mNumFaces; i++) {
+		aiFace face = mesh->mFaces[i];
+		for(uint32_t j = 0; j < face.mNumIndices; j++)
+			indices.push_back(face.mIndices[j]);
+	}  
+
+    if(mesh->mMaterialIndex >= 0) {
+		aiMaterial *mat = scene->mMaterials[mesh->mMaterialIndex];
+		textures = LoadMatTextures(mat, aiTextureType_DIFFUSE);
+    }
+
+    return Mesh(vertices, indices, textures);
+}
+
+std::vector<GLuint> &IOManager::LoadMatTextures(aiMaterial *mat, aiTextureType type)
+{
+	std::vector<GLuint> textures;
+	for(unsigned int i = 0; i < mat->GetTextureCount(type); i++)
+	{
+		aiString str;
+		mat->GetTexture(type, i, &str);
+		textures.push_back(Resources.CreateTexture(str.C_Str(), str.C_Str())->GetTex());
+	}
+	return textures;
 }
 
 size_t IfsRead(void *out, size_t size, size_t bytesize, void *in)

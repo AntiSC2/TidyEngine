@@ -24,6 +24,13 @@ Mesh::Mesh()
 	;
 }
 
+Mesh::Mesh(std::vector<Vertex> &vertices, std::vector<uint32_t> &indices, std::vector<GLuint> &textures)
+{
+	m_Vertices = vertices;
+	m_Indices = indices;
+	m_Textures = textures;
+}
+
 Mesh::~Mesh()
 {
 	;
