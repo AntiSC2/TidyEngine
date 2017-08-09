@@ -31,5 +31,8 @@ public:
 
 	virtual void Render();
 protected:
+	GLuint m_VAOID = 0;
+	GLuint m_EBOID = 0;
+	GLuint m_VBOID = 0;
 	std::vector<uint32_t> m_Indices;
 };

@@ -25,6 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "cache.hpp"
 #include "rid.hpp"
 #include "luascript.hpp"
+#include "iomanager.hpp"
 
 Game::Game()
 {
@@ -38,8 +39,9 @@ Game::~Game()
 
 bool Game::Init()
 {
+	m_Model = IO.LoadModel("Model/nanosuit.obj");
 	Camera *cam = new Camera("MainCamera");
-	cam->Initialise(1280, 720, &m_Screen);
+	cam->Initialise(1280, 720, &m_Screen, glm::vec3(0.0f, 10.0f, 10.0f), false);
 	m_EntityManager.SetCamera(cam);
 	cam = nullptr;
 	m_Font.Initialize(&m_FontLib, "Acme-Regular.ttf", 128);
@@ -81,12 +83,16 @@ void Game::DrawGame()
 	rect.SetRect(0.0f, 680.0f, 1280.0f, 720.0f);
 	m_Graphics.Clear();
 
-	m_SpriteRenderer.Begin();
+	/*m_SpriteRenderer.Begin();
 	m_EntityManager.Draw(&m_SpriteRenderer);
 	m_SpriteRenderer.Draw(&rect);
 	m_SpriteRenderer.DrawText("TidyEngine V0.2", glm::vec2(0.0f, 0.0f), glm::vec4(1.0f, 0.0f, 0.0f, 1.0f), m_Font);
 	m_SpriteRenderer.End();
-	m_SpriteRenderer.Present(m_EntityManager.GetCamera());
+	m_SpriteRenderer.Present(m_EntityManager.GetCamera());*/
+	m_ModelRenderer.Begin();
+	m_Model.Draw();
+	m_ModelRenderer.End();
+	m_ModelRenderer.Present(m_EntityManager.GetCamera());
 
 	m_Graphics.Present(m_Screen.GetWindow());
 }

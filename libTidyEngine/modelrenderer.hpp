@@ -30,6 +30,6 @@ public:
 
 	virtual void Initialise(Shader *shader);
 	virtual void Present(const Camera *camera);
+protected:
+	GLuint m_EBOID = 0;
 };
-
-extern bool CompareTex(Renderable *a, Renderable *b);

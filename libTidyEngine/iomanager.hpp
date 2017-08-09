@@ -24,7 +24,6 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
-#include "mesh.hpp"
 #include "model.hpp"
 #include "sample.hpp"
 
@@ -35,11 +34,11 @@ public:
 
 	FIBITMAP *LoadImage(std::string filepath);
 	std::string ReadFile(std::string filepath);
-	Model LoadMesh(std::string filepath);
+	Model LoadModel(std::string filepath);
 	bool LoadVorbis(std::string filepath, Sample *out);
 protected:
-	void ProcessTree(Model &m, aiNode *node, const aiScene *scene);
-	void ProcessNode(Model &m, aiNode *node, const aiScene *scene);
-	Mesh ProcessMesh(aiMesh *mesh, const aiScene *scene);
-	std::vector<GLuint> &LoadMatTextures(aiMaterial *mat, aiTextureType type);
+	void ProcessTree(Model &m, aiNode *node, const aiScene *scene, std::string dir);
+	void ProcessNode(Model &m, aiNode *node, const aiScene *scene, std::string dir);
+	Mesh ProcessMesh(aiMesh *mesh, const aiScene *scene, std::string dir);
+	std::vector<GLuint> LoadMatTextures(aiMaterial *mat, aiTextureType type, std::string dir);
 } extern IO;

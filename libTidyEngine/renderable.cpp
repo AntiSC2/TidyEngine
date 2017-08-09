@@ -85,6 +85,8 @@ const std::vector<Vertex> &Renderable::GetVertices() const
 
 GLuint Renderable::GetTex(size_t index) const
 {
+	if (index >= m_Textures.size())
+		return 0;
 	return m_Textures[index];
 }
 

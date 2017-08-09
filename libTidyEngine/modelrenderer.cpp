@@ -23,7 +23,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 ModelRenderer::ModelRenderer()
 {
-	Order = &CompareTex;	
+	;	
 }
 
 ModelRenderer::~ModelRenderer()
@@ -42,13 +42,13 @@ void ModelRenderer::Initialise(Shader *shader)
 		glDeleteVertexArrays(1, &m_VAOID);
 	if (m_VBOID != 0)
 		glDeleteBuffers(1, &m_VBOID);
+	if (m_EBOID != 0)
+		glDeleteBuffers(1, &m_EBOID);
 	
 	glGenVertexArrays(1, &m_VAOID);
 	glBindVertexArray(m_VAOID);
-
 	glGenBuffers(1, &m_VBOID);
-	glBindBuffer(GL_ARRAY_BUFFER, m_VBOID);
-	glBufferData(GL_ARRAY_BUFFER, 0, NULL, GL_STREAM_DRAW);
+	glGenBuffers(1, &m_EBOID);
 
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
@@ -81,9 +81,4 @@ void ModelRenderer::Present(const Camera *camera)
 		glDrawArrays(GL_TRIANGLES, (GLsizei)m_RenderBatches[i].Offset,
 		            (GLsizei)m_RenderBatches[i].Vertices);
 	}
-}
-
-bool CompareTex(Renderable *a, Renderable *b)
-{
-	return a->GetTex(0) < b->GetTex(0);
 }

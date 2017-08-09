@@ -68,7 +68,7 @@ std::string IOManager::ReadFile(std::string filepath)
 	return source_contents;
 }
 
-Model IOManager::LoadMesh(std::string filepath)
+Model IOManager::LoadModel(std::string filepath)
 {
 	Assimp::Importer importer;
 	const aiScene *scene = importer.ReadFile(filepath, aiProcess_Triangulate | aiProcess_FlipUVs);
@@ -79,33 +79,33 @@ Model IOManager::LoadMesh(std::string filepath)
 	}
 
 	Model m;
-	std::string dir = filepath.substr(0, filepath.find_last_of('/'));
-	ProcessNode(m, scene->mRootNode, scene);
-	ProcessTree(m, scene->mRootNode, scene);
+	std::string dir = filepath.substr(0, filepath.find_last_of('/')) + '/';
+	ProcessNode(m, scene->mRootNode, scene, dir);
+	ProcessTree(m, scene->mRootNode, scene, dir);
 	return m;
 }
 
-void IOManager::ProcessTree(Model &m, aiNode *node, const aiScene *scene)
+void IOManager::ProcessTree(Model &m, aiNode *node, const aiScene *scene, std::string dir)
 {
 	for (uint32_t i = 0; i < node->mNumChildren; i++) {
-		ProcessNode(m, node->mChildren[i], scene);
+		ProcessNode(m, node->mChildren[i], scene, dir);
 	}
 
 	for (uint32_t i = 0; i < node->mNumChildren; i++) {
-		ProcessTree(m, node->mChildren[i], scene);
+		ProcessTree(m, node->mChildren[i], scene, dir);
 	}
 }
 
-void IOManager::ProcessNode(Model &m, aiNode *node, const aiScene *scene)
+void IOManager::ProcessNode(Model &m, aiNode *node, const aiScene *scene, std::string dir)
 {
 	for (size_t i = 0; i < node->mNumMeshes; i++) {
 		aiMesh *mesh = scene->mMeshes[node->mMeshes[i]];
-		Mesh temp = ProcessMesh(mesh, scene);
+		Mesh temp = ProcessMesh(mesh, scene, dir);
 		m.AddMesh(temp);
 	}
 }
 
-Mesh IOManager::ProcessMesh(aiMesh *mesh, const aiScene *scene)
+Mesh IOManager::ProcessMesh(aiMesh *mesh, const aiScene *scene, std::string dir)
 {
 	std::vector<Vertex> vertices;
 	std::vector<uint32_t> indices;
@@ -148,20 +148,22 @@ Mesh IOManager::ProcessMesh(aiMesh *mesh, const aiScene *scene)
 
     if(mesh->mMaterialIndex >= 0) {
 		aiMaterial *mat = scene->mMaterials[mesh->mMaterialIndex];
-		textures = LoadMatTextures(mat, aiTextureType_DIFFUSE);
+		textures = LoadMatTextures(mat, aiTextureType_DIFFUSE, dir);
     }
 
     return Mesh(vertices, indices, textures);
 }
 
-std::vector<GLuint> &IOManager::LoadMatTextures(aiMaterial *mat, aiTextureType type)
+std::vector<GLuint> IOManager::LoadMatTextures(aiMaterial *mat, aiTextureType type, std::string dir)
 {
 	std::vector<GLuint> textures;
 	for(unsigned int i = 0; i < mat->GetTextureCount(type); i++)
 	{
 		aiString str;
 		mat->GetTexture(type, i, &str);
-		textures.push_back(Resources.CreateTexture(str.C_Str(), str.C_Str())->GetTex());
+		Texture *temp = Resources.CreateTexture(dir + str.C_Str(), dir + str.C_Str());
+		if (temp != nullptr)
+			textures.push_back(temp->GetTex());
 	}
 	return textures;
 }

@@ -106,7 +106,8 @@ void Renderer::CreateBatches()
 	uint64_t offset = 0;
 	
 	m_RenderBatches.emplace_back(m_SortedGlyphs[0]->GetTex(0),
-			m_SortedGlyphs[0]->GetVertices().size(), offset);
+	                             m_SortedGlyphs[0]->GetVertices().size(),
+	                             offset);
 	offset += m_RenderBatches[0].Vertices;
 
 	vertex_data.resize(num_vert_total);
@@ -137,4 +138,9 @@ void Renderer::CreateBatches()
 	glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(Vertex) * vertex_data.size(), 
 	                vertex_data.data());
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
+}
+
+bool CompareTex(Renderable *a, Renderable *b)
+{
+	return a->GetTex(0) < b->GetTex(0);
 }
