@@ -73,10 +73,6 @@ set(HEADERS
 
 if (WIN32)
 	if (MSVC)
-		set(BOX2D_LIBRARIES
-			${BOX2D_LIBRARIES}
-			${CMAKE_SOURCE_DIR}/deps/lib/libBox2D.lib
-		)
 		set(GLFW_LIBRARIES
 			${GLFW_LIBRARIES}
 			${CMAKE_SOURCE_DIR}/deps/lib/glfw3dll.lib
@@ -102,10 +98,6 @@ if (WIN32)
 			${CMAKE_BINARY_DIR}/glad/Debug/glad.lib
 		)
 	else ()
-		set(BOX2D_LIBRARIES
-			${BOX2D_LIBRARIES}
-			${CMAKE_SOURCE_DIR}/deps/lib/libBox2D.a
-		)
 		set(GLFW_LIBRARIES
 			${GLFW_LIBRARIES}
 			${CMAKE_SOURCE_DIR}/deps/lib/libglfw3.a
@@ -131,10 +123,14 @@ if (WIN32)
 			${CMAKE_BINARY_DIR}/glad/libglad.a
 		)
 	endif ()
-	
-	set(BOX2D_INCLUDE_DIRS
-		${BOX2D_INCLUDE_DIRS}
-		${CMAKE_SOURCE_DIR}/deps/include/Box2D
+
+	set(ASSIMP_INCLUDE_DIRS
+		${ASSIMP_INCLUDE_DIRS}
+		${CMAKE_SOURCE_DIR}/deps/include
+	)
+	set(ASSIMP_LIBRARIES
+		${ASSIMP_LIBRARIES}
+		${CMAKE_SOURCE_DIR}/deps/libs/libassimp.dll
 	)
 	set(GLFW_INCLUDE_DIRS
 		${GLFW_INCLUDE_DIRS}

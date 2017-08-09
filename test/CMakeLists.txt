@@ -20,10 +20,6 @@ if (WIN32)
 			${TIDYENGINE_LIBRARIES}
 			${CMAKE_BINARY_DIR}/libTidyEngine/Debug/TidyEngine.lib
 		)
-		set(BOX2D_LIBRARIES
-			${BOX2D_LIBRARIES}
-			${CMAKE_SOURCE_DIR}/deps/lib/libBox2D.lib
-		)
 		set(GLFW_LIBRARIES
 			${GLFW_LIBRARIES}
 			${CMAKE_SOURCE_DIR}/deps/lib/glfw3dll.lib
@@ -53,10 +49,6 @@ if (WIN32)
 			${TIDYENGINE_LIBRARIES}
 			${CMAKE_BINARY_DIR}/libTidyEngine/libTidyEngine.a
 		)
-		set(BOX2D_LIBRARIES
-			${BOX2D_LIBRARIES}
-			${CMAKE_SOURCE_DIR}/deps/lib/libBox2D.a
-		)
 		set(GLFW_LIBRARIES
 			${GLFW_LIBRARIES}
 			${CMAKE_SOURCE_DIR}/deps/lib/libglfw3.a
@@ -85,6 +77,14 @@ if (WIN32)
 		find_package(ZLIB REQUIRED)
 	endif ()
 
+	set(ASSIMP_INCLUDE_DIRS
+		${ASSIMP_INCLUDE_DIRS}
+		${CMAKE_SOURCE_DIR}/deps/include
+	)
+	set(ASSIMP_LIBRARIES
+		${ASSIMP_LIBRARIES}
+		${CMAKE_SOURCE_DIR}/deps/lib/libassimp.dll
+	)
 	set(GLFW_INCLUDE_DIRS
 		${GLFW_INCLUDE_DIRS}
 		${CMAKE_SOURCE_DIR}/deps/include/
