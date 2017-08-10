@@ -76,8 +76,8 @@ void Camera::Update(float delta)
 			1000.0f);
 		m_View = glm::lookAt(
 			m_Position,
-			glm::vec3(m_Position.x, m_Position.y, 0.0f),
-			glm::vec3(0.0f, 0.0f, 1.0f)
+        	glm::vec3(m_Position.x, 0.0f, m_Position.z),
+			glm::vec3(0.0f, 5.0f, 0.0f)
 		);
 
 		glm::vec3 scale = glm::vec3(m_Scale, m_Scale, m_Scale);
@@ -149,8 +149,8 @@ void Camera::InitProj()
 			100.0f);
 	m_View = glm::lookAt(
 		m_Position,
-		glm::vec3(m_Position.x, m_Position.y, 0.0f),
-		glm::vec3(0.0f, 0.0f, 1.0f)
+		glm::vec3(0.0f, 5.0f, 0.0f),
+		glm::vec3(0.0f, 1.0f, 0.0f)
 	);
 
 	glm::vec3 scale = glm::vec3(m_Scale, m_Scale, m_Scale);

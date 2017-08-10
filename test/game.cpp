@@ -41,7 +41,7 @@ bool Game::Init()
 {
 	m_Model = IO.LoadModel("Model/nanosuit.obj");
 	Camera *cam = new Camera("MainCamera");
-	cam->Initialise(1280, 720, &m_Screen, glm::vec3(0.0f, 10.0f, 10.0f), false);
+	cam->Initialise(1280, 720, &m_Screen, glm::vec3(0.0f, 15.0f, 10.0f), false);
 	m_EntityManager.SetCamera(cam);
 	cam = nullptr;
 	m_Font.Initialize(&m_FontLib, "Acme-Regular.ttf", 128);
