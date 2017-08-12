@@ -32,4 +32,5 @@ public:
 	virtual void Present(const Camera *camera);
 protected:
 	GLuint m_EBOID = 0;
+	std::vector<MeshBatch> m_RenderBatches;
 };

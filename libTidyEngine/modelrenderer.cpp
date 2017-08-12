@@ -77,7 +77,7 @@ void ModelRenderer::Present(const Camera *camera)
 
 	glBindVertexArray(m_VAOID);
 	for (size_t i = 0; i < m_RenderBatches.size(); i++) {
-		glBindTexture(GL_TEXTURE_2D, m_RenderBatches[i].Tex);
+		m_RenderBatches[i].Mat->Bind(m_Shader);
 		glDrawArrays(GL_TRIANGLES, (GLsizei)m_RenderBatches[i].Offset,
 		            (GLsizei)m_RenderBatches[i].Vertices);
 	}

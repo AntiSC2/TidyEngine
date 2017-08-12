@@ -23,6 +23,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include "vertex.hpp"
 
 class Texture;
+class Shader;
 
 class Material {
 public:
@@ -30,8 +31,11 @@ public:
 	Material(glm::vec4 color);
 	Material(std::vector<Texture*> diffuse, std::vector<Texture*> specular);
 	virtual ~Material();
+
+	virtual void Bind(Shader *shader);
 protected:
-	glm::vec4 m_DiffuseC;
+	glm::vec4 m_DiffuseC = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
 	std::vector<Texture*> m_Diffuse;
 	std::vector<Texture*> m_Specular;
+	float m_Shine = 1.0f;
 };

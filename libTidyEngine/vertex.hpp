@@ -28,6 +28,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include <glm/vec3.hpp>
 #include <glm/vec4.hpp>
 #include <glm/vec2.hpp>
+#include "material.hpp"
 
 class Vertex {
 public:
@@ -54,6 +55,8 @@ class MeshBatch {
 public:
 	MeshBatch();
 
-	std::vector<GLuint> Textures;
+	Material *Mat = nullptr;
+	uint64_t Vertices = 0;
+	uint64_t Offset = 0;
 	std::vector<uint32_t> Indices;
 };

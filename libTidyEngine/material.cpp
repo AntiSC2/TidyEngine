@@ -19,6 +19,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 #include "material.hpp"
 #include "texture.hpp"
+#include "shader.hpp"
 
 Material::Material()
 {
@@ -39,4 +40,28 @@ Material::Material(std::vector<Texture*> diffuse, std::vector<Texture*> specular
 Material::~Material()
 {
 	;
+}
+
+void Material::Bind(Shader *shader)
+{
+	if (shader == nullptr)
+		return;
+	uint8_t count = 1;
+
+	for (size_t i = 0; i < m_Diffuse.size(); i++) {
+		glActiveTexture(GL_TEXTURE0 + i);
+		shader->SetUniform1i("material.diffuse" + (char)(count + 48), i);
+		count++;
+		glBindTexture(GL_TEXTURE_2D, m_Diffuse[i]->GetTex());
+	}
+
+	uint8_t old_i = count;
+	count = 1;
+	for (size_t i = 0; i < m_Specular.size(); i++) {
+		glActiveTexture(GL_TEXTURE0 + i + old_i);
+		shader->SetUniform1i("material.specular" + (char)(count + 48), i);
+		count++;
+		glBindTexture(GL_TEXTURE_2D, m_Specular[i]->GetTex());
+	}
+	glActiveTexture(GL_TEXTURE0);
 }
