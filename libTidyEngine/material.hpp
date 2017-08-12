@@ -19,22 +19,19 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 #pragma once
 
-#include <vector>
-#include "renderable.hpp"
+#include <glm/vec4.hpp>
 #include "vertex.hpp"
-#include "material.hpp"
 
-class Mesh: public Renderable {
+class Texture;
+
+class Material {
 public:
-	Mesh();
-	Mesh(std::vector<Vertex> &vertices, std::vector<uint32_t> &indices, std::vector<GLuint> &textures);
-	virtual ~Mesh();
-
-	virtual void Render();
+	Material();
+	Material(glm::vec4 color);
+	Material(std::vector<Texture*> diffuse, std::vector<Texture*> specular);
+	virtual ~Material();
 protected:
-	GLuint m_VAOID = 0;
-	GLuint m_EBOID = 0;
-	GLuint m_VBOID = 0;
-	std::vector<uint32_t> m_Indices;
-	Material *m_Material;
+	glm::vec4 m_DiffuseC;
+	std::vector<Texture*> m_Diffuse;
+	std::vector<Texture*> m_Specular;
 };

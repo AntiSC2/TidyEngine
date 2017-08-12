@@ -17,24 +17,26 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 Contact the author at: jakob.sinclair99@gmail.com
 */
 
-#pragma once
-
-#include <vector>
-#include "renderable.hpp"
-#include "vertex.hpp"
 #include "material.hpp"
+#include "texture.hpp"
 
-class Mesh: public Renderable {
-public:
-	Mesh();
-	Mesh(std::vector<Vertex> &vertices, std::vector<uint32_t> &indices, std::vector<GLuint> &textures);
-	virtual ~Mesh();
+Material::Material()
+{
+	;
+}
 
-	virtual void Render();
-protected:
-	GLuint m_VAOID = 0;
-	GLuint m_EBOID = 0;
-	GLuint m_VBOID = 0;
-	std::vector<uint32_t> m_Indices;
-	Material *m_Material;
-};
+Material::Material(glm::vec4 color)
+{
+	m_DiffuseC = c;
+}
+
+Material::Material(std::vector<Texture*> diffuse, std::vector<Texture*> specular)
+{
+	m_Diffuse = diffuse;
+	m_Specular = specular;
+}
+
+Material::~Material()
+{
+	;
+}
