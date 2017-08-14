@@ -31,6 +31,7 @@ public:
 	virtual ~Mesh();
 
 	virtual void Render();
+	virtual Material *GetMat();
 protected:
 	GLuint m_VAOID = 0;
 	GLuint m_EBOID = 0;

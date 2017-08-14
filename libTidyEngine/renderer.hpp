@@ -48,8 +48,8 @@ public:
 	virtual void End();
 	virtual void Present();
 protected:
-	void SortGlyphs();
-	void CreateBatches();
+	virtual void SortGlyphs();
+	virtual void CreateBatches();
 	bool (*Order)(Renderable*, Renderable*) = &CompareTex;
  
 	Shader *m_Shader = nullptr;

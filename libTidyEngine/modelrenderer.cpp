@@ -82,3 +82,47 @@ void ModelRenderer::Present(const Camera *camera)
 		            (GLsizei)m_RenderBatches[i].Vertices);
 	}
 }
+
+void ModelRenderer::CreateBatches()
+{
+	size_t num_vert_total = 0;
+	for (size_t i = 0; i < m_SortedGlyphs.size(); i++)
+		num_vert_total += m_SortedGlyphs[i]->GetVertices().size();
+
+	std::vector<Vertex> vertex_data;
+	uint64_t offset = 0;
+	
+	m_RenderBatches.emplace_back(m_SortedGlyphs[0]->GetMat(),
+	                             m_SortedGlyphs[0]->GetVertices().size(),
+	                             offset);
+	offset += m_RenderBatches[0].Vertices;
+
+	vertex_data.resize(num_vert_total);
+	for (size_t i = 0; i < m_SortedGlyphs[0]->GetVertices().size(); i++)
+		vertex_data[i] = m_SortedGlyphs[0]->GetVertices()[i];
+
+	for (size_t g = 1; g < m_SortedGlyphs.size(); g++) {
+		GLuint temp_tex = m_SortedGlyphs[g]->GetTex(0);
+		size_t num_vert = m_SortedGlyphs[g]->GetVertices().size();
+
+		if (temp_tex != m_SortedGlyphs[g - 1]->GetTex(0))
+			m_RenderBatches.emplace_back(temp_tex, num_vert,
+			                             offset);
+		else
+			m_RenderBatches.back().Vertices += num_vert;
+
+		size_t i = offset;
+		size_t size_vert = m_SortedGlyphs[g]->GetVertices().size();
+
+		for (; (i - offset) < size_vert; i++)
+			vertex_data[i] = m_SortedGlyphs[g]->
+			                 GetVertices()[i - offset];
+
+		offset += num_vert;
+	}
+
+	glBindBuffer(GL_ARRAY_BUFFER, m_VBOID);
+	glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(Vertex) * vertex_data.size(), 
+	                vertex_data.data());
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+}

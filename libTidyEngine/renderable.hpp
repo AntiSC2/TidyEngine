@@ -28,6 +28,8 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include "vertex.hpp"
 #include "resource.hpp"
 
+class Material;
+
 class Renderable: public Resource {
 public:
 	Renderable();
@@ -45,6 +47,7 @@ public:
 	virtual const std::vector<Vertex> &GetVertices() const;
 	virtual GLuint GetTex(size_t index) const;
 	virtual const std::vector<GLuint> &GetTextures() const;
+	virtual Material *GetMat();
 protected:
 	std::vector<Vertex> m_Vertices;
 	std::vector<GLuint> m_Textures;

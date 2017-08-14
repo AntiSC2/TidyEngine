@@ -18,6 +18,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 */
 
 #include "renderable.hpp"
+#include "material.hpp"
 
 Renderable::Renderable()
 {
@@ -93,4 +94,9 @@ GLuint Renderable::GetTex(size_t index) const
 const std::vector<GLuint> &Renderable::GetTextures() const
 {
 	return m_Textures;
+}
+
+Material *Renderable::GetMat()
+{
+	return nullptr;
 }

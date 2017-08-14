@@ -74,3 +74,8 @@ void Mesh::Render()
 	glDrawElements(GL_TRIANGLES, m_Indices.size(), GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);
 }
+
+Material *Mesh::GetMat()
+{
+	return m_Material;
+}
