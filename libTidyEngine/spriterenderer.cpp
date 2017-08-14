@@ -23,7 +23,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 SpriteRenderer::SpriteRenderer()
 {
-	Order = &CompareTex;	
+	;
 }
 
 SpriteRenderer::~SpriteRenderer()
@@ -78,9 +78,4 @@ void SpriteRenderer::Present(const Camera *camera)
 		glDrawArrays(GL_TRIANGLES, (GLsizei)m_RenderBatches[i].Offset,
 		            (GLsizei)m_RenderBatches[i].Vertices);
 	}
-}
-
-bool CompareTex(Renderable *a, Renderable *b)
-{
-	return a->GetTex(0) < b->GetTex(0);
 }

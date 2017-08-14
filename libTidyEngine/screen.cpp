@@ -106,7 +106,7 @@ bool Screen::InitGL()
 		return false;
 	}
 	
-	glEnable(GL_BLEND);
+	glEnable(GL_BLEND | GL_DEPTH_TEST);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
 	

@@ -20,6 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "screen.hpp"
 #include "graphics.hpp"
 #include "spriterenderer.hpp"
+#include "modelrenderer.hpp"
 #include "input.hpp"
 #include "entitymanager.hpp"
 #include "audio.hpp"
@@ -47,6 +48,7 @@ protected:
 	Graphics m_Graphics;
 	FT_Library m_FontLib;
 	SpriteRenderer m_SpriteRenderer;
+	ModelRenderer m_ModelRenderer;
 	Input m_Input;
 	Font m_Font;
 	EntityManager m_EntityManager;

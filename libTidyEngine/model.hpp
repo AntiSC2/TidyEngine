@@ -24,6 +24,8 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include "resource.hpp"
 #include "mesh.hpp"
 
+class ModelRenderer;
+
 class Model : public Resource {
 public:
     Model();
@@ -32,6 +34,7 @@ public:
     virtual std::string Type();
 
     void AddMesh(Mesh &m);
+    void Draw();
 protected:
     std::string m_Dir = "";
     std::vector<Mesh> m_Meshes;

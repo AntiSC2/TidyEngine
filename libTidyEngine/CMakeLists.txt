@@ -69,6 +69,7 @@ set(HEADERS
 	${CMAKE_CURRENT_SOURCE_DIR}/mesh.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/modelrenderer.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/model.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/material.hpp
 )
 
 if (WIN32)

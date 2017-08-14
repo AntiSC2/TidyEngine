@@ -18,6 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 #include "core.hpp"
+#include "model.hpp"
 
 class Game : public Core {
 public:
@@ -27,4 +28,5 @@ private:
 	bool Init();
 	void Update();
 	void DrawGame();
+	Model m_Model;
 };

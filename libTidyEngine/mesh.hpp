@@ -1,6 +1,6 @@
 /*
 TidyEngine
-Copyright (C) 2016 Jakob Sinclair
+Copyright (C) 2017 Jakob Sinclair
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Lesser General Public License as published by
@@ -22,6 +22,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include <vector>
 #include "renderable.hpp"
 #include "vertex.hpp"
+#include "material.hpp"
 
 class Mesh: public Renderable {
 public:
@@ -30,6 +31,11 @@ public:
 	virtual ~Mesh();
 
 	virtual void Render();
+	virtual Material *GetMat();
 protected:
+	GLuint m_VAOID = 0;
+	GLuint m_EBOID = 0;
+	GLuint m_VBOID = 0;
 	std::vector<uint32_t> m_Indices;
+	Material *m_Material;
 };

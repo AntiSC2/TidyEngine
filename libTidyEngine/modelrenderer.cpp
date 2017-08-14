@@ -23,7 +23,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 ModelRenderer::ModelRenderer()
 {
-	Order = &CompareTex;	
+	;	
 }
 
 ModelRenderer::~ModelRenderer()
@@ -42,13 +42,13 @@ void ModelRenderer::Initialise(Shader *shader)
 		glDeleteVertexArrays(1, &m_VAOID);
 	if (m_VBOID != 0)
 		glDeleteBuffers(1, &m_VBOID);
+	if (m_EBOID != 0)
+		glDeleteBuffers(1, &m_EBOID);
 	
 	glGenVertexArrays(1, &m_VAOID);
 	glBindVertexArray(m_VAOID);
-
 	glGenBuffers(1, &m_VBOID);
-	glBindBuffer(GL_ARRAY_BUFFER, m_VBOID);
-	glBufferData(GL_ARRAY_BUFFER, 0, NULL, GL_STREAM_DRAW);
+	glGenBuffers(1, &m_EBOID);
 
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
@@ -77,13 +77,52 @@ void ModelRenderer::Present(const Camera *camera)
 
 	glBindVertexArray(m_VAOID);
 	for (size_t i = 0; i < m_RenderBatches.size(); i++) {
-		glBindTexture(GL_TEXTURE_2D, m_RenderBatches[i].Tex);
+		m_RenderBatches[i].Mat->Bind(m_Shader);
 		glDrawArrays(GL_TRIANGLES, (GLsizei)m_RenderBatches[i].Offset,
 		            (GLsizei)m_RenderBatches[i].Vertices);
 	}
 }
 
-bool CompareTex(Renderable *a, Renderable *b)
+void ModelRenderer::CreateBatches()
 {
-	return a->GetTex(0) < b->GetTex(0);
+	size_t num_vert_total = 0;
+	for (size_t i = 0; i < m_SortedGlyphs.size(); i++)
+		num_vert_total += m_SortedGlyphs[i]->GetVertices().size();
+
+	std::vector<Vertex> vertex_data;
+	uint64_t offset = 0;
+	
+	m_RenderBatches.emplace_back(m_SortedGlyphs[0]->GetMat(),
+	                             m_SortedGlyphs[0]->GetVertices().size(),
+	                             offset);
+	offset += m_RenderBatches[0].Vertices;
+
+	vertex_data.resize(num_vert_total);
+	for (size_t i = 0; i < m_SortedGlyphs[0]->GetVertices().size(); i++)
+		vertex_data[i] = m_SortedGlyphs[0]->GetVertices()[i];
+
+	for (size_t g = 1; g < m_SortedGlyphs.size(); g++) {
+		GLuint temp_tex = m_SortedGlyphs[g]->GetTex(0);
+		size_t num_vert = m_SortedGlyphs[g]->GetVertices().size();
+
+		if (temp_tex != m_SortedGlyphs[g - 1]->GetTex(0))
+			m_RenderBatches.emplace_back(temp_tex, num_vert,
+			                             offset);
+		else
+			m_RenderBatches.back().Vertices += num_vert;
+
+		size_t i = offset;
+		size_t size_vert = m_SortedGlyphs[g]->GetVertices().size();
+
+		for (; (i - offset) < size_vert; i++)
+			vertex_data[i] = m_SortedGlyphs[g]->
+			                 GetVertices()[i - offset];
+
+		offset += num_vert;
+	}
+
+	glBindBuffer(GL_ARRAY_BUFFER, m_VBOID);
+	glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(Vertex) * vertex_data.size(), 
+	                vertex_data.data());
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }

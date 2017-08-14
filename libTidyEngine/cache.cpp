@@ -64,7 +64,7 @@ Texture *Cache::CreateTexture(std::string name, std::string filepath)
 {
 	if (m_Textures.find(name) == m_Textures.end()) {
 		FIBITMAP *bitmap = IO.LoadImage(filepath);
-		bool success = m_Textures[name].CreateTex(bitmap, true, false);
+		bool success = m_Textures[name].CreateTex(bitmap, true, true);
 		
 		FreeImage_Unload(bitmap);
 		

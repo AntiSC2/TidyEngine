@@ -4,8 +4,14 @@ in vec2 UV;
 
 out vec4 color;
 
-uniform sampler2D tex;
+struct Material {
+	sampler2D diffuse1;
+	sampler2D specular1;
+	float shine;
+}
+
+uniform Material material;
 
 void main() {
-	color = texture2D(tex, UV) * Color;
+	color = texture2D(material.diffuse1, UV) * Color;
 }

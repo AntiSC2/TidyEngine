@@ -18,6 +18,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 */
 
 #include "renderable.hpp"
+#include "material.hpp"
 
 Renderable::Renderable()
 {
@@ -85,10 +86,17 @@ const std::vector<Vertex> &Renderable::GetVertices() const
 
 GLuint Renderable::GetTex(size_t index) const
 {
+	if (index >= m_Textures.size())
+		return 0;
 	return m_Textures[index];
 }
 
 const std::vector<GLuint> &Renderable::GetTextures() const
 {
 	return m_Textures;
+}
+
+Material *Renderable::GetMat()
+{
+	return nullptr;
 }

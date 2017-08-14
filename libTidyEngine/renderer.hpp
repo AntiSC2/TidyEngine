@@ -33,6 +33,8 @@ class Shader;
 #include "renderable.hpp"
 #include "font.hpp"
 
+extern bool CompareTex(Renderable *a, Renderable *b);
+
 class Renderer {
 public:
 	Renderer();
@@ -46,9 +48,9 @@ public:
 	virtual void End();
 	virtual void Present();
 protected:
-	void SortGlyphs();
-	void CreateBatches();
-	bool (*Order)(Renderable*, Renderable*) = nullptr;
+	virtual void SortGlyphs();
+	virtual void CreateBatches();
+	bool (*Order)(Renderable*, Renderable*) = &CompareTex;
  
 	Shader *m_Shader = nullptr;
 	GLuint m_VAOID = 0;

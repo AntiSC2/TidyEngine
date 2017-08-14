@@ -30,6 +30,8 @@ public:
 
 	virtual void Initialise(Shader *shader);
 	virtual void Present(const Camera *camera);
+protected:
+	virtual void CreateBatches();
+	GLuint m_EBOID = 0;
+	std::vector<MeshBatch> m_RenderBatches;
 };
-
-extern bool CompareTex(Renderable *a, Renderable *b);

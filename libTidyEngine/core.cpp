@@ -85,6 +85,7 @@ bool Core::InitSubSystems()
 	}
 
 	m_SpriteRenderer.Initialise(m_Graphics.GetShader("sprite"));
+	m_ModelRenderer.Initialise(m_Graphics.GetShader("model"));
 
 	glfwSetWindowSizeCallback(m_Screen.GetWindow(),
 	                          Screen::WindowSizeCallback);
