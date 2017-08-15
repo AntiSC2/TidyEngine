@@ -32,7 +32,7 @@ public:
 	Material(std::vector<Texture*> diffuse, std::vector<Texture*> specular);
 	virtual ~Material();
 
-	virtual void Bind(Shader *shader);
+	virtual void Bind(Shader *shader) const;
 protected:
 	glm::vec4 m_DiffuseC = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
 	std::vector<Texture*> m_Diffuse;

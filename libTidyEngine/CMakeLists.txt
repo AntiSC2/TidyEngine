@@ -39,6 +39,7 @@ set(SOURCE
 	${CMAKE_CURRENT_SOURCE_DIR}/mesh.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/modelrenderer.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/model.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/material.hpp
 )
 set(HEADERS
 	${HEADERS}

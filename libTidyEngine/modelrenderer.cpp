@@ -28,6 +28,8 @@ ModelRenderer::ModelRenderer()
 
 ModelRenderer::~ModelRenderer()
 {
+	if (m_EBOID != 0)
+		glDeleteBuffers(1, &m_EBOID);
 	if (m_VAOID != 0)
 		glDeleteVertexArrays(1, &m_VAOID);
 	if (m_VBOID != 0)
@@ -94,7 +96,7 @@ void ModelRenderer::CreateBatches()
 	
 	m_RenderBatches.emplace_back(m_SortedGlyphs[0]->GetMat(),
 	                             m_SortedGlyphs[0]->GetVertices().size(),
-	                             offset);
+	                             offset, m_SortedGlyphs[0]->GetIndices());
 	offset += m_RenderBatches[0].Vertices;
 
 	vertex_data.resize(num_vert_total);
@@ -102,12 +104,14 @@ void ModelRenderer::CreateBatches()
 		vertex_data[i] = m_SortedGlyphs[0]->GetVertices()[i];
 
 	for (size_t g = 1; g < m_SortedGlyphs.size(); g++) {
-		GLuint temp_tex = m_SortedGlyphs[g]->GetTex(0);
+		const Material *temp_mat = m_SortedGlyphs[g]->GetMat();
 		size_t num_vert = m_SortedGlyphs[g]->GetVertices().size();
+		std::vector<uint64_t> indices = m_SortedGlyphs[g]->GetIndices();
+		
 
-		if (temp_tex != m_SortedGlyphs[g - 1]->GetTex(0))
-			m_RenderBatches.emplace_back(temp_tex, num_vert,
-			                             offset);
+		if (temp_mat != m_SortedGlyphs[g - 1]->GetMat())
+			m_RenderBatches.emplace_back(temp_mat, num_vert,
+			                             offset, indices);
 		else
 			m_RenderBatches.back().Vertices += num_vert;
 
@@ -122,7 +126,7 @@ void ModelRenderer::CreateBatches()
 	}
 
 	glBindBuffer(GL_ARRAY_BUFFER, m_VBOID);
-	glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(Vertex) * vertex_data.size(), 
-	                vertex_data.data());
+	glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * vertex_data.size(), 
+	                vertex_data.data(), GL_DYNAMIC_DRAW);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }

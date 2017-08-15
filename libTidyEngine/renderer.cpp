@@ -105,7 +105,7 @@ void Renderer::CreateBatches()
 	std::vector<Vertex> vertex_data;
 	uint64_t offset = 0;
 	
-	m_RenderBatches.emplace_back(m_SortedGlyphs[0]->GetTex(0),
+	m_RenderBatches.emplace_back(m_SortedGlyphs[0]->GetTex(),
 	                             m_SortedGlyphs[0]->GetVertices().size(),
 	                             offset);
 	offset += m_RenderBatches[0].Vertices;
@@ -115,10 +115,10 @@ void Renderer::CreateBatches()
 		vertex_data[i] = m_SortedGlyphs[0]->GetVertices()[i];
 
 	for (size_t g = 1; g < m_SortedGlyphs.size(); g++) {
-		GLuint temp_tex = m_SortedGlyphs[g]->GetTex(0);
+		GLuint temp_tex = m_SortedGlyphs[g]->GetTex();
 		size_t num_vert = m_SortedGlyphs[g]->GetVertices().size();
 
-		if (temp_tex != m_SortedGlyphs[g - 1]->GetTex(0))
+		if (temp_tex != m_SortedGlyphs[g - 1]->GetTex())
 			m_RenderBatches.emplace_back(temp_tex, num_vert,
 			                             offset);
 		else
@@ -142,5 +142,5 @@ void Renderer::CreateBatches()
 
 bool CompareTex(Renderable *a, Renderable *b)
 {
-	return a->GetTex(0) < b->GetTex(0);
+	return a->GetTex() < b->GetTex();
 }

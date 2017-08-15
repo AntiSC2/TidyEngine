@@ -27,15 +27,12 @@ Contact the author at: jakob.sinclair99@gmail.com
 class Mesh: public Renderable {
 public:
 	Mesh();
-	Mesh(std::vector<Vertex> &vertices, std::vector<uint32_t> &indices, std::vector<GLuint> &textures);
+	Mesh(std::vector<Vertex> &vertices, std::vector<uint64_t> &indices, std::vector<GLuint> &textures);
 	virtual ~Mesh();
 
 	virtual void Render();
-	virtual Material *GetMat();
 protected:
 	GLuint m_VAOID = 0;
 	GLuint m_EBOID = 0;
 	GLuint m_VBOID = 0;
-	std::vector<uint32_t> m_Indices;
-	Material *m_Material;
 };

@@ -42,7 +42,7 @@ Material::~Material()
 	;
 }
 
-void Material::Bind(Shader *shader)
+void Material::Bind(Shader *shader) const
 {
 	if (shader == nullptr)
 		return;

@@ -39,16 +39,18 @@ public:
 	
 	virtual void Render();
 	virtual void AddVertex(const Vertex &vertex);
-	virtual void SetVertices(std::vector<Vertex> &vertices);
 	virtual void DelVertex(size_t index);
-	virtual void SetPos(const glm::vec3 &pos);
-	virtual void AddTex(GLuint tex);
-	virtual void DelTex(size_t index);
+	virtual void SetVertices(std::vector<Vertex> &vertices);
 	virtual const std::vector<Vertex> &GetVertices() const;
-	virtual GLuint GetTex(size_t index) const;
-	virtual const std::vector<GLuint> &GetTextures() const;
-	virtual Material *GetMat();
+	virtual void SetPos(const glm::vec3 &pos);
+	virtual void SetTex(GLuint tex);
+	virtual GLuint GetTex() const;
+	virtual void SetMat(Material *mat);
+	virtual const Material *GetMat() const;
+	virtual const std::vector<uint64_t> &GetIndices() const;
 protected:
+	GLuint m_Tex = 0;
+	Material *m_Mat = nullptr;
 	std::vector<Vertex> m_Vertices;
-	std::vector<GLuint> m_Textures;
+	std::vector<uint64_t> m_Indices;
 };

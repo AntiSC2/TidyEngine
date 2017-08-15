@@ -159,7 +159,7 @@ bool Font::Initialize(FT_Library *lib, std::string path, uint32_t height)
 	final_bitmap.reset(nullptr);
 
 	for (auto &i : m_Glyphs)
-		i.second.AddTex(m_Texture.GetTex());
+		i.second.SetTex(m_Texture.GetTex());
 
 	FT_Done_Face(face);
 

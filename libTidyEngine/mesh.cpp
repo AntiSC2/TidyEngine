@@ -24,11 +24,11 @@ Mesh::Mesh()
 	;
 }
 
-Mesh::Mesh(std::vector<Vertex> &vertices, std::vector<uint32_t> &indices, std::vector<GLuint> &textures)
+Mesh::Mesh(std::vector<Vertex> &vertices, std::vector<uint64_t> &indices, std::vector<GLuint> &textures)
 {
 	m_Vertices = vertices;
 	m_Indices = indices;
-	m_Textures = textures;
+	m_Tex = textures[0];
 	if (m_VAOID != 0)
 		glDeleteVertexArrays(1, &m_VAOID);
 	if (m_VBOID != 0)
@@ -69,13 +69,8 @@ Mesh::~Mesh()
 void Mesh::Render()
 {
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, m_Textures[0]);
+	glBindTexture(GL_TEXTURE_2D, m_Tex);
 	glBindVertexArray(m_VAOID);
 	glDrawElements(GL_TRIANGLES, m_Indices.size(), GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);
-}
-
-Material *Mesh::GetMat()
-{
-	return m_Material;
 }

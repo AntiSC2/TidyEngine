@@ -22,25 +22,25 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 Rect2D::Rect2D()
 {
-	m_Textures.push_back(Resources.GetTexture("default")->GetTex());
+	m_Tex = Resources.GetTexture("default")->GetTex();
 }
 
 Rect2D::Rect2D(float x, float y, float w, float h)
 {
 	SetRect(x, y, w, h);
-	m_Textures.push_back(Resources.GetTexture("default")->GetTex());
+	m_Tex = Resources.GetTexture("default")->GetTex();
 }
 
 Rect2D::Rect2D(glm::vec2 position, glm::vec2 dimensions)
 {
 	SetRect(position.x, position.y, dimensions.x, dimensions.y);
-	m_Textures.push_back(Resources.GetTexture("default")->GetTex());
+	m_Tex = Resources.GetTexture("default")->GetTex();
 }
 
 Rect2D::Rect2D(glm::vec4 rect)
 {
 	SetRect(rect.x, rect.y, rect.z, rect.w);
-	m_Textures.push_back(Resources.GetTexture("default")->GetTex());
+	m_Tex = Resources.GetTexture("default")->GetTex();
 }
 
 Rect2D::~Rect2D()

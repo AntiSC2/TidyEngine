@@ -108,10 +108,10 @@ void IOManager::ProcessNode(Model &m, aiNode *node, const aiScene *scene, std::s
 Mesh IOManager::ProcessMesh(aiMesh *mesh, const aiScene *scene, std::string dir)
 {
 	std::vector<Vertex> vertices;
-	std::vector<uint32_t> indices;
+	std::vector<uint64_t> indices;
     std::vector<GLuint> textures;
 
-    for (uint32_t i = 0; i < mesh->mNumVertices; i++)
+    for (uint64_t i = 0; i < mesh->mNumVertices; i++)
     {
         Vertex vertex;
 		vertex.Color = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
@@ -140,9 +140,9 @@ Mesh IOManager::ProcessMesh(aiMesh *mesh, const aiScene *scene, std::string dir)
         vertices.push_back(vertex);
     }
 
-	for(uint32_t i = 0; i < mesh->mNumFaces; i++) {
+	for(uint64_t i = 0; i < mesh->mNumFaces; i++) {
 		aiFace face = mesh->mFaces[i];
-		for(uint32_t j = 0; j < face.mNumIndices; j++)
+		for(uint64_t j = 0; j < face.mNumIndices; j++)
 			indices.push_back(face.mIndices[j]);
 	}  
 
