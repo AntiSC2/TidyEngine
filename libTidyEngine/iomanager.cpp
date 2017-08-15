@@ -108,7 +108,7 @@ void IOManager::ProcessNode(Model &m, aiNode *node, const aiScene *scene, std::s
 Mesh IOManager::ProcessMesh(aiMesh *mesh, const aiScene *scene, std::string dir)
 {
 	std::vector<Vertex> vertices;
-	std::vector<uint64_t> indices;
+	std::vector<uint32_t> indices;
     std::vector<GLuint> textures;
 
     for (uint64_t i = 0; i < mesh->mNumVertices; i++)

@@ -93,7 +93,7 @@ const Material *Renderable::GetMat() const
 	return m_Mat;
 }
 
-const std::vector<uint64_t> &Renderable::GetIndices() const
+const std::vector<uint32_t> &Renderable::GetIndices() const
 {
 	return m_Indices;
 }

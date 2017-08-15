@@ -96,7 +96,7 @@ void ModelRenderer::CreateBatches()
 	
 	m_RenderBatches.emplace_back(m_SortedGlyphs[0]->GetMat(),
 	                             m_SortedGlyphs[0]->GetVertices().size(),
-	                             offset, m_SortedGlyphs[0]->GetIndices());
+	                             offset, m_SortedGlyphs[0]->GetIndices().size());
 	offset += m_RenderBatches[0].Vertices;
 
 	vertex_data.resize(num_vert_total);
@@ -106,7 +106,7 @@ void ModelRenderer::CreateBatches()
 	for (size_t g = 1; g < m_SortedGlyphs.size(); g++) {
 		const Material *temp_mat = m_SortedGlyphs[g]->GetMat();
 		size_t num_vert = m_SortedGlyphs[g]->GetVertices().size();
-		std::vector<uint64_t> indices = m_SortedGlyphs[g]->GetIndices();
+		size_t indices = m_SortedGlyphs[g]->GetIndices().size();
 		
 
 		if (temp_mat != m_SortedGlyphs[g - 1]->GetMat())

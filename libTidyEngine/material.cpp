@@ -28,7 +28,7 @@ Material::Material()
 
 Material::Material(glm::vec4 color)
 {
-	m_DiffuseC = c;
+	m_DiffuseC = color;
 }
 
 Material::Material(std::vector<Texture*> diffuse, std::vector<Texture*> specular)

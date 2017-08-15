@@ -47,10 +47,10 @@ public:
 	virtual GLuint GetTex() const;
 	virtual void SetMat(Material *mat);
 	virtual const Material *GetMat() const;
-	virtual const std::vector<uint64_t> &GetIndices() const;
+	virtual const std::vector<uint32_t> &GetIndices() const;
 protected:
 	GLuint m_Tex = 0;
 	Material *m_Mat = nullptr;
 	std::vector<Vertex> m_Vertices;
-	std::vector<uint64_t> m_Indices;
+	std::vector<uint32_t> m_Indices;
 };

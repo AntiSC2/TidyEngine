@@ -19,8 +19,8 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 #pragma once
 
+#include <vector>
 #include <glm/vec4.hpp>
-#include "vertex.hpp"
 
 class Texture;
 class Shader;
