@@ -19,6 +19,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 #include "model.hpp"
 #include "modelrenderer.hpp"
+#include "shader.hpp"
 
 Model::Model()
 {
@@ -40,8 +41,8 @@ void Model::AddMesh(Mesh &m)
     m_Meshes.push_back(m);
 }
 
-void Model::Draw()
+void Model::Draw(Shader *shader)
 {
     for (auto i: m_Meshes)
-        i.Render();
+        i.Render(shader);
 }

@@ -29,13 +29,13 @@ class Material {
 public:
 	Material();
 	Material(glm::vec4 color);
-	Material(std::vector<Texture*> diffuse, std::vector<Texture*> specular);
+	Material(std::vector<GLuint> diffuse, std::vector<GLuint> specular);
 	virtual ~Material();
 
 	virtual void Bind(Shader *shader) const;
 protected:
 	glm::vec4 m_DiffuseC = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
-	std::vector<Texture*> m_Diffuse;
-	std::vector<Texture*> m_Specular;
+	std::vector<GLuint> m_Diffuse;
+	std::vector<GLuint> m_Specular;
 	float m_Shine = 1.0f;
 };

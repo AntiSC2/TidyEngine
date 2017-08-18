@@ -108,8 +108,10 @@ void IOManager::ProcessNode(Model &m, aiNode *node, const aiScene *scene, std::s
 Mesh IOManager::ProcessMesh(aiMesh *mesh, const aiScene *scene, std::string dir)
 {
 	std::vector<Vertex> vertices;
-	std::vector<uint32_t> indices;
-    std::vector<GLuint> textures;
+	std::vector<uint64_t> indices;
+    std::vector<GLuint> diffuse_textures;
+	std::vector<GLuint> spec_textures;
+	Material *material = nullptr;
 
     for (uint64_t i = 0; i < mesh->mNumVertices; i++)
     {
@@ -146,12 +148,14 @@ Mesh IOManager::ProcessMesh(aiMesh *mesh, const aiScene *scene, std::string dir)
 			indices.push_back(face.mIndices[j]);
 	}  
 
-    if(mesh->mMaterialIndex >= 0) {
+    if(mesh->mMaterialIndex >= 0) {	
 		aiMaterial *mat = scene->mMaterials[mesh->mMaterialIndex];
-		textures = LoadMatTextures(mat, aiTextureType_DIFFUSE, dir);
+		diffuse_textures = LoadMatTextures(mat, aiTextureType_DIFFUSE, dir);
+		spec_textures = diffuse_textures;
+		material = new Material(diffuse_textures, spec_textures);
     }
 
-    return Mesh(vertices, indices, textures);
+    return Mesh(vertices, indices, material);
 }
 
 std::vector<GLuint> IOManager::LoadMatTextures(aiMaterial *mat, aiTextureType type, std::string dir)

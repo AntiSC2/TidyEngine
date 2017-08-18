@@ -90,7 +90,7 @@ void Game::DrawGame()
 	m_SpriteRenderer.End();
 	m_SpriteRenderer.Present(m_EntityManager.GetCamera());*/
 	m_ModelRenderer.Begin();
-	m_Model.Draw();
+	m_Model.Draw(m_Graphics.GetShader("Model"));
 	m_ModelRenderer.End();
 	m_ModelRenderer.Present(m_EntityManager.GetCamera());
 

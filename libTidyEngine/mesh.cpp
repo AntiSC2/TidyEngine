@@ -18,17 +18,18 @@ Contact the author at: jakob.sinclair99@gmail.com
 */
 
 #include "mesh.hpp"
+#include "shader.hpp"
 
 Mesh::Mesh()
 {
 	;
 }
 
-Mesh::Mesh(std::vector<Vertex> &vertices, std::vector<uint32_t> &indices, std::vector<GLuint> &textures)
+Mesh::Mesh(std::vector<Vertex> &vertices, std::vector<uint64_t> &indices, Material *mat)
 {
 	m_Vertices = vertices;
 	m_Indices = indices;
-	m_Tex = textures[0];
+	m_Mat = mat;
 	if (m_VAOID != 0)
 		glDeleteVertexArrays(1, &m_VAOID);
 	if (m_VBOID != 0)
@@ -63,13 +64,13 @@ Mesh::Mesh(std::vector<Vertex> &vertices, std::vector<uint32_t> &indices, std::v
 
 Mesh::~Mesh()
 {
-	;
+	if (m_Mat != nullptr)
+		delete m_Mat;
 }
 
-void Mesh::Render()
+void Mesh::Render(Shader *shader)
 {
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, m_Tex);
+	m_Mat->Bind(shader);
 	glBindVertexArray(m_VAOID);
 	glDrawElements(GL_TRIANGLES, m_Indices.size(), GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);
