@@ -80,53 +80,56 @@ void ModelRenderer::Present(const Camera *camera)
 	glBindVertexArray(m_VAOID);
 	for (size_t i = 0; i < m_RenderBatches.size(); i++) {
 		m_RenderBatches[i].Mat->Bind(m_Shader);
-		glDrawArrays(GL_TRIANGLES, (GLsizei)m_RenderBatches[i].Offset,
-		            (GLsizei)m_RenderBatches[i].Vertices);
+		glDrawElements(GL_TRIANGLES, (GLsizei)m_RenderBatches[i].Indices, GL_UNSIGNED_INT,
+		            (void*)m_RenderBatches[i].Offset);
 	}
 }
 
 void ModelRenderer::CreateBatches()
 {
-	size_t num_vert_total = 0;
-	for (size_t i = 0; i < m_SortedGlyphs.size(); i++)
-		num_vert_total += m_SortedGlyphs[i]->GetVertices().size();
-
+	size_t num_indices_total = 0;
 	std::vector<Vertex> vertex_data;
+	for (size_t i = 0; i < m_SortedGlyphs.size(); i++) {
+		num_indices_total += m_SortedGlyphs[i]->GetIndices().size();
+		vertex_data.insert(vertex_data.end(), m_SortedGlyphs[i]->GetVertices().begin(), m_SortedGlyphs[i]->GetVertices().end());
+	}
+
+	std::vector<uint32_t> indices_data;
 	uint64_t offset = 0;
 	
 	m_RenderBatches.emplace_back(m_SortedGlyphs[0]->GetMat(),
-	                             m_SortedGlyphs[0]->GetVertices().size(),
-	                             offset, m_SortedGlyphs[0]->GetIndices().size());
-	offset += m_RenderBatches[0].Vertices;
+	                             offset,
+	                             m_SortedGlyphs[0]->GetIndices().size());
+	offset += m_RenderBatches[0].Indices;
 
-	vertex_data.resize(num_vert_total);
-	for (size_t i = 0; i < m_SortedGlyphs[0]->GetVertices().size(); i++)
-		vertex_data[i] = m_SortedGlyphs[0]->GetVertices()[i];
+	indices_data.resize(num_indices_total);
+
+	for (size_t i = 0; i < m_SortedGlyphs[0]->GetIndices().size(); i++)
+		indices_data[i] = m_SortedGlyphs[0]->GetIndices()[i];
 
 	for (size_t g = 1; g < m_SortedGlyphs.size(); g++) {
 		const Material *temp_mat = m_SortedGlyphs[g]->GetMat();
-		size_t num_vert = m_SortedGlyphs[g]->GetVertices().size();
-		size_t indices = m_SortedGlyphs[g]->GetIndices().size();
-		
+		size_t num_indices = m_SortedGlyphs[g]->GetIndices().size();
 
 		if (temp_mat != m_SortedGlyphs[g - 1]->GetMat())
-			m_RenderBatches.emplace_back(temp_mat, num_vert,
-			                             offset, indices);
+			m_RenderBatches.emplace_back(temp_mat,
+			                             offset, num_indices);
 		else
-			m_RenderBatches.back().Vertices += num_vert;
+			m_RenderBatches.back().Indices += num_indices;
 
 		size_t i = offset;
-		size_t size_vert = m_SortedGlyphs[g]->GetVertices().size();
 
-		for (; (i - offset) < size_vert; i++)
-			vertex_data[i] = m_SortedGlyphs[g]->
-			                 GetVertices()[i - offset];
-
-		offset += num_vert;
+		for (; (i - offset) < num_indices; i++)
+			indices_data[i] = m_SortedGlyphs[g]->
+			                 GetIndices()[i - offset];
+		offset += num_indices;
 	}
 
 	glBindBuffer(GL_ARRAY_BUFFER, m_VBOID);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * vertex_data.size(), 
 	                vertex_data.data(), GL_DYNAMIC_DRAW);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_EBOID);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint32_t) * indices_data.size(), indices_data.data(), GL_DYNAMIC_DRAW);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }

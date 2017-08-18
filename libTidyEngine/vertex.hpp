@@ -54,11 +54,10 @@ public:
 class MeshBatch {
 public:
 	MeshBatch() {;}
-	MeshBatch(const Material *mat, uint64_t vertices, uint64_t offset, uint64_t indices):
-	          Mat(mat), Vertices(vertices), Offset(offset), Indices(indices) {;}
+	MeshBatch(const Material *mat, uint64_t offset, uint64_t indices):
+	          Mat(mat), Offset(offset), Indices(indices) {;}
 
 	const Material *Mat = nullptr;
-	uint64_t Vertices = 0;
 	uint64_t Offset = 0;
-	uint64_t Indices;
+	uint64_t Indices = 0;
 };
