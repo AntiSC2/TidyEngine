@@ -77,6 +77,10 @@ void ModelRenderer::Present(const Camera *camera)
 		m_Shader->SetUniformMat4("model", camera->GetModel());
 	}
 
+	m_Shader->SetUniform3f("lightPos", m_Light);
+	m_Shader->SetUniform1f("ambientStrength", m_Ambient);
+	m_Shader->SetUniform3f("lightColor", m_LightC);
+
 	glBindVertexArray(m_VAOID);
 	for (size_t i = 0; i < m_RenderBatches.size(); i++) {
 		m_RenderBatches[i].Mat->Bind(m_Shader);

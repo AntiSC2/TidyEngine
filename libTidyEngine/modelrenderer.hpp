@@ -32,6 +32,9 @@ public:
 	virtual void Present(const Camera *camera);
 protected:
 	virtual void CreateBatches();
+	float m_Ambient = 0.1f;
+	glm::vec3 m_Light = glm::vec3(0.0f, 10.0f, 5.0f);
+	glm::vec3 m_LightC = glm::vec3(1.0f, 1.0f, 1.0f);
 	GLuint m_EBOID = 0;
 	std::vector<MeshBatch> m_RenderBatches;
 };
