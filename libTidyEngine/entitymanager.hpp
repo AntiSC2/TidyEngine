@@ -31,7 +31,7 @@ public:
 	EntityManager();
 	virtual ~EntityManager();
 
-	virtual void Update();
+	virtual void Update(double delta);
 	virtual void Draw(Renderer *renderer);
 	virtual void AddEntity(Entity *entity);
 	virtual void SetCamera(Camera *camera);

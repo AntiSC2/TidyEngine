@@ -38,7 +38,7 @@ public:
 	}
 	virtual ~Entity();
 
-	virtual void Update(float delta = 0.0f);
+	virtual void Update(double delta = 0.0f);
 	virtual std::vector<Renderable *> &Draw();
 	virtual void AddComponents(std::vector<RID> components);
 	virtual void RemoveComponents(std::vector<size_t> id);

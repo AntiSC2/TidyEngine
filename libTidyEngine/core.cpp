@@ -116,15 +116,16 @@ void Core::GameLoop()
 		double new_time = glfwGetTime();
 		double frame_time = new_time - current_time;
 		current_time = new_time;
-		accumulator += frame_time;
+		accumulator += frame_time;	
 
 		while (accumulator > dt) {
-			Update();
+			Update(accumulator);
 			accumulator -= dt;
 			updates++;
 		}
 
 		DrawGame();
+		m_Input.Update();
 		frames++;
 
 		if (current_time - timer > 1.0) {

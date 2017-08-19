@@ -59,7 +59,7 @@ void Camera::Initialise(uint16_t width, uint16_t height, Screen *s, glm::vec3 po
 	m_Update = false;
 }
 
-void Camera::Update(float delta)
+void Camera::Update(double delta)
 {
 	/* Only update the camera if it has moved, scaled or rotated */
 	if (m_Update == true && m_Ortho == true) {

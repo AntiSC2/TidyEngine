@@ -66,22 +66,21 @@ bool Game::Init()
 	return true;
 }
 
-void Game::Update()
+void Game::Update(double delta)
 {
-	m_Input.Update();
-	m_EntityManager.Update();
+	m_EntityManager.Update(delta);
 	if (m_Input.GetKey(GLFW_KEY_ESCAPE))
 		m_Screen.CloseWindow();
 	else if (m_Input.GetKey(GLFW_KEY_SPACE))
 		Resources.GetSample("sound")->Play();
 	if (m_Input.GetKey(GLFW_KEY_D))
-		m_Pos.x += 0.1;
+		m_Pos.x += 2.0 * delta;
 	if (m_Input.GetKey(GLFW_KEY_A))
-		m_Pos.x -= 0.1;
+		m_Pos.x -= 2.0 * delta;
 	if (m_Input.GetKey(GLFW_KEY_W))
-		m_Pos.z -= 0.1;
+		m_Pos.z -= 2.0 * delta;
 	if (m_Input.GetKey(GLFW_KEY_S))
-		m_Pos.z += 0.1;
+		m_Pos.z += 2.0 * delta;
 	m_EntityManager.GetCamera()->SetPos(m_Pos);
 }
 

@@ -24,7 +24,7 @@ Entity::~Entity()
 	;
 }
 
-void Entity::Update(float delta)
+void Entity::Update(double delta)
 {
 	for (auto i : m_Components) {
 		i.Data()->Update();

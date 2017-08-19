@@ -13,5 +13,5 @@ struct Material {
 uniform Material material;
 
 void main() {
-	color = texture2D(material.diffuse1, UV) * Color;
+	color = Vec4(0.0f, 0.0f, 0.0f, 1.0f) + texture2D(material.diffuse1, UV) * Color;
 }

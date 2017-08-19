@@ -21,14 +21,12 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include <cstdint>
 #include <cstdio>
 
-bool Input::m_Keys[350];
+GLFWwindow *Input::m_Window = nullptr;
 bool Input::m_Buttons[8];
 glm::vec2 Input::m_MousePos = glm::vec2(0.0f, 0.0f);
 
 Input::Input()
 {
-	for (uint16_t i = 0; i < 350; i++)
-		m_Keys[i] = false;
 	for (uint8_t i = 0; i < 8; i++)
 		m_Buttons[i] = false;
 }
@@ -40,7 +38,7 @@ Input::~Input()
 
 void Input::Initialise(GLFWwindow *window)
 {
-	glfwSetKeyCallback(window, Process);
+	m_Window = window;
 	glfwSetCursorPosCallback(window, MouseProcess);
 	glfwSetMouseButtonCallback(window, MousePress);
 }
@@ -48,20 +46,6 @@ void Input::Initialise(GLFWwindow *window)
 void Input::Update()
 {
 	glfwPollEvents();
-}
-
-void Input::Process(GLFWwindow *window, int key, int scancode, int action,
-	int mode)
-{
-	if (key == GLFW_KEY_UNKNOWN) {
-		printf("Warning: key unknown!\n");
-		return;
-	}
-	
-	if (action == GLFW_PRESS)
-		m_Keys[key] = true;
-	else if (action == GLFW_RELEASE)
-		m_Keys[key] = false;
 }
 
 void Input::MouseProcess(GLFWwindow *window, double xpos, double ypos)
@@ -82,11 +66,7 @@ void Input::MousePress(GLFWwindow *window, int button, int action, int mods)
 
 bool Input::GetKey(size_t key)
 {
-	if (key >= 350) {
-		printf("Warning: key unknown!\n");
-		return false;
-	}
-	return m_Keys[key];
+	return glfwGetKey(m_Window, key);
 }
 
 const glm::vec2 &Input::GetMousePos()

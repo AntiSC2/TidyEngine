@@ -37,7 +37,7 @@ void EntityManager::AddEntity(Entity *entity)
 	m_Entities.emplace_back(entity);
 }
 
-void EntityManager::Update()
+void EntityManager::Update(double delta)
 {
 	for (size_t i = 0; i < m_Entities.size(); i++)
 		m_Entities[i]->Update();

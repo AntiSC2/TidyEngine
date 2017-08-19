@@ -38,7 +38,7 @@ protected:
 	virtual bool InitSubSystems();
 	virtual bool Init() = 0;
 	virtual void GameLoop();
-	virtual void Update() = 0;
+	virtual void Update(double delta) = 0;
 	virtual void DrawGame() = 0;
 	virtual void Quit();
 

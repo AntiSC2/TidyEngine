@@ -29,16 +29,14 @@ public:
 
 	void Initialise(GLFWwindow *window);
 	void Update();
-	static void Process(GLFWwindow *window, int key, int scancode,
-			int action, int mode);
 	static void MouseProcess(GLFWwindow *window, double xpos, double ypos);
 	static void MousePress(GLFWwindow *window, int button, int action,
 			int mods);
 	bool GetKey(size_t key);
 	const glm::vec2 &GetMousePos();
 	bool GetMouseButton(size_t button);
-private:
-	static bool m_Keys[350];
+protected:
+	static GLFWwindow *m_Window;
 	static bool m_Buttons[8];
 	static glm::vec2 m_MousePos;
 };

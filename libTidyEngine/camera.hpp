@@ -35,7 +35,7 @@ public:
 
 	void Initialise(uint16_t width = 0, uint16_t height = 0,
 	                Screen *s = nullptr, glm::vec3 pos = glm::vec3(0.0f, 0.0f, 0.0f), bool ortho = true);	
-	virtual void Update(float delta = 0.0f);
+	virtual void Update(double delta = 0.0f);
 	void SetScale(float scale = 1.0f);
 	void SetPos(glm::vec3 position);
 	const float &GetScale() const;
