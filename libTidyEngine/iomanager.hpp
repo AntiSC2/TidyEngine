@@ -19,6 +19,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 #pragma once
 
+#include <memory>
 #include <string>
 #include <FreeImage.h>
 #include <assimp/Importer.hpp>
@@ -41,6 +42,6 @@ public:
 protected:
 	void ProcessTree(Model &m, aiNode *node, const aiScene *scene, std::string dir);
 	void ProcessNode(Model &m, aiNode *node, const aiScene *scene, std::string dir);
-	Mesh ProcessMesh(aiMesh *mesh, const aiScene *scene, std::string dir);
+	std::shared_ptr<Mesh> ProcessMesh(aiMesh *mesh, const aiScene *scene, std::string dir);
 	std::vector<Texture*> LoadMatTextures(aiMaterial *mat, aiTextureType type, std::string dir);
 } extern IO;

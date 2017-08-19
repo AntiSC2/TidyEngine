@@ -71,7 +71,7 @@ std::string IOManager::ReadFile(std::string filepath)
 Model IOManager::LoadModel(std::string filepath)
 {
 	Assimp::Importer importer;
-	const aiScene *scene = importer.ReadFile(filepath, aiProcess_Triangulate | aiProcess_FlipUVs);
+	const aiScene *scene = importer.ReadFile(filepath, aiProcess_Triangulate | aiProcess_RemoveRedundantMaterials);
 
 	if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) {
 		printf("Warning: could not load mesh %s\n", filepath.c_str());
@@ -100,12 +100,12 @@ void IOManager::ProcessNode(Model &m, aiNode *node, const aiScene *scene, std::s
 {
 	for (size_t i = 0; i < node->mNumMeshes; i++) {
 		aiMesh *mesh = scene->mMeshes[node->mMeshes[i]];
-		Mesh temp = ProcessMesh(mesh, scene, dir);
+		std::shared_ptr<Mesh> temp = ProcessMesh(mesh, scene, dir);
 		m.AddMesh(temp);
 	}
 }
 
-Mesh IOManager::ProcessMesh(aiMesh *mesh, const aiScene *scene, std::string dir)
+std::shared_ptr<Mesh> IOManager::ProcessMesh(aiMesh *mesh, const aiScene *scene, std::string dir)
 {
 	std::vector<Vertex> vertices;
 	std::vector<uint32_t> indices;
@@ -151,11 +151,19 @@ Mesh IOManager::ProcessMesh(aiMesh *mesh, const aiScene *scene, std::string dir)
     if(mesh->mMaterialIndex >= 0) {	
 		aiMaterial *mat = scene->mMaterials[mesh->mMaterialIndex];
 		diffuse_textures = LoadMatTextures(mat, aiTextureType_DIFFUSE, dir);
-		spec_textures = diffuse_textures;
-		material = new Material(diffuse_textures, spec_textures);
-    }
+		spec_textures = LoadMatTextures(mat, aiTextureType_SPECULAR, dir);
+		float shine = 32.0f;
 
-    return Mesh(vertices, indices, material);
+		if (aiGetMaterialFloat(mat, AI_MATKEY_SHININESS, &shine) != AI_SUCCESS) {
+			printf("Warning: could not get shininess from material!\n");
+			shine = 32.0f;
+		}
+
+		material = new Material(diffuse_textures, spec_textures, shine);
+    }
+	std::shared_ptr<Mesh> temp;
+    temp.reset(new Mesh(vertices, indices, material));
+	return temp;
 }
 
 std::vector<Texture*> IOManager::LoadMatTextures(aiMaterial *mat, aiTextureType type, std::string dir)

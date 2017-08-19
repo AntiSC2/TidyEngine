@@ -68,19 +68,20 @@ bool Game::Init()
 
 void Game::Update(double delta)
 {
+	double speed = 3.0;
 	m_EntityManager.Update(delta);
 	if (m_Input.GetKey(GLFW_KEY_ESCAPE))
 		m_Screen.CloseWindow();
 	else if (m_Input.GetKey(GLFW_KEY_SPACE))
 		Resources.GetSample("sound")->Play();
 	if (m_Input.GetKey(GLFW_KEY_D))
-		m_Pos.x += 2.0 * delta;
+		m_Pos.x += speed * delta;
 	if (m_Input.GetKey(GLFW_KEY_A))
-		m_Pos.x -= 2.0 * delta;
+		m_Pos.x -= speed * delta;
 	if (m_Input.GetKey(GLFW_KEY_W))
-		m_Pos.z -= 2.0 * delta;
+		m_Pos.z -= speed * delta;
 	if (m_Input.GetKey(GLFW_KEY_S))
-		m_Pos.z += 2.0 * delta;
+		m_Pos.z += speed * delta;
 	m_EntityManager.GetCamera()->SetPos(m_Pos);
 }
 

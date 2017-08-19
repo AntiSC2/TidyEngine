@@ -19,6 +19,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 #pragma once
 
+#include <memory>
 #include <string>
 #include <vector>
 #include "resource.hpp"
@@ -34,9 +35,9 @@ public:
 
     virtual std::string Type();
 
-    void AddMesh(Mesh &m);
+    void AddMesh(std::shared_ptr<Mesh> m);
     void Draw(Shader *shader);
 protected:
     std::string m_Dir = "";
-    std::vector<Mesh> m_Meshes;
+    std::vector<std::shared_ptr<Mesh>> m_Meshes;
 };

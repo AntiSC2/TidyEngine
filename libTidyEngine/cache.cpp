@@ -134,7 +134,7 @@ RID *Cache::CreateResource(std::string name, Resource *data)
 		return &m_Resources[name];
 	} else {
 		printf("Warning: resource %s already exists!\n", name.c_str());
-		return nullptr;
+		return &m_Resources[name];
 	}
 }
 

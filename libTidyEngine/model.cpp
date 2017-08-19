@@ -36,7 +36,7 @@ std::string Model::Type()
     return "Model";
 }
 
-void Model::AddMesh(Mesh &m)
+void Model::AddMesh(std::shared_ptr<Mesh> m)
 {
     m_Meshes.push_back(m);
 }
@@ -44,5 +44,5 @@ void Model::AddMesh(Mesh &m)
 void Model::Draw(Shader *shader)
 {
     for (auto i: m_Meshes)
-        i.Render(shader);
+        i.get()->Render(shader);
 }

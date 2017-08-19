@@ -30,10 +30,13 @@ Mesh::Mesh(std::vector<Vertex> &vertices, std::vector<uint32_t> &indices, Materi
 	m_Vertices = vertices;
 	m_Indices = indices;
 	m_Mat = mat;
+
 	if (m_VAOID != 0)
 		glDeleteVertexArrays(1, &m_VAOID);
 	if (m_VBOID != 0)
 		glDeleteBuffers(1, &m_VBOID);
+	if (m_EBOID != 0)
+		glDeleteBuffers(1, &m_EBOID);
 	
 	glGenVertexArrays(1, &m_VAOID);
 	glBindVertexArray(m_VAOID);
@@ -64,12 +67,21 @@ Mesh::Mesh(std::vector<Vertex> &vertices, std::vector<uint32_t> &indices, Materi
 
 Mesh::~Mesh()
 {
-	;
+	if (m_Mat != nullptr)
+		delete m_Mat;
+	if (m_EBOID != 0)
+		glDeleteBuffers(1, &m_EBOID);
+	if (m_VBOID != 0)
+		glDeleteBuffers(1, &m_VBOID);
+	if (m_VAOID != 0)
+		glDeleteVertexArrays(1, &m_VAOID);
 }
 
 void Mesh::Render(Shader *shader)
 {
-	m_Mat->Bind(shader);
+	if (m_Mat != nullptr) {
+		m_Mat->Bind(shader);
+	}
 	glBindVertexArray(m_VAOID);
 	glDrawElements(GL_TRIANGLES, m_Indices.size(), GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);

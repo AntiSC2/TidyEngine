@@ -21,16 +21,18 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 #include <vector>
 #include <glm/vec3.hpp>
+#include "resource.hpp"
 
 class Texture;
 class Shader;
 
-class Material {
+class Material: public Resource {
 public:
 	Material();
-	Material(std::vector<Texture*> diffuse, std::vector<Texture*> specular);
+	Material(std::vector<Texture*> diffuse, std::vector<Texture*> specular, float shine);
 	virtual ~Material();
 
+	virtual std::string Type();
 	virtual void Bind(Shader *shader) const;
 protected:
 	std::vector<Texture*> m_Diffuse;
