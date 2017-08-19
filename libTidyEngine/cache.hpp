@@ -47,6 +47,9 @@ public:
 	void DestroySample(std::string name);
 	Sample *GetSample(std::string name);
 
+	Model *CreateModel(std::string name, std::string filepath);
+	Model *GetModel(std::string name);
+
 	RID *CreateResource(std::string name, Resource *data);
 	void DestroyResource(std::string name);
 	RID *GetResource(std::string name);

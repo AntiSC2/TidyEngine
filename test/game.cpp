@@ -39,7 +39,9 @@ Game::~Game()
 
 bool Game::Init()
 {
-	m_Model = IO.LoadModel("Model/nanosuit.obj");
+	if (Resources.CreateModel("nanosuit", "Model/nanosuit.obj") != nullptr)
+		m_Model = static_cast<Model*>(Resources.GetResource("nanosuit")->Data());
+
 	Camera *cam = new Camera("MainCamera");
 	cam->Initialise(1280, 720, &m_Screen, m_Pos, false);
 	m_EntityManager.SetCamera(cam);
@@ -99,7 +101,7 @@ void Game::DrawGame()
 	m_SpriteRenderer.End();
 	m_SpriteRenderer.Present(m_EntityManager.GetCamera());
 	m_ModelRenderer.Begin();
-	m_Model.Draw(m_Graphics.GetShader("model"));
+	m_Model->Draw(m_Graphics.GetShader("model"));
 	m_ModelRenderer.End();
 	m_ModelRenderer.Present(m_EntityManager.GetCamera());
 

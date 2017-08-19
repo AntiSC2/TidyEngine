@@ -127,6 +127,18 @@ Sample *Cache::GetSample(std::string name)
 	return nullptr;
 }
 
+Model *Cache::CreateModel(std::string name, std::string filepath)
+{
+	if (m_Resources.find(name) == m_Resources.end()) {
+		Model *temp = new Model();
+		*temp = IO.LoadModel(filepath);
+		CreateResource(name, static_cast<Resource*>(temp));
+	} else {
+		printf("Warning: model could not be loaded because resource with %s already exists!", name.c_str());
+		return nullptr;
+	}
+}
+
 RID *Cache::CreateResource(std::string name, Resource *data)
 {
 	if (m_Resources.find(name) == m_Resources.end()) {
