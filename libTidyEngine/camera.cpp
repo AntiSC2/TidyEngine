@@ -68,7 +68,7 @@ void Camera::Update(float delta)
 		                                -m_Position.z);
 		m_View = glm::translate(m_View, translate);
 
-		glm::vec3 scale = glm::vec3(m_Scale, m_Scale, 0.0f);
+		glm::vec3 scale = glm::vec3(m_Scale, m_Scale, 1.0f);
 		m_Model = glm::scale(glm::mat4(1.0f), scale);
 		m_Update = false;
 	} else if (m_Update == true) {
@@ -137,7 +137,7 @@ void Camera::InitOrtho()
 	                                -m_Position.z);
 	m_View = glm::translate(m_View, translate);
 
-	glm::vec3 scale = glm::vec3(m_Scale, m_Scale, m_Scale);
+	glm::vec3 scale = glm::vec3(m_Scale, m_Scale, 1.0f);
 	m_Model = glm::scale(glm::mat4(1.0f), scale);
 }
 

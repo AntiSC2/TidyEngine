@@ -78,6 +78,10 @@ void Game::Update()
 		m_Pos.x += 0.1;
 	if (m_Input.GetKey(GLFW_KEY_A))
 		m_Pos.x -= 0.1;
+	if (m_Input.GetKey(GLFW_KEY_W))
+		m_Pos.z -= 0.1;
+	if (m_Input.GetKey(GLFW_KEY_S))
+		m_Pos.z += 0.1;
 	m_EntityManager.GetCamera()->SetPos(m_Pos);
 }
 
@@ -88,12 +92,12 @@ void Game::DrawGame()
 	rect.SetRect(0.0f, 680.0f, 1280.0f, 720.0f);
 	m_Graphics.Clear();
 
-	/*m_SpriteRenderer.Begin();
+	m_SpriteRenderer.Begin();
 	m_EntityManager.Draw(&m_SpriteRenderer);
 	m_SpriteRenderer.Draw(&rect);
 	m_SpriteRenderer.DrawText("TidyEngine V0.2", glm::vec2(0.0f, 0.0f), glm::vec4(1.0f, 0.0f, 0.0f, 1.0f), m_Font);
 	m_SpriteRenderer.End();
-	m_SpriteRenderer.Present(m_EntityManager.GetCamera());*/
+	m_SpriteRenderer.Present(m_EntityManager.GetCamera());
 	m_ModelRenderer.Begin();
 	m_Model.Draw(m_Graphics.GetShader("model"));
 	m_ModelRenderer.End();
