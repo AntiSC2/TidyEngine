@@ -30,4 +30,10 @@ private:
 	void DrawGame();
 	Model *m_Model;
 	glm::vec3 m_Pos = glm::vec3(0.0f, 15.0f, 10.0f);
+	glm::vec3 m_Front = glm::vec3(0.0f, 0.0f, -1.0f);
+	glm::vec3 m_Up = glm::vec3(0.0f, 1.0f, 0.0f);
+	float m_LastX = 0.0f;
+	float m_LastY = 0.0f;
+	float m_Yaw = 0.0f;
+	float m_Pitch = 0.0f;
 };

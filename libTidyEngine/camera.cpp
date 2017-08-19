@@ -74,7 +74,7 @@ void Camera::Update(double delta)
 	} else if (m_Update == true) {
 		m_View = glm::lookAt(
 			m_Position,
-        	glm::vec3(0.0f, 8.0f, 0.0f),
+        	m_Position + m_Dir,
 			glm::vec3(0.0f, 1.0f, 0.0f)
 		);
 
@@ -100,6 +100,14 @@ void Camera::SetScale(float scale)
 void Camera::SetPos(glm::vec3 position)
 {
 	m_Position = position;
+	m_Update = true;
+}
+
+void Camera::SetDir(glm::vec3 dir)
+{
+	if (m_Ortho == true)
+		return;
+	m_Dir = dir;
 	m_Update = true;
 }
 
@@ -147,7 +155,7 @@ void Camera::InitProj()
 			100.0f);
 	m_View = glm::lookAt(
 		m_Position,
-		glm::vec3(0.0f, 8.0f, 0.0f),
+		m_Position - m_Dir,
 		glm::vec3(0.0f, 1.0f, 0.0f)
 	);
 

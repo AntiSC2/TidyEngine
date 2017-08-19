@@ -38,6 +38,7 @@ public:
 	virtual void Update(double delta = 0.0f);
 	void SetScale(float scale = 1.0f);
 	void SetPos(glm::vec3 position);
+	void SetDir(glm::vec3 dir);
 	const float &GetScale() const;
 	const glm::vec3 &GetPos() const;
 	const glm::mat4 &GetProj() const;
@@ -56,4 +57,5 @@ private:
 	glm::mat4 m_Model;
 	glm::mat4 m_View;
 	glm::mat4 m_Projection;
+	glm::vec3 m_Dir = glm::vec3(0.0f, 0.0f, -1.0f);
 };
