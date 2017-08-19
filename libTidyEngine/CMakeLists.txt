@@ -40,6 +40,7 @@ set(SOURCE
 	${CMAKE_CURRENT_SOURCE_DIR}/modelrenderer.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/model.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/material.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/pointlight.cpp
 )
 set(HEADERS
 	${HEADERS}
@@ -71,6 +72,7 @@ set(HEADERS
 	${CMAKE_CURRENT_SOURCE_DIR}/modelrenderer.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/model.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/material.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/pointlight.hpp
 )
 
 if (WIN32)

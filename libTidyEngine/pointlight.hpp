@@ -1,6 +1,6 @@
 /*
 TidyEngine
-Copyright (C) 2017 Jakob Sinclair
+Copyright (C) 2016 Jakob Sinclair
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Lesser General Public License as published by
@@ -19,21 +19,23 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 #pragma once
 
-#include <vector>
+#include "resource.hpp"
 #include <glm/vec3.hpp>
 
-class Texture;
-class Shader;
-
-class Material {
+class PointLight: public Resource {
 public:
-	Material();
-	Material(std::vector<Texture*> diffuse, std::vector<Texture*> specular);
-	virtual ~Material();
+    PointLight();
+    ~PointLight();
+    virtual std::string Type();
 
-	virtual void Bind(Shader *shader) const;
+    void SetPos(glm::vec3 pos);
+    glm::vec3 &GetPos();
+    glm::vec3 &GetDiff();
+    glm::vec3 &GetSpec();
+    glm::vec3 &GetAmbi();
 protected:
-	std::vector<Texture*> m_Diffuse;
-	std::vector<Texture*> m_Specular;
-	float m_Shine = 32.0f;
+    glm::vec3 m_Position = glm::vec3(0.0f, 0.0f, 0.0f);
+    glm::vec3 m_Diffuse = glm::vec3(0.8f, 0.8f, 0.8f);
+    glm::vec3 m_Specular = glm::vec3(1.0f, 1.0f, 1.0f);
+    glm::vec3 m_Ambient = glm::vec3(0.1f, 0.1f, 0.1f);
 };

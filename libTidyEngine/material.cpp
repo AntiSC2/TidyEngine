@@ -26,11 +26,6 @@ Material::Material()
 	;
 }
 
-Material::Material(glm::vec4 color)
-{
-	m_DiffuseC = color;
-}
-
 Material::Material(std::vector<Texture*> diffuse, std::vector<Texture*> specular)
 {
 	m_Diffuse = diffuse;
@@ -63,5 +58,6 @@ void Material::Bind(Shader *shader) const
 		count++;
 		glBindTexture(GL_TEXTURE_2D, m_Specular[i]->GetTex());
 	}
+	shader->SetUniform1f("material.shine", m_Shine);
 	glActiveTexture(GL_TEXTURE0);
 }

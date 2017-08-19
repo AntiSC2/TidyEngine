@@ -22,6 +22,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 class Camera;
 
 #include "renderer.hpp"
+#include "pointlight.hpp"
 
 class ModelRenderer : public Renderer {
 public:
@@ -31,10 +32,8 @@ public:
 	virtual void Initialise(Shader *shader);
 	virtual void Present(const Camera *camera);
 protected:
+	PointLight m_Light;
 	virtual void CreateBatches();
-	float m_Ambient = 0.1f;
-	glm::vec3 m_Light = glm::vec3(0.0f, 10.0f, 5.0f);
-	glm::vec3 m_LightC = glm::vec3(1.0f, 1.0f, 1.0f);
 	GLuint m_EBOID = 0;
 	std::vector<MeshBatch> m_RenderBatches;
 };
