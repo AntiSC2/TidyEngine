@@ -6,21 +6,40 @@ in vec3 FragPos;
 
 out vec4 color;
 
+struct Light {
+	vec3 ambient;
+	vec3 pos;
+	vec3 diffuse;
+	vec3 specular;
+};
+
 struct Material {
 	sampler2D diffuse1;
 	sampler2D specular1;
+	vec3 ambient;
 	float shine;
 };
 
-uniform vec3 lightPos;
-uniform float ambientStrength;
-uniform vec3 lightColor;
+uniform vec3 viewPos;
 uniform Material material;
+uniform Light light1;
+
+/* Phong Lightning Shader
+ */
 
 void main() {
 	vec3 norm = normalize(Normal);
-	vec3 lightDir = normalize(lightPos - FragPos); 
+	vec3 lightDir = normalize(light1.pos - FragPos); 
 	float diff = max(dot(norm, lightDir), 0.0);
-	vec3 ambient = ambientStrength * lightColor;
-	color = vec4(0.0f, 0.0f, 0.0f, 1.0f) + texture2D(material.diffuse1, UV) * Color * vec4(ambient + diff, 0.0f);
+
+	vec3 viewDir = normalize(viewPos - FragPos);
+	vec3 reflectDir = reflect(-lightDir, norm);
+	float spec = pow(max(dot(viewDir, reflectDir), 0.0f), material.shine);
+
+	vec3 ambient = light1.ambient * vec3(texture2D(material.diffuse1, UV));
+	vec3 specular = light1.specular * (vec3(texture2D(material.specular1, UV)) * spec);
+	vec3 diffuse = light1.diffuse * vec3(diff * texture2D(material.diffuse1, UV) * Color);
+
+	vec3 result = ambient + specular + diffuse;
+	color = vec4(result, 1.0f);
 }
