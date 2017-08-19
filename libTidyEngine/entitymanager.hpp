@@ -35,7 +35,7 @@ public:
 	virtual void Draw(Renderer *renderer);
 	virtual void AddEntity(Entity *entity);
 	virtual void SetCamera(Camera *camera);
-	virtual const Camera *GetCamera();
+	virtual Camera *GetCamera();
 protected:
 	std::vector<std::unique_ptr<Entity>> m_Entities;
 	Camera *m_CurrentCamera = nullptr;

@@ -66,7 +66,7 @@ void EntityManager::SetCamera(Camera *camera)
 	this->AddEntity(camera);
 }
 
-const Camera *EntityManager::GetCamera()
+Camera *EntityManager::GetCamera()
 {
 	return m_CurrentCamera;
 }

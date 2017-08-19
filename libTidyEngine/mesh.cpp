@@ -25,7 +25,7 @@ Mesh::Mesh()
 	;
 }
 
-Mesh::Mesh(std::vector<Vertex> &vertices, std::vector<uint64_t> &indices, Material *mat)
+Mesh::Mesh(std::vector<Vertex> &vertices, std::vector<uint32_t> &indices, Material *mat)
 {
 	m_Vertices = vertices;
 	m_Indices = indices;
@@ -64,8 +64,7 @@ Mesh::Mesh(std::vector<Vertex> &vertices, std::vector<uint64_t> &indices, Materi
 
 Mesh::~Mesh()
 {
-	if (m_Mat != nullptr)
-		delete m_Mat;
+	;
 }
 
 void Mesh::Render(Shader *shader)

@@ -108,9 +108,9 @@ void IOManager::ProcessNode(Model &m, aiNode *node, const aiScene *scene, std::s
 Mesh IOManager::ProcessMesh(aiMesh *mesh, const aiScene *scene, std::string dir)
 {
 	std::vector<Vertex> vertices;
-	std::vector<uint64_t> indices;
-    std::vector<GLuint> diffuse_textures;
-	std::vector<GLuint> spec_textures;
+	std::vector<uint32_t> indices;
+    std::vector<Texture*> diffuse_textures;
+	std::vector<Texture*> spec_textures;
 	Material *material = nullptr;
 
     for (uint64_t i = 0; i < mesh->mNumVertices; i++)
@@ -140,14 +140,14 @@ Mesh IOManager::ProcessMesh(aiMesh *mesh, const aiScene *scene, std::string dir)
 			vertex.TexUV = glm::vec2(0.0f, 0.0f);
 		}
         vertices.push_back(vertex);
-    }
+	}
 
 	for(uint64_t i = 0; i < mesh->mNumFaces; i++) {
 		aiFace face = mesh->mFaces[i];
 		for(uint64_t j = 0; j < face.mNumIndices; j++)
 			indices.push_back(face.mIndices[j]);
-	}  
-
+	}
+ 
     if(mesh->mMaterialIndex >= 0) {	
 		aiMaterial *mat = scene->mMaterials[mesh->mMaterialIndex];
 		diffuse_textures = LoadMatTextures(mat, aiTextureType_DIFFUSE, dir);
@@ -158,16 +158,16 @@ Mesh IOManager::ProcessMesh(aiMesh *mesh, const aiScene *scene, std::string dir)
     return Mesh(vertices, indices, material);
 }
 
-std::vector<GLuint> IOManager::LoadMatTextures(aiMaterial *mat, aiTextureType type, std::string dir)
+std::vector<Texture*> IOManager::LoadMatTextures(aiMaterial *mat, aiTextureType type, std::string dir)
 {
-	std::vector<GLuint> textures;
+	std::vector<Texture*> textures;
 	for(unsigned int i = 0; i < mat->GetTextureCount(type); i++)
 	{
 		aiString str;
 		mat->GetTexture(type, i, &str);
 		Texture *temp = Resources.CreateTexture(dir + str.C_Str(), dir + str.C_Str());
 		if (temp != nullptr)
-			textures.push_back(temp->GetTex());
+			textures.push_back(temp);
 	}
 	return textures;
 }

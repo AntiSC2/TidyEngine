@@ -27,6 +27,8 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include "model.hpp"
 #include "sample.hpp"
 
+class Texture;
+
 class IOManager {
 public:
 	IOManager();
@@ -40,5 +42,5 @@ protected:
 	void ProcessTree(Model &m, aiNode *node, const aiScene *scene, std::string dir);
 	void ProcessNode(Model &m, aiNode *node, const aiScene *scene, std::string dir);
 	Mesh ProcessMesh(aiMesh *mesh, const aiScene *scene, std::string dir);
-	std::vector<GLuint> LoadMatTextures(aiMaterial *mat, aiTextureType type, std::string dir);
+	std::vector<Texture*> LoadMatTextures(aiMaterial *mat, aiTextureType type, std::string dir);
 } extern IO;

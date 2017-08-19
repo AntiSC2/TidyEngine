@@ -20,7 +20,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 #pragma once
 
 #include <vector>
-#include <glm/mat4.hpp>
+#include <glm/matrix.hpp>
 #include "renderable.hpp"
 #include "vertex.hpp"
 #include "material.hpp"
@@ -30,13 +30,12 @@ class Shader;
 class Mesh: public Renderable {
 public:
 	Mesh();
-	Mesh(std::vector<Vertex> &vertices, std::vector<uint64_t> &indices, Material *mat);
+	Mesh(std::vector<Vertex> &vertices, std::vector<uint32_t> &indices, Material *mat);
 	virtual ~Mesh();
 
 	virtual void Render(Shader *shader);
 protected:
 	glm::mat4 m_Transform;
-	Material *m_Mat = nullptr;
 	GLuint m_VAOID = 0;
 	GLuint m_EBOID = 0;
 	GLuint m_VBOID = 0;

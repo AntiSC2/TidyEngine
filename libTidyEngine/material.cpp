@@ -52,7 +52,7 @@ void Material::Bind(Shader *shader) const
 		glActiveTexture(GL_TEXTURE0 + i);
 		shader->SetUniform1i("material.diffuse" + (char)(count + 48), i);
 		count++;
-		glBindTexture(GL_TEXTURE_2D, m_Diffuse[i]);
+		glBindTexture(GL_TEXTURE_2D, m_Diffuse[i]->GetTex());
 	}
 
 	uint8_t old_i = count;
@@ -61,7 +61,7 @@ void Material::Bind(Shader *shader) const
 		glActiveTexture(GL_TEXTURE0 + i + old_i);
 		shader->SetUniform1i("material.specular" + (char)(count + 48), i);
 		count++;
-		glBindTexture(GL_TEXTURE_2D, m_Specular[i]);
+		glBindTexture(GL_TEXTURE_2D, m_Specular[i]->GetTex());
 	}
 	glActiveTexture(GL_TEXTURE0);
 }

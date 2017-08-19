@@ -41,7 +41,7 @@ bool Game::Init()
 {
 	m_Model = IO.LoadModel("Model/nanosuit.obj");
 	Camera *cam = new Camera("MainCamera");
-	cam->Initialise(1280, 720, &m_Screen, glm::vec3(0.0f, 15.0f, 10.0f), false);
+	cam->Initialise(1280, 720, &m_Screen, m_Pos, false);
 	m_EntityManager.SetCamera(cam);
 	cam = nullptr;
 	m_Font.Initialize(&m_FontLib, "Acme-Regular.ttf", 128);
@@ -74,6 +74,11 @@ void Game::Update()
 		m_Screen.CloseWindow();
 	else if (m_Input.GetKey(GLFW_KEY_SPACE))
 		Resources.GetSample("sound")->Play();
+	if (m_Input.GetKey(GLFW_KEY_D))
+		m_Pos.x += 0.1;
+	if (m_Input.GetKey(GLFW_KEY_A))
+		m_Pos.x -= 0.1;
+	m_EntityManager.GetCamera()->SetPos(m_Pos);
 }
 
 void Game::DrawGame()
@@ -90,7 +95,7 @@ void Game::DrawGame()
 	m_SpriteRenderer.End();
 	m_SpriteRenderer.Present(m_EntityManager.GetCamera());*/
 	m_ModelRenderer.Begin();
-	m_Model.Draw(m_Graphics.GetShader("Model"));
+	m_Model.Draw(m_Graphics.GetShader("model"));
 	m_ModelRenderer.End();
 	m_ModelRenderer.Present(m_EntityManager.GetCamera());
 
