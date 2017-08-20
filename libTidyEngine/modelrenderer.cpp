@@ -23,7 +23,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 ModelRenderer::ModelRenderer()
 {
-	m_Light.SetPos(glm::vec3(1.0f, 8.0f, 5.0f));	
+	m_Light.SetPos(glm::vec3(2.0f, 10.0f, 2.0f));	
 }
 
 ModelRenderer::~ModelRenderer()

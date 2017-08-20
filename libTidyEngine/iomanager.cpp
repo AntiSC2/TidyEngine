@@ -159,7 +159,7 @@ std::shared_ptr<Mesh> IOManager::ProcessMesh(aiMesh *mesh, const aiScene *scene,
 			shine = 32.0f;
 		}
 
-		material = new Material(diffuse_textures, spec_textures, shine);
+		material = new Material(diffuse_textures, spec_textures, shine * 2.0f);
     }
 	std::shared_ptr<Mesh> temp;
     temp.reset(new Mesh(vertices, indices, material));
