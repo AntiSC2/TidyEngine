@@ -27,6 +27,7 @@ set(SOURCE
 	${CMAKE_CURRENT_SOURCE_DIR}/spriterenderer.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/camera.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/input.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/component.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/entity.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/entitymanager.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/sprite.cpp
@@ -59,6 +60,7 @@ set(HEADERS
 	${CMAKE_CURRENT_SOURCE_DIR}/spriterenderer.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/camera.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/input.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/component.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/entity.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/entitymanager.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/sprite.hpp

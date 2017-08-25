@@ -19,17 +19,16 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 #pragma once
 
-#include <glm/vec3.hpp>
+#include <memory>
 #include <vector>
 #include <string>
+#include "component.hpp"
 #include "renderable.hpp"
-#include "rid.hpp"
 
 class Entity {
 public:
-	Entity(std::string name = "temp", std::string script = "none",
-	       std::vector<RID> components = {}) : m_Name(name),
-		m_Script(script), m_Components(components)
+	template<typename C>
+	Entity(std::string name, std::vector<std::shared> components = {}) : m_Name(name), m_Components(components)
 	{
 		for (auto i: m_Components) {
 			if (i.Data()->Type() == "Renderable")
@@ -40,17 +39,15 @@ public:
 
 	virtual void Update(double delta = 0.0f);
 	virtual std::vector<Renderable *> &Draw();
-	virtual void AddComponents(std::vector<RID> components);
-	virtual void RemoveComponents(std::vector<size_t> id);
-	virtual RID *GetComponent(size_t id);
+	template<typename C>
+	virtual void AddComponent(std::unique_ptr<C> &&component);
+	template<typename C>
+	virtual void RemoveComponent();
+	template<typename C>
+	virtual C &GetComponent();
 	virtual void SetName(std::string name);
-	virtual void SetScript(std::string script);
-	virtual void SetPos(glm::vec3 pos);
-	virtual glm::vec3 GetPos();
 protected:
-	std::string m_Name = "temp";
-	std::string m_Script = "none";
-	std::vector<RID> m_Components = {};
+	std::string m_Name = "";
+	std::vector<std::unique_ptr<Component>> m_Components = {};
 	std::vector<Renderable *> m_Graphics = {};
-	glm::vec3 m_Position = glm::vec3(0.0f, 0.0f, 0.0f);
 };

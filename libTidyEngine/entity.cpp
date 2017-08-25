@@ -36,26 +36,17 @@ std::vector<Renderable *> &Entity::Draw()
 	return m_Graphics;
 }
 
-void Entity::AddComponents(std::vector<RID> components)
+template<typename C>
+void Entity::AddComponents(std::unique_ptr<C> &&component)
 {
-	m_Components.insert(m_Components.end(), components.begin(), components.end());
-
-	for (auto i: components) {
-		if (i.Data()->Type() == "Renderable")
-			m_Graphics.push_back(static_cast<Renderable *>(i.Data()));
-	}
+	m_Components.push_back(component);
 }
 
-void Entity::RemoveComponents(std::vector<size_t> id)
+template<typename C>
+void Entity::RemoveComponent()
 {
-	for (auto i: id) {
-		if (i >= m_Components.size())
-			continue;
-
-		if (m_Components[i].Data()->Type() == "Renderable")
-			m_Graphics.erase(m_Graphics.begin());
-		m_Components.erase(m_Components.begin() + i);
-	}
+	static_assert(std::is_base_of(Component, C)::value, "Error: tried to remove non-component object!\n");
+	m_Components.erase();
 }
 
 RID *Entity::GetComponent(size_t id)
@@ -74,17 +65,4 @@ void Entity::SetName(std::string name)
 void Entity::SetScript(std::string script)
 {
 	m_Script = script;
-}
-
-void Entity::SetPos(glm::vec3 pos) 
-{
-	m_Position = pos;
-	for (auto i: m_Graphics) {
-		i->SetPos(m_Position);
-	}
-}
-
-glm::vec3 Entity::GetPos()
-{
-	return m_Position;
 }
