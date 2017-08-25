@@ -33,7 +33,7 @@ void main() {
 
 	vec3 viewDir = normalize(viewPos - FragPos);
 	vec3 halfwayDir = normalize(lightDir + viewDir);
-	float spec = pow(max(dot(viewDir, halfwayDir), 0.0f), material.shine);
+	float spec = pow(max(dot(Normal, halfwayDir), 0.0f), material.shine);
 
 	vec3 ambient = light1.ambient * vec3(texture2D(material.diffuse1, UV));
 	vec3 specular = light1.specular * (vec3(texture2D(material.specular1, UV)) * spec);
