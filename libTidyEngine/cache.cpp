@@ -60,11 +60,11 @@ void Cache::Clean()
 	m_Resources.clear();
 }
 
-Texture *Cache::CreateTexture(std::string name, std::string filepath)
+Texture *Cache::CreateTexture(std::string filepath)
 {
-	if (m_Textures.find(name) == m_Textures.end()) {
+	if (m_Textures.find(filepath) == m_Textures.end()) {
 		FIBITMAP *bitmap = IO.LoadImage(filepath);
-		bool success = m_Textures[name].CreateTex(bitmap, true, true);
+		bool success = m_Textures[filepath].CreateTex(bitmap, true, true);
 		
 		FreeImage_Unload(bitmap);
 		
@@ -74,11 +74,11 @@ Texture *Cache::CreateTexture(std::string name, std::string filepath)
 			return nullptr;
 		}
 
-		return &m_Textures[name];
+		return &m_Textures[filepath];
 	} else {
 		printf("Warning: texture %s already exists!\n",
-				name.c_str());
-		return &m_Textures[name];
+				filepath.c_str());
+		return &m_Textures[filepath];
 	}
 }
 
@@ -96,17 +96,17 @@ Texture *Cache::GetTexture(std::string name)
 	return nullptr;
 }
 
-Sample *Cache::CreateSample(std::string name, std::string filepath)
+Sample *Cache::CreateSample(std::string filepath)
 {
-	if (m_Samples.find(name) != m_Samples.end()) {
+	if (m_Samples.find(filepath) != m_Samples.end()) {
 		printf("Warning: sample %s already exists!\n",
-		            name.c_str());
+		       filepath.c_str());
 		return nullptr;
 	}
 
-	bool success = IO.LoadVorbis(filepath, &m_Samples[name]);
+	bool success = IO.LoadVorbis(filepath, &m_Samples[filepath]);
 	if (success == true) {
-		return &m_Samples[name];
+		return &m_Samples[filepath];
 	} else {
 		printf("Warning: could not load sample %s!\n", filepath.c_str());
 		return nullptr;

@@ -173,7 +173,7 @@ std::vector<Texture*> IOManager::LoadMatTextures(aiMaterial *mat, aiTextureType 
 	{
 		aiString str;
 		mat->GetTexture(type, i, &str);
-		Texture *temp = Res.CreateTexture(dir + str.C_Str(), dir + str.C_Str());
+		Texture *temp = Res.CreateTexture(dir + str.C_Str());
 		if (temp != nullptr)
 			textures.push_back(temp);
 	}

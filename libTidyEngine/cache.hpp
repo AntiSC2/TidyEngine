@@ -39,11 +39,11 @@ public:
 	bool CreateDefaultResources();
 	void Clean();
 
-	Texture *CreateTexture(std::string name, std::string filepath);
+	Texture *CreateTexture(std::string filepath);
 	void DestroyTexture(std::string name);
 	Texture *GetTexture(std::string name);
 
-	Sample *CreateSample(std::string name, std::string filepath);
+	Sample *CreateSample(std::string filepath);
 	void DestroySample(std::string name);
 	Sample *GetSample(std::string name);
 

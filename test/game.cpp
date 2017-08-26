@@ -49,9 +49,9 @@ bool Game::Init()
 
 	m_Font.Initialize(&m_FontLib, "Acme-Regular.ttf", 128);
 
-	Res.CreateTexture("sprite", "sprite.png");
-	Res.CreateSample("sound", "sound.ogg");
-	Res.GetSample("sound")->Play();
+	Res.CreateTexture("sprite.png");
+	Res.CreateSample("sound.ogg");
+	Res.GetSample("sound.ogg")->Play();
 
 	/*Sprite *sprite_ref = static_cast<Sprite *>(Res.CreateResource(
 	                     "sprite", new Sprite(Res.GetTexture("sprite"),
@@ -98,7 +98,7 @@ void Game::Update(double delta)
 	if (m_Input.GetKey(GLFW_KEY_ESCAPE))
 		m_Screen.CloseWindow();
 	else if (m_Input.GetKey(GLFW_KEY_SPACE))
-		Res.GetSample("sound")->Play();
+		Res.GetSample("sound.ogg")->Play();
 	/*if (m_Input.GetKey(GLFW_KEY_W))
 		m_Pos += speed * m_Front;
 	if (m_Input.GetKey(GLFW_KEY_S))
