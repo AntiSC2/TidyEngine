@@ -26,16 +26,16 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include <glad/glad.h>
 #include "screen.hpp"
 
+Camera::Camera()
+{
+	;
+}
+
 Camera::~Camera()
 {
 	;
 }
 
-/* 
-* Always set the scale of the y axis
-* to (-m_Scale) because that makes the positive
-* y direction to go down the screen
-*/
 void Camera::Initialise(uint16_t width, uint16_t height, Screen *s, glm::vec3 pos, bool ortho)
 {
 	m_CurrentScreen = s;
@@ -59,7 +59,7 @@ void Camera::Initialise(uint16_t width, uint16_t height, Screen *s, glm::vec3 po
 	m_Update = false;
 }
 
-void Camera::Update(double delta)
+void Camera::Update()
 {
 	/* Only update the camera if it has moved, scaled or rotated */
 	if (m_Update == true && m_Ortho == true) {

@@ -18,51 +18,49 @@ Contact the author at: jakob.sinclair99@gmail.com
 */
 
 #include "entity.hpp"
+#include <type_traits>
 
 Entity::~Entity()
 {
 	;
 }
 
-void Entity::Update(double delta)
-{
-	for (auto i : m_Components) {
-		i.Data()->Update();
-	}
-}
-
-std::vector<Renderable *> &Entity::Draw()
-{
-	return m_Graphics;
-}
-
 template<typename C>
-void Entity::AddComponents(std::unique_ptr<C> &&component)
+C &Entity::AddComponent(std::unique_ptr<C> &&component)
 {
-	m_Components.push_back(component);
+	static_assert(std::is_base_of<Component, C>::value, "Error: tried to add non-component object to entity!\n");
+	auto i = std::type_index(typeid(C));
+	m_Components[i] = std::move(component);
+
+	auto &comp = m_Components[i];
+	return comp;
 }
 
 template<typename C>
 void Entity::RemoveComponent()
 {
-	static_assert(std::is_base_of(Component, C)::value, "Error: tried to remove non-component object!\n");
-	m_Components.erase();
+	static_assert(std::is_base_of<Component, C>::value, "Error: tried to remove non-component object from entity!\n");
+	auto i = std::type_index(typeid(C));
+	auto it = m_Components.find(i);
+	if (it != m_Components.end())
+		m_Components.erase(it);
 }
 
-RID *Entity::GetComponent(size_t id)
+template<typename C>
+C &Entity::GetComponent()
 {
-	if (id >= m_Components.size())
-		return nullptr;
+	static_assert(std::is_base_of<Component, C>::value, "Error: tried to get non-component object from entity!\n");
+	auto i = std::type_index(typeid(C));
+	auto &comp = *m_Components[i];
+	return comp;
+}
 
-	return &m_Components[id];
+const std::string &Entity::GetName()
+{
+	return m_Name;
 }
 
 void Entity::SetName(std::string name)
 {
 	m_Name = name;
-}
-
-void Entity::SetScript(std::string script)
-{
-	m_Script = script;
 }

@@ -24,19 +24,18 @@ class Renderer;
 class Camera;
 
 #include <memory>
-#include <vector>
+#include <unordered_map>
 
 class EntityManager {
 public:
 	EntityManager();
 	virtual ~EntityManager();
 
-	virtual void Update(double delta);
-	virtual void Draw(Renderer *renderer);
-	virtual void AddEntity(Entity *entity);
-	virtual void SetCamera(Camera *camera);
-	virtual Camera *GetCamera();
+	template<typename E>
+	E &AddEntity(std::string name, std::unique_ptr<E> &&e);
+	Entity &GetEntity(std::string name);
+	void RemoveEntity(std::string name);
 protected:
-	std::vector<std::unique_ptr<Entity>> m_Entities;
+	std::unordered_map<std::string, std::shared_ptr<Entity>> m_Entities;
 	Camera *m_CurrentCamera = nullptr;
 };

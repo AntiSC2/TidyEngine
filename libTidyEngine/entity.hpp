@@ -20,34 +20,26 @@ Contact the author at: jakob.sinclair99@gmail.com
 #pragma once
 
 #include <memory>
-#include <vector>
+#include <unordered_map>
 #include <string>
+#include <typeindex>
 #include "component.hpp"
 #include "renderable.hpp"
 
 class Entity {
 public:
-	template<typename C>
-	Entity(std::string name, std::vector<std::shared> components = {}) : m_Name(name), m_Components(components)
-	{
-		for (auto i: m_Components) {
-			if (i.Data()->Type() == "Renderable")
-				m_Graphics.push_back(static_cast<Renderable *>(i.Data()));
-		}
-	}
+	Entity(std::string name) : m_Name(name) {;}
 	virtual ~Entity();
 
-	virtual void Update(double delta = 0.0f);
-	virtual std::vector<Renderable *> &Draw();
 	template<typename C>
-	virtual void AddComponent(std::unique_ptr<C> &&component);
+	C &AddComponent(std::unique_ptr<C> &&component);
 	template<typename C>
-	virtual void RemoveComponent();
+	void RemoveComponent();
 	template<typename C>
-	virtual C &GetComponent();
-	virtual void SetName(std::string name);
+	C &GetComponent();
+	const std::string &GetName();
+	void SetName(std::string name);
 protected:
 	std::string m_Name = "";
-	std::vector<std::unique_ptr<Component>> m_Components = {};
-	std::vector<Renderable *> m_Graphics = {};
+	std::unordered_map<std::type_index, std::unique_ptr<Component>> m_Components;
 };

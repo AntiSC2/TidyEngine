@@ -32,41 +32,30 @@ EntityManager::~EntityManager()
 	m_CurrentCamera = nullptr;
 }
 
-void EntityManager::AddEntity(Entity *entity)
+template<typename E>
+E &EntityManager::AddEntity(std::string name, std::unique_ptr<E> &&e)
 {
-	m_Entities.emplace_back(entity);
-}
+	auto ent = *e;
+	static_assert(std::is_base_of<Entity, E>::value, "Error: tried to add non-entity object to manager!\n");
 
-void EntityManager::Update(double delta)
-{
-	for (size_t i = 0; i < m_Entities.size(); i++)
-		m_Entities[i]->Update();
-}
-
-void EntityManager::Draw(Renderer *renderer)
-{
-	for (size_t i = 0; i < m_Entities.size(); i++) {
-		std::vector<Renderable *> temp = m_Entities[i]->Draw();
-		if (temp.size() != 0) {
-			for (auto i: temp) {
-				i->Render();
-				renderer->Draw(i);
-			}
-		}
+	if (m_Entities.find(name) != m_Entities.end()) {
+		printf("Warning: entity %s already exists!\n", name.c_str());
+		return e;
 	}
+
+	m_Entities[name] = std::move(e);
+	return ent;
 }
 
-void EntityManager::SetCamera(Camera *camera)
+Entity &EntityManager::GetEntity(std::string name)
 {
-	m_CurrentCamera = camera;
-
-	if (camera == nullptr)
-		return;
-
-	this->AddEntity(camera);
+	if (m_Entities.find(name) != m_Entities.end())
+		return *m_Entities[name];
+	else
+		throw std::runtime_error("Error: could not find entity with name " + name + "!\n");
 }
 
-Camera *EntityManager::GetCamera()
+void EntityManager::RemoveEntity(std::string name)
 {
-	return m_CurrentCamera;
+	m_Entities.erase("name");
 }
