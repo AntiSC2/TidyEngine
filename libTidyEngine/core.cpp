@@ -92,7 +92,7 @@ bool Core::InitSubSystems()
 	m_Input.Initialise(m_Screen.GetWindow());
 	m_Audio.CreateSystem();
 
-	if (Resources.CreateDefaultResources() == false)
+	if (Res.CreateDefaultResources() == false)
 		return false;
 
 	printf("TidyEngine Version: %d.%d\n",
@@ -140,7 +140,7 @@ void Core::GameLoop()
 
 void Core::Quit()
 {
-	Resources.Clean();
+	Res.Clean();
 	FT_Done_FreeType(m_FontLib);
 	m_Audio.DestroySystem();
 	glfwTerminate();

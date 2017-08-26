@@ -31,6 +31,15 @@ Camera::Camera()
 	;
 }
 
+Camera::Camera(uint16_t width, uint16_t height, Screen *s)
+{
+	Initialise(width, height, s);
+}
+
+Camera::Camera(uint16_t width, uint16_t height, Screen *s, glm::vec3 pos, bool ortho)
+{
+	Initialise(width, height, s, pos, ortho);
+}
 Camera::~Camera()
 {
 	;

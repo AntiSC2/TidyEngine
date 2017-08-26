@@ -28,6 +28,8 @@ class Screen;
 class Camera : public Component {
 public:
 	Camera();
+	Camera(uint16_t width, uint16_t height, Screen *s);
+	Camera(uint16_t width, uint16_t height, Screen *s, glm::vec3 pos, bool ortho);
 	virtual ~Camera();
 
 	void Initialise(uint16_t width = 0, uint16_t height = 0,

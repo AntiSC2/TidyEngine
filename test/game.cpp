@@ -41,27 +41,24 @@ Game::~Game()
 
 bool Game::Init()
 {
-	//if (Resources.CreateModel("nanosuit", "Model/nanosuit.obj") != nullptr)
-	//	m_Model = static_cast<Model*>(Resources.GetResource("nanosuit")->Data());
+	//if (Res.CreateModel("nanosuit", "Model/nanosuit.obj") != nullptr)
+	//	m_Model = static_cast<Model*>(Res.GetResource("nanosuit")->Data());
 
-	Camera *cam = new Camera();
-	cam->Initialise(1280, 720, &m_Screen);
 	m_EntityManager.AddEntity<Entity>(std::make_unique<Entity>("Camera"));
-	m_EntityManager.GetEntity("Camera").AddComponent<Camera>(std::unique_ptr<Camera>(cam));
-	cam = nullptr;
+	m_EntityManager.GetEntity("Camera").AddComponent<Camera>(std::make_unique<Camera>(1280, 720, &m_Screen));
 
 	m_Font.Initialize(&m_FontLib, "Acme-Regular.ttf", 128);
 
-	Resources.CreateTexture("sprite", "sprite.png");
-	Resources.CreateSample("sound", "sound.ogg");
-	Resources.GetSample("sound")->Play();
+	Res.CreateTexture("sprite", "sprite.png");
+	Res.CreateSample("sound", "sound.ogg");
+	Res.GetSample("sound")->Play();
 
-	/*Sprite *sprite_ref = static_cast<Sprite *>(Resources.CreateResource(
-	                     "sprite", new Sprite(Resources.GetTexture("sprite"),
+	/*Sprite *sprite_ref = static_cast<Sprite *>(Res.CreateResource(
+	                     "sprite", new Sprite(Res.GetTexture("sprite"),
 	                     110, 200, {25, 29, 135, 229, 150, 29, 260, 229, 287, 29, 397, 229, 438, 29, 548, 229}))->Data());
 	sprite_ref->SetImageSpeed(0.1f);
 	Entity *temp = new Entity("hello", "none",
-	                          {*Resources.GetResource("sprite")});
+	                          {*Res.GetResource("sprite")});
 	LuaScript script("player.lua");
 	int posX = script.Get<int>("player.pos.X");
 	int posY = script.Get<int>("player.pos.Y");
@@ -101,7 +98,7 @@ void Game::Update(double delta)
 	if (m_Input.GetKey(GLFW_KEY_ESCAPE))
 		m_Screen.CloseWindow();
 	else if (m_Input.GetKey(GLFW_KEY_SPACE))
-		Resources.GetSample("sound")->Play();
+		Res.GetSample("sound")->Play();
 	/*if (m_Input.GetKey(GLFW_KEY_W))
 		m_Pos += speed * m_Front;
 	if (m_Input.GetKey(GLFW_KEY_S))

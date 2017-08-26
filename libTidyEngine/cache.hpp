@@ -56,4 +56,4 @@ private:
 	std::unordered_map<std::string, Texture> m_Textures;
 	std::unordered_map<std::string, Sample> m_Samples;
 	std::unordered_map<std::string, RID> m_Resources;
-} extern Resources;
+} extern Res;

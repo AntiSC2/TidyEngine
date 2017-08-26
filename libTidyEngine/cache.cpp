@@ -26,7 +26,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include "iomanager.hpp"
 #include "resource.hpp"
 
-Cache Resources;
+Cache Res;
 
 Cache::Cache()
 {
