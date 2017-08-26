@@ -32,21 +32,6 @@ EntityManager::~EntityManager()
 	m_CurrentCamera = nullptr;
 }
 
-template<typename E>
-E &EntityManager::AddEntity(std::string name, std::unique_ptr<E> &&e)
-{
-	auto ent = *e;
-	static_assert(std::is_base_of<Entity, E>::value, "Error: tried to add non-entity object to manager!\n");
-
-	if (m_Entities.find(name) != m_Entities.end()) {
-		printf("Warning: entity %s already exists!\n", name.c_str());
-		return e;
-	}
-
-	m_Entities[name] = std::move(e);
-	return ent;
-}
-
 Entity &EntityManager::GetEntity(std::string name)
 {
 	if (m_Entities.find(name) != m_Entities.end())
@@ -57,5 +42,5 @@ Entity &EntityManager::GetEntity(std::string name)
 
 void EntityManager::RemoveEntity(std::string name)
 {
-	m_Entities.erase("name");
+	m_Entities.erase(name);
 }

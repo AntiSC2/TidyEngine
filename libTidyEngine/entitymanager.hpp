@@ -32,10 +32,26 @@ public:
 	virtual ~EntityManager();
 
 	template<typename E>
-	E &AddEntity(std::string name, std::unique_ptr<E> &&e);
+	E &AddEntity(std::unique_ptr<E> &&e);
 	Entity &GetEntity(std::string name);
 	void RemoveEntity(std::string name);
 protected:
-	std::unordered_map<std::string, std::shared_ptr<Entity>> m_Entities;
+	std::unordered_map<std::string, std::unique_ptr<Entity>> m_Entities;
 	Camera *m_CurrentCamera = nullptr;
 };
+
+template<typename E>
+E &EntityManager::AddEntity(std::unique_ptr<E> &&e)
+{
+	auto &ent = *e;
+	std::string name = ent.GetName();
+	static_assert(std::is_base_of<Entity, E>::value, "Error: tried to add non-entity object to manager!\n");
+
+	if (m_Entities.find(name) != m_Entities.end()) {
+		printf("Warning: entity %s already exists!\n", name.c_str());
+		return ent;
+	}
+
+	m_Entities[name] = std::move(e);
+	return ent;
+}
