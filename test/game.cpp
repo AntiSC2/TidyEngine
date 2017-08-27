@@ -44,26 +44,25 @@ bool Game::Init()
 	//	m_Model = static_cast<Model*>(Res.GetResource("nanosuit")->Data());
 
 
-	m_EntityManager.AddEntity<Entity>(std::make_unique<Entity>("Camera"));
-	m_EntityManager.GetEntity("Camera").AddComponent<Camera>(std::make_unique<Camera>(1280, 720, &m_Screen));	
+	m_EM.AddEntity<Entity>(std::make_unique<Entity>("Camera"));
+	m_EM.GetEntity("Camera").AddComponent<Camera>(std::make_unique<Camera>(1280, 720, &m_Screen));	
 
 	m_Font.Initialize(&m_FontLib, "Acme-Regular.ttf", 128);
 
-	Res.LoadTex("sprite.png");
 	Res.LoadSample("sound.ogg")->Play();
 
-	/*Sprite *sprite_ref = static_cast<Sprite *>(Res.CreateResource(
-	                     "sprite", new Sprite(Res.LoadTex("sprite"),
-	                     110, 200, {25, 29, 135, 229, 150, 29, 260, 229, 287, 29, 397, 229, 438, 29, 548, 229}))->Data());
-	sprite_ref->SetImageSpeed(0.1f);
-	Entity *temp = new Entity("hello", "none",
-	                          {*Res.GetResource("sprite")});
+	m_EM.AddEntity<Entity>(std::make_unique<Entity>("Player"));
+	auto &sprite = m_EM.GetEntity("Player").AddComponent<Sprite>(std::make_unique<Sprite>(Res.LoadTex("sprite.png"),
+	                                        110, 200,
+	                                        std::vector<uint32_t>({25, 29, 135, 229, 150, 29, 260, 229, 287, 29, 397, 229, 438, 29, 548, 229})));
+
 	LuaScript script("player.lua");
 	int posX = script.Get<int>("player.pos.X");
 	int posY = script.Get<int>("player.pos.Y");
 
-	temp->SetPos(glm::vec3((float)posX, (float)posY, 0.0f));
-	m_EntityManager.AddEntity(temp);*/
+	sprite.SetImageSpeed(0.1f);
+	sprite.SetPos(glm::vec3((float)posX, (float)posY, 0.0f));
+	sprite.Render();
 
 	return true;
 }
@@ -115,13 +114,15 @@ void Game::DrawGame()
 	Rect2D rect;
 	rect.SetColor(glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
 	rect.SetRect(0.0f, 680.0f, 1280.0f, 720.0f);
+
 	m_Graphics.Clear();
 
 	m_SpriteRenderer.Begin();
 	m_SpriteRenderer.Draw(&rect);
+	m_SpriteRenderer.Draw(&m_EM.GetEntity("Player").GetComponent<Sprite>());
 	m_SpriteRenderer.DrawText("TidyEngine V0.2", glm::vec2(0.0f, 0.0f), glm::vec4(1.0f, 0.0f, 0.0f, 1.0f), m_Font);
 	m_SpriteRenderer.End();
-	m_SpriteRenderer.Present(m_EntityManager.GetEntity("Camera").GetComponent<Camera>());
+	m_SpriteRenderer.Present(m_EM.GetEntity("Camera").GetComponent<Camera>());
 	/*m_ModelRenderer.Begin();
 	m_Model->Draw(m_Graphics.GetShader("model"));
 	m_ModelRenderer.End();

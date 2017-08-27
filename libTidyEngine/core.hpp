@@ -51,5 +51,5 @@ protected:
 	ModelRenderer m_ModelRenderer;
 	Input m_Input;
 	Font m_Font;
-	EntityManager m_EntityManager;
+	EntityManager m_EM;
 };

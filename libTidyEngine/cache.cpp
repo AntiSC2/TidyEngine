@@ -75,7 +75,7 @@ Texture *Cache::LoadTex(std::string filepath)
 		       filepath.c_str());
 		return nullptr;
 	}
-
+	printf("Loaded texture %s\n", filepath.c_str());
 	return &m_Textures[filepath];
 }
 
