@@ -14,6 +14,7 @@ include_directories(${CMAKE_BINARY_DIR})
 set(SOURCE
 	${SOURCE}
 	${CMAKE_CURRENT_SOURCE_DIR}/core.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/system.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/screen.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/graphics.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/shader.cpp
@@ -45,6 +46,7 @@ set(SOURCE
 set(HEADERS
 	${HEADERS}
 	${CMAKE_CURRENT_SOURCE_DIR}/core.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/system.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/screen.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/graphics.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/shader.hpp
