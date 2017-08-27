@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "camera.hpp"
 #include "sprite.hpp"
 #include "cache.hpp"
-#include "rid.hpp"
 #include "luascript.hpp"
 #include "iomanager.hpp"
 
@@ -44,17 +43,17 @@ bool Game::Init()
 	//if (Res.CreateModel("nanosuit", "Model/nanosuit.obj") != nullptr)
 	//	m_Model = static_cast<Model*>(Res.GetResource("nanosuit")->Data());
 
+
 	m_EntityManager.AddEntity<Entity>(std::make_unique<Entity>("Camera"));
-	m_EntityManager.GetEntity("Camera").AddComponent<Camera>(std::make_unique<Camera>(1280, 720, &m_Screen));
+	m_EntityManager.GetEntity("Camera").AddComponent<Camera>(std::make_unique<Camera>(1280, 720, &m_Screen));	
 
 	m_Font.Initialize(&m_FontLib, "Acme-Regular.ttf", 128);
 
-	Res.CreateTexture("sprite.png");
-	Res.CreateSample("sound.ogg");
-	Res.GetSample("sound.ogg")->Play();
+	Res.LoadTex("sprite.png");
+	Res.LoadSample("sound.ogg")->Play();
 
 	/*Sprite *sprite_ref = static_cast<Sprite *>(Res.CreateResource(
-	                     "sprite", new Sprite(Res.GetTexture("sprite"),
+	                     "sprite", new Sprite(Res.LoadTex("sprite"),
 	                     110, 200, {25, 29, 135, 229, 150, 29, 260, 229, 287, 29, 397, 229, 438, 29, 548, 229}))->Data());
 	sprite_ref->SetImageSpeed(0.1f);
 	Entity *temp = new Entity("hello", "none",
@@ -98,7 +97,7 @@ void Game::Update(double delta)
 	if (m_Input.GetKey(GLFW_KEY_ESCAPE))
 		m_Screen.CloseWindow();
 	else if (m_Input.GetKey(GLFW_KEY_SPACE))
-		Res.GetSample("sound.ogg")->Play();
+		Res.LoadSample("sound.ogg")->Play();
 	/*if (m_Input.GetKey(GLFW_KEY_W))
 		m_Pos += speed * m_Front;
 	if (m_Input.GetKey(GLFW_KEY_S))

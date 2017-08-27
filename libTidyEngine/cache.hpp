@@ -27,9 +27,8 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include <string>
 #include "texture.hpp"
 #include "sample.hpp"
-#include "rid.hpp"
-
-class Resource;
+#include "model.hpp"
+#include "resource.hpp"
 
 class Cache {
 public:
@@ -39,21 +38,33 @@ public:
 	bool CreateDefaultResources();
 	void Clean();
 
-	Texture *CreateTexture(std::string filepath);
-	void DestroyTexture(std::string name);
-	Texture *GetTexture(std::string name);
+	Texture *LoadTex(std::string filepath);
+	void UnloadTex(std::string filepath);
 
-	Sample *CreateSample(std::string filepath);
-	void DestroySample(std::string name);
-	Sample *GetSample(std::string name);
+	Sample *LoadSample(std::string filepath);
+	void UnloadSample(std::string filepath);
 
-	Model *CreateModel(std::string name, std::string filepath);
+	Model *LoadModel(std::string filepath);
+	void UnloadModel(std::string filepath);
 
-	RID *CreateResource(std::string name, Resource *data);
-	void DestroyResource(std::string name);
-	RID *GetResource(std::string name);
+	template<typename R>
+	R &CreateRes(std::string name, std::unique_ptr<R> &&res);
+	void DestroyRes(std::string name);
+	Resource *GetRes(std::string name);
 private:
 	std::unordered_map<std::string, Texture> m_Textures;
 	std::unordered_map<std::string, Sample> m_Samples;
-	std::unordered_map<std::string, RID> m_Resources;
+	std::unordered_map<std::string, Model> m_Models;
+	std::unordered_map<std::string, std::shared_ptr<Resource>> m_Resources;
 } extern Res;
+
+template<typename R>
+R &Cache::CreateRes(std::string name, std::unique_ptr<R> &&r)
+{
+	auto &res = *r;
+
+	static_assert(std::is_base_of<Resource, R>::value, "Error: tried creating resource with non-resource type!\n");
+	m_Resources[name] = std::move(r);
+
+	return res;
+}

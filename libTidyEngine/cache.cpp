@@ -60,48 +60,35 @@ void Cache::Clean()
 	m_Resources.clear();
 }
 
-Texture *Cache::CreateTexture(std::string filepath)
+Texture *Cache::LoadTex(std::string filepath)
 {
-	if (m_Textures.find(filepath) == m_Textures.end()) {
-		FIBITMAP *bitmap = IO.LoadImage(filepath);
-		bool success = m_Textures[filepath].CreateTex(bitmap, true, true);
-		
-		FreeImage_Unload(bitmap);
-		
-		if (success == false) {
-			printf("Warning: could not create texture %s!\n",
-			       filepath.c_str());
-			return nullptr;
-		}
-
+	if (m_Textures.find(filepath) != m_Textures.end())
 		return &m_Textures[filepath];
-	} else {
-		printf("Warning: texture %s already exists!\n",
-				filepath.c_str());
-		return &m_Textures[filepath];
-	}
-}
+	
+	FIBITMAP *bitmap = IO.LoadImage(filepath);
+	bool success = m_Textures[filepath].CreateTex(bitmap, true, true);
 
-void Cache::DestroyTexture(std::string name)
-{
-	m_Textures[name].DestroyTex();
-	m_Textures.erase(name);
-}
+	FreeImage_Unload(bitmap);
 
-Texture *Cache::GetTexture(std::string name)
-{
-	if (m_Textures.find(name) != m_Textures.end())
-		return &m_Textures[name];
-	printf("Warning: could not find texture %s!\n", name.c_str());
-	return nullptr;
-}
-
-Sample *Cache::CreateSample(std::string filepath)
-{
-	if (m_Samples.find(filepath) != m_Samples.end()) {
-		printf("Warning: sample %s already exists!\n",
+	if (success == false) {
+		printf("Warning: could not create texture %s!\n",
 		       filepath.c_str());
 		return nullptr;
+	}
+
+	return &m_Textures[filepath];
+}
+
+void Cache::UnloadTex(std::string filepath)
+{
+	m_Textures[filepath].DestroyTex();
+	m_Textures.erase(filepath);
+}
+
+Sample *Cache::LoadSample(std::string filepath)
+{
+	if (m_Samples.find(filepath) != m_Samples.end()) {
+		return &m_Samples[filepath];
 	}
 
 	bool success = IO.LoadVorbis(filepath, &m_Samples[filepath]);
@@ -113,54 +100,35 @@ Sample *Cache::CreateSample(std::string filepath)
 	}
 }
 
-void Cache::DestroySample(std::string name)
+void Cache::UnloadSample(std::string filepath)
 {
-	m_Samples[name].DestroyBuffer();
-	m_Samples.erase(name);
+	m_Samples[filepath].DestroyBuffer();
+	m_Samples.erase(filepath);
 }
 
-Sample *Cache::GetSample(std::string name)
+Model *Cache::LoadModel(std::string filepath)
 {
-	if (m_Samples.find(name) != m_Samples.end())
-		return &m_Samples[name];
-	printf("Warning: could not find sample %s!\n", name.c_str());
-	return nullptr;
-}
-
-Model *Cache::CreateModel(std::string name, std::string filepath)
-{
-	if (m_Resources.find(name) == m_Resources.end()) {
-		Model *temp = new Model();
-		*temp = IO.LoadModel(filepath);
-		CreateResource(name, static_cast<Resource*>(temp));
+	if (m_Models.find(filepath) == m_Models.end()) {
+		m_Models[filepath] = std::move(IO.LoadModel(filepath));
+		return &m_Models[filepath];
 	} else {
-		printf("Warning: model could not be loaded because resource with %s already exists!", name.c_str());
-		return nullptr;
+		return &m_Models[filepath];
 	}
 }
 
-RID *Cache::CreateResource(std::string name, Resource *data)
+void Cache::UnloadModel(std::string filepath)
 {
-	if (m_Resources.find(name) == m_Resources.end()) {
-		m_Resources.emplace(name, RID(data));
-		return &m_Resources[name];
-	} else {
-		printf("Warning: resource %s already exists!\n", name.c_str());
-		return &m_Resources[name];
-	}
+	m_Models.erase(filepath);
 }
 
-void Cache::DestroyResource(std::string name)
+void Cache::DestroyRes(std::string name)
 {
 	m_Resources.erase(name);
 }
 
-RID *Cache::GetResource(std::string name)
+Resource *Cache::GetRes(std::string name)
 {
-	if (m_Resources.find(name) != m_Resources.end()) {
-		return &m_Resources[name];
-	} else {
-		printf("Warning: could not find %s!\n", name.c_str());
+	if (m_Resources.find(name) == m_Resources.end())
 		return nullptr;
-	}
+	return m_Resources[name].get();
 }

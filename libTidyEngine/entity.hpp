@@ -70,6 +70,10 @@ C &Entity::GetComponent()
 {
 	static_assert(std::is_base_of<Component, C>::value, "Error: tried to get non-component object from entity!\n");
 	auto i = std::type_index(typeid(C));
+
+	if (m_Components.find(i) == m_Components.end())
+		throw std::runtime_error("Error: could not find component in entity: \"" + m_Name + "\"\n");
+
 	auto &comp = static_cast<C&>(*m_Components[i]);
 	return comp;
 }

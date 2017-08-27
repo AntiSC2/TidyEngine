@@ -37,7 +37,7 @@ Entity &EntityManager::GetEntity(std::string name)
 	if (m_Entities.find(name) != m_Entities.end())
 		return *m_Entities[name];
 	else
-		throw std::runtime_error("Error: could not find entity with name " + name + "!\n");
+		throw std::runtime_error("Error: could not find entity with name: \"" + name + "\"\n");
 }
 
 void EntityManager::RemoveEntity(std::string name)

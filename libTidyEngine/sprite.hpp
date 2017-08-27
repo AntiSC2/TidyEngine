@@ -34,8 +34,6 @@ class Sprite : public Renderable, public Component {
 public:
 	Sprite(const Texture *tex, uint32_t w = 0, uint32_t h = 0,
 	       const std::vector<uint32_t> &frames = {0, 0});
-	Sprite(RID *res, uint32_t w = 0, uint32_t h = 0,
-	       const std::vector<uint32_t> &frames = {0, 0});
 	virtual ~Sprite();
 
 	virtual void Update();
