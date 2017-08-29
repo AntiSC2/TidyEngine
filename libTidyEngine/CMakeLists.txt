@@ -6,10 +6,9 @@ set(TidyEngine_VERSION_MAJOR 0)
 set(TidyEngine_VERSION_MINOR 2)
 
 configure_file(
-	"${CMAKE_CURRENT_SOURCE_DIR}/config.hpp.in"
-	"${CMAKE_BINARY_DIR}/config.hpp"
+	"${CMAKE_BINARY_DIR}/config.hpp.in"
+	"${CMAKE_CURRENT_SOURCE_DIR}/config.hpp"
 )
-include_directories(${CMAKE_BINARY_DIR})
 
 set(SOURCE
 	${SOURCE}
@@ -198,7 +197,7 @@ elseif (UNIX)
 	)
 endif ()
 
-include_directories(${CMAKE_SOURCE_DIR}/deps/include/)
+include_directories(${CMAKE_SOURCE_DIR}/deps/)
 include_directories(${GLFW_INCLUDE_DIRS})
 include_directories(${FREEIMAGE_INCLUDE_DIRS})
 include_directories(${LUAJIT_INCLUDE_DIRS})

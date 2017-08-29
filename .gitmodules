@@ -1,0 +1,24 @@
+[submodule "deps/glm"]
+	path = deps/glm
+	url = https://github.com/g-truc/glm
+[submodule "deps/glfw"]
+	path = deps/glfw
+	url = https://github.com/glfw/glfw
+[submodule "deps/freetype2"]
+	path = deps/freetype2
+	url = git://git.sv.nongnu.org/freetype/freetype2.git
+[submodule "deps/assimp"]
+	path = deps/assimp
+	url = https://github.com/assimp/assimp
+[submodule "deps/openal-soft"]
+	path = deps/openal-soft
+	url = https://github.com/kcat/openal-soft
+[submodule "deps/vorbis"]
+	path = deps/vorbis
+	url = https://git.xiph.org/vorbis.git
+[submodule "deps/ogg"]
+	path = deps/ogg
+	url = https://git.xiph.org/ogg.git
+[submodule "deps/luajit-2.0"]
+	path = deps/luajit-2.0
+	url = git://repo.or.cz/luajit-2.0.git

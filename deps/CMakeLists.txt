@@ -1,0 +1,11 @@
+cmake_minimum_required (VERSION 3.2.3)
+
+add_subdirectory("assimp")
+add_subdirectory("FreeImage")
+add_subdirectory("freetype2")
+add_subdirectory("glfw")
+add_subdirectory("glm")
+add_subdirectory("luajit-2.0")
+add_subdirectory("ogg")
+add_subdirectory("openal-soft")
+add_subdirectory("vorbis")

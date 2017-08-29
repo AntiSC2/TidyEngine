@@ -153,7 +153,7 @@ elseif (UNIX)
 	)
 endif ()
 
-include_directories(${CMAKE_SOURCE_DIR}/deps/include)
+include_directories(${CMAKE_SOURCE_DIR}/deps/)
 include_directories(${ASSIMP_INCLUDE_DIRS})
 include_directories(${BOX2D_INCLUDE_DIRS})
 include_directories(${GLFW_INCLUDE_DIRS})

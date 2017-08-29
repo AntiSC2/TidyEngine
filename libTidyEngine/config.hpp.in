@@ -1,2 +1,0 @@
-#define TidyEngine_VERSION_MAJOR @TidyEngine_VERSION_MAJOR@
-#define TidyEngine_VERSION_MINOR @TidyEngine_VERSION_MINOR@
