@@ -6,7 +6,7 @@
 	url = https://github.com/glfw/glfw
 [submodule "deps/freetype2"]
 	path = deps/freetype2
-	url = git://git.sv.nongnu.org/freetype/freetype2.git
+	url = https://git.savannah.gnu.org/git/freetype/freetype2.git
 [submodule "deps/assimp"]
 	path = deps/assimp
 	url = https://github.com/assimp/assimp
@@ -21,4 +21,4 @@
 	url = https://git.xiph.org/ogg.git
 [submodule "deps/luajit-2.0"]
 	path = deps/luajit-2.0
-	url = git://repo.or.cz/luajit-2.0.git
+	url = http://repo.or.cz/luajit-2.0.git

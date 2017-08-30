@@ -1,17 +1,10 @@
 cmake_minimum_required (VERSION 3.2.3)
-project(TEST)
-
-include_directories(${CMAKE_SOURCE_DIR}/libTidyEngine)
-include_directories(${CMAKE_BINARY_DIR})
+project(Demo CXX)
 
 set(SOURCES
 	${SOURCES}
 	${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/game.cpp
-)
-set(HEADERS
-	${HEADERS}
-	${CMAKE_CURRENT_SOURCE_DIR}/game.hpp
 )
 
 if (WIN32)
@@ -26,7 +19,7 @@ if (WIN32)
 		)
 		set(OGG_LIBRARIES
 			${OGG_LIBRARIES}
-			${CMAKE_SOURCE_DIR}/deps/lib/libogg.lib
+			${CMAKE_SOURCE_DIR}/deps/ogg/libogg.lib
 		)
 		set(VORBISFILE_LIBRARIES
 			${VORBISFILE_LIBRARIES}
@@ -79,7 +72,7 @@ if (WIN32)
 
 	set(ASSIMP_INCLUDE_DIRS
 		${ASSIMP_INCLUDE_DIRS}
-		${CMAKE_SOURCE_DIR}/deps/include
+		${CMAKE_SOURCE_DIR}/deps/assimp/include
 	)
 	set(ASSIMP_LIBRARIES
 		${ASSIMP_LIBRARIES}
@@ -87,11 +80,7 @@ if (WIN32)
 	)
 	set(GLFW_INCLUDE_DIRS
 		${GLFW_INCLUDE_DIRS}
-		${CMAKE_SOURCE_DIR}/deps/include/
-	)
-	set(BOX2D_INCLUDE_DIRS
-		${GLFW_INCLUDE_DIRS}
-		${CMAKE_SOURCE_DIR}/deps/include/Box2D/
+		${CMAKE_SOURCE_DIR}/deps/glfw/include
 	)
 	set(FREEIMAGE_INCLUDE_DIRS
 		${FREEIMAGE_INCLUDE_DIRS}
@@ -153,18 +142,8 @@ elseif (UNIX)
 	)
 endif ()
 
-include_directories(${CMAKE_SOURCE_DIR}/deps/)
-include_directories(${ASSIMP_INCLUDE_DIRS})
-include_directories(${BOX2D_INCLUDE_DIRS})
-include_directories(${GLFW_INCLUDE_DIRS})
-include_directories(${FREEIMAGE_INCLUDE_DIRS})
-include_directories(${LUAJIT_INCLUDE_DIRS})
-include_directories(${OPENAL_INCLUDE_DIRS})
-include_directories(${OGG_INCLUDE_DIRS})
-include_directories(${VORBIS_INCLUDE_DIRS})
-include_directories(${FREETYPE2_INCLUDE_DIRS})
-
-add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS})
+add_executable(Demo ${SOURCES} ${HEADERS})
+add_dependencies(Demo TidyEngine)
 target_link_libraries(${PROJECT_NAME}
                       ${TIDYENGINE_LIBRARIES}
                       ${GLAD_LIBRARIES}
@@ -179,6 +158,8 @@ target_link_libraries(${PROJECT_NAME}
                       ${BZIP2_LIBRARIES}
                       ${ZLIB_LIBRARIES}
                       ${ASSIMP_LIBRARIES})
+
+target_include_directories(Demo PRIVATE ${CMAKE_SOURCE_DIR}/libTidyEngine)
 
 if (WIN32)
 	target_link_libraries(${PROJECT_NAME} opengl32.lib)

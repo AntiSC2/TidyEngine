@@ -1,5 +1,9 @@
 cmake_minimum_required (VERSION 3.2.3)
-project (TidyEngine)
+project (TidyEngine CXX)
+
+if (WIN32)
+	add_subdirectory("${CMAKE_SOURCE_DIR}/deps")
+endif()
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/modules/")
 
@@ -31,11 +35,6 @@ elseif (MSVC)
 endif ()
 
 add_subdirectory("${CMAKE_SOURCE_DIR}/deps/glad")
-
-if (win32)
-	add_subdirectory("${CMAKE_SOURCE_DIR}/deps")
-endif()
-
 add_subdirectory("${CMAKE_SOURCE_DIR}/libTidyEngine")
 
 option(BUILD_TEST "Build a test along side the engine" TRUE)

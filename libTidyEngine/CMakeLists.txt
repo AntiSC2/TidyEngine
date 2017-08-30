@@ -1,5 +1,4 @@
 cmake_minimum_required (VERSION 3.2.3)
-project(TidyEngine)
 
 #Setting up the version number for the engine
 set(TidyEngine_VERSION_MAJOR 0)
@@ -41,39 +40,6 @@ set(SOURCE
 	${CMAKE_CURRENT_SOURCE_DIR}/model.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/material.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/pointlight.cpp
-)
-set(HEADERS
-	${HEADERS}
-	${CMAKE_CURRENT_SOURCE_DIR}/core.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/system.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/screen.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/graphics.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/shader.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/error.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/texture.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/vertex.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/renderable.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/iomanager.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/cache.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/rect2d.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/renderer.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/spriterenderer.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/camera.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/input.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/component.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/entity.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/entitymanager.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/sprite.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/luascript.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/audio.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/sample.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/font.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/fontglyph.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/mesh.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/modelrenderer.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/model.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/material.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/pointlight.hpp
 )
 
 if (WIN32)
@@ -131,7 +97,7 @@ if (WIN32)
 
 	set(ASSIMP_INCLUDE_DIRS
 		${ASSIMP_INCLUDE_DIRS}
-		${CMAKE_SOURCE_DIR}/deps/include
+		${CMAKE_SOURCE_DIR}/deps/assimp/include
 	)
 	set(ASSIMP_LIBRARIES
 		${ASSIMP_LIBRARIES}
@@ -139,19 +105,19 @@ if (WIN32)
 	)
 	set(GLFW_INCLUDE_DIRS
 		${GLFW_INCLUDE_DIRS}
-		${CMAKE_SOURCE_DIR}/deps/include/
+		${CMAKE_SOURCE_DIR}/deps/glfw/include
 	)
 	set(FREEIMAGE_INCLUDE_DIRS
 		${FREEIMAGE_INCLUDE_DIRS}
-		${CMAKE_SOURCE_DIR}/deps/include/FreeImage
+		${CMAKE_SOURCE_DIR}/deps/FreeImage/Source
 	)
 	set(FREEIMAGE_LIBRARIES
 		${FREEIMAGE_LIBRARIES}
-		${CMAKE_SOURCE_DIR}/deps/lib/FreeImage.lib
+		${CMAKE_SOURCE_DIR}/deps/FreeImage.lib
 	)
 	set(LUAJIT_INCLUDE_DIRS
 		${LUAJIT_INCLUDE_DIRS}
-		${CMAKE_SOURCE_DIR}/deps/include/LuaJIT
+		${CMAKE_SOURCE_DIR}/deps/luajit-2.0/src
 	)
 	set(LUAJIT_LIBRARIES
 		${LUAJIT_LIBRARIES}
@@ -159,7 +125,7 @@ if (WIN32)
 	)
 	set(OPENAL_INCLUDE_DIRS
 		${OPENAL_INCLUDE_DIRS}
-		${CMAKE_SOURCE_DIR}/deps/include/AL
+		${CMAKE_SOURCE_DIR}/deps/openal-soft/include
 	)
 	set(OPENAL_LIBRARIES
 		${OPENAL_LIBRARIES}
@@ -167,15 +133,15 @@ if (WIN32)
 	)
 	set(OGG_INCLUDE_DIRS
 		${OGG_INCLUDE_DIRS}
-		${CMAKE_SOURCE_DIR}/deps/include/ogg
+		${CMAKE_SOURCE_DIR}/deps/ogg/include
 	)
 	set(VORBIS_INCLUDE_DIRS
 		${VORBIS_INCLUDE_DIRS}
-		${CMAKE_SOURCE_DIR}/deps/include/vorbis
+		${CMAKE_SOURCE_DIR}/deps/vorbis/include
 	)
 	set(FREETYPE2_INCLUDE_DIRS
 		${FREETYPE2_INCLUDE_DIRS}
-		${CMAKE_SOURCE_DIR}/deps/include/freetype
+		${CMAKE_SOURCE_DIR}/deps/freetype2/include
 	)
 elseif (APPLE)
 	message("MACOSX: Not yet supported!")
@@ -193,22 +159,12 @@ elseif (UNIX)
 	set(GLAD_LIBRARIES
 		${GLAD_LIBRARIES}
 		-ldl
-		${CMAKE_BINARY_DIR}/glad/libglad.a
+		${CMAKE_BINARY_DIR}/deps/glad/libglad.a
 	)
 endif ()
 
-include_directories(${CMAKE_SOURCE_DIR}/deps/)
-include_directories(${GLFW_INCLUDE_DIRS})
-include_directories(${FREEIMAGE_INCLUDE_DIRS})
-include_directories(${LUAJIT_INCLUDE_DIRS})
-include_directories(${OPENAL_INCLUDE_DIRS})
-include_directories(${OGG_INCLUDE_DIRS})
-include_directories(${VORBIS_INCLUDE_DIRS})
-include_directories(${FREETYPE2_INCLUDE_DIRS})
-include_directories(${ASSIMP_INCLUDE_DIRS})
-
-add_library(${PROJECT_NAME} STATIC ${SOURCE} ${HEADERS})
-target_link_libraries(${PROJECT_NAME} ${GLFW_LIBRARIES}
+add_library(TidyEngine STATIC ${SOURCE})
+target_link_libraries(TidyEngine ${GLFW_LIBRARIES}
                                       ${GLAD_LIBRARIES}
                                       ${FREEIMAGE_LIBRARIES}
                                       ${LUAJIT_LIBRARIES}
@@ -218,6 +174,16 @@ target_link_libraries(${PROJECT_NAME} ${GLFW_LIBRARIES}
                                       ${VORBISFILE_LIBRARIES}
                                       ${FREETYPE2_LIBRARIES}
                                       ${ASSIMP_LIBRARIES})
+
+target_include_directories(TidyEngine PUBLIC ${CMAKE_SOURCE_DIR}/deps/glm)
+target_include_directories(TidyEngine PUBLIC ${GLFW_INCLUDE_DIRS})
+target_include_directories(TidyEngine PUBLIC ${FREEIMAGE_INCLUDE_DIRS})
+target_include_directories(TidyEngine PUBLIC ${LUAJIT_INCLUDE_DIRS})
+target_include_directories(TidyEngine PUBLIC ${OPENAL_INCLUDE_DIRS})
+target_include_directories(TidyEngine PUBLIC ${OGG_INCLUDE_DIRS})
+target_include_directories(TidyEngine PUBLIC ${VORBIS_INCLUDE_DIRS})
+target_include_directories(TidyEngine PUBLIC ${FREETYPE2_INCLUDE_DIRS})
+target_include_directories(TidyEngine PUBLIC ${ASSIMP_INCLUDE_DIRS})
 
 if (WIN32)
 	target_link_libraries(${PROJECT_NAME} opengl32.lib)
