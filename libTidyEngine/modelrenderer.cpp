@@ -36,6 +36,11 @@ ModelRenderer::~ModelRenderer()
 		glDeleteBuffers(1, &m_VBOID);
 }
 
+void ModelRenderer::Update(double delta)
+{
+	;
+}
+
 void ModelRenderer::Initialise(Shader *shader)
 {
 	m_Shader = shader;

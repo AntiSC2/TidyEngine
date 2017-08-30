@@ -172,7 +172,7 @@ target_link_libraries(TidyEngine ${GLFW_LIBRARIES}
                                  ${FREETYPE2_LIBRARIES}
                                  ${ASSIMP_LIBRARIES})
 
-target_include_directories(TidyEngine PUBLIC ${CMAKE_SOURCE_DIR}/deps/glm)
+target_include_directories(TidyEngine PUBLIC ${CMAKE_SOURCE_DIR}/deps/glm ${CMAKE_SOURCE_DIR}/deps)
 target_include_directories(TidyEngine PUBLIC ${GLFW_INCLUDE_DIRS})
 target_include_directories(TidyEngine PUBLIC ${FREEIMAGE_INCLUDE_DIRS})
 target_include_directories(TidyEngine PUBLIC ${LUAJIT_INCLUDE_DIRS})

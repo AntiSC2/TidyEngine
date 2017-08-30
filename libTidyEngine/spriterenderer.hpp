@@ -28,7 +28,7 @@ public:
 	SpriteRenderer();
 	virtual ~SpriteRenderer();
 
-	virtual void Update();
+	virtual void Update(double delta);
 	virtual void Initialise(Shader *shader);
 	virtual void Present(const Camera &camera);
 };
