@@ -19,7 +19,7 @@ else ()
 endif()
 ExternalProject_Add("freetype2"
 	GIT_SUBMODULES "deps/freetype2"
-	GIT_REPOSITORY "https://git.savannah.gnu.org/git/freetype/freetype2.git"
+	SOURCE_DIR "${CMAKE_SOURCE_DIR}/deps/freetype2"
 )
 ExternalProject_Add("glfw"
 	GIT_SUBMODULES "deps/glfw"
