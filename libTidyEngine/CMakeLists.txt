@@ -49,7 +49,6 @@ if (WIN32)
 			${CMAKE_SOURCE_DIR}/deps/lib/glfw3dll.lib
 		)
 		set(OGG_LIBRARIES
-			${OGG_LIBRARIES}
 			${CMAKE_SOURCE_DIR}/deps/lib/libogg.lib
 		)
 		set(VORBISFILE_LIBRARIES
@@ -74,7 +73,6 @@ if (WIN32)
 			${CMAKE_SOURCE_DIR}/deps/lib/libglfw3.a
 		)
 		set(OGG_LIBRARIES
-			${OGG_LIBRARIES}
 			${CMAKE_SOURCE_DIR}/deps/lib/libogg.a
 		)
 		set(VORBISFILE_LIBRARIES
@@ -132,7 +130,6 @@ if (WIN32)
 		${CMAKE_SOURCE_DIR}/deps/lib/OpenAL32.lib
 	)
 	set(OGG_INCLUDE_DIRS
-		${OGG_INCLUDE_DIRS}
 		${CMAKE_SOURCE_DIR}/deps/ogg/include
 	)
 	set(VORBIS_INCLUDE_DIRS
@@ -165,15 +162,15 @@ endif ()
 
 add_library(TidyEngine STATIC ${SOURCE})
 target_link_libraries(TidyEngine ${GLFW_LIBRARIES}
-                                      ${GLAD_LIBRARIES}
-                                      ${FREEIMAGE_LIBRARIES}
-                                      ${LUAJIT_LIBRARIES}
-                                      ${OPENAL_LIBRARIES}
-                                      ${OGG_LIBRARIES}
-                                      ${VORBIS_LIBRARIES}
-                                      ${VORBISFILE_LIBRARIES}
-                                      ${FREETYPE2_LIBRARIES}
-                                      ${ASSIMP_LIBRARIES})
+                                 ${GLAD_LIBRARIES}
+                                 ${FREEIMAGE_LIBRARIES}
+                                 ${LUAJIT_LIBRARIES}
+                                 ${OPENAL_LIBRARIES}
+                                 ${OGG_LIBRARIES}
+                                 ${VORBIS_LIBRARIES}
+                                 ${VORBISFILE_LIBRARIES}
+                                 ${FREETYPE2_LIBRARIES}
+                                 ${ASSIMP_LIBRARIES})
 
 target_include_directories(TidyEngine PUBLIC ${CMAKE_SOURCE_DIR}/deps/glm)
 target_include_directories(TidyEngine PUBLIC ${GLFW_INCLUDE_DIRS})
@@ -184,6 +181,7 @@ target_include_directories(TidyEngine PUBLIC ${OGG_INCLUDE_DIRS})
 target_include_directories(TidyEngine PUBLIC ${VORBIS_INCLUDE_DIRS})
 target_include_directories(TidyEngine PUBLIC ${FREETYPE2_INCLUDE_DIRS})
 target_include_directories(TidyEngine PUBLIC ${ASSIMP_INCLUDE_DIRS})
+target_include_directories(TidyEngine INTERFACE .)
 
 if (WIN32)
 	target_link_libraries(${PROJECT_NAME} opengl32.lib)

@@ -4,7 +4,7 @@ include(ExternalProject)
 
 ExternalProject_Add("assimp"
 	GIT_SUBMODULES "deps/assimp"
-	GIT_REPOSITORY "https://github.com/assimp/assimp"
+	SOURCE_DIR "${CMAKE_SOURCE_DIR}/deps/glfw"
 )
 if (MSVC)
 	ExternalProject_Add("FreeImage"
@@ -23,22 +23,22 @@ ExternalProject_Add("freetype2"
 )
 ExternalProject_Add("glfw"
 	GIT_SUBMODULES "deps/glfw"
-	GIT_REPOSITORY "https://github.com/glfw/glfw"
+	SOURCE_DIR "${CMAKE_SOURCE_DIR}/deps/glfw"
 )
 ExternalProject_Add("luajit-2.0"
 	GIT_SUBMODULES "deps/luajit-2.0"
-	GIT_REPOSITORY "http://repo.or.cz/luajit-2.0.git"
+	SOURCE_DIR "${CMAKE_SOURCE_DIR}/deps/luajit-2.0"
 )
 ExternalProject_Add("ogg"
 	GIT_SUBMODULES "deps/ogg"
-	GIT_REPOSITORY "https://git.xiph.org/ogg.git"
+	SOURCE_DIR "${CMAKE_SOURCE_DIR}/deps/ogg"
 )
 ExternalProject_Add("openal-soft"
 	GIT_SUBMODULES "deps/openal-soft"
-	GIT_REPOSITORY "https://github.com/kcat/openal-soft"
+	SOURCE_DIR "${CMAKE_SOURCE_DIR}/deps/openal-soft"
 )
 ExternalProject_Add("vorbis" 
 	DEPENDS "ogg"
 	GIT_SUBMODULES "deps/vorbis"
-	GIT_REPOSITORY "https://git.xiph.org/vorbis.git"
+	SOURCE_DIR "${CMAKE_SOURCE_DIR}/deps/vorbis"
 )

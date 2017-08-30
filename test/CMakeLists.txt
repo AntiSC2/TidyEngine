@@ -18,7 +18,6 @@ if (WIN32)
 			${CMAKE_SOURCE_DIR}/deps/lib/glfw3dll.lib
 		)
 		set(OGG_LIBRARIES
-			${OGG_LIBRARIES}
 			${CMAKE_SOURCE_DIR}/deps/ogg/libogg.lib
 		)
 		set(VORBISFILE_LIBRARIES
@@ -47,7 +46,6 @@ if (WIN32)
 			${CMAKE_SOURCE_DIR}/deps/lib/libglfw3.a
 		)
 		set(OGG_LIBRARIES
-			${OPENAL_LIBRARIES}
 			${CMAKE_SOURCE_DIR}/deps/lib/libogg.a
 		)
 		set(VORBISFILE_LIBRARIES
@@ -107,7 +105,6 @@ if (WIN32)
 		${CMAKE_SOURCE_DIR}/deps/lib/OpenAL32.lib
 	)
 	set(OGG_INCLUDE_DIRS
-		${OGG_INCLUDE_DIRS}
 		${CMAKE_SOURCE_DIR}/deps/include/ogg
 	)
 	set(VORBIS_INCLUDE_DIRS
