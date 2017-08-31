@@ -123,7 +123,7 @@ if (WIN32)
 	)
 	set(OPENAL_INCLUDE_DIRS
 		${OPENAL_INCLUDE_DIRS}
-		${CMAKE_SOURCE_DIR}/deps/openal-soft/include
+		${CMAKE_SOURCE_DIR}/deps/openal-soft/include/AL
 	)
 	set(OPENAL_LIBRARIES
 		${OPENAL_LIBRARIES}
@@ -172,6 +172,7 @@ target_link_libraries(TidyEngine ${GLFW_LIBRARIES}
                                  ${FREETYPE2_LIBRARIES}
                                  ${ASSIMP_LIBRARIES})
 
+add_dependencies(TidyEngine assimp glfw freetype2 vorbis openal-soft FreeImage luajit-2.0)
 target_include_directories(TidyEngine PUBLIC ${CMAKE_SOURCE_DIR}/deps/glm ${CMAKE_SOURCE_DIR}/deps)
 target_include_directories(TidyEngine PUBLIC ${GLFW_INCLUDE_DIRS})
 target_include_directories(TidyEngine PUBLIC ${FREEIMAGE_INCLUDE_DIRS})
