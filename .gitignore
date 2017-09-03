@@ -8,6 +8,9 @@
 #Ignore deps folder
 deps/install/*
 
+#Ignore config file
+libTidyEngine/config.hpp
+
 #Ignore most of bin folder
 bin/*
 !bin/config.hpp.in
