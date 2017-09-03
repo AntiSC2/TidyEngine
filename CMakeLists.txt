@@ -4,10 +4,8 @@ set(CMAKE_CXX_STANDARD 17)
 
 if (WIN32)
 	option(BUILD_EXTERNAL_DEPENDENCIES "Build all the required dependencies, except FreeImage, with the engine" TRUE)
-	option(BUILD_FREEIMAGE "Build FreeImage dependency" TRUE)
 else ()
-	option(BUILD_EXTERNAL_DEPENDENCIES "Build FreeImage dependency" FALSE)
-	option(BUILD_FREEIMAGE "Build FreeImage dependency" FALSE)
+	option(BUILD_EXTERNAL_DEPENDENCIES "Build all the required dependencies, except FreeImage, with the engine" FALSE)
 endif()
 
 add_subdirectory("${CMAKE_SOURCE_DIR}/deps/glad")
@@ -21,14 +19,14 @@ if (BUILD_EXTERNAL_DEPENDENCIES)
 		INSTALL_DIR ${CMAKE_SOURCE_DIR}/deps/install
 		CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${CMAKE_SOURCE_DIR}/deps/install
 	)
-	if (MSVC && BUILD_FREEIMAGE)
+	if (MSVC)
 		ExternalProject_Add(FreeImage
 			SOURCE_DIR "${CMAKE_SOURCE_DIR}/deps/FreeImage"
 			BUILD_COMMAND "MSBUILD.exe FreeImage.2013.vcxproj /property:Configuration=Realese /p:PlatformToolset=v141"
 			INSTALL_DIR ${CMAKE_SOURCE_DIR}/deps/install
 			CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${CMAKE_SOURCE_DIR}/deps/install
 		)
-	elseif (BUILD_FREEIMAGE)
+	else ()
 		ExternalProject_Add(FreeImage
 			SOURCE_DIR "${CMAKE_SOURCE_DIR}/deps/FreeImage"
 			BUILD_COMMAND "make"
