@@ -1,4 +1,4 @@
-cmake_minimum_required (VERSION 3.2.3)
+cmake_minimum_required (VERSION 3.0.2)
 
 #Setting up the version number for the engine
 set(TidyEngine_VERSION_MAJOR 0)

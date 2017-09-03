@@ -1,4 +1,4 @@
-cmake_minimum_required (VERSION 3.2.3)
+cmake_minimum_required (VERSION 3.0.2)
 project (TidyEngine CXX)
 set(CMAKE_CXX_STANDARD 17)
 
@@ -118,11 +118,8 @@ target_include_directories(TidyEngine
 		${VORBIS_INCLUDE_DIRS}
 		${FREETYPE2_INCLUDE_DIRS}
 		${ASSIMP_INCLUDE_DIRS}
+		${CMAKE_SOURCE_DIR}/libTidyEngine
 	)
-)
-target_include_directories(TidyEngine
-	PUBLIC
-	${CMAKE_SOURCE_DIR}/libTidyEngine
 )
 
 option(BUILD_DEMO "Build a demo along side the engine" TRUE)
