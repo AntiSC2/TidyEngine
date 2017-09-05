@@ -19,21 +19,6 @@ if (BUILD_EXTERNAL_DEPENDENCIES)
 		INSTALL_DIR ${CMAKE_SOURCE_DIR}/deps/install
 		CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${CMAKE_SOURCE_DIR}/deps/install
 	)
-	if (MSVC)
-		ExternalProject_Add(FreeImage
-			SOURCE_DIR "${CMAKE_SOURCE_DIR}/deps/FreeImage"
-			BUILD_COMMAND "MSBUILD.exe FreeImage.2013.vcxproj /property:Configuration=Realese /p:PlatformToolset=v141"
-			INSTALL_DIR ${CMAKE_SOURCE_DIR}/deps/install
-			CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${CMAKE_SOURCE_DIR}/deps/install
-		)
-	else ()
-		ExternalProject_Add(FreeImage
-			SOURCE_DIR "${CMAKE_SOURCE_DIR}/deps/FreeImage"
-			BUILD_COMMAND "make"
-			INSTALL_DIR ${CMAKE_SOURCE_DIR}/deps/install
-			CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${CMAKE_SOURCE_DIR}/deps/install
-		)
-	endif()
 	ExternalProject_Add(freetype2
 		GIT_SUBMODULES "deps/freetype2"
 		SOURCE_DIR "${CMAKE_SOURCE_DIR}/deps/freetype2"
