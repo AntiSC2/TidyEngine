@@ -16,7 +16,6 @@ set(SOURCE
 	${CMAKE_CURRENT_SOURCE_DIR}/screen.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/graphics.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/shader.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/error.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/texture.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/renderable.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/iomanager.cpp
@@ -43,24 +42,22 @@ set(SOURCE
 )
 
 add_library(TidyEngine STATIC ${SOURCE})
-target_link_libraries(TidyEngine ${GLFW_LIBRARIES}
-                                 ${GLAD_LIBRARIES}
-                                 ${FREEIMAGE_LIBRARIES}
-                                 ${LUAJIT_LIBRARIES}
-                                 ${OPENAL_LIBRARIES}
-                                 ${OGG_LIBRARIES}
-                                 ${VORBIS_LIBRARIES}
-                                 ${VORBISFILE_LIBRARIES}
-                                 ${FREETYPE2_LIBRARIES}
-                                 ${ASSIMP_LIBRARIES})
+target_link_libraries(TidyEngine GLFW
+                                 glad
+                                 LUA
+                                 LUAJIT
+                                 OPENAL
+                                 OGG
+                                 VORBIS
+                                 VORBISFILE
+                                 FREETYPE2
+                                 ASSIMP)
 
 # Ensure that the external projects are built first
-if (MSVC)
-	if (BUILD_EXTERNAL_DEPENDENCIES)
-		add_dependencies(TidyEngine assimp glfw freetype2 vorbis openal-soft FreeImage luajit-2.0)
-	endif ()
+if (BUILD_EXTERNAL_DEPENDENCIES)
+	add_dependencies(TidyEngine assimp glfw freetype2 vorbis openal-soft LUAJIT)
 endif ()
 
 if (WIN32)
-	target_link_libraries(${PROJECT_NAME} opengl32.lib)
+	target_link_libraries(TidyEngine opengl32.lib)
 endif ()

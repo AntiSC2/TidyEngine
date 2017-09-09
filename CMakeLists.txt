@@ -3,9 +3,9 @@ project (TidyEngine CXX)
 set(CMAKE_CXX_STANDARD 17)
 
 if (WIN32)
-	option(BUILD_EXTERNAL_DEPENDENCIES "Build all the required dependencies, except FreeImage, with the engine" TRUE)
+	option(BUILD_EXTERNAL_DEPENDENCIES "Build all the required dependencies with the engine" TRUE)
 else ()
-	option(BUILD_EXTERNAL_DEPENDENCIES "Build all the required dependencies, except FreeImage, with the engine" FALSE)
+	option(BUILD_EXTERNAL_DEPENDENCIES "Build all the required dependencies with the engine" FALSE)
 endif()
 
 add_subdirectory("${CMAKE_SOURCE_DIR}/deps/glad")
@@ -31,12 +31,6 @@ if (BUILD_EXTERNAL_DEPENDENCIES)
 		INSTALL_DIR ${CMAKE_SOURCE_DIR}/deps/install
 		CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${CMAKE_SOURCE_DIR}/deps/install
 	)
-	ExternalProject_Add(luajit-2.0
-		GIT_SUBMODULES "deps/luajit-2.0"
-		SOURCE_DIR "${CMAKE_SOURCE_DIR}/deps/luajit-2.0"
-		INSTALL_DIR ${CMAKE_SOURCE_DIR}/deps/install
-		CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${CMAKE_SOURCE_DIR}/deps/install
-	)
 	ExternalProject_Add(ogg
 		GIT_SUBMODULES "deps/ogg"
 		SOURCE_DIR "${CMAKE_SOURCE_DIR}/deps/ogg"
@@ -56,6 +50,33 @@ if (BUILD_EXTERNAL_DEPENDENCIES)
 		INSTALL_DIR ${CMAKE_SOURCE_DIR}/deps/install
 		CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${CMAKE_SOURCE_DIR}/deps/install
 	)
+
+	add_library(ASSIMP STATIC IMPORTED)
+	set_property(TARGET ASSIMP PROPERTY IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/deps/install/lib/${CMAKE_STATIC_LIBRARY_PREFIX}assimp-vc140-mt${CMAKE_STATIC_LIBRARY_SUFFIX})
+
+	add_library(FREETYPE2 STATIC IMPORTED)
+	set_property(TARGET FREETYPE2 PROPERTY IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/deps/install/lib/${CMAKE_STATIC_LIBRARY_PREFIX}freetyped${CMAKE_STATIC_LIBRARY_SUFFIX})
+
+	add_library(GLFW STATIC IMPORTED)
+	set_property(TARGET GLFW PROPERTY IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/deps/install/lib/${CMAKE_STATIC_LIBRARY_PREFIX}glfw3${CMAKE_STATIC_LIBRARY_SUFFIX})
+
+	add_library(LUAJIT STATIC IMPORTED)
+	set_property(TARGET LUAJIT PROPERTY IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/deps/install/lib/${CMAKE_STATIC_LIBRARY_PREFIX}luajit${CMAKE_STATIC_LIBRARY_SUFFIX})
+
+	add_library(LUA STATIC IMPORTED)
+	set_property(TARGET LUA PROPERTY IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/deps/install/lib/${CMAKE_STATIC_LIBRARY_PREFIX}lua51${CMAKE_STATIC_LIBRARY_SUFFIX})
+
+	add_library(OGG STATIC IMPORTED)
+	set_property(TARGET OGG PROPERTY IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/deps/install/lib/${CMAKE_STATIC_LIBRARY_PREFIX}ogg${CMAKE_STATIC_LIBRARY_SUFFIX})
+
+	add_library(OPENAL STATIC IMPORTED)
+	set_property(TARGET OPENAL PROPERTY IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/deps/install/lib/${CMAKE_STATIC_LIBRARY_PREFIX}OpenAL32${CMAKE_STATIC_LIBRARY_SUFFIX})
+
+	add_library(VORBIS STATIC IMPORTED)
+	set_property(TARGET VORBIS PROPERTY IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/deps/install/lib/${CMAKE_STATIC_LIBRARY_PREFIX}vorbis${CMAKE_STATIC_LIBRARY_SUFFIX})
+
+	add_library(VORBISFILE STATIC IMPORTED)
+	set_property(TARGET VORBISFILE PROPERTY IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/deps/install/lib/${CMAKE_STATIC_LIBRARY_PREFIX}vorbisfile${CMAKE_STATIC_LIBRARY_SUFFIX})
 elseif (APPLE)
 	message("MACOSX: Not yet supported!")
 elseif (UNIX)
@@ -91,6 +112,9 @@ add_subdirectory("${CMAKE_SOURCE_DIR}/libTidyEngine")
 target_include_directories(TidyEngine
 	PUBLIC
 	(
+		${CMAKE_SOURCE_DIR}/deps/install/include/freetype2
+		${CMAKE_SOURCE_DIR}/deps/install/include/AL
+		${CMAKE_SOURCE_DIR}/deps/install/include
 		${CMAKE_SOURCE_DIR}/deps/glm
 		${CMAKE_SOURCE_DIR}/deps
 		${GLFW_INCLUDE_DIRS}
@@ -107,5 +131,5 @@ target_include_directories(TidyEngine
 
 option(BUILD_DEMO "Build a demo along side the engine" TRUE)
 if (BUILD_DEMO)
-        add_subdirectory("${CMAKE_SOURCE_DIR}/demo")
+	add_subdirectory("${CMAKE_SOURCE_DIR}/demo")
 endif ()

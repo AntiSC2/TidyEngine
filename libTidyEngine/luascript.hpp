@@ -21,7 +21,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 #include <string>
 #include <vector>
-#include "lua.hpp"
+#include <lua.hpp>
 #include "resource.hpp"
 
 class LuaScript: public Resource {

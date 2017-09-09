@@ -21,7 +21,6 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 #include <memory>
 #include <string>
-#include <FreeImage.h>
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
@@ -30,12 +29,17 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 class Texture;
 
+struct Bitmap {
+	unsigned char *Data = nullptr;
+	int32_t Width = 0, Height = 0, NrChannels = 0;
+};
+
 class IOManager {
 public:
 	IOManager();
 	~IOManager();
 
-	FIBITMAP *LoadImage(std::string filepath);
+	Bitmap *LoadImage(std::string filepath);
 	std::string ReadFile(std::string filepath);
 	Model LoadModel(std::string filepath);
 	bool LoadVorbis(std::string filepath, Sample *out);

@@ -23,10 +23,8 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 #include "core.hpp"
 #include <GLFW/glfw3.h>
-#include <FreeImage.h>
 #include <al.h>
 #include "shader.hpp"
-#include "error.hpp"
 #include "cache.hpp"
 #include "config.hpp"
 
@@ -58,9 +56,6 @@ bool Core::InitSubSystems()
 		printf("Error: Could not initialize Freetype2!\n");
 		return false;
 	}
-
-	FreeImage_Initialise();
-	FreeImage_SetOutputMessage(FreeImageError);
 
 	if (m_Screen.CreateWindow(1280, 720, "TidyEngine", 4, 3) != true) {
 		printf("Error: glfw could not create window!\n");
@@ -144,5 +139,4 @@ void Core::Quit()
 	FT_Done_FreeType(m_FontLib);
 	m_Audio.DestroySystem();
 	glfwTerminate();
-	FreeImage_DeInitialise();
 }
