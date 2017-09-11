@@ -1,4 +1,4 @@
-cmake_minimum_required (VERSION 3.2.3)
+cmake_minimum_required (VERSION 3.0.2)
 project(glad)
 
 include_directories(${CMAKE_SOURCE_DIR}/deps)
@@ -12,4 +12,4 @@ set(HEADERS
 	${CMAKE_CURRENT_SOURCE_DIR}/glad.h
 )
 
-add_library(${PROJECT_NAME} STATIC ${SOURCES} ${HEADERS})
+add_library(glad STATIC ${SOURCES} ${HEADERS})

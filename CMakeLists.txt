@@ -50,7 +50,9 @@ if (BUILD_EXTERNAL_DEPENDENCIES)
 		INSTALL_DIR ${CMAKE_SOURCE_DIR}/deps/install
 		CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${CMAKE_SOURCE_DIR}/deps/install
 	)
+endif()
 
+if (WIN32)
 	add_library(ASSIMP STATIC IMPORTED)
 	set_property(TARGET ASSIMP PROPERTY IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/deps/install/lib/${CMAKE_STATIC_LIBRARY_PREFIX}assimp-vc140-mt${CMAKE_STATIC_LIBRARY_SUFFIX})
 
@@ -77,19 +79,22 @@ if (BUILD_EXTERNAL_DEPENDENCIES)
 
 	add_library(VORBISFILE STATIC IMPORTED)
 	set_property(TARGET VORBISFILE PROPERTY IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/deps/install/lib/${CMAKE_STATIC_LIBRARY_PREFIX}vorbisfile${CMAKE_STATIC_LIBRARY_SUFFIX})
+
+	add_library(GLAD STATIC IMPORTED)
+	set_property(TARGET GLAD PROPERTY IMPORTED_LOCATION ${CMAKE_BINARY_DIR}/deps/glad/${CMAKE_STATIC_LIBRARY_PREFIX}glad${CMAKE_STATIC_LIBRARY_SUFFIX})
 elseif (APPLE)
 	message("MACOSX: Not yet supported!")
 elseif (UNIX)
 	find_package(PkgConfig REQUIRED)
+	find_package(OpenAL REQUIRED)
+	find_package(Freetype REQUIRED)
+	pkg_search_module(LUAJIT REQUIRED luajit)
 	pkg_search_module(ASSIMP REQUIRED assimp)
 	pkg_search_module(GLFW REQUIRED glfw3)
 	pkg_search_module(FREEIMAGE REQURIED freeimage)
-	pkg_search_module(LUAJIT REQUIRED luajit)
-	pkg_search_module(OPENAL REQUIRED openal)
 	pkg_search_module(OGG REQUIRED ogg)
 	pkg_search_module(VORBIS REQUIRED vorbis)
 	pkg_search_module(VORBISFILE REQUIRED vorbisfile)
-	pkg_search_module(FREETYPE2 REQUIRED freetype2)
 	set(GLAD_LIBRARIES
 		${GLAD_LIBRARIES}
 		-ldl
@@ -109,25 +114,35 @@ elseif (MSVC)
 endif ()
 
 add_subdirectory("${CMAKE_SOURCE_DIR}/libTidyEngine")
-target_include_directories(TidyEngine
-	PUBLIC
-	(
-		${CMAKE_SOURCE_DIR}/deps/install/include/freetype2
-		${CMAKE_SOURCE_DIR}/deps/install/include/AL
-		${CMAKE_SOURCE_DIR}/deps/install/include
-		${CMAKE_SOURCE_DIR}/deps/glm
-		${CMAKE_SOURCE_DIR}/deps
-		${GLFW_INCLUDE_DIRS}
-		${FREEIMAGE_INCLUDE_DIRS}
-		${LUAJIT_INCLUDE_DIRS}
-		${OPENAL_INCLUDE_DIRS}
-		${OGG_INCLUDE_DIRS}
-		${VORBIS_INCLUDE_DIRS}
-		${FREETYPE2_INCLUDE_DIRS}
-		${ASSIMP_INCLUDE_DIRS}
-		${CMAKE_SOURCE_DIR}/libTidyEngine
+if (WIN32)
+	target_include_directories(TidyEngine
+		PUBLIC
+		(
+			${CMAKE_SOURCE_DIR}/deps/install/include/freetype2
+			${CMAKE_SOURCE_DIR}/deps/install/include/AL
+			${CMAKE_SOURCE_DIR}/deps/install/include
+			${CMAKE_SOURCE_DIR}/deps/glm
+			${CMAKE_SOURCE_DIR}/deps
+		)
 	)
-)
+else ()
+	target_include_directories(TidyEngine
+		PUBLIC
+		(
+			${CMAKE_SOURCE_DIR}/deps/install/include
+			${CMAKE_SOURCE_DIR}/deps
+			${GLFW_INCLUDE_DIRS}
+			${FREEIMAGE_INCLUDE_DIRS}
+			${LUAJIT_INCLUDE_DIRS}
+			${OPENAL_INCLUDE_DIRS}
+			${OGG_INCLUDE_DIRS}
+			${VORBIS_INCLUDE_DIRS}
+			${FREETYPE2_INCLUDE_DIRS}
+			${ASSIMP_INCLUDE_DIRS}
+			${CMAKE_SOURCE_DIR}/libTidyEngine
+		)
+	)
+endif ()
 
 option(BUILD_DEMO "Build a demo along side the engine" TRUE)
 if (BUILD_DEMO)

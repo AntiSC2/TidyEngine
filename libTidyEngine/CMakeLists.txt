@@ -42,20 +42,21 @@ set(SOURCE
 )
 
 add_library(TidyEngine STATIC ${SOURCE})
-target_link_libraries(TidyEngine GLFW
-                                 glad
-                                 LUA
-                                 LUAJIT
-                                 OPENAL
-                                 OGG
-                                 VORBIS
-                                 VORBISFILE
-                                 FREETYPE2
-                                 ASSIMP)
+target_link_libraries(TidyEngine
+	${GLAD_LIBRARIES}
+	${GLFW_LIBRARIES}
+	${LUAJIT_LIBRARIES}
+	${OPENAL_LIBRARIES}
+	${OGG_LIBRARIES}
+	${VORBIS_LIBRARIES}
+	${VORBISFILE_LIBRARIES}
+	${FREETYPE2_LIBRARIES}
+	${ASSIMP_LIBRARIES}
+)
 
 # Ensure that the external projects are built first
 if (BUILD_EXTERNAL_DEPENDENCIES)
-	add_dependencies(TidyEngine assimp glfw freetype2 vorbis openal-soft LUAJIT)
+	add_dependencies(TidyEngine assimp glfw freetype2 vorbis openal-soft)
 endif ()
 
 if (WIN32)
