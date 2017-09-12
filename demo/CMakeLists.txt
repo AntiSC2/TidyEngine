@@ -6,7 +6,7 @@ set(SOURCES
 	${CMAKE_CURRENT_SOURCE_DIR}/game.cpp
 )
 
-add_executable(Demo ${SOURCES} ${HEADERS})
+add_executable(Demo ${SOURCES})
 target_link_libraries(Demo
 	TidyEngine
 	${GLAD_LIBRARIES}
