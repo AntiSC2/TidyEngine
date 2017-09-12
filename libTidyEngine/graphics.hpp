@@ -26,8 +26,9 @@ class Shader;
 #include <map>
 #include <memory>
 #include <string>
+#include "system.hpp"
 
-class Graphics {
+class Graphics: public System {
 public:
 	Graphics();
 	~Graphics();
@@ -35,6 +36,7 @@ public:
 	bool LoadShaders(std::string name, std::string v, std::string f,
 			std::vector<std::string> attributes = {});
 	Shader *GetShader(std::string name);
+	virtual void Update(double delta = 0.0f);
 	void Clear();
 	void Present(GLFWwindow *window);
 private:

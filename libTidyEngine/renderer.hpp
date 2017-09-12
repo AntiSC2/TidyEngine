@@ -36,7 +36,7 @@ class Shader;
 
 extern bool CompareTex(Renderable *a, Renderable *b);
 
-class Renderer: public System {
+class Renderer {
 public:
 	Renderer();
 	virtual ~Renderer();

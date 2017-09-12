@@ -34,11 +34,6 @@ SpriteRenderer::~SpriteRenderer()
 		glDeleteBuffers(1, &m_VBOID);
 }
 
-void SpriteRenderer::Update(double delta)
-{
-	;
-}
-
 void SpriteRenderer::Initialise(Shader *shader)
 {
 	m_Shader = shader;
