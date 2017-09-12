@@ -1,12 +1,12 @@
 cmake_minimum_required (VERSION 3.0.2)
 project(Demo CXX)
 
-set(SOURCES
-	${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/game.cpp
+file(GLOB DEMO_SOURCE
+	"*.hpp"
+	"*.cpp"
 )
 
-add_executable(Demo ${SOURCES})
+add_executable(Demo ${DEMO_SOURCE})
 target_link_libraries(Demo
 	TidyEngine
 	${GLAD_LIBRARIES}

@@ -9,39 +9,12 @@ configure_file(
 	"${CMAKE_CURRENT_SOURCE_DIR}/config.hpp"
 )
 
-set(SOURCE
-	${SOURCE}
-	${CMAKE_CURRENT_SOURCE_DIR}/core.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/system.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/screen.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/graphics.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/shader.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/texture.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/renderable.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/iomanager.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/cache.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/rect2d.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/renderer.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/spriterenderer.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/camera.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/input.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/component.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/entity.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/entitymanager.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/sprite.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/luascript.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/audio.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/sample.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/font.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/fontglyph.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/mesh.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/modelrenderer.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/model.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/material.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/pointlight.cpp
+file(GLOB TIDYENGINE_SOURCE
+	"*.hpp"
+	"*.cpp"
 )
 
-add_library(TidyEngine STATIC ${SOURCE})
+add_library(TidyEngine STATIC ${TIDYENGINE_SOURCE})
 target_link_libraries(TidyEngine
 	${GLAD_LIBRARIES}
 	${GLFW_LIBRARIES}
