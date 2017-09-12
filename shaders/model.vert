@@ -9,13 +9,11 @@ out vec2 UV;
 out vec3 Normal;
 out vec3 FragPos;
 
-uniform mat4 projection;
-uniform mat4 view;
-uniform mat4 model;
+uniform mat4 transform;
 uniform mat3 inverseModel;
 
 void main() {
-	gl_Position = projection * view * model * vec4(position, 1.0);
+	gl_Position = transform * vec4(position, 1.0);
 	Color = color;
 	UV = uv;
 	Normal = inverseModel * normal;  
