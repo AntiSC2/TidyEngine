@@ -68,8 +68,10 @@ Texture *Cache::LoadTex(std::string filepath)
 	Bitmap *bitmap = IO.LoadImage(filepath);
 	bool success = m_Textures[filepath].CreateTex(bitmap->Data, (uint32_t)bitmap->Width, (uint32_t)bitmap->Height, false, true, true);
 
-	delete[] bitmap->Data;
-	delete bitmap;
+	if (bitmap->Data != nullptr)
+		delete[] bitmap->Data;
+	if (bitmap != nullptr)
+		delete bitmap;
 
 	if (success == false) {
 		printf("Warning: could not create texture %s!\n",
