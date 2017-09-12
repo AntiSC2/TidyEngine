@@ -78,9 +78,15 @@ if (WIN32)
 	set(VORBISFILE_LIBRARIES
 		${CMAKE_SOURCE_DIR}/deps/install/lib/${CMAKE_STATIC_LIBRARY_PREFIX}vorbisfile${CMAKE_STATIC_LIBRARY_SUFFIX}
 	)
-	set(GLAD_LIBRARIES
-		${CMAKE_BINARY_DIR}/deps/glad/${CMAKE_STATIC_LIBRARY_PREFIX}glad${CMAKE_STATIC_LIBRARY_SUFFIX}
-	)
+	if (MSVC)
+		set(GLAD_LIBRARIES
+			${CMAKE_BINARY_DIR}/deps/glad/Debug/glad.lib
+		)
+	else ()
+		set(GLAD_LIBRARIES
+			${CMAKE_BINARY_DIR}/deps/glad/libglad.a
+		)
+	endif ()
 elseif (APPLE)
 	message("MACOSX: Not yet supported!")
 elseif (UNIX)
@@ -121,6 +127,7 @@ if (WIN32)
 			${CMAKE_SOURCE_DIR}/deps/install/include
 			${CMAKE_SOURCE_DIR}/deps/glm
 			${CMAKE_SOURCE_DIR}/deps
+			${CMAKE_SOURCE_DIR}/libTidyEngine
 		)
 	)
 else ()
