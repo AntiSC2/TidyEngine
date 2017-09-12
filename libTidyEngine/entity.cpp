@@ -18,73 +18,19 @@ Contact the author at: jakob.sinclair99@gmail.com
 */
 
 #include "entity.hpp"
+#include <type_traits>
 
 Entity::~Entity()
 {
 	;
 }
 
-void Entity::Update(double delta)
+const std::string &Entity::GetName()
 {
-	for (auto i : m_Components) {
-		i.Data()->Update();
-	}
-}
-
-std::vector<Renderable *> &Entity::Draw()
-{
-	return m_Graphics;
-}
-
-void Entity::AddComponents(std::vector<RID> components)
-{
-	m_Components.insert(m_Components.end(), components.begin(), components.end());
-
-	for (auto i: components) {
-		if (i.Data()->Type() == "Renderable")
-			m_Graphics.push_back(static_cast<Renderable *>(i.Data()));
-	}
-}
-
-void Entity::RemoveComponents(std::vector<size_t> id)
-{
-	for (auto i: id) {
-		if (i >= m_Components.size())
-			continue;
-
-		if (m_Components[i].Data()->Type() == "Renderable")
-			m_Graphics.erase(m_Graphics.begin());
-		m_Components.erase(m_Components.begin() + i);
-	}
-}
-
-RID *Entity::GetComponent(size_t id)
-{
-	if (id >= m_Components.size())
-		return nullptr;
-
-	return &m_Components[id];
+	return m_Name;
 }
 
 void Entity::SetName(std::string name)
 {
 	m_Name = name;
-}
-
-void Entity::SetScript(std::string script)
-{
-	m_Script = script;
-}
-
-void Entity::SetPos(glm::vec3 pos) 
-{
-	m_Position = pos;
-	for (auto i: m_Graphics) {
-		i->SetPos(m_Position);
-	}
-}
-
-glm::vec3 Entity::GetPos()
-{
-	return m_Position;
 }

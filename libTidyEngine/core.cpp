@@ -23,10 +23,8 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 #include "core.hpp"
 #include <GLFW/glfw3.h>
-#include <FreeImage.h>
 #include <al.h>
 #include "shader.hpp"
-#include "error.hpp"
 #include "cache.hpp"
 #include "config.hpp"
 
@@ -59,9 +57,6 @@ bool Core::InitSubSystems()
 		return false;
 	}
 
-	FreeImage_Initialise();
-	FreeImage_SetOutputMessage(FreeImageError);
-
 	if (m_Screen.CreateWindow(1280, 720, "TidyEngine", 4, 3) != true) {
 		printf("Error: glfw could not create window!\n");
 		return false;
@@ -92,7 +87,7 @@ bool Core::InitSubSystems()
 	m_Input.Initialise(m_Screen.GetWindow());
 	m_Audio.CreateSystem();
 
-	if (Resources.CreateDefaultResources() == false)
+	if (Res.CreateDefaultResources() == false)
 		return false;
 
 	printf("TidyEngine Version: %d.%d\n",
@@ -140,9 +135,8 @@ void Core::GameLoop()
 
 void Core::Quit()
 {
-	Resources.Clean();
+	Res.Clean();
 	FT_Done_FreeType(m_FontLib);
 	m_Audio.DestroySystem();
 	glfwTerminate();
-	FreeImage_DeInitialise();
 }

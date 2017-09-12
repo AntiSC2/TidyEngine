@@ -34,6 +34,11 @@ SpriteRenderer::~SpriteRenderer()
 		glDeleteBuffers(1, &m_VBOID);
 }
 
+void SpriteRenderer::Update(double delta)
+{
+	;
+}
+
 void SpriteRenderer::Initialise(Shader *shader)
 {
 	m_Shader = shader;
@@ -64,13 +69,11 @@ void SpriteRenderer::Initialise(Shader *shader)
 	glBindVertexArray(0);
 }
 
-void SpriteRenderer::Present(const Camera *camera)
+void SpriteRenderer::Present(const Camera &camera)
 {
-	if (camera != nullptr) {
-		m_Shader->SetUniformMat4("projection", camera->GetProj());
-		m_Shader->SetUniformMat4("view", camera->GetView());
-		m_Shader->SetUniformMat4("model", camera->GetModel());
-	}
+	m_Shader->SetUniformMat4("projection", camera.GetProj());
+	m_Shader->SetUniformMat4("view", camera.GetView());
+	m_Shader->SetUniformMat4("model", camera.GetModel());
 
 	glBindVertexArray(m_VAOID);
 	for (size_t i = 0; i < m_RenderBatches.size(); i++) {

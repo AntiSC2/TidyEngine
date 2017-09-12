@@ -27,13 +27,12 @@ class RID;
 #include <glm/vec4.hpp>
 #include <glm/vec3.hpp>
 #include "renderable.hpp"
+#include "component.hpp"
 #include "vertex.hpp"
 
-class Sprite : public Renderable {
+class Sprite : public Renderable, public Component {
 public:
 	Sprite(const Texture *tex, uint32_t w = 0, uint32_t h = 0,
-	       const std::vector<uint32_t> &frames = {0, 0});
-	Sprite(RID *res, uint32_t w = 0, uint32_t h = 0,
 	       const std::vector<uint32_t> &frames = {0, 0});
 	virtual ~Sprite();
 

@@ -17,30 +17,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 Contact the author at: jakob.sinclair99@gmail.com
 */
 
-#pragma once
+#include "system.hpp"
+#include "entitymanager.hpp"
 
-#include <memory>
-#include "resource.hpp"
+System::System()
+{
+	;
+}
 
-class Texture;
-class Sample;
-class Renderable;
-class Shader;
-class Model;
+System::~System()
+{
+	;
+}
 
-class RID {
-public:
-	RID();
-	RID(Resource *data);
-	~RID();
+void System::SetEntityManager(EntityManager *manager)
+{
+	Entities = manager;
+}
 
-	void SetResource(Resource *res);
-	void SetResource(Texture *res);
-	void SetResource(Sample *res);
-	void SetResource(Renderable *res);
-	void SetResource(Shader *res);
-	void SetResource(Model *res);
-	Resource *Data() const;
-private:
-	std::shared_ptr<Resource> m_Data;
-};
+EntityManager *System::GetEntityManager()
+{
+	return Entities;
+}

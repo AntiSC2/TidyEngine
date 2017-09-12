@@ -1,5 +1,4 @@
-cmake_minimum_required (VERSION 3.2.3)
-project(TidyEngine)
+cmake_minimum_required (VERSION 3.0.2)
 
 #Setting up the version number for the engine
 set(TidyEngine_VERSION_MAJOR 0)
@@ -7,17 +6,16 @@ set(TidyEngine_VERSION_MINOR 2)
 
 configure_file(
 	"${CMAKE_CURRENT_SOURCE_DIR}/config.hpp.in"
-	"${CMAKE_BINARY_DIR}/config.hpp"
+	"${CMAKE_CURRENT_SOURCE_DIR}/config.hpp"
 )
-include_directories(${CMAKE_BINARY_DIR})
 
 set(SOURCE
 	${SOURCE}
 	${CMAKE_CURRENT_SOURCE_DIR}/core.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/system.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/screen.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/graphics.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/shader.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/error.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/texture.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/renderable.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/iomanager.cpp
@@ -27,13 +25,13 @@ set(SOURCE
 	${CMAKE_CURRENT_SOURCE_DIR}/spriterenderer.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/camera.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/input.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/component.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/entity.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/entitymanager.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/sprite.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/luascript.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/audio.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/sample.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/rid.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/font.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/fontglyph.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/mesh.cpp
@@ -42,182 +40,25 @@ set(SOURCE
 	${CMAKE_CURRENT_SOURCE_DIR}/material.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/pointlight.cpp
 )
-set(HEADERS
-	${HEADERS}
-	${CMAKE_CURRENT_SOURCE_DIR}/core.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/screen.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/graphics.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/shader.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/error.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/texture.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/vertex.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/renderable.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/iomanager.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/cache.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/rect2d.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/renderer.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/spriterenderer.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/camera.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/input.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/entity.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/entitymanager.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/sprite.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/luascript.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/audio.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/sample.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/rid.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/font.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/fontglyph.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/mesh.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/modelrenderer.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/model.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/material.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/pointlight.hpp
+
+add_library(TidyEngine STATIC ${SOURCE})
+target_link_libraries(TidyEngine
+	${GLAD_LIBRARIES}
+	${GLFW_LIBRARIES}
+	${LUAJIT_LIBRARIES}
+	${OPENAL_LIBRARIES}
+	${OGG_LIBRARIES}
+	${VORBIS_LIBRARIES}
+	${VORBISFILE_LIBRARIES}
+	${FREETYPE2_LIBRARIES}
+	${ASSIMP_LIBRARIES}
 )
 
-if (WIN32)
-	if (MSVC)
-		set(GLFW_LIBRARIES
-			${GLFW_LIBRARIES}
-			${CMAKE_SOURCE_DIR}/deps/lib/glfw3dll.lib
-		)
-		set(OGG_LIBRARIES
-			${OGG_LIBRARIES}
-			${CMAKE_SOURCE_DIR}/deps/lib/libogg.lib
-		)
-		set(VORBISFILE_LIBRARIES
-			${VORBISFILE_LIBRARIES}
-			${CMAKE_SOURCE_DIR}/deps/lib/libvorbisfile.lib
-		)
-		set(VORBIS_LIBRARIES
-			${OPENAL_LIBRARIES}
-			${CMAKE_SOURCE_DIR}/deps/lib/libvorbis.lib
-		)
-		set(FREETYPE2_LIBRARIES
-			${FREETYPE2_LIBRARIES}
-			${CMAKE_SOURCE_DIR}/deps/lib/freetype.lib
-		)
-		set(GLAD_LIBRARIES
-			${GLAD_LIBRARIES}
-			${CMAKE_BINARY_DIR}/glad/Debug/glad.lib
-		)
-	else ()
-		set(GLFW_LIBRARIES
-			${GLFW_LIBRARIES}
-			${CMAKE_SOURCE_DIR}/deps/lib/libglfw3.a
-		)
-		set(OGG_LIBRARIES
-			${OGG_LIBRARIES}
-			${CMAKE_SOURCE_DIR}/deps/lib/libogg.a
-		)
-		set(VORBISFILE_LIBRARIES
-			${VORBISFILE_LIBRARIES}
-			${CMAKE_SOURCE_DIR}/deps/lib/libvorbisfile.a
-		)
-		set(VORBIS_LIBRARIES
-			${VORBIS_LIBRARIES}
-			${CMAKE_SOURCE_DIR}/deps/lib/libvorbis.a
-		)
-		set(FREETYPE2_LIBRARIES
-			${FREETYPE2_LIBRARIES}
-			${CMAKE_SOURCE_DIR}/deps/lib/libfreetype.a
-		)
-		set(GLAD_LIBRARIES
-			${GLAD_LIBRARIES}
-			${CMAKE_BINARY_DIR}/glad/libglad.a
-		)
-	endif ()
-
-	set(ASSIMP_INCLUDE_DIRS
-		${ASSIMP_INCLUDE_DIRS}
-		${CMAKE_SOURCE_DIR}/deps/include
-	)
-	set(ASSIMP_LIBRARIES
-		${ASSIMP_LIBRARIES}
-		${CMAKE_SOURCE_DIR}/deps/libs/libassimp.dll
-	)
-	set(GLFW_INCLUDE_DIRS
-		${GLFW_INCLUDE_DIRS}
-		${CMAKE_SOURCE_DIR}/deps/include/
-	)
-	set(FREEIMAGE_INCLUDE_DIRS
-		${FREEIMAGE_INCLUDE_DIRS}
-		${CMAKE_SOURCE_DIR}/deps/include/FreeImage
-	)
-	set(FREEIMAGE_LIBRARIES
-		${FREEIMAGE_LIBRARIES}
-		${CMAKE_SOURCE_DIR}/deps/lib/FreeImage.lib
-	)
-	set(LUAJIT_INCLUDE_DIRS
-		${LUAJIT_INCLUDE_DIRS}
-		${CMAKE_SOURCE_DIR}/deps/include/LuaJIT
-	)
-	set(LUAJIT_LIBRARIES
-		${LUAJIT_LIBRARIES}
-		${CMAKE_SOURCE_DIR}/deps/lib/lua51.dll
-	)
-	set(OPENAL_INCLUDE_DIRS
-		${OPENAL_INCLUDE_DIRS}
-		${CMAKE_SOURCE_DIR}/deps/include/AL
-	)
-	set(OPENAL_LIBRARIES
-		${OPENAL_LIBRARIES}
-		${CMAKE_SOURCE_DIR}/deps/lib/OpenAL32.lib
-	)
-	set(OGG_INCLUDE_DIRS
-		${OGG_INCLUDE_DIRS}
-		${CMAKE_SOURCE_DIR}/deps/include/ogg
-	)
-	set(VORBIS_INCLUDE_DIRS
-		${VORBIS_INCLUDE_DIRS}
-		${CMAKE_SOURCE_DIR}/deps/include/vorbis
-	)
-	set(FREETYPE2_INCLUDE_DIRS
-		${FREETYPE2_INCLUDE_DIRS}
-		${CMAKE_SOURCE_DIR}/deps/include/freetype
-	)
-elseif (APPLE)
-	message("MACOSX: Not yet supported!")
-elseif (UNIX)
-	find_package(PkgConfig REQUIRED)
-	pkg_search_module(ASSIMP REQUIRED assimp)
-	pkg_search_module(GLFW REQUIRED glfw3)
-	pkg_search_module(FREEIMAGE REQURIED freeimage)
-	pkg_search_module(LUAJIT REQUIRED luajit)
-	pkg_search_module(OPENAL REQUIRED openal)
-	pkg_search_module(OGG REQUIRED ogg)
-	pkg_search_module(VORBIS REQUIRED vorbis)
-	pkg_search_module(VORBISFILE REQUIRED vorbisfile)
-	pkg_search_module(FREETYPE2 REQUIRED freetype2)
-	set(GLAD_LIBRARIES
-		${GLAD_LIBRARIES}
-		-ldl
-		${CMAKE_BINARY_DIR}/glad/libglad.a
-	)
+# Ensure that the external projects are built first
+if (BUILD_EXTERNAL_DEPENDENCIES)
+	add_dependencies(TidyEngine assimp glfw freetype2 vorbis openal-soft)
 endif ()
 
-include_directories(${CMAKE_SOURCE_DIR}/deps/include/)
-include_directories(${GLFW_INCLUDE_DIRS})
-include_directories(${FREEIMAGE_INCLUDE_DIRS})
-include_directories(${LUAJIT_INCLUDE_DIRS})
-include_directories(${OPENAL_INCLUDE_DIRS})
-include_directories(${OGG_INCLUDE_DIRS})
-include_directories(${VORBIS_INCLUDE_DIRS})
-include_directories(${FREETYPE2_INCLUDE_DIRS})
-include_directories(${ASSIMP_INCLUDE_DIRS})
-
-add_library(${PROJECT_NAME} STATIC ${SOURCE} ${HEADERS})
-target_link_libraries(${PROJECT_NAME} ${GLFW_LIBRARIES}
-                                      ${GLAD_LIBRARIES}
-                                      ${FREEIMAGE_LIBRARIES}
-                                      ${LUAJIT_LIBRARIES}
-                                      ${OPENAL_LIBRARIES}
-                                      ${OGG_LIBRARIES}
-                                      ${VORBIS_LIBRARIES}
-                                      ${VORBISFILE_LIBRARIES}
-                                      ${FREETYPE2_LIBRARIES}
-                                      ${ASSIMP_LIBRARIES})
-
 if (WIN32)
-	target_link_libraries(${PROJECT_NAME} opengl32.lib)
+	target_link_libraries(TidyEngine opengl32.lib)
 endif ()

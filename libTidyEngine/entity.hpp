@@ -19,38 +19,61 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 #pragma once
 
-#include <glm/vec3.hpp>
-#include <vector>
+#include <memory>
+#include <unordered_map>
 #include <string>
+#include <typeindex>
+#include "component.hpp"
 #include "renderable.hpp"
-#include "rid.hpp"
 
 class Entity {
 public:
-	Entity(std::string name = "temp", std::string script = "none",
-	       std::vector<RID> components = {}) : m_Name(name),
-		m_Script(script), m_Components(components)
-	{
-		for (auto i: m_Components) {
-			if (i.Data()->Type() == "Renderable")
-				m_Graphics.push_back(static_cast<Renderable *>(i.Data()));
-		}
-	}
+	Entity(std::string name) : m_Name(name) {;}
 	virtual ~Entity();
 
-	virtual void Update(double delta = 0.0f);
-	virtual std::vector<Renderable *> &Draw();
-	virtual void AddComponents(std::vector<RID> components);
-	virtual void RemoveComponents(std::vector<size_t> id);
-	virtual RID *GetComponent(size_t id);
-	virtual void SetName(std::string name);
-	virtual void SetScript(std::string script);
-	virtual void SetPos(glm::vec3 pos);
-	virtual glm::vec3 GetPos();
+	template<typename C>
+	C &AddComponent(std::unique_ptr<C> &&component);
+	template<typename C>
+	void RemoveComponent();
+	template<typename C>
+	C &GetComponent();
+	const std::string &GetName();
+	void SetName(std::string name);
 protected:
-	std::string m_Name = "temp";
-	std::string m_Script = "none";
-	std::vector<RID> m_Components = {};
-	std::vector<Renderable *> m_Graphics = {};
-	glm::vec3 m_Position = glm::vec3(0.0f, 0.0f, 0.0f);
+	std::string m_Name = "";
+	std::unordered_map<std::type_index, std::unique_ptr<Component>> m_Components;
 };
+
+template<typename C>
+C &Entity::AddComponent(std::unique_ptr<C> &&component)
+{
+	auto &comp = *component;
+	static_assert(std::is_base_of<Component, C>::value, "Error: tried to add non-component object to entity!\n");
+	auto i = std::type_index(typeid(C));
+	m_Components[i] = std::move(component);
+
+	return comp;
+}
+
+template<typename C>
+void Entity::RemoveComponent()
+{
+	static_assert(std::is_base_of<Component, C>::value, "Error: tried to remove non-component object from entity!\n");
+	auto i = std::type_index(typeid(C));
+	auto it = m_Components.find(i);
+	if (it != m_Components.end())
+		m_Components.erase(it);
+}
+
+template<typename C>
+C &Entity::GetComponent()
+{
+	static_assert(std::is_base_of<Component, C>::value, "Error: tried to get non-component object from entity!\n");
+	auto i = std::type_index(typeid(C));
+
+	if (m_Components.find(i) == m_Components.end())
+		throw std::runtime_error("Error: could not find component in entity: \"" + m_Name + "\"\n");
+
+	auto &comp = static_cast<C&>(*m_Components[i]);
+	return comp;
+}

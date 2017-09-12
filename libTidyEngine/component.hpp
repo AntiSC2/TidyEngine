@@ -1,6 +1,6 @@
 /*
 TidyEngine
-Copyright (C) 2016 Jakob Sinclair
+Copyright (C) 2017 Jakob Sinclair
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Lesser General Public License as published by
@@ -19,16 +19,8 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 #pragma once
 
-class Camera;
-
-#include "renderer.hpp"
-
-class SpriteRenderer : public Renderer {
+class Component {
 public:
-	SpriteRenderer();
-	virtual ~SpriteRenderer();
-
-	virtual void Update(double delta);
-	virtual void Initialise(Shader *shader);
-	virtual void Present(const Camera &camera);
+	Component();
+	virtual ~Component();
 };

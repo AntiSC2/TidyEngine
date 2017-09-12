@@ -29,13 +29,14 @@ class Shader;
 #include <glm/vec2.hpp>
 #include <glm/vec4.hpp>
 #include <string>
+#include "system.hpp"
 #include "vertex.hpp"
 #include "renderable.hpp"
 #include "font.hpp"
 
 extern bool CompareTex(Renderable *a, Renderable *b);
 
-class Renderer {
+class Renderer: public System {
 public:
 	Renderer();
 	virtual ~Renderer();

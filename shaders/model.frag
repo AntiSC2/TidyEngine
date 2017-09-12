@@ -16,7 +16,6 @@ struct Light {
 struct Material {
 	sampler2D diffuse1;
 	sampler2D specular1;
-	vec3 ambient;
 	float shine;
 };
 

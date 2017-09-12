@@ -95,7 +95,7 @@ bool Screen::CreateWindow(uint16_t width, uint16_t height, const char* title,
 		m_Title = (char*)title;
 		glfwMakeContextCurrent(m_Window);
 	}
-	glfwSetInputMode(m_Window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);  
+	// glfwSetInputMode(m_Window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);  
 	return true;
 }
 
@@ -110,7 +110,11 @@ bool Screen::InitGL()
 	glEnable(GL_DEPTH_TEST);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-	
+
+	printf("Vendor: %s\n", glGetString(GL_VENDOR));
+	printf("GFX Renderer: %s\n", glGetString(GL_RENDERER));
+	printf("OpenGL Version: %s\n", glGetString(GL_VERSION));
+
 	return true;
 }
 

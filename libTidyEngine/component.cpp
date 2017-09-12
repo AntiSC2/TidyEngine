@@ -1,6 +1,6 @@
 /*
 TidyEngine
-Copyright (C) 2016 Jakob Sinclair
+Copyright (C) 2017 Jakob Sinclair
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Lesser General Public License as published by
@@ -17,9 +17,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 Contact the author at: jakob.sinclair99@gmail.com
 */
 
-#pragma once
+#include "component.hpp"
 
-#include <string>
-#include <FreeImage.h>
+Component::Component()
+{
+	;
+}
 
-void FreeImageError(FREE_IMAGE_FORMAT fif, const char *message);
+Component::~Component()
+{
+	;
+}

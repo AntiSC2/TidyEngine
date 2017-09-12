@@ -30,7 +30,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 class Material;
 
-class Renderable: public Resource {
+class Renderable {
 public:
 	Renderable();
 	virtual ~Renderable();

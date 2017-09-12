@@ -17,15 +17,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 Contact the author at: jakob.sinclair99@gmail.com
 */
 
-#include "error.hpp"
-#include <FreeImage.h>
-#include <cstdio>
+#pragma once
 
-void FreeImageError(FREE_IMAGE_FORMAT fif, const char *message)
-{
-	if (fif != FIF_UNKNOWN) {
-		printf("Warning: error with %s format!\n",
-			FreeImage_GetFormatFromFIF(fif));
-	}
-	printf("%s\n", message);
-}
+class EntityManager;
+
+class System {
+public:
+	System();
+	virtual ~System();
+
+	virtual void Update(double delta) = 0;
+	void SetEntityManager(EntityManager *manager);
+	EntityManager *GetEntityManager();
+protected:
+	EntityManager *Entities = nullptr;
+};

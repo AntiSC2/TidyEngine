@@ -19,7 +19,6 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 #include "texture.hpp"
 #include <cstdio>
-#include <FreeImage.h>
 
 Texture::Texture()
 {
@@ -44,11 +43,6 @@ Texture::Texture(Texture &&tex) noexcept
 	tex.m_Height = 0;
 }
 
-Texture::Texture(FIBITMAP *bitmap, bool mipmap, bool linear)
-{
-	CreateTex(bitmap, mipmap, linear);
-}
-
 Texture::Texture(GLubyte *bitmap, uint32_t w, uint32_t h, bool dual,
                  bool mipmap, bool linear)
 {
@@ -63,68 +57,6 @@ Texture::~Texture()
 
 std::string Texture::Type() {
 	return "Texture";
-}
-
-bool Texture::CreateTex(FIBITMAP *bitmap, bool mipmap, bool linear)
-{
-	if (bitmap == nullptr)
-		return false;
-
-	DestroyTex();
-
-	glGenTextures(1, &m_TexID);
-
-	if (m_TexID == 0) {
-		printf("Warning: could not create OpenGL texture!\n");
-		return false;
-	}
-
-	glBindTexture(GL_TEXTURE_2D, m_TexID);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-
-	if (linear == true && mipmap == false) {
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,
-				GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER,
-				GL_LINEAR);
-	} else if (mipmap == false) {
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,
-				GL_NEAREST);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER,
-				GL_NEAREST);
-	}
-
-	FIBITMAP *temp = FreeImage_ConvertTo32Bits(bitmap);
-	if (!temp) {
-		DestroyTex();
-		FreeImage_Unload(temp);
-		printf("Warning: could not convert texture to 32 bits!\n");
-		return false;
-	}
-	
-	m_Width = FreeImage_GetWidth(temp);
-	m_Height = FreeImage_GetHeight(temp);
-
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_Width, m_Height, 0, 
-                     GL_BGRA, GL_UNSIGNED_BYTE, (void*)FreeImage_GetBits(temp));
-
-	FreeImage_Unload(temp);
-	
-	if (linear == true && mipmap == true) {
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,
-		                GL_LINEAR_MIPMAP_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER,
-		                GL_LINEAR_MIPMAP_LINEAR);
-		glGenerateMipmap(GL_TEXTURE_2D);
-	} else if (mipmap == true) {
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,
-		                GL_NEAREST_MIPMAP_NEAREST);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER,
-		                GL_NEAREST_MIPMAP_NEAREST);
-		glGenerateMipmap(GL_TEXTURE_2D);
-	}
-	return true;
 }
 
 bool Texture::CreateTex(GLubyte *bitmap, uint32_t w, uint32_t h, bool dual,
@@ -180,7 +112,6 @@ bool Texture::CreateTex(GLubyte *bitmap, uint32_t w, uint32_t h, bool dual,
 		glGenerateMipmap(GL_TEXTURE_2D);
 	}
 	return true;
-
 }
 
 void Texture::DestroyTex()

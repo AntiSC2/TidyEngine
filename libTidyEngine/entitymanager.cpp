@@ -32,41 +32,15 @@ EntityManager::~EntityManager()
 	m_CurrentCamera = nullptr;
 }
 
-void EntityManager::AddEntity(Entity *entity)
+Entity &EntityManager::GetEntity(std::string name)
 {
-	m_Entities.emplace_back(entity);
+	if (m_Entities.find(name) != m_Entities.end())
+		return *m_Entities[name];
+	else
+		throw std::runtime_error("Error: could not find entity with name: \"" + name + "\"\n");
 }
 
-void EntityManager::Update(double delta)
+void EntityManager::RemoveEntity(std::string name)
 {
-	for (size_t i = 0; i < m_Entities.size(); i++)
-		m_Entities[i]->Update();
-}
-
-void EntityManager::Draw(Renderer *renderer)
-{
-	for (size_t i = 0; i < m_Entities.size(); i++) {
-		std::vector<Renderable *> temp = m_Entities[i]->Draw();
-		if (temp.size() != 0) {
-			for (auto i: temp) {
-				i->Render();
-				renderer->Draw(i);
-			}
-		}
-	}
-}
-
-void EntityManager::SetCamera(Camera *camera)
-{
-	m_CurrentCamera = camera;
-
-	if (camera == nullptr)
-		return;
-
-	this->AddEntity(camera);
-}
-
-Camera *EntityManager::GetCamera()
-{
-	return m_CurrentCamera;
+	m_Entities.erase(name);
 }

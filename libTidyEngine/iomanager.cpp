@@ -21,8 +21,13 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include <fstream>
 #include <vorbis/vorbisfile.h>
 #include <vector>
+
+#ifndef STB_IMAGE_IMPLEMENTATION
+#define STB_IMAGE_IMPLEMENTATION
+#endif
+
+#include "stb_image.h"
 #include "cache.hpp"
-#include "error.hpp"
 
 IOManager IO;
 
@@ -36,18 +41,17 @@ IOManager::~IOManager()
 
 }
 
-FIBITMAP *IOManager::LoadImage(std::string filepath)
+Bitmap *IOManager::LoadImage(std::string filepath)
 {
-	if (filepath.find(".png") != std::string::npos)
-		return FreeImage_Load(FIF_PNG, filepath.c_str(), PNG_DEFAULT);
-	else if (filepath.find(".bmp") != std::string::npos)
-		return FreeImage_Load(FIF_BMP, filepath.c_str(), BMP_DEFAULT);
-	else if (filepath.find(".jpeg") != std::string::npos)
-		return FreeImage_Load(FIF_JPEG, filepath.c_str());
+	Bitmap *bitmap = new Bitmap;
+	bitmap->Data = stbi_load(filepath.c_str(), &bitmap->Width, &bitmap->Height, &bitmap->NrChannels, 0);
 
-	printf("Warning: image %s has an unsupported file format!\n",
-		       filepath.c_str());
-	return nullptr;
+	if (bitmap->Data == nullptr) {
+		printf("Warning: image %s has an unsupported file format!\n", filepath.c_str());
+		return nullptr;
+	}
+
+	return bitmap;
 }
 
 std::string IOManager::ReadFile(std::string filepath)
@@ -173,7 +177,7 @@ std::vector<Texture*> IOManager::LoadMatTextures(aiMaterial *mat, aiTextureType 
 	{
 		aiString str;
 		mat->GetTexture(type, i, &str);
-		Texture *temp = Resources.CreateTexture(dir + str.C_Str(), dir + str.C_Str());
+		Texture *temp = Res.LoadTex(dir + str.C_Str());
 		if (temp != nullptr)
 			textures.push_back(temp);
 	}

@@ -18,13 +18,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "game.hpp"
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
+#include "entity.hpp"
 #include "shader.hpp"
 #include "screen.hpp"
 #include "rect2d.hpp"
 #include "camera.hpp"
 #include "sprite.hpp"
 #include "cache.hpp"
-#include "rid.hpp"
 #include "luascript.hpp"
 #include "iomanager.hpp"
 
@@ -40,37 +40,36 @@ Game::~Game()
 
 bool Game::Init()
 {
-	if (Resources.CreateModel("nanosuit", "Model/nanosuit.obj") != nullptr)
-		m_Model = static_cast<Model*>(Resources.GetResource("nanosuit")->Data());
+	//if (Res.CreateModel("nanosuit", "Model/nanosuit.obj") != nullptr)
+	//	m_Model = static_cast<Model*>(Res.GetResource("nanosuit")->Data());
 
-	Camera *cam = new Camera("MainCamera");
-	cam->Initialise(1280, 720, &m_Screen, m_Pos, false);
-	m_EntityManager.SetCamera(cam);
-	cam = nullptr;
+
+	m_EM.AddEntity<Entity>(std::make_unique<Entity>("Camera"));
+	m_EM.GetEntity("Camera").AddComponent<Camera>(std::make_unique<Camera>(1280, 720, &m_Screen));	
+
 	m_Font.Initialize(&m_FontLib, "Acme-Regular.ttf", 128);
 
-	Resources.CreateTexture("sprite", "sprite.png");
-	Resources.CreateSample("sound", "sound.ogg");
-	Resources.GetSample("sound")->Play();
+	Res.LoadSample("sound.ogg")->Play();
 
-	Sprite *sprite_ref = static_cast<Sprite *>(Resources.CreateResource(
-	                     "sprite", new Sprite(Resources.GetTexture("sprite"),
-	                     110, 200, {25, 29, 135, 229, 150, 29, 260, 229, 287, 29, 397, 229, 438, 29, 548, 229}))->Data());
-	sprite_ref->SetImageSpeed(0.1f);
-	Entity *temp = new Entity("hello", "none",
-	                          {*Resources.GetResource("sprite")});
+	m_EM.AddEntity<Entity>(std::make_unique<Entity>("Player"));
+	auto &sprite = m_EM.GetEntity("Player").AddComponent<Sprite>(std::make_unique<Sprite>(Res.LoadTex("sprite.png"),
+	                                        110, 200,
+	                                        std::vector<uint32_t>({25, 29, 135, 229, 150, 29, 260, 229, 287, 29, 397, 229, 438, 29, 548, 229})));
+
 	LuaScript script("player.lua");
 	int posX = script.Get<int>("player.pos.X");
 	int posY = script.Get<int>("player.pos.Y");
 
-	temp->SetPos(glm::vec3((float)posX, (float)posY, 0.0f));
-	m_EntityManager.AddEntity(temp);	
+	sprite.SetImageSpeed(0.1f);
+	sprite.SetPos(glm::vec3((float)posX, (float)posY, 0.0f));
+	sprite.Render();
 
 	return true;
 }
 
 void Game::Update(double delta)
 {
+	/*
 	float speed = 3.0f * (float)delta;
 	float xoffset = m_Input.GetMousePos().x - m_LastX;
 	float yoffset = m_LastY - m_Input.GetMousePos().y;
@@ -93,13 +92,12 @@ void Game::Update(double delta)
 	front.y = sin(glm::radians(m_Pitch));
 	front.z = sin(glm::radians(m_Yaw)) * cos(glm::radians(m_Pitch));
 	m_Front = glm::normalize(front);
-
-	m_EntityManager.Update(delta);
+	*/
 	if (m_Input.GetKey(GLFW_KEY_ESCAPE))
 		m_Screen.CloseWindow();
 	else if (m_Input.GetKey(GLFW_KEY_SPACE))
-		Resources.GetSample("sound")->Play();
-	if (m_Input.GetKey(GLFW_KEY_W))
+		Res.LoadSample("sound.ogg")->Play();
+	/*if (m_Input.GetKey(GLFW_KEY_W))
 		m_Pos += speed * m_Front;
 	if (m_Input.GetKey(GLFW_KEY_S))
 		m_Pos -= speed * m_Front;
@@ -108,7 +106,7 @@ void Game::Update(double delta)
 	if (m_Input.GetKey(GLFW_KEY_D))
 		m_Pos += glm::normalize(glm::cross(m_Front, m_Up)) * speed;
 	m_EntityManager.GetCamera()->SetPos(m_Pos);
-	m_EntityManager.GetCamera()->SetDir(m_Front);
+	m_EntityManager.GetCamera()->SetDir(m_Front);*/
 }
 
 void Game::DrawGame()
@@ -116,18 +114,19 @@ void Game::DrawGame()
 	Rect2D rect;
 	rect.SetColor(glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
 	rect.SetRect(0.0f, 680.0f, 1280.0f, 720.0f);
+
 	m_Graphics.Clear();
 
 	m_SpriteRenderer.Begin();
-	m_EntityManager.Draw(&m_SpriteRenderer);
 	m_SpriteRenderer.Draw(&rect);
+	m_SpriteRenderer.Draw(&m_EM.GetEntity("Player").GetComponent<Sprite>());
 	m_SpriteRenderer.DrawText("TidyEngine V0.2", glm::vec2(0.0f, 0.0f), glm::vec4(1.0f, 0.0f, 0.0f, 1.0f), m_Font);
 	m_SpriteRenderer.End();
-	m_SpriteRenderer.Present(m_EntityManager.GetCamera());
-	m_ModelRenderer.Begin();
+	m_SpriteRenderer.Present(m_EM.GetEntity("Camera").GetComponent<Camera>());
+	/*m_ModelRenderer.Begin();
 	m_Model->Draw(m_Graphics.GetShader("model"));
 	m_ModelRenderer.End();
-	m_ModelRenderer.Present(m_EntityManager.GetCamera());
+	m_ModelRenderer.Present(m_EntityManager.GetCamera());*/
 
 	m_Graphics.Present(m_Screen.GetWindow());
 }

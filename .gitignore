@@ -6,10 +6,12 @@
 .vscode/
 
 #Ignore deps folder
-deps/include*/
-deps/lib*/
+deps/install/*
+
+#Ignore config file
+libTidyEngine/config.hpp
 
 #Ignore most of bin folder
 bin/*
-!bin/config.hpp
+!bin/config.hpp.in
 *.zip

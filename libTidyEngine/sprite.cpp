@@ -22,25 +22,12 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include <glm/vec2.hpp>
 #include "renderable.hpp"
 #include "vertex.hpp"
-#include "rid.hpp"
 #include "texture.hpp"
 
 Sprite::Sprite(const Texture *tex, uint32_t w, uint32_t h,
 		const std::vector<uint32_t> &frames)
 {
 	Initialise(tex, w, h, frames);
-}
-
-Sprite::Sprite(RID *res, uint32_t w, uint32_t h,
-               const std::vector<uint32_t> &frames)
-{
-	if (res->Data()->Type() == "Texture") {
-		Texture *temp = nullptr;
-		temp = static_cast<Texture *>(res->Data());
-		Initialise(temp, w, h, frames);
-	} else {
-		printf("Warning: a texture was not passed to a sprite!\n");
-	}
 }
 
 Sprite::~Sprite()

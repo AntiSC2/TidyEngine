@@ -21,21 +21,20 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 #include <glm/mat4x4.hpp>
 #include <cstdint>
-#include "entity.hpp"
+#include "component.hpp"
 
 class Screen;
 
-class Camera : public Entity {
+class Camera : public Component {
 public:
-	Camera(std::string name) : Entity(name) 
-	{
-		;
-	}
+	Camera();
+	Camera(uint16_t width, uint16_t height, Screen *s);
+	Camera(uint16_t width, uint16_t height, Screen *s, glm::vec3 pos, bool ortho);
 	virtual ~Camera();
 
 	void Initialise(uint16_t width = 0, uint16_t height = 0,
 	                Screen *s = nullptr, glm::vec3 pos = glm::vec3(0.0f, 0.0f, 0.0f), bool ortho = true);	
-	virtual void Update(double delta = 0.0f);
+	virtual void Update();
 	void SetScale(float scale = 1.0f);
 	void SetPos(glm::vec3 position);
 	void SetDir(glm::vec3 dir);
@@ -57,5 +56,6 @@ private:
 	glm::mat4 m_Model;
 	glm::mat4 m_View;
 	glm::mat4 m_Projection;
+	glm::vec3 m_Position = glm::vec3(0.0f, 0.0f, 0.0f);
 	glm::vec3 m_Dir = glm::vec3(0.0f, 0.0f, -1.0f);
 };
