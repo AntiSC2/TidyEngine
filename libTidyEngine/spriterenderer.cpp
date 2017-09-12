@@ -71,9 +71,7 @@ void SpriteRenderer::Initialise(Shader *shader)
 
 void SpriteRenderer::Present(const Camera &camera)
 {
-	m_Shader->SetUniformMat4("projection", camera.GetProj());
-	m_Shader->SetUniformMat4("view", camera.GetView());
-	m_Shader->SetUniformMat4("model", camera.GetModel());
+	m_Shader->SetUniformMat4("transform", camera.GetProj() * camera.GetView() * camera.GetModel());
 
 	glBindVertexArray(m_VAOID);
 	for (size_t i = 0; i < m_RenderBatches.size(); i++) {

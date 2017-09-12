@@ -74,20 +74,16 @@ void ModelRenderer::Initialise(Shader *shader)
 	glBindVertexArray(0);
 }
 
-void ModelRenderer::Present(const Camera *camera)
+void ModelRenderer::Present(const Camera &camera)
 {
-	if (camera != nullptr) {
-		m_Shader->SetUniformMat4("projection", camera->GetProj());
-		m_Shader->SetUniformMat4("view", camera->GetView());
-		m_Shader->SetUniformMat4("model", camera->GetModel());
-	}
+	m_Shader->SetUniformMat4("transform", camera.GetProj() * camera.GetView() * camera.GetModel());
 
-	m_Shader->SetUniform3f("viewPos", camera->GetPos());
+	m_Shader->SetUniform3f("viewPos", camera.GetPos());
 	m_Shader->SetUniform3f("light1.pos", m_Light.GetPos());
 	m_Shader->SetUniform3f("light1.ambient", m_Light.GetAmbi());
 	m_Shader->SetUniform3f("light1.diffuse", m_Light.GetDiff());
 	m_Shader->SetUniform3f("light1.specular", m_Light.GetSpec());
-	m_Shader->SetUniformMat3("inverseModel", glm::mat3(glm::transpose(inverse(camera->GetModel()))));
+	m_Shader->SetUniformMat3("inverseModel", glm::mat3(glm::transpose(inverse(camera.GetModel()))));
 
 	glBindVertexArray(m_VAOID);
 	for (size_t i = 0; i < m_RenderBatches.size(); i++) {
