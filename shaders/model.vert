@@ -10,6 +10,7 @@ out vec3 Normal;
 out vec3 FragPos;
 
 uniform mat4 transform;
+uniform mat4 model;
 uniform mat3 inverseModel;
 
 void main() {

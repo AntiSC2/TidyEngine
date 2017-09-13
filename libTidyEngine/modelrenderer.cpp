@@ -72,7 +72,7 @@ void ModelRenderer::Initialise(Shader *shader)
 void ModelRenderer::Present(const Camera &camera)
 {
 	m_Shader->SetUniformMat4("transform", camera.GetProj() * camera.GetView() * camera.GetModel());
-
+	m_Shader->SetUniformMat4("model", camera.GetModel());
 	m_Shader->SetUniform3f("viewPos", camera.GetPos());
 	m_Shader->SetUniform3f("light1.pos", m_Light.GetPos());
 	m_Shader->SetUniform3f("light1.ambient", m_Light.GetAmbi());
