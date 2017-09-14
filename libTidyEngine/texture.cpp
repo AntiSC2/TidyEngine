@@ -18,6 +18,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 */
 
 #include "texture.hpp"
+#include <glad/glad.h>
 #include <cstdio>
 
 Texture::Texture()

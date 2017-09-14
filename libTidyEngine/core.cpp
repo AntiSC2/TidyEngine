@@ -24,6 +24,8 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include "core.hpp"
 #include <GLFW/glfw3.h>
 #include <al.h>
+#include <ft2build.h>
+#include FT_FREETYPE_H
 #include "shader.hpp"
 #include "cache.hpp"
 #include "config.hpp"

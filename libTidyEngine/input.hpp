@@ -19,8 +19,9 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 #pragma once
 
-#include <GLFW/glfw3.h>
 #include <glm/vec2.hpp>
+
+typedef struct GLFWwindow GLFWwindow;
 
 class Input {
 public:

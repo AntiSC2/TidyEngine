@@ -19,12 +19,12 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 #pragma once
 
-struct FIBITMAP;
-
 #include <cstdint>
 #include <string>
-#include <glad/glad.h>
 #include "resource.hpp"
+
+typedef unsigned char GLubyte;
+typedef unsigned int GLuint;
 
 class Texture: public Resource {
 public:

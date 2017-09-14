@@ -18,6 +18,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 */
 
 #include "sample.hpp"
+#include <al.h>
 #include <stdio.h>
 
 Sample::Sample()

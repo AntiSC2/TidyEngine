@@ -19,6 +19,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 #include "iomanager.hpp"
 #include <fstream>
+#include <al.h>
 #include <vorbis/vorbisfile.h>
 #include <vector>
 

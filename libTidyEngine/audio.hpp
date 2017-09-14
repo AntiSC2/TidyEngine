@@ -18,7 +18,10 @@ Contact the author at: jakob.sinclair99@gmail.com
 */
 
 #pragma once
-#include <alc.h>
+struct ALCdevice_struct;
+struct ALCcontext_struct;
+typedef ALCdevice_struct ALCdevice;
+typedef ALCcontext_struct ALCcontext;
 
 class AudioSystem {
 public:

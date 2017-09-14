@@ -20,6 +20,12 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include "renderable.hpp"
 #include "material.hpp"
 
+#ifdef _WIN32
+#define APIENTRY __stdcall
+#endif
+
+#include <glad/glad.h>
+
 Renderable::Renderable()
 {
 	;

@@ -1,4 +1,4 @@
-﻿/*
+/*
 TidyEngine
 Copyright (C) 2016 Jakob Sinclair
 
@@ -18,26 +18,10 @@ Contact the author at: jakob.sinclair99@gmail.com
 */
 
 #pragma once
-#include <cstddef>
-#include "resource.hpp"
 
-typedef unsigned int ALuint;
-
-class Sample: public Resource {
-public:
-	Sample();
-	Sample(int format, const void *data, size_t size, size_t freq);
-	~Sample();
-
-	virtual std::string Type();
-
-	bool CreateBuffer(int format, const void *data, size_t size,
-	                  size_t freq);
-	void DestroyBuffer();
-	void Play() const;
-	unsigned int GetBuffer() const;
-	unsigned int GetSource() const;
-private:
-	ALuint m_Source = 0;
-	ALuint m_Buffer = 0;
+namespace TE {
+struct Bitmap {
+	unsigned char *Data = nullptr;
+	int32_t Width = 0, Height = 0, NrChannels = 0;
 };
+}

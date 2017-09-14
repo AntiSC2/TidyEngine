@@ -20,6 +20,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include "input.hpp"
 #include <cstdint>
 #include <cstdio>
+#include <GLFW/glfw3.h>
 
 GLFWwindow *Input::m_Window = nullptr;
 bool Input::m_Buttons[8];

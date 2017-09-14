@@ -24,7 +24,6 @@ Contact the author at: jakob.sinclair99@gmail.com
 #endif
 
 #include <vector>
-#include <glad/glad.h>
 #include <glm/vec3.hpp>
 #include <glm/vec4.hpp>
 #include <glm/vec2.hpp>
@@ -40,13 +39,13 @@ public:
 
 class RenderBatch {
 public:
-	RenderBatch(GLuint tex, uint64_t vertices, uint64_t offset) : Tex(tex),
+	RenderBatch(unsigned int tex, uint64_t vertices, uint64_t offset) : Tex(tex),
 			Vertices(vertices), Offset(offset)
 	{
 		;
 	}
 
-	GLuint Tex = 0;
+	unsigned int Tex = 0;
 	uint64_t Vertices = 0;
 	uint64_t Offset = 0;
 };

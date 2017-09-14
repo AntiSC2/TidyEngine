@@ -24,9 +24,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "input.hpp"
 #include "entitymanager.hpp"
 #include "audio.hpp"
-#include <ft2build.h>
-#include FT_FREETYPE_H
 #include "font.hpp"
+
+typedef struct FT_LibraryRec_ * FT_Library;
 
 class Core {
 public:

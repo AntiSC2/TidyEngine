@@ -19,6 +19,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 #include "audio.hpp"
 #include <cstdio>
+#include <alc.h>
 #include <al.h>
 
 AudioSystem::AudioSystem(bool create)
