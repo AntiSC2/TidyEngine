@@ -24,22 +24,18 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
+#include "bitmap.hpp"
 #include "model.hpp"
 #include "sample.hpp"
 
 class Texture;
-
-struct Bitmap {
-	unsigned char *Data = nullptr;
-	int32_t Width = 0, Height = 0, NrChannels = 0;
-};
 
 class IOManager {
 public:
 	IOManager();
 	~IOManager();
 
-	Bitmap *LoadImage(std::string filepath);
+	TE::Bitmap *LoadImage(std::string filepath);
 	std::string ReadFile(std::string filepath);
 	Model LoadModel(std::string filepath);
 	bool LoadVorbis(std::string filepath, Sample *out);

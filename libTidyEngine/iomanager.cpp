@@ -42,9 +42,9 @@ IOManager::~IOManager()
 
 }
 
-Bitmap *IOManager::LoadImage(std::string filepath)
+TE::Bitmap *IOManager::LoadImage(std::string filepath)
 {
-	Bitmap *bitmap = new Bitmap;
+	TE::Bitmap *bitmap = new TE::Bitmap;
 	bitmap->Data = stbi_load(filepath.c_str(), &bitmap->Width, &bitmap->Height, &bitmap->NrChannels, 0);
 
 	if (bitmap->Data == nullptr) {

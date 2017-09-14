@@ -65,7 +65,7 @@ Texture *Cache::LoadTex(std::string filepath)
 	if (m_Textures.find(filepath) != m_Textures.end())
 		return &m_Textures[filepath];
 	
-	Bitmap *bitmap = IO.LoadImage(filepath);
+	TE::Bitmap *bitmap = IO.LoadImage(filepath);
 	bool success = m_Textures[filepath].CreateTex(bitmap->Data, (uint32_t)bitmap->Width, (uint32_t)bitmap->Height, false, true, true);
 
 	if (bitmap->Data != nullptr)
