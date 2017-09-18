@@ -19,17 +19,14 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 #pragma once
 
-#ifdef _WIN32
-#define APIENTRY __stdcall
-#endif
-
-#include <glad/glad.h>
 #include <glm/vec2.hpp>
 #include <glm/vec3.hpp>
 #include <glm/vec4.hpp>
 #include <glm/mat4x4.hpp>
 #include <string>
 #include "resource.hpp"
+
+typedef unsigned int GLuint;
 
 class Shader: public Resource {
 public:

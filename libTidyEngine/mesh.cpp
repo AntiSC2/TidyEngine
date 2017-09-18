@@ -18,6 +18,10 @@ Contact the author at: jakob.sinclair99@gmail.com
 */
 
 #include "mesh.hpp"
+#ifdef _WIN32
+#define APIENTRY __stdcall
+#endif
+#include <glad/glad.h>
 #include "shader.hpp"
 
 Mesh::Mesh()

@@ -18,9 +18,13 @@ Contact the author at: jakob.sinclair99@gmail.com
 */
 
 #include "shader.hpp"
-#include "iomanager.hpp"
+#ifdef _WIN32
+#define APIENTRY __stdcall
+#endif
+#include <glad/glad.h>
 #include <cstdio>
 #include <glm/gtc/type_ptr.hpp>
+#include "iomanager.hpp"
 
 Shader::Shader()
 {
