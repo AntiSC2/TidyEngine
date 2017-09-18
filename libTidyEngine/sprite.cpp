@@ -125,9 +125,9 @@ bool Sprite::Initialise(const Texture *tex, uint32_t w, uint32_t h,
 	for (size_t i = 0; i < frames.size(); i += 4) {
 		glm::vec4 temp;
 		temp.x = (float)frames[i] / (float)m_Texture->GetWidth();
-		temp.y = 1.0f - ((float)frames[i + 1] / (float)m_Texture->GetHeight());
+		temp.y = ((float)frames[i + 1] / (float)m_Texture->GetHeight());
 		temp.z = (float)frames[i + 2] / (float)m_Texture->GetWidth();
-		temp.w = 1.0f - ((float)frames[i + 3] / (float)m_Texture->GetHeight());
+		temp.w = ((float)frames[i + 3] / (float)m_Texture->GetHeight());
 		m_Frames.push_back(temp);
 	}
 
