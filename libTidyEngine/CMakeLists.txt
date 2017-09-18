@@ -14,6 +14,10 @@ file(GLOB TIDYENGINE_SOURCE
 	"*.cpp"
 )
 
+set(TIDYENGINE_SOURCE ${TIDYENGINE_SOURCE}
+	${CMAKE_SOURCE_DIR}/deps/install/include/stb_image.h
+)
+
 add_library(TidyEngine STATIC ${TIDYENGINE_SOURCE})
 target_link_libraries(TidyEngine
 	${GLAD_LIBRARIES}

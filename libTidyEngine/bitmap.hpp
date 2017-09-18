@@ -19,8 +19,11 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 #pragma once
 
+#include <cstdint>
+
 namespace TE {
 struct Bitmap {
+	virtual ~Bitmap();
 	unsigned char *Data = nullptr;
 	int32_t Width = 0, Height = 0, NrChannels = 0;
 };

@@ -22,11 +22,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include <al.h>
 #include <vorbis/vorbisfile.h>
 #include <vector>
-
-#ifndef STB_IMAGE_IMPLEMENTATION
 #define STB_IMAGE_IMPLEMENTATION
-#endif
-
 #include "stb_image.h"
 #include "cache.hpp"
 
