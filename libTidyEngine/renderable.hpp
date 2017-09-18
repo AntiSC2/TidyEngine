@@ -21,7 +21,6 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 #include <vector>
 #include "vertex.hpp"
-#include "resource.hpp"
 
 class Material;
 typedef unsigned int GLuint;
@@ -30,8 +29,6 @@ class Renderable {
 public:
 	Renderable();
 	virtual ~Renderable();
-	
-	virtual std::string Type();
 	
 	virtual void Render();
 	virtual void AddVertex(const Vertex &vertex);
