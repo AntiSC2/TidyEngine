@@ -20,7 +20,6 @@ Contact the author at: jakob.sinclair99@gmail.com
 #pragma once
 
 #include "renderable.hpp"
-#include "texture.hpp"
 
 class Rect2D : public Renderable {
 public:
