@@ -32,10 +32,10 @@ System::~System()
 
 void System::SetEntityManager(EntityManager *manager)
 {
-	Entities = manager;
+	m_Entities = manager;
 }
 
 EntityManager *System::GetEntityManager()
 {
-	return Entities;
+	return m_Entities;
 }

@@ -24,11 +24,12 @@ class EntityManager;
 class System {
 public:
 	System();
+	System(EntityManager *manager)
 	virtual ~System();
 
 	virtual void Update(double delta) = 0;
 	void SetEntityManager(EntityManager *manager);
 	EntityManager *GetEntityManager();
 protected:
-	EntityManager *Entities = nullptr;
+	EntityManager *m_Entities = nullptr;
 };
