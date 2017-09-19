@@ -28,7 +28,7 @@ class Shader;
 #include <string>
 #include "system.hpp"
 
-class Graphics: public System {
+class Graphics: public ISystem {
 public:
 	Graphics();
 	~Graphics();

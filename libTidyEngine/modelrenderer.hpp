@@ -24,7 +24,7 @@ class Camera;
 #include "renderer.hpp"
 #include "pointlight.hpp"
 
-class ModelRenderer : public Renderer {
+class ModelRenderer : public IRenderer {
 public:
 	ModelRenderer();
 	virtual ~ModelRenderer();

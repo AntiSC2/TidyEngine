@@ -23,7 +23,7 @@ class Camera;
 
 #include "renderer.hpp"
 
-class SpriteRenderer : public Renderer {
+class SpriteRenderer : public IRenderer {
 public:
 	SpriteRenderer();
 	virtual ~SpriteRenderer();

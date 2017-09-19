@@ -24,12 +24,12 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include "font.hpp"
 #include "fontglyph.hpp"
 
-Renderer::Renderer()
+IRenderer::IRenderer()
 {
 	;
 }
 
-Renderer::~Renderer()
+IRenderer::~IRenderer()
 {
 	if (m_VAOID != 0)
 		glDeleteVertexArrays(1, &m_VAOID);
@@ -37,7 +37,7 @@ Renderer::~Renderer()
 		glDeleteBuffers(1, &m_VBOID);
 }
 
-void Renderer::Begin()
+void IRenderer::Begin()
 {
 	m_Shader->Bind();
 	m_Glyphs.clear();
@@ -45,12 +45,12 @@ void Renderer::Begin()
 	m_RenderBatches.clear();
 }
 
-void Renderer::Draw(const Renderable *object)
+void IRenderer::Draw(const Renderable *object)
 {
 	m_Glyphs.emplace_back(*object);
 }
 
-void Renderer::DrawText(std::string text, glm::vec2 pos, glm::vec4 color,
+void IRenderer::DrawText(std::string text, glm::vec2 pos, glm::vec4 color,
                         Font &font)
 {
 	float pen_x = 0.0f;
@@ -67,7 +67,7 @@ void Renderer::DrawText(std::string text, glm::vec2 pos, glm::vec4 color,
 	}
 }
 
-void Renderer::End()
+void IRenderer::End()
 {
 	if (m_Glyphs.empty())
 		return;
@@ -81,7 +81,7 @@ void Renderer::End()
 	CreateBatches();
 }
 
-void Renderer::Present()
+void IRenderer::Present()
 {
 	glBindVertexArray(m_VAOID);
 	for (size_t i = 0; i < m_RenderBatches.size(); i++) {
@@ -91,12 +91,12 @@ void Renderer::Present()
 	}
 }
 
-void Renderer::SortGlyphs()
+void IRenderer::SortGlyphs()
 {
 	std::stable_sort(m_SortedGlyphs.begin(), m_SortedGlyphs.end(), Order);
 }
 
-void Renderer::CreateBatches()
+void IRenderer::CreateBatches()
 {
 	size_t num_vert_total = 0;
 	for (size_t i = 0; i < m_SortedGlyphs.size(); i++)

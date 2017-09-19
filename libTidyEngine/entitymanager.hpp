@@ -20,7 +20,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 #pragma once
 
 class Entity;
-class Renderer;
+class IRenderer;
 class Camera;
 
 #include <memory>

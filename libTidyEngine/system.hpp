@@ -21,11 +21,10 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 class EntityManager;
 
-class System {
+class ISystem {
 public:
-	System();
-	System(EntityManager *manager)
-	virtual ~System();
+	ISystem();
+	virtual ~ISystem();
 
 	virtual void Update(double delta) = 0;
 	void SetEntityManager(EntityManager *manager);

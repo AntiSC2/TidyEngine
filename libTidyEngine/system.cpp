@@ -20,22 +20,22 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include "system.hpp"
 #include "entitymanager.hpp"
 
-System::System()
+ISystem::ISystem()
 {
 	;
 }
 
-System::~System()
+ISystem::~ISystem()
 {
 	;
 }
 
-void System::SetEntityManager(EntityManager *manager)
+void ISystem::SetEntityManager(EntityManager *manager)
 {
 	m_Entities = manager;
 }
 
-EntityManager *System::GetEntityManager()
+EntityManager *ISystem::GetEntityManager()
 {
 	return m_Entities;
 }
