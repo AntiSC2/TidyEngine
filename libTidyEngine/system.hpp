@@ -19,16 +19,19 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 #pragma once
 
-class EntityManager;
+#include <string>
+
+class Entity;
 
 class ISystem {
 public:
-	ISystem();
-	virtual ~ISystem();
+	ISystem() = default;
+	virtual ~ISystem() = default;
 
-	virtual void Update(double delta) = 0;
-	void SetEntityManager(EntityManager *manager);
-	EntityManager *GetEntityManager();
+	virtual void Execute();
+	virtual void RegisterEntity(Entity &e);
+	virtual void RemoveEntity(Entity &e);
+	virtual size_t GetFrameRate();
+	virtual std::string GetType() = 0;
 protected:
-	EntityManager *m_Entities = nullptr;
 };

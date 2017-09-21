@@ -25,7 +25,6 @@ class Shader;
 #include <vector>
 #include <map>
 #include <memory>
-#include <string>
 #include "system.hpp"
 
 class Graphics: public ISystem {
@@ -33,10 +32,11 @@ public:
 	Graphics();
 	~Graphics();
 
+	virtual std::string GetType();
+	virtual void Execute();
 	bool LoadShaders(std::string name, std::string v, std::string f,
 			std::vector<std::string> attributes = {});
-	Shader *GetShader(std::string name);
-	virtual void Update(double delta = 0.0f);
+	Shader *GetShader(std::string name);	
 	void Clear();
 	void Present(GLFWwindow *window);
 private:

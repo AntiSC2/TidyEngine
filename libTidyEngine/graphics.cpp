@@ -37,6 +37,11 @@ Graphics::~Graphics()
 	m_Shaders.clear();
 }
 
+std::string Graphics::GetType()
+{
+	return "Graphics System";
+}
+
 bool Graphics::LoadShaders(std::string name, std::string v, std::string f,
 		std::vector<std::string> attributes)
 {
@@ -67,7 +72,7 @@ Shader *Graphics::GetShader(std::string name)
 	return nullptr;
 }
 
-void Graphics::Update(double delta)
+void Graphics::Execute()
 {
 	;
 }

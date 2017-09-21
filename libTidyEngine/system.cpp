@@ -18,24 +18,23 @@ Contact the author at: jakob.sinclair99@gmail.com
 */
 
 #include "system.hpp"
-#include "entitymanager.hpp"
+#include "entity.hpp"
 
-ISystem::ISystem()
+void ISystem::Execute()
+{
+	;
+}
+void ISystem::RegisterEntity(Entity &e)
+{
+
+}
+
+void ISystem::RemoveEntity(Entity &e)
 {
 	;
 }
 
-ISystem::~ISystem()
+size_t ISystem::GetFrameRate()
 {
-	;
-}
-
-void ISystem::SetEntityManager(EntityManager *manager)
-{
-	m_Entities = manager;
-}
-
-EntityManager *ISystem::GetEntityManager()
-{
-	return m_Entities;
+	return 60;
 }
