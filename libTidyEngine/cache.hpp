@@ -50,17 +50,12 @@ public:
 	template<typename R>
 	R &CreateRes(std::string name, std::unique_ptr<R> &&res);
 	void DestroyRes(std::string name);
-	Resource *GetRes(std::string name);
-
-	void RegisterType(std::type_index, std::string name);
-	const std::string &GetType(std::type_index);
-	void RemoveType(std::type_index);
+	Resource *GetRes(std::string name);	
 private:
 	std::unordered_map<std::string, Texture> m_Textures;
 	std::unordered_map<std::string, Sample> m_Samples;
 	std::unordered_map<std::string, Model> m_Models;
-	std::unordered_map<std::string, std::shared_ptr<Resource>> m_Resources;
-	std::unordered_map<std::type_index, std::string> m_Types;
+	std::unordered_map<std::string, std::shared_ptr<Resource>> m_Resources;	
 } extern Res;
 
 template<typename R>

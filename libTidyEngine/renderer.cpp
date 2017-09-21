@@ -45,8 +45,9 @@ void IRenderer::Begin()
 	m_RenderBatches.clear();
 }
 
-void IRenderer::Draw(const Renderable *object)
+void IRenderer::Draw(Renderable *object)
 {
+	object->Render();
 	m_Glyphs.emplace_back(*object);
 }
 

@@ -42,7 +42,7 @@ public:
 
 	virtual void Initialise(Shader *shader) = 0;
 	virtual void Begin();
-	virtual void Draw(const Renderable *object);
+	virtual void Draw(Renderable *object);
 	virtual void DrawText(std::string text, glm::vec2 pos,
 	                      glm::vec4 color, Font &font);
 	virtual void End();

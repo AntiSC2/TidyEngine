@@ -25,6 +25,7 @@ class Camera;
 
 #include <memory>
 #include <unordered_map>
+#include <typeindex>
 
 class ISystem;
 
@@ -38,10 +39,16 @@ public:
 	Entity &GetEntity(std::string name);
 	void RemoveEntity(std::string name);
 
+	template<typename S, typename ...Args>
+	S &CreateSystem(Args &&...args);
 	void AddSystem(std::unique_ptr<ISystem> &&system);
-	void RemoveSystem(std::string type);
+	template<typename S>
+	S &GetSystem();
+	template<typename S>
+	void RemoveSystem();
 protected:
-	std::unordered_map<std::string, std::unique_ptr<ISystem>> m_Systems;
+
+	std::unordered_map<std::type_index, std::unique_ptr<ISystem>> m_Systems;
 	std::unordered_map<std::string, std::unique_ptr<Entity>> m_Entities;
 	Camera *m_CurrentCamera = nullptr;
 };
@@ -60,4 +67,29 @@ E &EntityManager::AddEntity(std::unique_ptr<E> &&e)
 
 	m_Entities[name] = std::move(e);
 	return ent;
+}
+
+template<typename S, typename ...Args>
+S &CreateSystem(Args &&...args)
+{
+	static_assert(std::is_base_of<ISystem, S>::value, "Error: tried to create a non-system object with manager!\n");
+	auto sys_p = std::make_unique<S>(&args...);
+	auto &sys = *sys_p.get();
+	AddSystem(sys_p);
+	return sys;
+}
+
+template<typename S>
+S &EntityManager::GetSystem()
+{
+	static_assert(std::is_base_of<ISystem, S>::value, "Error: tried to retrieve non-system object from manager!\n");
+	auto &sys = static_cast<S>(m_Systems[std::type_index(typeid(S))]);
+	return sys;
+}
+
+template<typename S>
+void EntityManager::RemoveSystem()
+{
+	static_assert(std::is_base_of<ISystem, S>::value, "Error: tried to remove non-system object from manager!\n");
+	m_Systems.erase(std::type_index(typeid(S)));
 }

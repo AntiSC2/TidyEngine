@@ -45,3 +45,8 @@ void EntityManager::RemoveEntity(std::string name)
 {
 	m_Entities.erase(name);
 }
+
+void EntityManager::AddSystem(std::unique_ptr<ISystem> &&system)
+{
+	m_Systems[std::type_index(typeid(system.get()))] = std::move(system);
+}

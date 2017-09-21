@@ -62,7 +62,6 @@ bool Game::Init()
 
 	sprite.SetImageSpeed(0.1f);
 	sprite.SetPos(glm::vec3((float)posX, (float)posY, 0.0f));
-	sprite.Render();
 
 	return true;
 }
