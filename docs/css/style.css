@@ -1,0 +1,25 @@
+body {
+    height: 100%;
+}
+
+#wrap {
+    min-height: 100%;
+}
+
+#main {
+    overflow: auto;
+    padding-bottom: 110px;
+}
+
+#top-header {
+    background: #3399ff;
+}
+
+footer {
+    position: relative;
+    margin-top: -100px;
+    min-height: 100px;
+    padding-top: 24px;
+    color: rgb(157, 157, 157);;
+    background-color: rgb(34, 34, 34);
+}

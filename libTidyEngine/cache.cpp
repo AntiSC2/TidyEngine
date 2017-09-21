@@ -133,3 +133,18 @@ Resource *Cache::GetRes(std::string name)
 		return nullptr;
 	return m_Resources[name].get();
 }
+
+void Cache::RegisterType(std::type_index i, std::string name)
+{
+	m_Types[i] = name;
+}
+
+const std::string &Cache::GetType(std::type_index i)
+{
+	return m_Types[i];
+}
+
+void Cache::RemoveType(std::type_index i)
+{
+	m_Types.erase(i);
+}

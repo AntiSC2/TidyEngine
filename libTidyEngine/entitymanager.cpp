@@ -18,6 +18,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 */
 
 #include "entitymanager.hpp"
+#include "system.hpp"
 #include "entity.hpp"
 #include "renderer.hpp"
 #include "camera.hpp"
