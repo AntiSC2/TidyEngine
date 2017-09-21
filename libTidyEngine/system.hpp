@@ -33,5 +33,4 @@ public:
 	virtual void RemoveEntity(Entity &e);
 	virtual size_t GetFrameRate();
 	virtual std::string GetType() = 0;
-protected:
 };
