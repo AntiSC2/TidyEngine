@@ -23,17 +23,15 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include <cstdint>
 #include "component.hpp"
 
-class Screen;
-
 class Camera : public Component {
 public:
 	Camera();
-	Camera(uint16_t width, uint16_t height, Screen *s);
-	Camera(uint16_t width, uint16_t height, Screen *s, glm::vec3 pos, bool ortho);
+	Camera(uint16_t width, uint16_t height);
+	Camera(uint16_t width, uint16_t height, glm::vec3 pos, bool ortho);
 	virtual ~Camera();
 
 	void Initialise(uint16_t width = 0, uint16_t height = 0,
-	                Screen *s = nullptr, glm::vec3 pos = glm::vec3(0.0f, 0.0f, 0.0f), bool ortho = true);	
+	                glm::vec3 pos = glm::vec3(0.0f, 0.0f, 0.0f), bool ortho = true);	
 	virtual void Update();
 	void SetScale(float scale = 1.0f);
 	void SetPos(glm::vec3 position);
@@ -47,7 +45,6 @@ private:
 	void InitOrtho();
 	void InitProj();
 
-	Screen *m_CurrentScreen = nullptr;
 	float m_Scale = 1.0f;
 	bool m_Ortho = true;
 	bool m_Update = false;

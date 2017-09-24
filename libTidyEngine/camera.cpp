@@ -24,30 +24,28 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include "camera.hpp"
 #include <glm/gtc/matrix_transform.hpp>
 #include <glad/glad.h>
-#include "screen.hpp"
 
 Camera::Camera()
 {
 	;
 }
 
-Camera::Camera(uint16_t width, uint16_t height, Screen *s)
+Camera::Camera(uint16_t width, uint16_t height)
 {
-	Initialise(width, height, s);
+	Initialise(width, height);
 }
 
-Camera::Camera(uint16_t width, uint16_t height, Screen *s, glm::vec3 pos, bool ortho)
+Camera::Camera(uint16_t width, uint16_t height, glm::vec3 pos, bool ortho)
 {
-	Initialise(width, height, s, pos, ortho);
+	Initialise(width, height, pos, ortho);
 }
 Camera::~Camera()
 {
 	;
 }
 
-void Camera::Initialise(uint16_t width, uint16_t height, Screen *s, glm::vec3 pos, bool ortho)
+void Camera::Initialise(uint16_t width, uint16_t height, glm::vec3 pos, bool ortho)
 {
-	m_CurrentScreen = s;
 	m_Width = width;
 	m_Height = height;
 	m_Ortho = ortho;
@@ -61,9 +59,6 @@ void Camera::Initialise(uint16_t width, uint16_t height, Screen *s, glm::vec3 po
 		m_Position = pos;
 		InitProj();
 	}	
-	
-	if (s != nullptr)
-		glViewport(0, 0, s->GetWidth(), s->GetHeight());
 	
 	m_Update = false;
 }
@@ -90,13 +85,6 @@ void Camera::Update()
 		glm::vec3 scale = glm::vec3(m_Scale, m_Scale, m_Scale);
 		m_Model = glm::scale(glm::mat4(1.0f), scale);
 		m_Update = false;
-	}
-
-	if (m_CurrentScreen != nullptr) {
-		if (m_CurrentScreen->NeedUpdate() == true) { 
-			glViewport(0, 0, m_CurrentScreen->GetWidth(),
-			           m_CurrentScreen->GetHeight());
-		}
 	}
 }
 
