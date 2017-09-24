@@ -18,7 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 #include "screen.hpp"
-#include "graphics.hpp"
 #include "spriterenderer.hpp"
 #include "modelrenderer.hpp"
 #include "input.hpp"
@@ -34,6 +33,7 @@ public:
 	virtual ~Core();
 
 	virtual void Run();
+	bool m_Quit = false;
 protected:
 	virtual bool InitSubSystems();
 	virtual bool Init() = 0;
@@ -42,10 +42,8 @@ protected:
 	virtual void DrawGame() = 0;
 	virtual void Quit();
 
-	bool m_Initialized = false;
+	bool m_Initialized = false;	
 	AudioSystem m_Audio;
-	Screen m_Screen;
-	Graphics m_Graphics;
 	FT_Library m_FontLib;
 	SpriteRenderer m_SpriteRenderer;
 	ModelRenderer m_ModelRenderer;

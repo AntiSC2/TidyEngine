@@ -23,12 +23,12 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 #include "core.hpp"
 #include <GLFW/glfw3.h>
-#include <al.h>
 #include <ft2build.h>
 #include FT_FREETYPE_H
-#include "shader.hpp"
 #include "cache.hpp"
 #include "config.hpp"
+#include "graphics.hpp"
+#include "shader.hpp"
 
 Core::Core() : m_Audio(true)
 {
@@ -58,35 +58,33 @@ bool Core::InitSubSystems()
 		printf("Error: Could not initialize Freetype2!\n");
 		return false;
 	}
-
-	if (m_Screen.CreateWindow(1280, 720, "TidyEngine", 4, 3) != true) {
-		printf("Error: glfw could not create window!\n");
+	Graphics *graphics;
+	try {
+		graphics = &m_EM.CreateSystem<Graphics>((uint16_t)1280, (uint16_t)720, (const char *)"TidyEngine", 4, 3);
+	}
+	catch(std::exception &e) {
+		printf("%s\n", e.what());
 		return false;
-	} else {
-		if (m_Screen.InitGL() == false) {
-			printf("Error: could not initialize OpenGL!\n");
-			return false;
-		}
 	}
 
-	if (m_Graphics.LoadShaders("sprite", "sprite.vert", "sprite.frag",
+	if (graphics->LoadShaders("sprite", "sprite.vert", "sprite.frag",
 	   {"position", "color", "uv"}) == false) {
 		printf("Error: Failed to load sprite shaders!\n");
 		return false;
 	}
 
-	if (m_Graphics.LoadShaders("model", "model.vert", "model.frag",
+	if (graphics->LoadShaders("model", "model.vert", "model.frag",
 	   {"position", "color", "uv", "normal"}) == false) {
 		printf("Error: Failed to load model shaders!\n");
 		return false;
 	}
 
-	m_SpriteRenderer.Initialise(m_Graphics.GetShader("sprite"));
-	m_ModelRenderer.Initialise(m_Graphics.GetShader("model"));
+	m_SpriteRenderer.Initialise(graphics->GetShader("sprite"));
+	m_ModelRenderer.Initialise(graphics->GetShader("model"));
 
-	glfwSetWindowSizeCallback(m_Screen.GetWindow(),
+	glfwSetWindowSizeCallback(graphics->GetWindow(),
 	                          Screen::WindowSizeCallback);
-	m_Input.Initialise(m_Screen.GetWindow());
+	m_Input.Initialise(graphics->GetWindow());
 	m_Audio.CreateSystem();
 
 	if (Res.CreateDefaultResources() == false)
@@ -109,20 +107,20 @@ void Core::GameLoop()
 	size_t frames = 0;
 	size_t updates = 0;
 
-	while (!glfwWindowShouldClose(m_Screen.GetWindow())) {
+	while (!m_Quit) {
 		double new_time = glfwGetTime();
 		double frame_time = new_time - current_time;
 		current_time = new_time;
 		accumulator += frame_time;	
 
+		m_Input.Update();
 		while (accumulator > dt) {
 			Update(accumulator);
 			accumulator -= dt;
 			updates++;
 		}
 
-		DrawGame();
-		m_Input.Update();
+		DrawGame();	
 		frames++;
 
 		if (current_time - timer > 1.0) {
@@ -131,6 +129,9 @@ void Core::GameLoop()
 			updates = 0;
 			frames = 0;
 		}
+
+		if (glfwWindowShouldClose(m_EM.GetSystem<Graphics>().GetWindow()) == true)
+			m_Quit = true;
 	}
 	printf("Game loop was closed.\n");
 }

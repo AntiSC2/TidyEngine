@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <glm/glm.hpp>
 #include "entity.hpp"
 #include "shader.hpp"
-#include "screen.hpp"
+#include "graphics.hpp"
 #include "rect2d.hpp"
 #include "camera.hpp"
 #include "sprite.hpp"
@@ -45,7 +45,7 @@ bool Game::Init()
 
 
 	m_EM.AddEntity<Entity>(std::make_unique<Entity>("Camera"));
-	m_EM.GetEntity("Camera").AddComponent<Camera>(std::make_unique<Camera>(1280, 720, &m_Screen));	
+	m_EM.GetEntity("Camera").AddComponent<Camera>(std::make_unique<Camera>(1280, 720));	
 
 	m_Font.Initialize(&m_FontLib, "Acme-Regular.ttf", 128);
 
@@ -93,7 +93,7 @@ void Game::Update(double delta)
 	m_Front = glm::normalize(front);
 	*/
 	if (m_Input.GetKey(GLFW_KEY_ESCAPE))
-		m_Screen.CloseWindow();
+		m_Quit = true;
 	else if (m_Input.GetKey(GLFW_KEY_SPACE))
 		Res.LoadSample("sound.ogg")->Play();
 	/*if (m_Input.GetKey(GLFW_KEY_W))
@@ -114,7 +114,7 @@ void Game::DrawGame()
 	rect.SetColor(glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
 	rect.SetRect(0.0f, 680.0f, 1280.0f, 720.0f);
 
-	m_Graphics.Clear();
+	m_EM.GetSystem<Graphics>().Clear();
 
 	m_SpriteRenderer.Begin();
 	m_SpriteRenderer.Draw(&rect);
@@ -127,5 +127,5 @@ void Game::DrawGame()
 	m_ModelRenderer.End();
 	m_ModelRenderer.Present(m_EntityManager.GetCamera());*/
 
-	m_Graphics.Present(m_Screen.GetWindow());
+	m_EM.GetSystem<Graphics>().Present();
 }
