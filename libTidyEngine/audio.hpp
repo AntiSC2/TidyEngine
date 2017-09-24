@@ -23,10 +23,10 @@ struct ALCcontext_struct;
 typedef ALCdevice_struct ALCdevice;
 typedef ALCcontext_struct ALCcontext;
 
-class AudioSystem {
+class Audio {
 public:
-	AudioSystem(bool create);
-	~AudioSystem();
+	Audio(bool create);
+	~Audio();
 
 	void CreateSystem();
 	void DestroySystem();

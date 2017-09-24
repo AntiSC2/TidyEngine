@@ -43,7 +43,7 @@ protected:
 	virtual void Quit();
 
 	bool m_Initialized = false;	
-	AudioSystem m_Audio;
+	Audio m_Audio;
 	FT_Library m_FontLib;
 	SpriteRenderer m_SpriteRenderer;
 	ModelRenderer m_ModelRenderer;
