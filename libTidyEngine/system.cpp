@@ -24,6 +24,7 @@ void ISystem::Execute()
 {
 	;
 }
+
 void ISystem::RegisterEntity(Entity &e)
 {
 
