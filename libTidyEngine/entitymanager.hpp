@@ -21,13 +21,12 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 class Entity;
 class IRenderer;
+class ISystem;
 class Camera;
 
 #include <memory>
 #include <unordered_map>
 #include <typeindex>
-
-class ISystem;
 
 class EntityManager {
 public:
@@ -41,7 +40,7 @@ public:
 
 	template<typename S, typename ...Args>
 	S &CreateSystem(Args &&...args);
-	void AddSystem(std::unique_ptr<ISystem> &&system);
+	void AddSystem(std::unique_ptr<ISystem> &&system, std::type_index i);
 	template<typename S>
 	S &GetSystem();
 	template<typename S>
@@ -70,12 +69,12 @@ E &EntityManager::AddEntity(std::unique_ptr<E> &&e)
 }
 
 template<typename S, typename ...Args>
-S &CreateSystem(Args &&...args)
+S &EntityManager::CreateSystem(Args &&...args)
 {
-	static_assert(std::is_base_of<ISystem, S>::value, "Error: tried to create a non-system object with manager!\n");
-	auto sys_p = std::make_unique<S>(&args...);
+	static_assert(std::is_base_of<ISystem, S>::value, "Error: tried to create a non-system object with manager!\n");	
+	auto sys_p = std::make_unique<S>(std::forward<Args>(args)...);	
 	auto &sys = *sys_p.get();
-	AddSystem(sys_p);
+	AddSystem(std::unique_ptr<ISystem>(static_cast<ISystem*>(sys_p.release())), std::type_index(typeid(S)));
 	return sys;
 }
 
@@ -83,7 +82,9 @@ template<typename S>
 S &EntityManager::GetSystem()
 {
 	static_assert(std::is_base_of<ISystem, S>::value, "Error: tried to retrieve non-system object from manager!\n");
-	auto &sys = static_cast<S>(m_Systems[std::type_index(typeid(S))]);
+	if (m_Systems.find(std::type_index(typeid(S))) == m_Systems.end())
+		throw std::runtime_error("Error: could not find system of that type in manager!\n");
+	auto &sys = static_cast<S&>(*m_Systems[std::type_index(typeid(S))].get());
 	return sys;
 }
 
