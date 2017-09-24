@@ -20,6 +20,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 #pragma once
 
 struct GLFWwindow;
+class Screen;
 class Shader;
 
 #include <vector>
@@ -29,16 +30,20 @@ class Shader;
 
 class Graphics: public ISystem {
 public:
-	Graphics();
-	~Graphics();
+	Graphics() = default;
+	Graphics(uint16_t width, uint16_t height, const char *title, int gl_major, int gl_minor);
+	virtual ~Graphics();
 
+	void Initialize(uint16_t width, uint16_t height, const char *title, int gl_major, int gl_minor);
 	virtual std::string GetType();
 	virtual void Execute();
 	bool LoadShaders(std::string name, std::string v, std::string f,
 			std::vector<std::string> attributes = {});
-	Shader *GetShader(std::string name);	
+	Shader *GetShader(std::string name);
+	GLFWwindow *GetWindow();
 	void Clear();
-	void Present(GLFWwindow *window);
+	void Present();	
 private:
+	std::unique_ptr<Screen> m_Screen;
 	std::map<std::string, std::unique_ptr<Shader>> m_Shaders;
 };

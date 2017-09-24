@@ -17,24 +17,35 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 Contact the author at: jakob.sinclair99@gmail.com
 */
 
+
+
+#include "graphics.hpp"
 #ifdef _WIN32
 #define APIENTRY __stdcall
 #endif
-
-#include "graphics.hpp"
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <cstdio>
+#include "screen.hpp"
 #include "shader.hpp"
 
-Graphics::Graphics()
+Graphics::Graphics(uint16_t width, uint16_t height, const char *title, int gl_major, int gl_minor)
 {
-	;
+	Initialize(width, height, title, gl_major, gl_minor);
 }
 
 Graphics::~Graphics()
 {
 	m_Shaders.clear();
+}
+
+void Graphics::Initialize(uint16_t width, uint16_t height, const char *title, int gl_major, int gl_minor)
+{
+	m_Screen = std::make_unique<Screen>();
+	if (!m_Screen->CreateWindow(width, height, title, gl_major, gl_minor))
+		throw std::runtime_error("Error: could not create GLFW window");
+	if (!m_Screen->InitGL())
+		throw std::runtime_error("Error: could not initalize OpenGL");
 }
 
 std::string Graphics::GetType()
@@ -72,6 +83,11 @@ Shader *Graphics::GetShader(std::string name)
 	return nullptr;
 }
 
+GLFWwindow *Graphics::GetWindow()
+{
+	return m_Screen->GetWindow();
+}
+
 void Graphics::Execute()
 {
 	;
@@ -82,7 +98,7 @@ void Graphics::Clear()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-void Graphics::Present(GLFWwindow *window)
+void Graphics::Present()
 {
-	glfwSwapBuffers(window);
+	glfwSwapBuffers(m_Screen->GetWindow());
 }
