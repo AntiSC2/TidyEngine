@@ -18,19 +18,23 @@ Contact the author at: jakob.sinclair99@gmail.com
 */
 
 #pragma once
+
+#include "system.hpp"
+
 struct ALCdevice_struct;
 struct ALCcontext_struct;
 typedef ALCdevice_struct ALCdevice;
 typedef ALCcontext_struct ALCcontext;
 
-class Audio {
+class Audio: public ISystem {
 public:
-	Audio(bool create);
+	Audio();
 	~Audio();
 
-	void CreateSystem();
-	void DestroySystem();
+	void Initialise();
+	void Clean();
 	const ALCdevice *GetDevice() const;
+	virtual std::string GetType();
 private:
 	ALCdevice *m_Device = nullptr;
 	ALCcontext *m_Context = nullptr;

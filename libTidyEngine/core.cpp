@@ -25,20 +25,12 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include <GLFW/glfw3.h>
 #include <ft2build.h>
 #include FT_FREETYPE_H
+#include "audio.hpp"
 #include "cache.hpp"
 #include "config.hpp"
 #include "graphics.hpp"
+#include "screen.hpp"
 #include "shader.hpp"
-
-Core::Core() : m_Audio(true)
-{
-	;
-}
-
-Core::~Core()
-{
-	;
-}
 
 void Core::Run() 
 {
@@ -61,6 +53,7 @@ bool Core::InitSubSystems()
 	Graphics *graphics;
 	try {
 		graphics = &m_EM.CreateSystem<Graphics>((uint16_t)1280, (uint16_t)720, (const char *)"TidyEngine", 4, 3);
+		m_EM.CreateSystem<Audio>();
 	}
 	catch(std::exception &e) {
 		printf("%s\n", e.what());
@@ -85,7 +78,6 @@ bool Core::InitSubSystems()
 	glfwSetWindowSizeCallback(graphics->GetWindow(),
 	                          Screen::WindowSizeCallback);
 	m_Input.Initialise(graphics->GetWindow());
-	m_Audio.CreateSystem();
 
 	if (Res.CreateDefaultResources() == false)
 		return false;
@@ -140,6 +132,5 @@ void Core::Quit()
 {
 	Res.Clean();
 	FT_Done_FreeType(m_FontLib);
-	m_Audio.DestroySystem();
 	glfwTerminate();
 }

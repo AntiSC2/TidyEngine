@@ -17,20 +17,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "screen.hpp"
 #include "spriterenderer.hpp"
 #include "modelrenderer.hpp"
 #include "input.hpp"
 #include "entitymanager.hpp"
-#include "audio.hpp"
 #include "font.hpp"
 
 typedef struct FT_LibraryRec_ * FT_Library;
 
 class Core {
 public:
-	Core();
-	virtual ~Core();
+	Core() = default;
+	virtual ~Core() = default;
 
 	virtual void Run();
 	bool m_Quit = false;
@@ -43,7 +41,6 @@ protected:
 	virtual void Quit();
 
 	bool m_Initialized = false;	
-	Audio m_Audio;
 	FT_Library m_FontLib;
 	SpriteRenderer m_SpriteRenderer;
 	ModelRenderer m_ModelRenderer;

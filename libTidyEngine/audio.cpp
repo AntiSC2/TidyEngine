@@ -22,18 +22,17 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include <alc.h>
 #include <al.h>
 
-Audio::Audio(bool create)
+Audio::Audio()
 {
-	if (create == true)
-		CreateSystem();
+	Initialise();
 }
 
 Audio::~Audio()
 {
-	DestroySystem();
+	Clean();
 }
 
-void Audio::CreateSystem()
+void Audio::Initialise()
 {
 	m_Device = alcOpenDevice(nullptr);
 	m_Context = alcCreateContext(m_Device, nullptr);
@@ -52,7 +51,7 @@ void Audio::CreateSystem()
 	alListener3f(AL_VELOCITY, 0.0f, 0.0f, 0.0f);
 }
 
-void Audio::DestroySystem()
+void Audio::Clean()
 {	
 	alcMakeContextCurrent(nullptr);	
 	alcDestroyContext(m_Context);
@@ -65,4 +64,9 @@ void Audio::DestroySystem()
 const ALCdevice *Audio::GetDevice() const
 {
 	return m_Device;
+}
+
+std::string Audio::GetType()
+{
+	return "Audio";
 }
