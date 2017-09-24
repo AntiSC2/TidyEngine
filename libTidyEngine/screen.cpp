@@ -31,11 +31,6 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 GLFWwindow *Screen::m_NeedUpdate = nullptr;
 
-Screen::Screen()
-{
-	;
-}
-
 Screen::~Screen()
 {
 	DestroyWindow();
