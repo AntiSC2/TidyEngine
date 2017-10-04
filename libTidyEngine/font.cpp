@@ -73,7 +73,7 @@ bool Font::Initialize(FT_Library *lib, std::string path, uint32_t height)
 	uint32_t b_width = 0;
 	uint32_t b_height = 0;
 	
-	std::vector<std::unique_ptr<GLubyte[]>> temp_bitmaps;
+	std::vector<GLubyte*> temp_bitmaps;
 	
 	while(m_Glyphs.size() < (uint32_t)face->num_glyphs){
 		error = FT_Load_Char(face, count, FT_LOAD_RENDER);
@@ -93,16 +93,16 @@ bool Font::Initialize(FT_Library *lib, std::string path, uint32_t height)
 			continue;
 		}
 		
-		std::unique_ptr<GLubyte[]> temp_bitmap = std::make_unique<GLubyte[]>(bitmap.width * bitmap.rows);
+		GLubyte *temp_bitmap = new GLubyte[bitmap.width * bitmap.rows];
 		
 		for (uint32_t y = 0; y < bitmap.rows; y++) {
 			for (uint32_t x = 0; x < bitmap.width; x++) {
-				temp_bitmap.get()[x + y * bitmap.width] =
+				temp_bitmap[x + y * bitmap.width] =
 				bitmap.buffer[x + y * bitmap.width];
 			}
 		}
 		
-		temp_bitmaps.push_back(std::move(temp_bitmap));
+		temp_bitmaps.push_back(temp_bitmap);
 		m_Glyphs[count] = FontGlyph((float)b_width, 0.0f,
 		                            (float)bitmap.width,
 		                            (float)bitmap.rows);
@@ -146,7 +146,7 @@ bool Font::Initialize(FT_Library *lib, std::string path, uint32_t height)
 				final_ptr[2 * (x + y * f_width)] =
 				final_ptr[2 * (x + y * f_width) + 1] =
 				((x - offset) >= width || y >= height) ?
-				0 : temp_bitmaps[index].get()[(x - offset) + y * width];
+				0 : temp_bitmaps[index][(x - offset) + y * width];
 			}
 		}
 
@@ -154,7 +154,11 @@ bool Font::Initialize(FT_Library *lib, std::string path, uint32_t height)
 		index++;
 	}
 
+	/* Free temporary bitmaps*/
+	for (auto i: temp_bitmaps)
+		delete i;
 	temp_bitmaps.clear();
+
 	m_Texture.CreateTex(final_bitmap.get(), f_width, f_height, true);
 	final_bitmap.reset(nullptr);
 
