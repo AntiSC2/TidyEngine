@@ -32,6 +32,7 @@ public:
 	~Audio();
 
 	void Initialise();
+	virtual void Execute();
 	void Clean();
 	const ALCdevice *GetDevice() const;
 	virtual std::string GetType();

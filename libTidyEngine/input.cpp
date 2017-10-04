@@ -26,15 +26,11 @@ GLFWwindow *Input::m_Window = nullptr;
 bool Input::m_Buttons[8];
 glm::vec2 Input::m_MousePos = glm::vec2(0.0f, 0.0f);
 
-Input::Input()
+Input::Input(GLFWwindow *window)
 {
 	for (uint8_t i = 0; i < 8; i++)
 		m_Buttons[i] = false;
-}
-
-Input::~Input()
-{
-	;
+	Initialise(window);
 }
 
 void Input::Initialise(GLFWwindow *window)
@@ -44,9 +40,14 @@ void Input::Initialise(GLFWwindow *window)
 	glfwSetMouseButtonCallback(window, MousePress);
 }
 
-void Input::Update()
+void Input::Execute()
 {
 	glfwPollEvents();
+}
+
+std::string Input::GetType()
+{
+	return "Input";
 }
 
 void Input::MouseProcess(GLFWwindow *window, double xpos, double ypos)
@@ -78,7 +79,7 @@ const glm::vec2 &Input::GetMousePos()
 bool Input::GetMouseButton(size_t button)
 {
 	if (button >= 8) {
-		printf("Warning: key unknown!\n");
+		printf("Warning: mouse button unknown!\n");
 		return false;
 	}
 	return m_Buttons[button];

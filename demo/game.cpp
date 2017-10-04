@@ -20,6 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <glm/glm.hpp>
 #include "entity.hpp"
 #include "shader.hpp"
+#include "input.hpp"
 #include "graphics.hpp"
 #include "rect2d.hpp"
 #include "camera.hpp"
@@ -92,9 +93,9 @@ void Game::Update(double delta)
 	front.z = sin(glm::radians(m_Yaw)) * cos(glm::radians(m_Pitch));
 	m_Front = glm::normalize(front);
 	*/
-	if (m_Input.GetKey(GLFW_KEY_ESCAPE))
+	if (m_EM.GetSystem<Input>().GetKey(GLFW_KEY_ESCAPE))
 		m_Quit = true;
-	else if (m_Input.GetKey(GLFW_KEY_SPACE))
+	else if (m_EM.GetSystem<Input>().GetKey(GLFW_KEY_SPACE))
 		Res.LoadSample("sound.ogg")->Play();
 	/*if (m_Input.GetKey(GLFW_KEY_W))
 		m_Pos += speed * m_Front;

@@ -33,6 +33,7 @@ public:
 	EntityManager();
 	virtual ~EntityManager();
 
+	virtual void Update();
 	template<typename E>
 	E &AddEntity(std::unique_ptr<E> &&e);
 	Entity &GetEntity(std::string name);

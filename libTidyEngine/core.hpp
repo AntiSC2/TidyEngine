@@ -19,7 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "spriterenderer.hpp"
 #include "modelrenderer.hpp"
-#include "input.hpp"
 #include "entitymanager.hpp"
 #include "font.hpp"
 
@@ -44,7 +43,6 @@ protected:
 	FT_Library m_FontLib;
 	SpriteRenderer m_SpriteRenderer;
 	ModelRenderer m_ModelRenderer;
-	Input m_Input;
 	Font m_Font;
 	EntityManager m_EM;
 };

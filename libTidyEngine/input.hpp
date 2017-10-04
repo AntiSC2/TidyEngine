@@ -20,16 +20,18 @@ Contact the author at: jakob.sinclair99@gmail.com
 #pragma once
 
 #include <glm/vec2.hpp>
+#include "system.hpp"
 
 typedef struct GLFWwindow GLFWwindow;
 
-class Input {
+class Input: public ISystem {
 public:
-	Input();
-	~Input();
+	Input(GLFWwindow *window);
+	virtual ~Input() = default;
 
 	void Initialise(GLFWwindow *window);
-	void Update();
+	virtual void Execute();
+	virtual std::string GetType();
 	static void MouseProcess(GLFWwindow *window, double xpos, double ypos);
 	static void MousePress(GLFWwindow *window, int button, int action,
 			int mods);

@@ -33,6 +33,12 @@ EntityManager::~EntityManager()
 	m_CurrentCamera = nullptr;
 }
 
+void EntityManager::Update()
+{
+	for (auto &i: m_Systems)
+		i.second->Execute();
+}
+
 Entity &EntityManager::GetEntity(std::string name)
 {
 	if (m_Entities.find(name) != m_Entities.end())

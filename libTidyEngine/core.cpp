@@ -29,6 +29,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include "cache.hpp"
 #include "config.hpp"
 #include "graphics.hpp"
+#include "input.hpp"
 #include "screen.hpp"
 #include "shader.hpp"
 
@@ -54,6 +55,7 @@ bool Core::InitSubSystems()
 	try {
 		graphics = &m_EM.CreateSystem<Graphics>((uint16_t)1280, (uint16_t)720, (const char *)"TidyEngine", 4, 3);
 		m_EM.CreateSystem<Audio>();
+		m_EM.CreateSystem<Input>(graphics->GetWindow());
 	}
 	catch(std::exception &e) {
 		printf("%s\n", e.what());
@@ -77,7 +79,6 @@ bool Core::InitSubSystems()
 
 	glfwSetWindowSizeCallback(graphics->GetWindow(),
 	                          Screen::WindowSizeCallback);
-	m_Input.Initialise(graphics->GetWindow());
 
 	if (Res.CreateDefaultResources() == false)
 		return false;
@@ -104,8 +105,7 @@ void Core::GameLoop()
 		double frame_time = new_time - current_time;
 		current_time = new_time;
 		accumulator += frame_time;	
-
-		m_Input.Update();
+		m_EM.Update();
 		while (accumulator > dt) {
 			Update(accumulator);
 			accumulator -= dt;
