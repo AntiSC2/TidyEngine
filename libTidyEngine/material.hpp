@@ -28,9 +28,9 @@ class Shader;
 
 class Material: public Resource {
 public:
-	Material();
+	Material() = default;
 	Material(std::vector<Texture*> diffuse, std::vector<Texture*> specular, float shine);
-	virtual ~Material();
+	virtual ~Material() = default;
 
 	virtual std::string Type();
 	virtual void Bind(Shader *shader) const;

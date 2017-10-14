@@ -25,21 +25,11 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include "texture.hpp"
 #include "shader.hpp"
 
-Material::Material()
-{
-	;
-}
-
 Material::Material(std::vector<Texture*> diffuse, std::vector<Texture*> specular, float shine)
 {
 	m_Diffuse = diffuse;
 	m_Specular = specular;
 	m_Shine = shine;
-}
-
-Material::~Material()
-{
-	;
 }
 
 std::string Material::Type()
