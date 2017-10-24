@@ -30,8 +30,10 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include "config.hpp"
 #include "graphics.hpp"
 #include "input.hpp"
+#include "modelrenderer.hpp"
 #include "screen.hpp"
 #include "shader.hpp"
+#include "spriterenderer.hpp"
 
 void Core::Run() 
 {
@@ -56,6 +58,8 @@ bool Core::InitSubSystems()
 		graphics = &m_EM.CreateSystem<Graphics>((uint16_t)1280, (uint16_t)720, (const char *)"TidyEngine", 4, 3);
 		m_EM.CreateSystem<Audio>();
 		m_EM.CreateSystem<Input>(graphics->GetWindow());
+		graphics->CreateRenderer<SpriteRenderer>();
+		graphics->CreateRenderer<ModelRenderer>();
 	}
 	catch(std::exception &e) {
 		printf("%s\n", e.what());
@@ -74,8 +78,8 @@ bool Core::InitSubSystems()
 		return false;
 	}
 
-	m_SpriteRenderer.Initialise(graphics->GetShader("sprite"));
-	m_ModelRenderer.Initialise(graphics->GetShader("model"));
+	graphics->GetRenderer<SpriteRenderer>().Initialise(graphics->GetShader("sprite"));
+	graphics->GetRenderer<ModelRenderer>().Initialise(graphics->GetShader("model"));
 
 	glfwSetWindowSizeCallback(graphics->GetWindow(),
 	                          Screen::WindowSizeCallback);
@@ -91,7 +95,7 @@ bool Core::InitSubSystems()
 
 void Core::GameLoop()
 {
-	printf("Game loop was entered.\n");
+	printf("Game loop was entered...\n");
 
 	const double dt = 1.0 / 60.0;
 	double current_time = glfwGetTime();
@@ -112,7 +116,6 @@ void Core::GameLoop()
 			updates++;
 		}
 
-		DrawGame();	
 		frames++;
 
 		if (current_time - timer > 1.0) {
@@ -125,7 +128,7 @@ void Core::GameLoop()
 		if (glfwWindowShouldClose(m_EM.GetSystem<Graphics>().GetWindow()) == true)
 			m_Quit = true;
 	}
-	printf("Game loop was closed.\n");
+	printf("Game loop was closed...\n");
 }
 
 void Core::Quit()

@@ -19,13 +19,10 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 #pragma once
 
-#ifdef _WIN32
-#define APIENTRY __stdcall
-#endif
-
 class Shader;
 
-#include <glad/glad.h>
+typedef unsigned int GLuint;
+
 #include <glm/vec2.hpp>
 #include <glm/vec4.hpp>
 #include <string>

@@ -26,6 +26,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <cstdio>
+#include "renderer.hpp"
 #include "screen.hpp"
 #include "shader.hpp"
 
@@ -51,6 +52,11 @@ void Graphics::Initialize(uint16_t width, uint16_t height, const char *title, in
 std::string Graphics::GetType()
 {
 	return "Graphics System";
+}
+
+void Graphics::AddRenderer(std::unique_ptr<IRenderer> &&renderer, std::type_index index)
+{
+	m_Renderers[index] = std::move(renderer);
 }
 
 bool Graphics::LoadShaders(std::string name, std::string v, std::string f,
@@ -90,7 +96,13 @@ GLFWwindow *Graphics::GetWindow()
 
 void Graphics::Execute()
 {
-	;
+	Clear();
+	for(auto &it: m_Renderers) {
+		it.second->Begin();
+		it.second->End();
+		it.second->Present();
+	}
+	Present();
 }
 
 void Graphics::Clear()

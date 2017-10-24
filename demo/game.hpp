@@ -27,7 +27,6 @@ public:
 private:
 	bool Init();
 	void Update(double delta);
-	void DrawGame();
 	Model *m_Model;
 	glm::vec3 m_Pos = glm::vec3(0.0f, 15.0f, 10.0f);
 	glm::vec3 m_Front = glm::vec3(0.0f, 0.0f, -1.0f);

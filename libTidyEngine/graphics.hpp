@@ -22,10 +22,13 @@ Contact the author at: jakob.sinclair99@gmail.com
 struct GLFWwindow;
 class Screen;
 class Shader;
+class IRenderer;
 
 #include <vector>
 #include <map>
+#include <unordered_map>
 #include <memory>
+#include <typeindex>
 #include "system.hpp"
 
 class Graphics: public ISystem {
@@ -37,6 +40,13 @@ public:
 	void Initialize(uint16_t width, uint16_t height, const char *title, int gl_major, int gl_minor);
 	virtual std::string GetType();
 	virtual void Execute();
+
+	template<typename R, typename ...Args>
+	R &CreateRenderer(Args &&...args);
+	void AddRenderer(std::unique_ptr<IRenderer> &&renderer, std::type_index index);
+	template<typename R>
+	R &GetRenderer();
+
 	bool LoadShaders(std::string name, std::string v, std::string f,
 			std::vector<std::string> attributes = {});
 	Shader *GetShader(std::string name);
@@ -45,5 +55,28 @@ public:
 	void Present();	
 private:
 	std::unique_ptr<Screen> m_Screen;
-	std::map<std::string, std::unique_ptr<Shader>> m_Shaders;
+	std::map<std::type_index, std::unique_ptr<IRenderer>> m_Renderers;
+	std::unordered_map<std::string, std::unique_ptr<Shader>> m_Shaders;
 };
+
+template<typename R, typename ...Args>
+R& Graphics::CreateRenderer(Args &&...args)
+{
+	static_assert(std::is_base_of<IRenderer, R>::value, "Error: tried to create a non-renderer for graphics!\n");
+	R *rend_p = new R(std::forward<Args>(args)...);
+	R &r = *rend_p;
+
+	AddRenderer(std::unique_ptr<IRenderer>(static_cast<IRenderer*>(rend_p)), std::type_index(typeid(R)));
+
+	return r;
+}
+
+template<typename R>
+R &Graphics::GetRenderer()
+{
+	static_assert(std::is_base_of<IRenderer, R>::value, "Error: tried to retrieve non-system object from manager!\n");
+	if (m_Renderers.find(std::type_index(typeid(R))) == m_Renderers.end())
+		throw std::runtime_error("Error: could not find system of that type in manager!\n");
+	auto &rend = static_cast<R&>(*m_Renderers[std::type_index(typeid(R))].get());
+	return rend;
+}

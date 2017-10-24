@@ -17,8 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "spriterenderer.hpp"
-#include "modelrenderer.hpp"
 #include "entitymanager.hpp"
 #include "font.hpp"
 
@@ -36,13 +34,10 @@ protected:
 	virtual bool Init() = 0;
 	virtual void GameLoop();
 	virtual void Update(double delta) = 0;
-	virtual void DrawGame() = 0;
 	virtual void Quit();
 
 	bool m_Initialized = false;	
-	FT_Library m_FontLib;
-	SpriteRenderer m_SpriteRenderer;
-	ModelRenderer m_ModelRenderer;
+	FT_Library m_FontLib;	
 	Font m_Font;
 	EntityManager m_EM;
 };

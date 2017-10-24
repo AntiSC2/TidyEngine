@@ -108,25 +108,3 @@ void Game::Update(double delta)
 	m_EntityManager.GetCamera()->SetPos(m_Pos);
 	m_EntityManager.GetCamera()->SetDir(m_Front);*/
 }
-
-void Game::DrawGame()
-{
-	Rect2D rect;
-	rect.SetColor(glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
-	rect.SetRect(0.0f, 680.0f, 1280.0f, 720.0f);
-
-	m_EM.GetSystem<Graphics>().Clear();
-
-	m_SpriteRenderer.Begin();
-	m_SpriteRenderer.Draw(&rect);
-	m_SpriteRenderer.Draw(&m_EM.GetEntity("Player").GetComponent<Sprite>());
-	m_SpriteRenderer.DrawText("TidyEngine V0.2", glm::vec2(0.0f, 0.0f), glm::vec4(1.0f, 0.0f, 0.0f, 1.0f), m_Font);
-	m_SpriteRenderer.End();
-	m_SpriteRenderer.Present(m_EM.GetEntity("Camera").GetComponent<Camera>());
-	/*m_ModelRenderer.Begin();
-	m_Model->Draw(m_Graphics.GetShader("model"));
-	m_ModelRenderer.End();
-	m_ModelRenderer.Present(m_EntityManager.GetCamera());*/
-
-	m_EM.GetSystem<Graphics>().Present();
-}

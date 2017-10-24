@@ -17,7 +17,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 Contact the author at: jakob.sinclair99@gmail.com
 */
 
+#ifdef _WIN32
+#define APIENTRY __stdcall
+#endif
+
 #include <algorithm>
+#include <glad/glad.h>
 #include "renderer.hpp"
 #include "shader.hpp"
 #include "renderable.hpp"
