@@ -25,6 +25,7 @@ class ISystem;
 class Camera;
 
 #include <memory>
+#include <map>
 #include <unordered_map>
 #include <typeindex>
 
@@ -35,7 +36,7 @@ public:
 
 	virtual void Update();
 	template<typename E>
-	E &AddEntity(std::shared_ptr<E> &&e);
+	E &AddEntity(std::unique_ptr<E> &&e);
 	Entity &GetEntity(std::string name);
 	void RemoveEntity(std::string name);
 
@@ -47,7 +48,7 @@ public:
 	template<typename S>
 	void RemoveSystem();
 protected:
-	std::unordered_map<std::type_index, std::unique_ptr<ISystem>> m_Systems;
+	std::map<std::type_index, std::unique_ptr<ISystem>> m_Systems;
 	std::unordered_map<std::string, std::unique_ptr<Entity>> m_Entities;
 	Camera *m_CurrentCamera = nullptr;
 };
@@ -74,6 +75,7 @@ S &EntityManager::CreateSystem(Args &&...args)
 	static_assert(std::is_base_of<ISystem, S>::value, "Error: tried to create a non-system object with manager!\n");	
 	S *sys_p = new S(std::forward<Args>(args)...);	
 	S &sys = *sys_p;
+	sys.SetManager(this);
 	AddSystem(std::unique_ptr<ISystem>(static_cast<ISystem*>(sys_p)), std::type_index(typeid(S)));
 	return sys;
 }

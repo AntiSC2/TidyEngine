@@ -19,9 +19,11 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 #pragma once
 
+#include <typeindex>
 #include <string>
+#include <vector>
 
-class Entity;
+class EntityManager;
 
 class ISystem {
 public:
@@ -29,8 +31,12 @@ public:
 	virtual ~ISystem() = default;
 
 	virtual void Execute();
-	virtual void RegisterEntity(Entity &e);
-	virtual void RemoveEntity(Entity &e);
+	virtual void SetManager(EntityManager *manager);
+	virtual void RegisterComponent(std::type_index index);
+	virtual void RemoveComponent(std::type_index index);
 	virtual size_t GetFrameRate();
 	virtual std::string GetType() = 0;
+protected:
+	EntityManager *m_EM = nullptr;
+	std::vector<std::type_index> m_Index;
 };

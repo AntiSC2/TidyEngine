@@ -57,6 +57,8 @@ bool Game::Init()
 	                                        110, 200,
 	                                        std::vector<uint32_t>({25, 29, 135, 229, 150, 29, 260, 229, 287, 29, 397, 229, 438, 29, 548, 229})));
 
+	m_EM.GetSystem<Graphics>().RegisterComponent(std::type_index(typeid(Sprite)));
+
 	LuaScript script("player.lua");
 	int posX = script.Get<int>("player.pos.X");
 	int posY = script.Get<int>("player.pos.Y");

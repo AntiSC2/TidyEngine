@@ -19,6 +19,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 #pragma once
 
+class Camera;
 class Shader;
 
 typedef unsigned int GLuint;
@@ -38,6 +39,7 @@ public:
 	virtual ~IRenderer();
 
 	virtual void Initialise(Shader *shader) = 0;
+	virtual void SetCamera(Camera *camera);
 	virtual void Begin();
 	virtual void Draw(Renderable *object);
 	virtual void DrawText(std::string text, glm::vec2 pos,
@@ -49,6 +51,7 @@ protected:
 	virtual void CreateBatches();
 	bool (*Order)(Renderable*, Renderable*) = &CompareTex;
  
+	Camera *m_Camera = nullptr;
 	Shader *m_Shader = nullptr;
 	GLuint m_VAOID = 0;
 	GLuint m_VBOID = 0;

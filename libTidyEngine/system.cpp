@@ -17,22 +17,31 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 Contact the author at: jakob.sinclair99@gmail.com
 */
 
+#include <algorithm>
 #include "system.hpp"
-#include "entity.hpp"
+#include "entitymanager.hpp"
 
 void ISystem::Execute()
 {
 	;
 }
 
-void ISystem::RegisterEntity(Entity &e)
+void ISystem::SetManager(EntityManager *manager)
 {
-
+	m_EM = manager;
 }
 
-void ISystem::RemoveEntity(Entity &e)
+void ISystem::RegisterComponent(std::type_index index)
 {
-	;
+	if (std::find(m_Index.begin(), m_Index.end(), index) == m_Index.end())
+		m_Index.push_back(index);
+}
+
+void ISystem::RemoveComponent(std::type_index index)
+{
+	auto it = std::find(m_Index.begin(), m_Index.end(), index);
+	if (it != m_Index.end())
+		m_Index.erase(it);
 }
 
 size_t ISystem::GetFrameRate()

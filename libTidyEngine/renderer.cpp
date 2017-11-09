@@ -23,6 +23,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 #include <algorithm>
 #include <glad/glad.h>
+#include "camera.hpp"
 #include "renderer.hpp"
 #include "shader.hpp"
 #include "renderable.hpp"
@@ -40,6 +41,11 @@ IRenderer::~IRenderer()
 		glDeleteVertexArrays(1, &m_VAOID);
 	if (m_VBOID != 0)
 		glDeleteBuffers(1, &m_VBOID);
+}
+
+void IRenderer::SetCamera(Camera *camera)
+{
+	m_Camera = camera;
 }
 
 void IRenderer::Begin()

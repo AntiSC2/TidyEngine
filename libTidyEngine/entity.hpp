@@ -20,7 +20,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 #pragma once
 
 #include <memory>
-#include <unordered_map>
+#include <map>
 #include <string>
 #include <typeindex>
 #include "component.hpp"
@@ -37,11 +37,12 @@ public:
 	void RemoveComponent();
 	template<typename C>
 	C &GetComponent();
+	bool HasComponent(std::type_index index);
 	const std::string &GetName();
 	void SetName(std::string name);
 protected:
 	std::string m_Name = "";
-	std::unordered_map<std::type_index, std::unique_ptr<Component>> m_Components;
+	std::map<std::type_index, std::unique_ptr<Component>> m_Components;
 };
 
 template<typename C>

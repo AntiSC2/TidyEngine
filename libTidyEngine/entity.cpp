@@ -34,3 +34,11 @@ void Entity::SetName(std::string name)
 {
 	m_Name = name;
 }
+
+bool Entity::HasComponent(std::type_index index)
+{
+	if (m_Components.find(index) != m_Components.end())
+		return true;
+	else
+		return false;
+}

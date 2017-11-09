@@ -26,9 +26,13 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <cstdio>
+#include "camera.hpp"
+#include "entitymanager.hpp"
+#include "entity.hpp"
 #include "renderer.hpp"
 #include "screen.hpp"
 #include "shader.hpp"
+#include "sprite.hpp"
 
 Graphics::Graphics(uint16_t width, uint16_t height, const char *title, int gl_major, int gl_minor)
 {
@@ -98,7 +102,12 @@ void Graphics::Execute()
 {
 	Clear();
 	for(auto &it: m_Renderers) {
+		it.second->SetCamera(&m_EM->GetEntity("Camera").GetComponent<Camera>());
 		it.second->Begin();
+		m_EM->GetEntity("Player").GetComponent<Sprite>().Update();
+		Renderable *temp = &m_EM->GetEntity("Player").GetComponent<Sprite>();
+		temp->Render();
+		it.second->Draw(temp);
 		it.second->End();
 		it.second->Present();
 	}

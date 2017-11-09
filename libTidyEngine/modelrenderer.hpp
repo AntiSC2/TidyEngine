@@ -19,8 +19,6 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 #pragma once
 
-class Camera;
-
 #include "renderer.hpp"
 #include "pointlight.hpp"
 
@@ -30,7 +28,7 @@ public:
 	virtual ~ModelRenderer();
 
 	virtual void Initialise(Shader *shader);
-	virtual void Present(const Camera &camera);
+	virtual void Present();
 protected:
 	PointLight m_Light;
 	virtual void CreateBatches();

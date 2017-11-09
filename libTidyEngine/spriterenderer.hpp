@@ -19,8 +19,6 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 #pragma once
 
-class Camera;
-
 #include "renderer.hpp"
 
 class SpriteRenderer : public IRenderer {
@@ -29,5 +27,5 @@ public:
 	virtual ~SpriteRenderer();
 
 	virtual void Initialise(Shader *shader);
-	virtual void Present(const Camera &camera);
+	virtual void Present();
 };

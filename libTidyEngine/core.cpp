@@ -59,7 +59,6 @@ bool Core::InitSubSystems()
 		m_EM.CreateSystem<Audio>();
 		m_EM.CreateSystem<Input>(graphics->GetWindow());
 		graphics->CreateRenderer<SpriteRenderer>();
-		graphics->CreateRenderer<ModelRenderer>();
 	}
 	catch(std::exception &e) {
 		printf("%s\n", e.what());
@@ -72,14 +71,14 @@ bool Core::InitSubSystems()
 		return false;
 	}
 
-	if (graphics->LoadShaders("model", "model.vert", "model.frag",
+	/*if (graphics->LoadShaders("model", "model.vert", "model.frag",
 	   {"position", "color", "uv", "normal"}) == false) {
 		printf("Error: Failed to load model shaders!\n");
 		return false;
-	}
+	}*/
 
 	graphics->GetRenderer<SpriteRenderer>().Initialise(graphics->GetShader("sprite"));
-	graphics->GetRenderer<ModelRenderer>().Initialise(graphics->GetShader("model"));
+	//graphics->GetRenderer<ModelRenderer>().Initialise(graphics->GetShader("model"));
 
 	glfwSetWindowSizeCallback(graphics->GetWindow(),
 	                          Screen::WindowSizeCallback);

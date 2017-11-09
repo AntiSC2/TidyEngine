@@ -54,5 +54,6 @@ void EntityManager::RemoveEntity(std::string name)
 
 void EntityManager::AddSystem(std::unique_ptr<ISystem> &&system, std::type_index i)
 {
+	system->SetManager(this);
 	m_Systems[i] = std::move(system);
 }

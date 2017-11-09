@@ -24,8 +24,8 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 #include <glad/glad.h>
 #include "spriterenderer.hpp"
-#include "shader.hpp"
 #include "camera.hpp"
+#include "shader.hpp"
 
 SpriteRenderer::SpriteRenderer()
 {
@@ -70,9 +70,12 @@ void SpriteRenderer::Initialise(Shader *shader)
 	glBindVertexArray(0);
 }
 
-void SpriteRenderer::Present(const Camera &camera)
+void SpriteRenderer::Present()
 {
-	m_Shader->SetUniformMat4("transform", camera.GetProj() * camera.GetView() * camera.GetModel());
+	if (m_Camera == nullptr)
+		return;
+
+	m_Shader->SetUniformMat4("transform", m_Camera->GetProj() * m_Camera->GetView() * m_Camera->GetModel());
 
 	glBindVertexArray(m_VAOID);
 	for (size_t i = 0; i < m_RenderBatches.size(); i++) {
