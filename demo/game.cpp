@@ -51,13 +51,12 @@ bool Game::Init()
 	m_Font.Initialize(&m_FontLib, "Acme-Regular.ttf", 128);
 
 	Res.LoadSample("sound.ogg")->Play();
+	m_EM.GetSystem<Graphics>().RegisterComponent(std::type_index(typeid(Sprite)));
 
 	m_EM.AddEntity<Entity>(std::make_unique<Entity>("Player"));
 	auto &sprite = m_EM.GetEntity("Player").AddComponent<Sprite>(std::make_unique<Sprite>(Res.LoadTex("sprite.png"),
 	                                        110, 200,
-	                                        std::vector<uint32_t>({25, 29, 135, 229, 150, 29, 260, 229, 287, 29, 397, 229, 438, 29, 548, 229})));
-
-	m_EM.GetSystem<Graphics>().RegisterComponent(std::type_index(typeid(Sprite)));
+	                                        std::vector<uint32_t>({25, 29, 135, 229, 150, 29, 260, 229, 287, 29, 397, 229, 438, 29, 548, 229})));	
 
 	LuaScript script("player.lua");
 	int posX = script.Get<int>("player.pos.X");

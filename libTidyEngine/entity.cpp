@@ -42,3 +42,13 @@ bool Entity::HasComponent(std::type_index index)
 	else
 		return false;
 }
+
+bool Entity::Changed()
+{
+	if (m_Change == true) {
+		m_Change = false;
+		return true;
+	}
+
+	return false;
+}

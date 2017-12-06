@@ -35,6 +35,15 @@ EntityManager::~EntityManager()
 
 void EntityManager::Update()
 {
+	for (auto &e: m_Entities) {
+		if (e.second->Changed() == true) {
+			for (auto &i: m_Systems) {
+				if (i.second->AddEntity(e.second.get()) == false) {
+					i.second->RemoveEntity(e.second->GetName());
+				}
+			}
+		}	
+	}
 	for (auto &i: m_Systems)
 		i.second->Execute();
 }
@@ -50,6 +59,9 @@ Entity &EntityManager::GetEntity(std::string name)
 void EntityManager::RemoveEntity(std::string name)
 {
 	m_Entities.erase(name);
+	for (auto &i: m_Systems) {
+		i.second->RemoveEntity(name);
+	}
 }
 
 void EntityManager::AddSystem(std::unique_ptr<ISystem> &&system, std::type_index i)

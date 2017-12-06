@@ -21,8 +21,10 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 #include <typeindex>
 #include <string>
+#include <map>
 #include <vector>
 
+class Entity;
 class EntityManager;
 
 class ISystem {
@@ -34,9 +36,13 @@ public:
 	virtual void SetManager(EntityManager *manager);
 	virtual void RegisterComponent(std::type_index index);
 	virtual void RemoveComponent(std::type_index index);
+	virtual bool CheckIndex(Entity *e);
+	virtual bool AddEntity(Entity *e);
+	virtual void RemoveEntity(std::string name);
 	virtual size_t GetFrameRate();
 	virtual std::string GetType() = 0;
 protected:
 	EntityManager *m_EM = nullptr;
+	std::map<std::string, Entity*> m_Entities;
 	std::vector<std::type_index> m_Index;
 };

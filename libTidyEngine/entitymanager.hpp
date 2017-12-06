@@ -26,7 +26,6 @@ class Camera;
 
 #include <memory>
 #include <map>
-#include <unordered_map>
 #include <typeindex>
 
 class EntityManager {
@@ -49,7 +48,7 @@ public:
 	void RemoveSystem();
 protected:
 	std::map<std::type_index, std::unique_ptr<ISystem>> m_Systems;
-	std::unordered_map<std::string, std::unique_ptr<Entity>> m_Entities;
+	std::map<std::string, std::unique_ptr<Entity>> m_Entities;
 	Camera *m_CurrentCamera = nullptr;
 };
 
@@ -66,6 +65,11 @@ E &EntityManager::AddEntity(std::unique_ptr<E> &&e)
 	}
 
 	m_Entities[name] = std::move(e);
+
+	for (auto &i: m_Systems) {
+		i.second->AddEntity(e.get());
+	}
+
 	return ent;
 }
 

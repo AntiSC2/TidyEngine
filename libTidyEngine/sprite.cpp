@@ -104,13 +104,14 @@ void Sprite::Render()
 		(float)m_Height, 0.0f);
 	m_Update = false;
 }
-/* frames contain texture coordinates of all the frames in the sprite if the
- * sprite is animated, therefore the number of elements need to be dividable
- * by 4
- */
+
 bool Sprite::Initialise(const Texture *tex, uint32_t w, uint32_t h,
 		const std::vector<uint32_t> &frames)
 {
+	/* frames contain texture coordinates of all the frames in the sprite if the
+	 * sprite is animated, therefore the number of elements need to be dividable
+	 * by 4
+	 */
 	if (frames.size() % 4 != 0 || tex == nullptr)
 		return false;
 

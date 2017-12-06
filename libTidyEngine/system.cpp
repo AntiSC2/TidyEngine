@@ -19,6 +19,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 #include <algorithm>
 #include "system.hpp"
+#include "entity.hpp"
 #include "entitymanager.hpp"
 
 void ISystem::Execute()
@@ -42,6 +43,35 @@ void ISystem::RemoveComponent(std::type_index index)
 	auto it = std::find(m_Index.begin(), m_Index.end(), index);
 	if (it != m_Index.end())
 		m_Index.erase(it);
+}
+
+bool ISystem::AddEntity(Entity *e)
+{
+	if (e == nullptr)
+		return false;
+
+	if (CheckIndex(e) == true) {
+		m_Entities[e->GetName()] = e;
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+bool ISystem::CheckIndex(Entity *e)
+{
+	for (auto &i: m_Index) {
+		if (e->HasComponent(i) == false)
+			return false;
+	}
+
+	return true;
+}
+
+void ISystem::RemoveEntity(std::string name)
+{
+	m_Entities.erase(name);
 }
 
 size_t ISystem::GetFrameRate()

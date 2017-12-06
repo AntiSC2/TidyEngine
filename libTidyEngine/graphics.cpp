@@ -20,19 +20,20 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 
 #include "graphics.hpp"
+#include <cstdio>
 #ifdef _WIN32
 #define APIENTRY __stdcall
 #endif
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-#include <cstdio>
 #include "camera.hpp"
-#include "entitymanager.hpp"
 #include "entity.hpp"
-#include "renderer.hpp"
+#include "entitymanager.hpp"
+#include "modelrenderer.hpp"
 #include "screen.hpp"
 #include "shader.hpp"
 #include "sprite.hpp"
+#include "spriterenderer.hpp"
 
 Graphics::Graphics(uint16_t width, uint16_t height, const char *title, int gl_major, int gl_minor)
 {
@@ -101,15 +102,20 @@ GLFWwindow *Graphics::GetWindow()
 void Graphics::Execute()
 {
 	Clear();
-	for(auto &it: m_Renderers) {
-		it.second->SetCamera(&m_EM->GetEntity("Camera").GetComponent<Camera>());
-		it.second->Begin();
-		m_EM->GetEntity("Player").GetComponent<Sprite>().Update();
-		Renderable *temp = &m_EM->GetEntity("Player").GetComponent<Sprite>();
-		temp->Render();
-		it.second->Draw(temp);
-		it.second->End();
-		it.second->Present();
+	for(auto &r: m_Renderers) {
+		auto &rend = r.second;
+		if (r.first == std::type_index(typeid(SpriteRenderer))) {
+			rend->SetCamera(&m_EM->GetEntity("Camera").GetComponent<Camera>());
+			rend->Begin();
+			for (auto &e: m_Entities) {
+				e.second->GetComponent<Sprite>().Update();
+				Renderable *temp = &e.second->GetComponent<Sprite>();
+				temp->Render();
+				rend->Draw(temp);
+			}	
+			rend->End();
+			rend->Present();
+		}
 	}
 	Present();
 }

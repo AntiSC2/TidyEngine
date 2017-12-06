@@ -38,9 +38,11 @@ public:
 	template<typename C>
 	C &GetComponent();
 	bool HasComponent(std::type_index index);
+	bool Changed();
 	const std::string &GetName();
 	void SetName(std::string name);
 protected:
+	bool m_Change = false;
 	std::string m_Name = "";
 	std::map<std::type_index, std::unique_ptr<Component>> m_Components;
 };
@@ -52,6 +54,7 @@ C &Entity::AddComponent(std::unique_ptr<C> &&component)
 	static_assert(std::is_base_of<Component, C>::value, "Error: tried to add non-component object to entity!\n");
 	auto i = std::type_index(typeid(C));
 	m_Components[i] = std::move(component);
+	m_Change = true;
 
 	return comp;
 }
@@ -62,8 +65,10 @@ void Entity::RemoveComponent()
 	static_assert(std::is_base_of<Component, C>::value, "Error: tried to remove non-component object from entity!\n");
 	auto i = std::type_index(typeid(C));
 	auto it = m_Components.find(i);
-	if (it != m_Components.end())
+	if (it != m_Components.end()) {
 		m_Components.erase(it);
+		m_Change = true;
+	}
 }
 
 template<typename C>
