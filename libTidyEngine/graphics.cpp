@@ -30,6 +30,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include "entity.hpp"
 #include "entitymanager.hpp"
 #include "modelrenderer.hpp"
+#include "rect2d.hpp"
 #include "screen.hpp"
 #include "shader.hpp"
 #include "sprite.hpp"
@@ -105,6 +106,8 @@ void Graphics::Execute()
 	for(auto &r: m_Renderers) {
 		auto &rend = r.second;
 		if (r.first == std::type_index(typeid(SpriteRenderer))) {
+			Rect2D floor = {0.0f, 680.0f, 1280.0f, 720.0f};
+			floor.SetColor(0.8f, 0.8f, 0.8f, 0.8f);
 			rend->SetCamera(&m_EM->GetEntity("Camera").GetComponent<Camera>());
 			rend->Begin();
 			for (auto &e: m_Entities) {
@@ -112,7 +115,8 @@ void Graphics::Execute()
 				Renderable *temp = &e.second->GetComponent<Sprite>();
 				temp->Render();
 				rend->Draw(temp);
-			}	
+			}
+			rend->Draw(&floor);
 			rend->End();
 			rend->Present();
 		}
