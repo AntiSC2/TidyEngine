@@ -41,10 +41,6 @@ Game::~Game()
 
 bool Game::Init()
 {
-	//if (Res.CreateModel("nanosuit", "Model/nanosuit.obj") != nullptr)
-	//	m_Model = static_cast<Model*>(Res.GetResource("nanosuit")->Data());
-
-
 	m_EM.AddEntity<Entity>(std::make_unique<Entity>("Camera"));
 	m_EM.GetEntity("Camera").AddComponent<Camera>(std::make_unique<Camera>(1280, 720));	
 
@@ -68,42 +64,8 @@ bool Game::Init()
 
 void Game::Update(double delta)
 {
-	/*
-	float speed = 3.0f * (float)delta;
-	float xoffset = m_Input.GetMousePos().x - m_LastX;
-	float yoffset = m_LastY - m_Input.GetMousePos().y;
-	m_LastX = m_Input.GetMousePos().x;
-	m_LastY = m_Input.GetMousePos().y;
-
-	float sensitivity = 0.05f;
-	xoffset *= sensitivity;
-	yoffset *= sensitivity;
-	m_Yaw += xoffset;
-	m_Pitch +=  yoffset;
-
-	if (m_Pitch > 89.0f)
-		m_Pitch = 89.0f;
-	else if (m_Pitch < -89.0f)
-		m_Pitch = -89.0f;
-
-	glm::vec3 front;
-	front.x = cos(glm::radians(m_Pitch)) * cos(glm::radians(m_Yaw));
-	front.y = sin(glm::radians(m_Pitch));
-	front.z = sin(glm::radians(m_Yaw)) * cos(glm::radians(m_Pitch));
-	m_Front = glm::normalize(front);
-	*/
 	if (m_EM.GetSystem<Input>().GetKey(GLFW_KEY_ESCAPE))
 		m_Quit = true;
 	else if (m_EM.GetSystem<Input>().GetKey(GLFW_KEY_SPACE))
 		Res.LoadSample("sound.ogg")->Play();
-	/*if (m_Input.GetKey(GLFW_KEY_W))
-		m_Pos += speed * m_Front;
-	if (m_Input.GetKey(GLFW_KEY_S))
-		m_Pos -= speed * m_Front;
-	if (m_Input.GetKey(GLFW_KEY_A))
-		m_Pos -= glm::normalize(glm::cross(m_Front, m_Up)) * speed;
-	if (m_Input.GetKey(GLFW_KEY_D))
-		m_Pos += glm::normalize(glm::cross(m_Front, m_Up)) * speed;
-	m_EntityManager.GetCamera()->SetPos(m_Pos);
-	m_EntityManager.GetCamera()->SetDir(m_Front);*/
 }
