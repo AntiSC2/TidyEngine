@@ -3,9 +3,9 @@ project (TidyEngine CXX)
 set(CMAKE_CXX_STANDARD 17)
 
 if (WIN32)
-	option(BUILD_EXTERNAL_DEPENDENCIES "Build all the required dependencies with the engine" TRUE)
+	option(BUILD_EXTERNAL_DEPENDENCIES "Build most of the required dependencies with the engine" TRUE)
 else ()
-	option(BUILD_EXTERNAL_DEPENDENCIES "Build all the required dependencies with the engine" FALSE)
+	option(BUILD_EXTERNAL_DEPENDENCIES "Build most of the required dependencies with the engine" FALSE)
 endif()
 
 add_subdirectory("${CMAKE_SOURCE_DIR}/deps/glad")
