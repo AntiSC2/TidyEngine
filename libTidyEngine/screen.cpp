@@ -68,7 +68,7 @@ bool Screen::NeedUpdate()
 }
 
 bool Screen::CreateWindow(uint16_t width, uint16_t height, const char* title,
-			  int gl_major, int gl_minor)
+                          int gl_major, int gl_minor)
 {
 	DestroyWindow();
 
@@ -80,7 +80,7 @@ bool Screen::CreateWindow(uint16_t width, uint16_t height, const char* title,
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_ANY_PROFILE);
 	else
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
+	
 	m_Window = glfwCreateWindow(width, height, title, nullptr, nullptr);
 	if (m_Window == nullptr) {
 		return false;
@@ -90,7 +90,7 @@ bool Screen::CreateWindow(uint16_t width, uint16_t height, const char* title,
 		m_Title = (char*)title;
 		glfwMakeContextCurrent(m_Window);
 	}
-	// glfwSetInputMode(m_Window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);  
+
 	return true;
 }
 
@@ -128,5 +128,5 @@ void Screen::DestroyWindow()
 	if (m_Window != nullptr) {
 		glfwDestroyWindow(m_Window);
 		m_Window = nullptr;
-	}
+	}	
 }

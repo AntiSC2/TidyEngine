@@ -23,6 +23,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 #include "font.hpp"
 #include <memory>
+#include <string>
 #include <glad/glad.h>
 #include <ft2build.h>
 #include <freetype/freetype.h>
@@ -168,6 +169,11 @@ bool Font::Initialize(FT_Library *lib, std::string path, uint32_t height)
 	FT_Done_Face(face);
 
 	return true;
+}
+
+std::string Font::Type()
+{
+	return "Font";
 }
 
 uint32_t Font::GetHeight()

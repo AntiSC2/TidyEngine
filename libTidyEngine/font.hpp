@@ -21,18 +21,20 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 #include <vector>
 #include <map>
-#include "texture.hpp"
 #include "fontglyph.hpp"
+#include "resource.hpp"
+#include "texture.hpp"
 
 typedef struct FT_LibraryRec_ *FT_Library;
 
-class Font {
+class Font: public Resource {
 public:
 	Font();
 	virtual ~Font();
 
 	bool Initialize(FT_Library *lib, std::string path, uint32_t height);
 	void Clean();
+	virtual std::string Type();
 	uint32_t GetHeight();
 	int32_t GetTexHeight();
 	FontGlyph &GetChar(char c);

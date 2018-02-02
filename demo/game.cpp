@@ -48,11 +48,8 @@ bool Game::Init()
 	m_EM.AddEntity<Entity>(std::make_unique<Entity>("Camera"));
 	m_EM.GetEntity("Camera").AddComponent<Camera>(std::make_unique<Camera>(1280, 720));	
 
-	m_Font.Initialize(&m_FontLib, "Acme-Regular.ttf", 128);
-
 	Res.LoadSample("sound.ogg")->Play();
 	m_EM.GetSystem<Graphics>().RegisterComponent(std::type_index(typeid(Sprite)));
-	m_EM.GetSystem<Graphics>().m_Font = &m_Font;
 
 	m_EM.AddEntity<Entity>(std::make_unique<Entity>("Player"));
 	auto &sprite = m_EM.GetEntity("Player").AddComponent<Sprite>(std::make_unique<Sprite>(Res.LoadTex("sprite.png"),

@@ -27,19 +27,6 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include "camera.hpp"
 #include "shader.hpp"
 
-SpriteRenderer::SpriteRenderer()
-{
-	;
-}
-
-SpriteRenderer::~SpriteRenderer()
-{
-	if (m_VAOID != 0)
-		glDeleteVertexArrays(1, &m_VAOID);
-	if (m_VBOID != 0)
-		glDeleteBuffers(1, &m_VBOID);
-}
-
 void SpriteRenderer::Initialise(Shader *shader)
 {
 	m_Shader = shader;

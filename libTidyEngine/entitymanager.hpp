@@ -21,11 +21,11 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 class Entity;
 class IRenderer;
-class ISystem;
 
 #include <memory>
 #include <map>
 #include <typeindex>
+#include "system.hpp"
 
 class EntityManager {
 public:

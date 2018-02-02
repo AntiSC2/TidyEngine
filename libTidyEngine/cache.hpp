@@ -28,7 +28,10 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include "texture.hpp"
 #include "sample.hpp"
 #include "model.hpp"
+#include "font.hpp"
 #include "resource.hpp"
+
+typedef struct FT_LibraryRec_ * FT_Library;
 
 class Cache {
 public:
@@ -47,14 +50,20 @@ public:
 	Model *LoadModel(std::string filepath);
 	void UnloadModel(std::string filepath);
 
+	Font *LoadFont(std::string filepath);
+	void UnloadFont(std::string filepath);
+
 	template<typename R>
 	R &CreateRes(std::string name, std::unique_ptr<R> &&res);
 	void DestroyRes(std::string name);
-	Resource *GetRes(std::string name);	
+	Resource *GetRes(std::string name);
+
+	FT_Library m_FontLib;
 private:
 	std::unordered_map<std::string, Texture> m_Textures;
 	std::unordered_map<std::string, Sample> m_Samples;
 	std::unordered_map<std::string, Model> m_Models;
+	std::unordered_map<std::string, Font> m_Fonts;
 	std::unordered_map<std::string, std::shared_ptr<Resource>> m_Resources;	
 } extern Res;
 

@@ -39,8 +39,6 @@ void Core::Run()
 {
 	if (InitSubSystems() && Init()) {
 		GameLoop();
-		std::cout << "Fuck!";
-		printf("Fuck!");
 	}
 	Quit();
 }
@@ -50,7 +48,7 @@ bool Core::InitSubSystems()
 	if (glfwInit() == GL_FALSE)
 		return false;
 
-	int error = FT_Init_FreeType(&m_FontLib);
+	int error = FT_Init_FreeType(&Res.m_FontLib);
 	if (error) {
 		printf("Error: Could not initialize Freetype2!\n");
 		return false;
@@ -135,9 +133,8 @@ void Core::GameLoop()
 
 void Core::Quit()
 {
-	printf("1");
 	Res.Clean();
-	FT_Done_FreeType(m_FontLib);
+	FT_Done_FreeType(Res.m_FontLib);
+	m_EM.RemoveSystem<Graphics>();
 	glfwTerminate();
-	printf("2");
 }

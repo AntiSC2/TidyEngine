@@ -26,7 +26,7 @@ struct GLFWwindow;
 class Screen {
 public:
 	Screen() = default;
-	~Screen();
+	virtual ~Screen();
 
 	uint16_t GetWidth();
 	uint16_t GetHeight();

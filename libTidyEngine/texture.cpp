@@ -52,8 +52,7 @@ Texture::Texture(GLubyte *bitmap, uint32_t w, uint32_t h, bool dual,
 
 Texture::~Texture()
 {
-	if (m_TexID != 0)
-		DestroyTex();
+	DestroyTex();
 }
 
 std::string Texture::Type() {
@@ -117,8 +116,10 @@ bool Texture::CreateTex(GLubyte *bitmap, uint32_t w, uint32_t h, bool dual,
 
 void Texture::DestroyTex()
 {
-	if (m_TexID != 0)
+	if (m_TexID != 0) {
 		glDeleteTextures(1, &m_TexID);
+		m_TexID = 0;
+	}
 }
 
 const GLuint &Texture::GetTex() const

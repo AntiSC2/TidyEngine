@@ -23,8 +23,8 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 class SpriteRenderer : public IRenderer {
 public:
-	SpriteRenderer();
-	virtual ~SpriteRenderer();
+	SpriteRenderer() = default;
+	virtual ~SpriteRenderer() = default;
 
 	virtual void Initialise(Shader *shader);
 	virtual void Present();

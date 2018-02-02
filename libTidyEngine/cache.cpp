@@ -23,6 +23,8 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 #include "cache.hpp"
 #include <cstdio>
+#include <ft2build.h>
+#include FT_FREETYPE_H
 #include "iomanager.hpp"
 #include "resource.hpp"
 
@@ -53,10 +55,11 @@ bool Cache::CreateDefaultResources()
 }
 
 void Cache::Clean()
-{
-	for (auto it : m_Textures)
-		it.second.DestroyTex();
+{	
+	m_Textures.clear();
 	m_Samples.clear();
+	m_Models.clear();
+	m_Fonts.clear();
 	m_Resources.clear();
 }
 
@@ -120,6 +123,21 @@ Model *Cache::LoadModel(std::string filepath)
 void Cache::UnloadModel(std::string filepath)
 {
 	m_Models.erase(filepath);
+}
+
+Font *Cache::LoadFont(std::string filepath)
+{
+	if (m_Fonts.find(filepath) == m_Fonts.end()) {
+		m_Fonts[filepath].Initialize(&m_FontLib, filepath, 128);
+		return &m_Fonts[filepath];
+	} else {
+		return &m_Fonts[filepath];
+	}
+}
+
+void Cache::UnloadFont(std::string filepath)
+{
+	m_Fonts.erase(filepath);
 }
 
 void Cache::DestroyRes(std::string name)

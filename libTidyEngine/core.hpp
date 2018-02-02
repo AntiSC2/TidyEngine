@@ -20,8 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "entitymanager.hpp"
 #include "font.hpp"
 
-typedef struct FT_LibraryRec_ * FT_Library;
-
 class Core {
 public:
 	Core() = default;
@@ -36,8 +34,6 @@ protected:
 	virtual void Update(double delta) = 0;
 	virtual void Quit();
 
-	bool m_Initialized = false;	
-	FT_Library m_FontLib;	
-	Font m_Font;
+	bool m_Initialized = false;		
 	EntityManager m_EM;
 };

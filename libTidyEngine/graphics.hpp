@@ -21,7 +21,6 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 struct GLFWwindow;
 class Font;
-class Screen;
 class Shader;
 class IRenderer;
 
@@ -30,13 +29,14 @@ class IRenderer;
 #include <unordered_map>
 #include <memory>
 #include <typeindex>
+#include "screen.hpp"
 #include "system.hpp"
 
 class Graphics: public ISystem {
 public:
 	Graphics() = default;
 	Graphics(uint16_t width, uint16_t height, const char *title, int gl_major, int gl_minor);
-	virtual ~Graphics();
+	virtual ~Graphics() = default;
 
 	void Initialize(uint16_t width, uint16_t height, const char *title, int gl_major, int gl_minor);
 	virtual std::string GetType();
@@ -54,10 +54,8 @@ public:
 	GLFWwindow *GetWindow();
 	void Clear();
 	void Present();
-	
-	Font *m_Font = nullptr;
 private:	
-	std::unique_ptr<Screen> m_Screen;
+	Screen m_Screen;
 	std::map<std::type_index, std::unique_ptr<IRenderer>> m_Renderers;
 	std::unordered_map<std::string, std::unique_ptr<Shader>> m_Shaders;
 };

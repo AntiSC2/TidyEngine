@@ -30,17 +30,16 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include "font.hpp"
 #include "fontglyph.hpp"
 
-IRenderer::IRenderer()
-{
-	;
-}
-
 IRenderer::~IRenderer()
 {
-	if (m_VAOID != 0)
+	if (m_VAOID != 0) {
 		glDeleteVertexArrays(1, &m_VAOID);
-	if (m_VBOID != 0)
+		m_VAOID = 0;
+	}
+	if (m_VBOID != 0) {
 		glDeleteBuffers(1, &m_VBOID);
+		m_VBOID = 0;
+	}	
 }
 
 void IRenderer::SetCamera(Camera *camera)

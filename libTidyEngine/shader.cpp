@@ -26,11 +26,6 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include <glm/gtc/type_ptr.hpp>
 #include "iomanager.hpp"
 
-Shader::Shader()
-{
-	;
-}
-
 Shader::Shader(const std::string &vertex, const std::string &fragment)
 {
 	SetSources(vertex, fragment);

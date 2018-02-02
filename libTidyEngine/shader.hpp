@@ -30,9 +30,9 @@ typedef unsigned int GLuint;
 
 class Shader: public Resource {
 public:
-	Shader();
+	Shader() = default;
 	Shader(const std::string &vertex, const std::string &fragment);
-	~Shader();
+	virtual ~Shader();
 
 	virtual std::string Type();
 

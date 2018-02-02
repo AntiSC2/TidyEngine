@@ -26,6 +26,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 #endif
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include "cache.hpp"
 #include "camera.hpp"
 #include "entity.hpp"
 #include "entitymanager.hpp"
@@ -42,17 +43,11 @@ Graphics::Graphics(uint16_t width, uint16_t height, const char *title, int gl_ma
 	Initialize(width, height, title, gl_major, gl_minor);
 }
 
-Graphics::~Graphics()
-{
-	m_Shaders.clear();
-}
-
 void Graphics::Initialize(uint16_t width, uint16_t height, const char *title, int gl_major, int gl_minor)
 {
-	m_Screen = std::make_unique<Screen>();
-	if (!m_Screen->CreateWindow(width, height, title, gl_major, gl_minor))
+	if (!m_Screen.CreateWindow(width, height, title, gl_major, gl_minor))
 		throw std::runtime_error("Error: could not create GLFW window");
-	if (!m_Screen->InitGL())
+	if (!m_Screen.InitGL())
 		throw std::runtime_error("Error: could not initalize OpenGL");
 }
 
@@ -98,7 +93,7 @@ Shader *Graphics::GetShader(std::string name)
 
 GLFWwindow *Graphics::GetWindow()
 {
-	return m_Screen->GetWindow();
+	return m_Screen.GetWindow();
 }
 
 void Graphics::Execute()
@@ -118,7 +113,7 @@ void Graphics::Execute()
 				rend->Draw(temp);
 			}
 			rend->Draw(&floor);
-			rend->DrawText("TidyEngine V0.2", glm::vec2(0.0f, 0.0f), glm::vec4(1.0f, 0.0f, 0.0f, 1.0f), *m_Font);
+			rend->DrawText("TidyEngine V0.2", glm::vec2(0.0f, 0.0f), glm::vec4(1.0f, 0.0f, 0.0f, 1.0f), *Res.LoadFont("Acme-Regular.ttf"));
 			rend->End();
 			rend->Present();
 		}
@@ -133,5 +128,5 @@ void Graphics::Clear()
 
 void Graphics::Present()
 {
-	glfwSwapBuffers(m_Screen->GetWindow());
+	glfwSwapBuffers(m_Screen.GetWindow());
 }

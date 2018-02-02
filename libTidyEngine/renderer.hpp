@@ -35,7 +35,7 @@ extern bool CompareTex(Renderable *a, Renderable *b);
 
 class IRenderer {
 public:
-	IRenderer();
+	IRenderer() = default;
 	virtual ~IRenderer();
 
 	virtual void Initialise(Shader *shader) = 0;
