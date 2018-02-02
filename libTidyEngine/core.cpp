@@ -20,7 +20,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 #ifdef _WIN32
 #define APIENTRY __stdcall
 #endif
-
+#include <iostream>
 #include "core.hpp"
 #include <GLFW/glfw3.h>
 #include <ft2build.h>
@@ -39,6 +39,8 @@ void Core::Run()
 {
 	if (InitSubSystems() && Init()) {
 		GameLoop();
+		std::cout << "Fuck!";
+		printf("Fuck!");
 	}
 	Quit();
 }
@@ -133,7 +135,9 @@ void Core::GameLoop()
 
 void Core::Quit()
 {
+	printf("1");
 	Res.Clean();
 	FT_Done_FreeType(m_FontLib);
 	glfwTerminate();
+	printf("2");
 }

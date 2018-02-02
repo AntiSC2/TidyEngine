@@ -57,7 +57,16 @@ void Audio::Execute()
 }
 
 void Audio::Clean()
-{	
+{
+	int error = alcGetError(m_Device);
+	if (error != ALC_NO_ERROR) {
+		printf("Error: OpenAL %d\n", error);
+		alcMakeContextCurrent(nullptr);
+		alcDestroyContext(m_Context);
+		alcCloseDevice(m_Device);
+		m_Context = nullptr;
+		m_Device = nullptr;
+	}
 	alcMakeContextCurrent(nullptr);	
 	alcDestroyContext(m_Context);
 	alcCloseDevice(m_Device);

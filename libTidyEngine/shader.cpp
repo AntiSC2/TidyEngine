@@ -65,6 +65,11 @@ bool Shader::InitProgram()
 	m_FragmentID = glCreateShader(GL_FRAGMENT_SHADER);
 	if (m_ProgramID == 0 || m_VertexID == 0 || m_FragmentID == 0) {
 		printf("Warning: failed to create shader program!\n");
+		
+		m_ProgramID = 0;
+		m_VertexID = 0;
+		m_FragmentID = 0;
+		
 		return false;
 	}
 
@@ -100,6 +105,11 @@ bool Shader::LinkProgram()
 		delete log;
 		log = nullptr;
 		printf("Warning: shaders failed to link!\n");
+
+		m_ProgramID = 0;
+		m_VertexID = 0;
+		m_FragmentID = 0;
+
 		return false;
 	}
 	
@@ -136,6 +146,11 @@ bool Shader::CompileShader(const std::string &filepath, GLuint shader_id)
 		delete log;
 		log = nullptr;
 		printf("Warning: shader failed to compile!\n");
+
+		m_ProgramID = 0;
+		m_VertexID = 0;
+		m_FragmentID = 0;
+
 		return false;
 	}
 	return true;
