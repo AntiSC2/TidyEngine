@@ -29,6 +29,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include "camera.hpp"
 #include "entity.hpp"
 #include "entitymanager.hpp"
+#include "font.hpp"
 #include "modelrenderer.hpp"
 #include "rect2d.hpp"
 #include "screen.hpp"
@@ -107,7 +108,7 @@ void Graphics::Execute()
 		auto &rend = r.second;
 		if (r.first == std::type_index(typeid(SpriteRenderer))) {
 			Rect2D floor = {0.0f, 680.0f, 1280.0f, 720.0f};
-			floor.SetColor(0.8f, 0.8f, 0.8f, 0.8f);
+			floor.SetColor(1.0f, 1.0f, 1.0f, 1.0f);
 			rend->SetCamera(&m_EM->GetEntity("Camera").GetComponent<Camera>());
 			rend->Begin();
 			for (auto &e: m_Entities) {
@@ -117,6 +118,7 @@ void Graphics::Execute()
 				rend->Draw(temp);
 			}
 			rend->Draw(&floor);
+			rend->DrawText("TidyEngine V0.2", glm::vec2(0.0f, 0.0f), glm::vec4(1.0f, 0.0f, 0.0f, 1.0f), *m_Font);
 			rend->End();
 			rend->Present();
 		}

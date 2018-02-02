@@ -36,8 +36,9 @@ public:
 	virtual void SetManager(EntityManager *manager);
 	virtual void RegisterComponent(std::type_index index);
 	virtual void RemoveComponent(std::type_index index);
-	virtual bool CheckIndex(Entity *e);
-	virtual bool AddEntity(Entity *e);
+	virtual bool CheckComponents(Entity *e);
+	virtual void AddEntity(Entity *e);
+	virtual bool HasEntity(std::string name);
 	virtual void RemoveEntity(std::string name);
 	virtual size_t GetFrameRate();
 	virtual std::string GetType() = 0;

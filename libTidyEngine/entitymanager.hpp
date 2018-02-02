@@ -22,7 +22,6 @@ Contact the author at: jakob.sinclair99@gmail.com
 class Entity;
 class IRenderer;
 class ISystem;
-class Camera;
 
 #include <memory>
 #include <map>
@@ -49,7 +48,6 @@ public:
 protected:
 	std::map<std::type_index, std::unique_ptr<ISystem>> m_Systems;
 	std::map<std::string, std::unique_ptr<Entity>> m_Entities;
-	Camera *m_CurrentCamera = nullptr;
 };
 
 template<typename E>

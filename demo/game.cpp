@@ -52,6 +52,7 @@ bool Game::Init()
 
 	Res.LoadSample("sound.ogg")->Play();
 	m_EM.GetSystem<Graphics>().RegisterComponent(std::type_index(typeid(Sprite)));
+	m_EM.GetSystem<Graphics>().m_Font = &m_Font;
 
 	m_EM.AddEntity<Entity>(std::make_unique<Entity>("Player"));
 	auto &sprite = m_EM.GetEntity("Player").AddComponent<Sprite>(std::make_unique<Sprite>(Res.LoadTex("sprite.png"),

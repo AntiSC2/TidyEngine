@@ -45,21 +45,7 @@ void ISystem::RemoveComponent(std::type_index index)
 		m_Index.erase(it);
 }
 
-bool ISystem::AddEntity(Entity *e)
-{
-	if (e == nullptr)
-		return false;
-
-	if (CheckIndex(e) == true) {
-		m_Entities[e->GetName()] = e;
-		return true;
-	}
-	else {
-		return false;
-	}
-}
-
-bool ISystem::CheckIndex(Entity *e)
+bool ISystem::CheckComponents(Entity *e)
 {
 	for (auto &i: m_Index) {
 		if (e->HasComponent(i) == false)
@@ -67,6 +53,22 @@ bool ISystem::CheckIndex(Entity *e)
 	}
 
 	return true;
+}
+
+void ISystem::AddEntity(Entity *e)
+{
+	if (e == nullptr)
+		return;
+
+	m_Entities[e->GetName()] = e;
+}
+
+bool ISystem::HasEntity(std::string name)
+{
+	if (m_Entities.find(name) != m_Entities.end())
+		return true;
+	else
+		return false;
 }
 
 void ISystem::RemoveEntity(std::string name)

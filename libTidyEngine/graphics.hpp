@@ -20,6 +20,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 #pragma once
 
 struct GLFWwindow;
+class Font;
 class Screen;
 class Shader;
 class IRenderer;
@@ -52,8 +53,10 @@ public:
 	Shader *GetShader(std::string name);
 	GLFWwindow *GetWindow();
 	void Clear();
-	void Present();	
-private:
+	void Present();
+	
+	Font *m_Font = nullptr;
+private:	
 	std::unique_ptr<Screen> m_Screen;
 	std::map<std::type_index, std::unique_ptr<IRenderer>> m_Renderers;
 	std::unordered_map<std::string, std::unique_ptr<Shader>> m_Shaders;

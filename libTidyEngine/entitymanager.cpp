@@ -21,7 +21,6 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include "system.hpp"
 #include "entity.hpp"
 #include "renderer.hpp"
-#include "camera.hpp"
 
 EntityManager::EntityManager()
 {
@@ -30,7 +29,7 @@ EntityManager::EntityManager()
 
 EntityManager::~EntityManager()
 {
-	m_CurrentCamera = nullptr;
+	;
 }
 
 void EntityManager::Update()
@@ -38,8 +37,10 @@ void EntityManager::Update()
 	for (auto &e: m_Entities) {
 		if (e.second->Changed() == true) {
 			for (auto &i: m_Systems) {
-				if (i.second->AddEntity(e.second.get()) == false) {
+				if (i.second->CheckComponents(e.second.get()) == false) {
 					i.second->RemoveEntity(e.second->GetName());
+				} else {
+					i.second->AddEntity(e.second.get());
 				}
 			}
 		}	
