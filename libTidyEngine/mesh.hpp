@@ -20,7 +20,6 @@ Contact the author at: jakob.sinclair99@gmail.com
 #pragma once
 
 #include <vector>
-#include <glm/matrix.hpp>
 #include "renderable.hpp"
 #include "vertex.hpp"
 #include "material.hpp"
