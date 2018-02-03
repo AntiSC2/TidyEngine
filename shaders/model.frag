@@ -16,6 +16,8 @@ struct Light {
 struct Material {
 	sampler2D diffuse1;
 	sampler2D specular1;
+	vec3 diffuse_color;
+	vec3 specular_color;
 	float shine;
 };
 
@@ -36,8 +38,8 @@ void main() {
 	float spec = pow(max(dot(Normal, halfwayDir), 0.0f), material.shine);
 
 	vec3 ambient = light1.ambient * vec3(texture2D(material.diffuse1, UV));
-	vec3 specular = light1.specular * (vec3(texture2D(material.specular1, UV)) * spec);
-	vec3 diffuse = light1.diffuse * vec3(diff * texture2D(material.diffuse1, UV) * Color);
+	vec3 specular = light1.specular * (vec3(texture2D(material.specular1, UV)) * spec) * material.specular_color;
+	vec3 diffuse = light1.diffuse * vec3(diff * texture2D(material.diffuse1, UV) * Color) * material.diffuse_color;
 
 	vec3 result = ambient + specular + diffuse;
 	color = vec4(result, 1.0f);

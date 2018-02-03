@@ -31,46 +31,15 @@ ModelRenderer::ModelRenderer()
 	m_Light.SetPos(glm::vec3(2.0f, 10.0f, 2.0f));	
 }
 
-ModelRenderer::~ModelRenderer()
-{
-	if (m_VAOID != 0)
-		glDeleteVertexArrays(1, &m_VAOID);
-}
-
 void ModelRenderer::Initialise(Shader *shader)
 {
 	m_Shader = shader;
-
-	if (m_VAOID != 0)
-		glDeleteVertexArrays(1, &m_VAOID);
-	
-	glGenVertexArrays(1, &m_VAOID);
-	glBindVertexArray(m_VAOID);
-
-	glEnableVertexAttribArray(0);
-	glEnableVertexAttribArray(1);
-	glEnableVertexAttribArray(2);
-	glEnableVertexAttribArray(3);
-	
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex),
-			(void*)offsetof(Vertex, Position));
-	glVertexAttribPointer(1, 4, GL_FLOAT, GL_TRUE, sizeof(Vertex),
-			(void*)offsetof(Vertex, Color));
-	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex),
-			(void*)offsetof(Vertex, TexUV));
-	glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex),
-	        (void*)offsetof(Vertex, Normal));
-
-	glBindVertexArray(0);
 }
 
 void ModelRenderer::Present()
 {
 	if (m_Camera == nullptr)
-		return;
-
-	glBindVertexArray(m_VAOID);
-
+		return;	
 	m_Shader->SetUniformMat4("transform", m_Camera->GetProj() * m_Camera->GetView() * m_Camera->GetModel());
 	m_Shader->SetUniformMat4("model", m_Camera->GetModel());
 	m_Shader->SetUniform3f("viewPos", m_Camera->GetPos());
@@ -78,5 +47,5 @@ void ModelRenderer::Present()
 	m_Shader->SetUniform3f("light1.ambient", m_Light.GetAmbi());
 	m_Shader->SetUniform3f("light1.diffuse", m_Light.GetDiff());
 	m_Shader->SetUniform3f("light1.specular", m_Light.GetSpec());
-	m_Shader->SetUniformMat3("inverseModel", glm::mat3(glm::transpose(inverse(m_Camera->GetModel()))));	
+	m_Shader->SetUniformMat3("inverseModel", glm::mat3(glm::transpose(inverse(m_Camera->GetModel()))));
 }

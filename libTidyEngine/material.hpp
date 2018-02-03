@@ -29,7 +29,7 @@ class Shader;
 class Material: public Resource {
 public:
 	Material() = default;
-	Material(std::vector<Texture*> diffuse, std::vector<Texture*> specular, float shine);
+	Material(glm::vec3 diff, glm::vec3 spec, std::vector<Texture*> diffuse, std::vector<Texture*> specular, float shine);
 	virtual ~Material() = default;
 
 	virtual std::string Type();
@@ -37,5 +37,7 @@ public:
 protected:
 	std::vector<Texture*> m_Diffuse;
 	std::vector<Texture*> m_Specular;
+	glm::vec3 m_DiffuseC;
+	glm::vec3 m_SpecC;
 	float m_Shine = 32.0f;
 };

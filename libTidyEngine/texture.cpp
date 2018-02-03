@@ -95,7 +95,7 @@ bool Texture::CreateTex(GLubyte *bitmap, uint32_t w, uint32_t h, bool dual,
 		             GL_RG, GL_UNSIGNED_BYTE, bitmap);
 	} else {
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_Width, m_Height, 0,
-		             GL_BGRA, GL_UNSIGNED_BYTE, bitmap);
+		             GL_RGBA, GL_UNSIGNED_BYTE, bitmap);
 	}
 
 	if (linear == true && mipmap == true) {

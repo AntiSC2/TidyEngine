@@ -25,8 +25,10 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include "texture.hpp"
 #include "shader.hpp"
 
-Material::Material(std::vector<Texture*> diffuse, std::vector<Texture*> specular, float shine)
+Material::Material(glm::vec3 diff, glm::vec3 spec, std::vector<Texture*> diffuse, std::vector<Texture*> specular, float shine)
 {
+	m_DiffuseC = diff;
+	m_SpecC = spec;
 	m_Diffuse = diffuse;
 	m_Specular = specular;
 	m_Shine = shine;
@@ -59,5 +61,7 @@ void Material::Bind(Shader *shader) const
 		glBindTexture(GL_TEXTURE_2D, m_Specular[i]->GetTex());
 	}
 	shader->SetUniform1f("material.shine", m_Shine);
+	shader->SetUniform3f("material.diffuse_color", m_DiffuseC);
+	shader->SetUniform3f("material.specular_color", m_SpecC);
 	glActiveTexture(GL_TEXTURE0);
 }

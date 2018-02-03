@@ -40,7 +40,6 @@ void Sprite::Update()
 	if (m_Frames.size() < 2)
 		return;
 
-
 	m_ImageBuffer += m_ImageSpeed;
 	uint32_t change = m_ImageIndex;
 	m_ImageIndex = (uint32_t)std::round(m_ImageBuffer);

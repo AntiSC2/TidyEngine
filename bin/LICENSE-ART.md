@@ -17,3 +17,6 @@ CC0 Public Domain:
 http://creativecommons.org/publicdomain/zero/1.0/
 
 To the extent possible under law, Jakob Sinclair has waived all copyright and related or neighboring rights to sound.ogg. This work is published from: Sweden.
+
+# Models
+Check license file inside

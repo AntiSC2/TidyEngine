@@ -124,6 +124,12 @@ void Graphics::Execute(bool fixed)
 			rend->End();
 			rend->Present();
 		}
+		if (r.first == std::type_index(typeid(ModelRenderer))) {
+			rend->SetCamera(&m_EM->GetEntity("Camera").GetComponent<Camera>());
+			Res.LoadModel("Models/char.obj")->Draw(GetShader("model"));
+			Res.LoadModel("Models/wallWindow.obj")->Draw(GetShader("model"));
+			rend->Present();
+		}
 	}
 	Present();
 }

@@ -41,39 +41,28 @@ Game::~Game()
 
 bool Game::Init()
 {
-	Res.LoadModel("Model/nanosuit.obj") != nullptr;
-
 	m_EM.AddEntity<Entity>(std::make_unique<Entity>("Camera"));
-	m_EM.GetEntity("Camera").AddComponent<Camera>(std::make_unique<Camera>(1280, 720));	
+	m_EM.GetEntity("Camera").AddComponent<Camera>(std::make_unique<Camera>(1280, 720, m_Pos, false));
 
 	Res.LoadSample("sound.ogg")->Play();
 	m_EM.GetSystem<Graphics>().RegisterComponent(std::type_index(typeid(Sprite)));
 
 	m_EM.AddEntity<Entity>(std::make_unique<Entity>("Player"));
-	auto &sprite = m_EM.GetEntity("Player").AddComponent<Sprite>(std::make_unique<Sprite>(Res.LoadTex("sprite.png"),
-	                                        110, 200,
-	                                        std::vector<uint32_t>({25, 29, 135, 229, 150, 29, 260, 229, 287, 29, 397, 229, 438, 29, 548, 229})));	
-
-	LuaScript script("player.lua");
-	int posX = script.Get<int>("player.pos.X");
-	int posY = script.Get<int>("player.pos.Y");
-
-	sprite.SetImageSpeed(0.1f);
-	sprite.SetPos(glm::vec3((float)posX, (float)posY, 0.0f));
 
 	return true;
 }
 
 void Game::Update(double delta)
 {
-	/*
-	float speed = 3.0f * (float)delta;
-	float xoffset = m_Input.GetMousePos().x - m_LastX;
-	float yoffset = m_LastY - m_Input.GetMousePos().y;
-	m_LastX = m_Input.GetMousePos().x;
-	m_LastY = m_Input.GetMousePos().y;
+	auto &input = m_EM.GetSystem<Input>();
 
-	float sensitivity = 0.05f;
+	float speed = 10.0f * (float)delta;
+	float xoffset = input.GetMousePos().x - m_LastX;
+	float yoffset = m_LastY - input.GetMousePos().y;
+	m_LastX = input.GetMousePos().x;
+	m_LastY = input.GetMousePos().y;
+
+	float sensitivity = 0.1f;
 	xoffset *= sensitivity;
 	yoffset *= sensitivity;
 	m_Yaw += xoffset;
@@ -89,19 +78,30 @@ void Game::Update(double delta)
 	front.y = sin(glm::radians(m_Pitch));
 	front.z = sin(glm::radians(m_Yaw)) * cos(glm::radians(m_Pitch));
 	m_Front = glm::normalize(front);
-	*/
-	if (m_EM.GetSystem<Input>().GetKey(GLFW_KEY_ESCAPE))
+
+	if (input.GetKey(GLFW_KEY_ESCAPE))
 		m_Quit = true;
-	else if (m_EM.GetSystem<Input>().GetKey(GLFW_KEY_SPACE))
+	else if (input.GetKey(GLFW_KEY_SPACE))
 		Res.LoadSample("sound.ogg")->Play();
-	/*if (m_Input.GetKey(GLFW_KEY_W))
+	if (input.GetKey(GLFW_KEY_W))
 		m_Pos += speed * m_Front;
-	if (m_Input.GetKey(GLFW_KEY_S))
+	if (input.GetKey(GLFW_KEY_S))
 		m_Pos -= speed * m_Front;
-	if (m_Input.GetKey(GLFW_KEY_A))
+	if (input.GetKey(GLFW_KEY_A))
 		m_Pos -= glm::normalize(glm::cross(m_Front, m_Up)) * speed;
-	if (m_Input.GetKey(GLFW_KEY_D))
+	if (input.GetKey(GLFW_KEY_D))
 		m_Pos += glm::normalize(glm::cross(m_Front, m_Up)) * speed;
-	m_EntityManager.GetCamera()->SetPos(m_Pos);
-	m_EntityManager.GetCamera()->SetDir(m_Front);*/
+	if (input.GetKey(GLFW_KEY_F)) {
+		if (m_Locked == false) {
+			glfwSetInputMode(m_EM.GetSystem<Graphics>().GetWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+			m_Locked = true;
+		} else {
+			glfwSetInputMode(m_EM.GetSystem<Graphics>().GetWindow(), GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+			m_Locked = false;
+		}
+	}
+	auto &camera = m_EM.GetEntity("Camera").GetComponent<Camera>();
+	camera.SetPos(m_Pos);
+	camera.SetDir(m_Front);
+	camera.Update();
 }
