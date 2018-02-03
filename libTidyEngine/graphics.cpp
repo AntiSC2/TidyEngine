@@ -114,7 +114,6 @@ void Graphics::Execute(bool fixed)
 			rend->SetCamera(&m_EM->GetEntity("Camera").GetComponent<Camera>());
 			rend->Begin();
 			for (auto &e: m_Entities) {
-				e.second->GetComponent<Sprite>().Update();
 				Renderable *temp = &e.second->GetComponent<Sprite>();
 				temp->Render();
 				rend->Draw(temp);
