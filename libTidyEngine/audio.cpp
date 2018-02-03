@@ -51,7 +51,7 @@ void Audio::Initialise()
 	alListener3f(AL_VELOCITY, 0.0f, 0.0f, 0.0f);
 }
 
-void Audio::Execute()
+void Audio::Execute(bool fixed)
 {
 	;
 }

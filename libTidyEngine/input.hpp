@@ -30,7 +30,7 @@ public:
 	virtual ~Input() = default;
 
 	void Initialise(GLFWwindow *window);
-	virtual void Execute();
+	virtual void Execute(bool fixed = false);
 	virtual std::string GetType();
 	static void MouseProcess(GLFWwindow *window, double xpos, double ypos);
 	static void MousePress(GLFWwindow *window, int button, int action,

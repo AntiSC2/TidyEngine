@@ -40,7 +40,7 @@ void Input::Initialise(GLFWwindow *window)
 	glfwSetMouseButtonCallback(window, MousePress);
 }
 
-void Input::Execute()
+void Input::Execute(bool fixed)
 {
 	glfwPollEvents();
 }

@@ -96,8 +96,15 @@ GLFWwindow *Graphics::GetWindow()
 	return m_Screen.GetWindow();
 }
 
-void Graphics::Execute()
+void Graphics::Execute(bool fixed)
 {
+	if (fixed) {
+		for (auto &e: m_Entities)
+			e.second->GetComponent<Sprite>().Update();
+
+		return;
+	}
+
 	Clear();
 	for(auto &r: m_Renderers) {
 		auto &rend = r.second;

@@ -41,9 +41,7 @@ Game::~Game()
 
 bool Game::Init()
 {
-	//if (Res.CreateModel("nanosuit", "Model/nanosuit.obj") != nullptr)
-	//	m_Model = static_cast<Model*>(Res.GetResource("nanosuit")->Data());
-
+	Res.LoadModel("Model/nanosuit.obj") != nullptr;
 
 	m_EM.AddEntity<Entity>(std::make_unique<Entity>("Camera"));
 	m_EM.GetEntity("Camera").AddComponent<Camera>(std::make_unique<Camera>(1280, 720));	

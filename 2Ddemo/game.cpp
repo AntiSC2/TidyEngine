@@ -68,4 +68,5 @@ void Game::Update(double delta)
 		m_Quit = true;
 	else if (m_EM.GetSystem<Input>().GetKey(GLFW_KEY_SPACE))
 		Res.LoadSample("sound.ogg")->Play();
+	m_EM.GetSystem<Graphics>().Execute(true);
 }

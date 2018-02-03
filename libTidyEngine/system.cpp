@@ -22,7 +22,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include "entity.hpp"
 #include "entitymanager.hpp"
 
-void ISystem::Execute()
+void ISystem::Execute(bool fixed)
 {
 	;
 }

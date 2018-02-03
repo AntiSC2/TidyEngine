@@ -32,7 +32,7 @@ public:
 	ISystem() = default;
 	virtual ~ISystem() = default;
 
-	virtual void Execute();
+	virtual void Execute(bool fixed = false);
 	virtual void SetManager(EntityManager *manager);
 	virtual void RegisterComponent(std::type_index index);
 	virtual void RemoveComponent(std::type_index index);
