@@ -72,7 +72,7 @@ std::string IOManager::ReadFile(std::string filepath)
 Model IOManager::LoadModel(std::string filepath)
 {
 	Assimp::Importer importer;
-	const aiScene *scene = importer.ReadFile(filepath, aiProcess_Triangulate | aiProcess_GenNormals | aiProcess_RemoveRedundantMaterials | aiProcess_FlipUVs);
+	const aiScene *scene = importer.ReadFile(filepath, aiProcess_Triangulate | aiProcess_GenNormals | aiProcess_CalcTangentSpace | aiProcess_RemoveRedundantMaterials | aiProcess_FlipUVs);
 
 	if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) {
 		printf("Warning: could not load mesh %s\n", filepath.c_str());
@@ -110,8 +110,9 @@ std::shared_ptr<Mesh> IOManager::ProcessMesh(aiMesh *mesh, const aiScene *scene,
 {
 	std::vector<Vertex> vertices;
 	std::vector<uint32_t> indices;
-	glm::vec3 diffuse;
-	glm::vec3 spec;
+	glm::vec4 ambient;
+	glm::vec4 diffuse;
+	glm::vec4 spec;
     std::vector<Texture*> diffuse_textures;
 	std::vector<Texture*> spec_textures;
 	Material *material = nullptr;
@@ -153,18 +154,27 @@ std::shared_ptr<Mesh> IOManager::ProcessMesh(aiMesh *mesh, const aiScene *scene,
  
     if(mesh->mMaterialIndex >= 0) {	
 		aiMaterial *mat = scene->mMaterials[mesh->mMaterialIndex];
+		aiColor4D a;
 		aiColor4D d;
 		aiColor4D s;
+		aiGetMaterialColor(mat, AI_MATKEY_COLOR_AMBIENT, &a);
 		aiGetMaterialColor(mat, AI_MATKEY_COLOR_DIFFUSE, &d); 
 		aiGetMaterialColor(mat, AI_MATKEY_COLOR_SPECULAR, &s);
+
+		ambient.r = a.r;
+		ambient.g = a.g;
+		ambient.b = a.b;
+		ambient.a = a.a;
 
 		diffuse.r = d.r;
 		diffuse.g = d.g;
 		diffuse.b = d.b;
+		diffuse.a = d.a;
 
 		spec.r = s.r;
 		spec.g = s.g;
 		spec.b = s.b;
+		spec.a = s.a;
 
 		diffuse_textures = LoadMatTextures(mat, aiTextureType_DIFFUSE, dir);
 		spec_textures = LoadMatTextures(mat, aiTextureType_SPECULAR, dir);
@@ -175,7 +185,7 @@ std::shared_ptr<Mesh> IOManager::ProcessMesh(aiMesh *mesh, const aiScene *scene,
 			shine = 32.0f;
 		}
 
-		material = new Material(diffuse, spec, diffuse_textures, spec_textures, shine * 2.0f);
+		material = new Material(ambient, diffuse, spec, diffuse_textures, spec_textures, shine * 2.0f);
     }
 	std::shared_ptr<Mesh> temp;
     temp.reset(new Mesh(vertices, indices, material));

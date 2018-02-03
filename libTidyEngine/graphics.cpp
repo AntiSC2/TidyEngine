@@ -26,6 +26,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 #endif
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <glm/gtc/matrix_transform.hpp>
 #include "cache.hpp"
 #include "camera.hpp"
 #include "entity.hpp"
@@ -124,9 +125,13 @@ void Graphics::Execute(bool fixed)
 			rend->Present();
 		}
 		if (r.first == std::type_index(typeid(ModelRenderer))) {
+			auto rend = static_cast<ModelRenderer*>(r.second.get());
+			rend->Begin();
 			rend->SetCamera(&m_EM->GetEntity("Camera").GetComponent<Camera>());
-			Res.LoadModel("Models/char.obj")->Draw(GetShader("model"));
-			Res.LoadModel("Models/wallWindow.obj")->Draw(GetShader("model"));
+			rend->Draw(Res.LoadModel("Models/char.obj"));
+			Res.LoadModel("Models/char.obj")->Transform = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -2.0f));
+			rend->Draw(Res.LoadModel("Models/wallWindow.fbx"));
+			rend->End();
 			rend->Present();
 		}
 	}

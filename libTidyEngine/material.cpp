@@ -25,13 +25,23 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include "texture.hpp"
 #include "shader.hpp"
 
-Material::Material(glm::vec3 diff, glm::vec3 spec, std::vector<Texture*> diffuse, std::vector<Texture*> specular, float shine)
+Material::Material(glm::vec4 ambient, glm::vec4 diff, glm::vec4 spec, std::vector<Texture*> diffuse, std::vector<Texture*> specular, float shine)
 {
+	m_AmbientC = ambient;
 	m_DiffuseC = diff;
 	m_SpecC = spec;
+	printf("R: %f G: %f B: %f A: %f\n", m_AmbientC.x, m_AmbientC.y, m_AmbientC.z, m_DiffuseC.w);
 	m_Diffuse = diffuse;
 	m_Specular = specular;
 	m_Shine = shine;
+}
+
+bool Material::Textured() const
+{
+	if (m_Diffuse.size() != 0 || m_Specular.size() != 0)
+    	return true;
+	else
+		return false;
 }
 
 std::string Material::Type()
@@ -45,23 +55,35 @@ void Material::Bind(Shader *shader) const
 		return;
 	uint8_t count = 1;
 
-	for (size_t i = 0; i < m_Diffuse.size(); i++) {
-		glActiveTexture(GL_TEXTURE0 + i);
-		shader->SetUniform1i("material.diffuse" + (char)(count + 48), i);
-		count++;
-		glBindTexture(GL_TEXTURE_2D, m_Diffuse[i]->GetTex());
+	if (Textured()) {
+		for (size_t i = 0; i < m_Diffuse.size(); i++) {
+			glActiveTexture(GL_TEXTURE0 + i);
+			shader->SetUniform1i("material.diffuse" + (char)(count + 48), i);
+			count++;
+			glBindTexture(GL_TEXTURE_2D, m_Diffuse[i]->GetTex());
+		}
+
+		uint8_t old_i = count;
+		count = 1;
+
+		if (m_Specular.size() == 0)
+			shader->SetUniform1i("texture_spec", 0);
+		else
+			shader->SetUniform1i("texture_spec", 1);
+
+		for (size_t i = 0; i < m_Specular.size(); i++) {
+			glActiveTexture(GL_TEXTURE0 + i + old_i);
+			shader->SetUniform1i("material.specular" + (char)(count + 48), i);
+			count++;
+			glBindTexture(GL_TEXTURE_2D, m_Specular[i]->GetTex());
+		}
+
+		glActiveTexture(GL_TEXTURE0);
+	} else {
+		shader->SetUniform4f("material.ambient", m_AmbientC);
+		shader->SetUniform4f("material.diffuse", m_DiffuseC);
+		shader->SetUniform4f("material.specular", m_SpecC);
 	}
 
-	uint8_t old_i = count;
-	count = 1;
-	for (size_t i = 0; i < m_Specular.size(); i++) {
-		glActiveTexture(GL_TEXTURE0 + i + old_i);
-		shader->SetUniform1i("material.specular" + (char)(count + 48), i);
-		count++;
-		glBindTexture(GL_TEXTURE_2D, m_Specular[i]->GetTex());
-	}
 	shader->SetUniform1f("material.shine", m_Shine);
-	shader->SetUniform3f("material.diffuse_color", m_DiffuseC);
-	shader->SetUniform3f("material.specular_color", m_SpecC);
-	glActiveTexture(GL_TEXTURE0);
 }

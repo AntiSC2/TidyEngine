@@ -33,9 +33,9 @@ public:
 	Mesh(std::vector<Vertex> &vertices, std::vector<uint32_t> &indices, Material *mat);
 	virtual ~Mesh();
 
+	virtual bool Textured();
 	virtual void Render(Shader *shader);
-protected:
-	glm::mat4 m_Transform;
+protected:	
 	GLuint m_VAOID = 0;
 	GLuint m_EBOID = 0;
 	GLuint m_VBOID = 0;

@@ -81,11 +81,19 @@ Mesh::~Mesh()
 		glDeleteVertexArrays(1, &m_VAOID);
 }
 
+bool Mesh::Textured()
+{
+	if (m_Mat != nullptr)
+		m_Mat->Textured();
+	else
+		return false;
+}
+
 void Mesh::Render(Shader *shader)
 {
-	if (m_Mat != nullptr) {
+	if (m_Mat != nullptr)
 		m_Mat->Bind(shader);
-	}
+
 	glBindVertexArray(m_VAOID);
 	glDrawElements(GL_TRIANGLES, m_Indices.size(), GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);

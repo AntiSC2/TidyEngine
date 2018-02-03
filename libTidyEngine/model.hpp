@@ -22,6 +22,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include <memory>
 #include <string>
 #include <vector>
+#include <glm/matrix.hpp>
 #include "resource.hpp"
 #include "mesh.hpp"
 
@@ -36,7 +37,8 @@ public:
     virtual std::string Type();
 
     void AddMesh(std::shared_ptr<Mesh> m);
-    void Draw(Shader *shader);
+    void Draw(Shader *shader, bool textured);
+    glm::mat4 Transform = glm::mat4(1.0f);
 protected:
     std::string m_Dir = "";
     std::vector<std::shared_ptr<Mesh>> m_Meshes;

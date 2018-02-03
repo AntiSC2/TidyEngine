@@ -37,7 +37,7 @@ Request:  http://request.kenney.nl
 Follow on Twitter for updates:
 @KenneyWings
 
-## wallWindow.obj
+## wallWindow.fbx
 Furniture Pack (1.0) Exclusive
 
 Created/distributed by Kenney (www.kenney.nl)

@@ -22,13 +22,21 @@ Contact the author at: jakob.sinclair99@gmail.com
 #include "renderer.hpp"
 #include "pointlight.hpp"
 
+class Model;
+
 class ModelRenderer : public IRenderer {
 public:
 	ModelRenderer();
 	virtual ~ModelRenderer() = default;
 
 	virtual void Initialise(Shader *shader);
+	virtual void Initialise(Shader *shader, Shader *color);
+	virtual void Begin();
+	virtual void Draw(Model *m);
+	virtual void End();
 	virtual void Present();
 protected:
 	PointLight m_Light;
+	Shader *m_ColorShader = nullptr;
+	std::vector<Model*> m_Models;
 };

@@ -23,12 +23,13 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 #include <glad/glad.h>
 #include "modelrenderer.hpp"
+#include "model.hpp"
 #include "shader.hpp"
 #include "camera.hpp"
 
 ModelRenderer::ModelRenderer()
 {
-	m_Light.SetPos(glm::vec3(2.0f, 10.0f, 2.0f));	
+	m_Light.SetPos(glm::vec3(10.0f, 10.0f, 2.0f));	
 }
 
 void ModelRenderer::Initialise(Shader *shader)
@@ -36,16 +37,64 @@ void ModelRenderer::Initialise(Shader *shader)
 	m_Shader = shader;
 }
 
+void ModelRenderer::Initialise(Shader *shader, Shader *color)
+{
+	m_Shader = shader;
+	m_ColorShader = color;
+}
+
+void ModelRenderer::Begin()
+{
+	m_Models.clear();
+}
+
+void ModelRenderer::Draw(Model *m)
+{
+	m_Models.push_back(m);
+}
+
+void ModelRenderer::End()
+{
+	;
+}
+
 void ModelRenderer::Present()
 {
 	if (m_Camera == nullptr)
-		return;	
-	m_Shader->SetUniformMat4("transform", m_Camera->GetProj() * m_Camera->GetView() * m_Camera->GetModel());
-	m_Shader->SetUniformMat4("model", m_Camera->GetModel());
+		return;
+
+	if (m_Shader == nullptr)
+		return;
+	m_Shader->Bind();
 	m_Shader->SetUniform3f("viewPos", m_Camera->GetPos());
 	m_Shader->SetUniform3f("light1.pos", m_Light.GetPos());
 	m_Shader->SetUniform3f("light1.ambient", m_Light.GetAmbi());
 	m_Shader->SetUniform3f("light1.diffuse", m_Light.GetDiff());
 	m_Shader->SetUniform3f("light1.specular", m_Light.GetSpec());
-	m_Shader->SetUniformMat3("inverseModel", glm::mat3(glm::transpose(inverse(m_Camera->GetModel()))));
+
+	for (auto &it: m_Models) {
+		it->Draw(m_Shader, true);
+		m_Shader->SetUniformMat4("transform", m_Camera->GetProj() * m_Camera->GetView() * it->Transform);
+		m_Shader->SetUniformMat4("model", it->Transform);
+		m_Shader->SetUniformMat3("inverseModel", glm::mat3(glm::transpose(inverse(it->Transform))));
+	}	
+
+	if (m_ColorShader == nullptr)
+		return;
+
+	m_ColorShader->Bind();
+	m_ColorShader->SetUniform3f("viewPos", m_Camera->GetPos());
+	m_ColorShader->SetUniform3f("light1.pos", m_Light.GetPos());
+	m_ColorShader->SetUniform3f("light1.ambient", m_Light.GetAmbi());
+	m_ColorShader->SetUniform3f("light1.diffuse", m_Light.GetDiff());
+	m_ColorShader->SetUniform3f("light1.specular", m_Light.GetSpec());
+
+	for (auto &it: m_Models) {
+		it->Draw(m_ColorShader, false);
+		m_ColorShader->SetUniformMat4("transform", m_Camera->GetProj() * m_Camera->GetView() * it->Transform);
+		m_ColorShader->SetUniformMat4("model", it->Transform);
+		m_ColorShader->SetUniformMat3("inverseModel", glm::mat3(glm::transpose(inverse(it->Transform))));
+	}	
+
+	m_Models.clear();
 }

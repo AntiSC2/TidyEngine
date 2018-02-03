@@ -41,8 +41,11 @@ void Model::AddMesh(std::shared_ptr<Mesh> m)
     m_Meshes.push_back(m);
 }
 
-void Model::Draw(Shader *shader)
+void Model::Draw(Shader *shader, bool textured)
 {
-    for (auto i: m_Meshes)
-        i.get()->Render(shader);
+    for (auto i: m_Meshes) {
+        if (i.get()->Textured() == textured) {
+            i.get()->Render(shader);
+        }
+    }
 }

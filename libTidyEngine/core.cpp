@@ -72,14 +72,20 @@ bool Core::InitSubSystems()
 		return false;
 	}
 
-	if (graphics->LoadShaders("model", "model.vert", "model.frag",
+	if (graphics->LoadShaders("model-texture", "model-texture.vert", "model-texture.frag",
 	   {"position", "color", "uv", "normal"}) == false) {
-		printf("Error: Failed to load model shaders!\n");
+		printf("Error: Failed to load model-texture shaders!\n");
+		return false;
+	}
+
+	if (graphics->LoadShaders("model-color", "model-color.vert", "model-color.frag",
+	   {"position", "color", "normal"}) == false) {
+		printf("Error: Failed to load model-color shaders!\n");
 		return false;
 	}
 
 	graphics->GetRenderer<SpriteRenderer>().Initialise(graphics->GetShader("sprite"));
-	graphics->GetRenderer<ModelRenderer>().Initialise(graphics->GetShader("model"));
+	graphics->GetRenderer<ModelRenderer>().Initialise(graphics->GetShader("model-texture"), graphics->GetShader("model-color"));
 
 	glfwSetWindowSizeCallback(graphics->GetWindow(),
 	                          Screen::WindowSizeCallback);
