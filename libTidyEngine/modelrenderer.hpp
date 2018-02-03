@@ -25,13 +25,10 @@ Contact the author at: jakob.sinclair99@gmail.com
 class ModelRenderer : public IRenderer {
 public:
 	ModelRenderer();
-	virtual ~ModelRenderer();
+	virtual ~ModelRenderer() = default;
 
 	virtual void Initialise(Shader *shader);
 	virtual void Present();
 protected:
 	PointLight m_Light;
-	virtual void CreateBatches();
-	GLuint m_EBOID = 0;
-	std::vector<MeshBatch> m_RenderBatches;
 };

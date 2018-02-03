@@ -31,16 +31,6 @@ ModelRenderer::ModelRenderer()
 	m_Light.SetPos(glm::vec3(2.0f, 10.0f, 2.0f));	
 }
 
-ModelRenderer::~ModelRenderer()
-{
-	if (m_EBOID != 0)
-		glDeleteBuffers(1, &m_EBOID);
-	if (m_VAOID != 0)
-		glDeleteVertexArrays(1, &m_VAOID);
-	if (m_VBOID != 0)
-		glDeleteBuffers(1, &m_VBOID);
-}
-
 void ModelRenderer::Initialise(Shader *shader)
 {
 	m_Shader = shader;
@@ -87,60 +77,4 @@ void ModelRenderer::Present()
 	m_Shader->SetUniform3f("light1.diffuse", m_Light.GetDiff());
 	m_Shader->SetUniform3f("light1.specular", m_Light.GetSpec());
 	m_Shader->SetUniformMat3("inverseModel", glm::mat3(glm::transpose(inverse(m_Camera->GetModel()))));
-
-	glBindVertexArray(m_VAOID);
-	for (size_t i = 0; i < m_RenderBatches.size(); i++) {
-		m_RenderBatches[i].Mat->Bind(m_Shader);
-		glDrawElements(GL_TRIANGLES, (GLsizei)m_RenderBatches[i].Indices, GL_UNSIGNED_INT,
-		            (void*)m_RenderBatches[i].Offset);
-	}
-}
-
-void ModelRenderer::CreateBatches()
-{
-	size_t num_indices_total = 0;
-	std::vector<Vertex> vertex_data;
-	for (size_t i = 0; i < m_SortedGlyphs.size(); i++) {
-		num_indices_total += m_SortedGlyphs[i]->GetIndices().size();
-		vertex_data.insert(vertex_data.end(), m_SortedGlyphs[i]->GetVertices().begin(), m_SortedGlyphs[i]->GetVertices().end());
-	}
-
-	std::vector<uint32_t> indices_data;
-	uint64_t offset = 0;
-	
-	m_RenderBatches.emplace_back(m_SortedGlyphs[0]->GetMat(),
-	                             offset,
-	                             m_SortedGlyphs[0]->GetIndices().size());
-	offset += m_RenderBatches[0].Indices;
-
-	indices_data.resize(num_indices_total);
-
-	for (size_t i = 0; i < m_SortedGlyphs[0]->GetIndices().size(); i++)
-		indices_data[i] = m_SortedGlyphs[0]->GetIndices()[i];
-
-	for (size_t g = 1; g < m_SortedGlyphs.size(); g++) {
-		const Material *temp_mat = m_SortedGlyphs[g]->GetMat();
-		size_t num_indices = m_SortedGlyphs[g]->GetIndices().size();
-
-		if (temp_mat != m_SortedGlyphs[g - 1]->GetMat())
-			m_RenderBatches.emplace_back(temp_mat,
-			                             offset, num_indices);
-		else
-			m_RenderBatches.back().Indices += num_indices;
-
-		size_t i = offset;
-
-		for (; (i - offset) < num_indices; i++)
-			indices_data[i] = m_SortedGlyphs[g]->
-			                 GetIndices()[i - offset];
-		offset += num_indices;
-	}
-
-	glBindBuffer(GL_ARRAY_BUFFER, m_VBOID);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * vertex_data.size(), 
-	                vertex_data.data(), GL_DYNAMIC_DRAW);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_EBOID);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint32_t) * indices_data.size(), indices_data.data(), GL_DYNAMIC_DRAW);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
