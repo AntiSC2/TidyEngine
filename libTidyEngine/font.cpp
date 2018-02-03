@@ -70,27 +70,35 @@ bool Font::Initialize(FT_Library *lib, std::string path, uint32_t height)
 		return false;
 	}
 
-	uint32_t count = 0;
+	error = FT_Select_Charmap(face, FT_ENCODING_UNICODE);
+
+	if (error) {
+		printf("Warning: could not find Unicode support for font %s\n", path.c_str());
+		return false;
+	}
+
 	uint32_t b_width = 0;
 	uint32_t b_height = 0;
 	
 	std::vector<GLubyte*> temp_bitmaps;
+
+	/*
+	 * Load all UTF-8 characters
+	 */
+
+	uint8_t charcode = 0x20;
 	
-	while(m_Glyphs.size() < (uint32_t)face->num_glyphs){
-		error = FT_Load_Char(face, count, FT_LOAD_RENDER);
+	while(charcode < 0xFF) {
+		error = FT_Load_Char(face, charcode, FT_LOAD_RENDER);
 		if (error) {
-			count++;
-			if (count > 255)
-				break;
+			charcode++;
 			continue;
 		}
 
 		FT_Bitmap &bitmap= face->glyph->bitmap;
 		
-		if ((bitmap.width == 0 || bitmap.rows == 0) && (char)count != ' ') {
-			count++;
-			if (count > 255)
-				break;
+		if (bitmap.width == 0 || bitmap.rows == 0) {
+			charcode++;
 			continue;
 		}
 		
@@ -104,11 +112,11 @@ bool Font::Initialize(FT_Library *lib, std::string path, uint32_t height)
 		}
 		
 		temp_bitmaps.push_back(temp_bitmap);
-		m_Glyphs[count] = FontGlyph((float)b_width, 0.0f,
+		m_Glyphs[charcode] = FontGlyph((float)b_width, 0.0f,
 		                            (float)bitmap.width,
 		                            (float)bitmap.rows);
 
-		FontGlyph &temp_glyph = m_Glyphs[count];
+		FontGlyph &temp_glyph = m_Glyphs[charcode];
 		temp_glyph.SetPenX(face->glyph->bitmap_left);
 		temp_glyph.SetPenY(face->glyph->bitmap_top);
 		temp_glyph.SetAdvanceX(face->glyph->advance.x >> 6);
@@ -120,7 +128,8 @@ bool Font::Initialize(FT_Library *lib, std::string path, uint32_t height)
 		b_width += bitmap.width;
 		if (bitmap.rows > b_height)
 			b_height = bitmap.rows;
-		count++;
+	
+		charcode++;
 	}
 
 	uint32_t f_width = next_power(b_width);
@@ -142,12 +151,10 @@ bool Font::Initialize(FT_Library *lib, std::string path, uint32_t height)
 		uv.w = (float)height / (float)f_height;
 		temp.SetTexUV(uv);
 
-		for (uint32_t x = offset; x < f_width; x++) {
-			for (uint32_t y = 0; y < f_height; y++) {
+		for (uint32_t x = offset; x < width + offset; x++) {
+			for (uint32_t y = 0; y < height; y++) {
 				final_ptr[2 * (x + y * f_width)] =
-				final_ptr[2 * (x + y * f_width) + 1] =
-				((x - offset) >= width || y >= height) ?
-				0 : temp_bitmaps[index][(x - offset) + y * width];
+				final_ptr[2 * (x + y * f_width) + 1] = temp_bitmaps[index][(x - offset) + y * width];
 			}
 		}
 
