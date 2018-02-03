@@ -19,4 +19,38 @@ http://creativecommons.org/publicdomain/zero/1.0/
 To the extent possible under law, Jakob Sinclair has waived all copyright and related or neighboring rights to sound.ogg. This work is published from: Sweden.
 
 # Models
-Check license file inside
+## char.obj
+Blocky Characters (+ 8 skins)
+
+by  Kenney Vleugels (Kenney.nl)
+and Casper Jorissen (Kenney.nl)
+
+License (Creative Commons Zero, CC0)
+http://creativecommons.org/publicdomain/zero/1.0/
+
+You may use these assets in personal and commercial projects.
+Credit (Kenney or www.kenney.nl) would be nice but is not mandatory.
+
+Donate:   http://support.kenney.nl
+Request:  http://request.kenney.nl
+
+Follow on Twitter for updates:
+@KenneyWings
+
+## wallWindow.obj
+Furniture Pack (1.0) Exclusive
+
+Created/distributed by Kenney (www.kenney.nl)
+License: (Creative Commons Zero, CC0)
+http://creativecommons.org/publicdomain/zero/1.0/
+
+This content is free to use in personal, educational and commercial projects.
+
+Support us by crediting (Kenney or www.kenney.nl), this is not mandatory.
+
+Donate:   http://support.kenney.nl
+Request:  http://request.kenney.nl
+Patreon:  http://patreon.com/kenney/
+
+Follow on Twitter for updates:
+@KenneyNL
