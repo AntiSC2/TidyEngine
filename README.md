@@ -11,10 +11,11 @@ TidyEngine is a game engine that was created for making games in a C++ framework
 Here is all the dependencies you need for building the engine:
 
 - CMake, used for building the project
+- assimp, used for 3D mesh loading
 - GLFW, used for handling windows and the input
 - glad, used for OpenGL rendering. (glad is already included in this repository)
 - glm, used for vectors and matrixes
-- FreeImage, used for bitmap loading
+- stb_image.h, used for bitmap loading
 - OpenAL, used for audio
 - libogg & libvorbis, used for loading sound samples
 - LuaJIT, used for Lua scripting
@@ -24,19 +25,21 @@ Here is all the dependencies you need for building the engine:
 
 - Clone the repository using the `git clone https://github.com/AntiSC2/TidyEngine.git` command.
 - Install all the dependencies listed above.
-- Copy the `freeimage.pc` file into your pkgconfig directory. Usually located in `/usr/lib/pkgconfig`. NOTE: YOU WILL NEED ROOT ACCESS TO DO THIS.
-- Change directory to the `/path/to/TidyEngine/bin` folder.
-- Run the command `cmake -Wdev /path/to/TidyEngine`.
-- Run `make` inside the `bin/` folder to build the project.
-- Before you start the test application, copy over the shaders from `shaders/` folder into the `bin/` folder. You can now run the test application from the `bin/` folder with the command `./test/TEST`.
+- Change directory to the `TidyEngine/bin` folder.
+- Run the command `cmake -Wdev ..`.
+- Run `make` inside the `bin` folder to build the project.
+- Both a 2D demo and a 3D demo will be built by default. This can be disabled with `-DBUILD_DEMO2D` and  `-DBUILD_DEMO3D` respectively.
+- Copy the shaders from the `shaders` folder to the working directory you are using to run the demos.
 
 <h3>Windows Instructions with Visual Studio</h3>
 
-- The windows version is working. I just haven't got around to making the instructions for it. Basicly put all the libraries and include files in the `deps` folder. Then run CMake to generate the project files, works with both MinGW and Visual Studio.
-
-# Presentation
-Here's a google slide presentation showing off the general architecture for this engine.
-WIP:https://docs.google.com/presentation/d/1KCC6VAwV4GwIKRrNTNlfntW5TLCluPvbB-OwTJ0mb2Q/edit?usp=sharing
+- Clone the repository using the `git clone https://github.com/AntiSC2/TidyEngine.git` command or other method.
+- Run CMake with the source directory set to the top-level directory and the binary directory set to the `bin` folder.
+- Set Visual Studio as the target compiler in CMake.
+- `BUILD_EXTERNAL_DEPENDENCIES` also generates build files for all dependencies, except for luajit, if set to `TRUE`. Luajit still needs manual compiling and moving of files. See http://luajit.org/install.html for more information.
+- Generate the build files.
+- Open up the generated ALL_BUILD.vcproj and build the project.
+- By default this will also build most of the dependencies.
 
 # License
 TidyEngine is under the LGPL v3. Certain files under the `bin/` folder have other licenses applied to them. Please check `LICENSE-ART.md` located under the `bin/` folder for more information.
