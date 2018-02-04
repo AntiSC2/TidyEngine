@@ -129,10 +129,11 @@ void Graphics::Execute(bool fixed)
 			rend->Begin();
 			rend->SetCamera(&m_EM->GetEntity("Camera").GetComponent<Camera>());
 			rend->Draw(Res.LoadModel("Models/char.obj"));
-			Res.LoadModel("Models/char.obj")->Transform = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -2.0f));
+			Res.LoadModel("Models/char.obj")->Transform = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -4.0f));
 			rend->Draw(Res.LoadModel("Models/wallWindow.fbx"));
 			rend->End();
-			rend->Present();
+			rend->Present();	
+			/*rend->DebugGrid();*/
 		}
 	}
 	Present();

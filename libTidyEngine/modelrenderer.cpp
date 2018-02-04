@@ -32,15 +32,26 @@ ModelRenderer::ModelRenderer()
 	m_Light.SetPos(glm::vec3(10.0f, 10.0f, 2.0f));	
 }
 
+ModelRenderer::~ModelRenderer()
+{
+	if (m_GridID != 0)
+		glDeleteVertexArrays(1, &m_GridID);
+}
+
 void ModelRenderer::Initialise(Shader *shader)
 {
 	m_Shader = shader;
 }
 
-void ModelRenderer::Initialise(Shader *shader, Shader *color)
+void ModelRenderer::Initialise(Shader *shader, Shader *color, Shader *grid)
 {
 	m_Shader = shader;
 	m_ColorShader = color;
+	m_Grid = grid;
+
+	if (m_GridID != 0)
+		glDeleteVertexArrays(1, &m_GridID);
+	glGenVertexArrays(1, &m_GridID);
 }
 
 void ModelRenderer::Begin()
@@ -95,6 +106,16 @@ void ModelRenderer::Present()
 		m_ColorShader->SetUniformMat4("model", it->Transform);
 		m_ColorShader->SetUniformMat3("inverseModel", glm::mat3(glm::transpose(inverse(it->Transform))));
 	}	
+}
 
-	m_Models.clear();
+void ModelRenderer::DebugGrid()
+{
+	if (m_Grid == nullptr)
+		return;
+	m_Grid->Bind();
+	m_Grid->SetUniformMat4("view", m_Camera->GetView() * m_Camera->GetProj() * m_Camera->GetModel());
+	m_Grid->SetUniform3f("pos", m_Camera->GetPos());
+	m_Grid->SetUniform4f("gridColor", glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
+	glBindVertexArray(m_GridID);
+	glDrawArraysInstanced(GL_TRIANGLES, 0, 6, 1);
 }

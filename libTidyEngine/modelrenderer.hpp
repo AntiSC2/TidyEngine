@@ -27,16 +27,19 @@ class Model;
 class ModelRenderer : public IRenderer {
 public:
 	ModelRenderer();
-	virtual ~ModelRenderer() = default;
+	virtual ~ModelRenderer();
 
 	virtual void Initialise(Shader *shader);
-	virtual void Initialise(Shader *shader, Shader *color);
+	virtual void Initialise(Shader *shader, Shader *color, Shader *grid = nullptr);
 	virtual void Begin();
 	virtual void Draw(Model *m);
 	virtual void End();
 	virtual void Present();
+	virtual void DebugGrid();
 protected:
+	GLuint m_GridID = 0;
 	PointLight m_Light;
 	Shader *m_ColorShader = nullptr;
+	Shader *m_Grid = nullptr;
 	std::vector<Model*> m_Models;
 };

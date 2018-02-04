@@ -148,7 +148,7 @@ void Camera::InitOrtho()
 
 void Camera::InitProj()
 {
-	m_Projection = glm::perspective(glm::radians(80.0f), (float)m_Width / (float)m_Height, 1.0f,
+	m_Projection = glm::perspective(glm::radians(70.0f), (float)m_Width / (float)m_Height, 0.1f,
 			100.0f);
 	m_View = glm::lookAt(
 		m_Position,

@@ -84,8 +84,13 @@ bool Core::InitSubSystems()
 		return false;
 	}
 
+	/*if (graphics->LoadShaders("grid", "grid.vert", "grid.frag", {}) == false) {
+		printf("Error: Failed to load grid shaders!\n");
+		return false;
+	}*/
+
 	graphics->GetRenderer<SpriteRenderer>().Initialise(graphics->GetShader("sprite"));
-	graphics->GetRenderer<ModelRenderer>().Initialise(graphics->GetShader("model-texture"), graphics->GetShader("model-color"));
+	graphics->GetRenderer<ModelRenderer>().Initialise(graphics->GetShader("model-texture"), graphics->GetShader("model-color"), graphics->GetShader("grid"));
 
 	glfwSetWindowSizeCallback(graphics->GetWindow(),
 	                          Screen::WindowSizeCallback);

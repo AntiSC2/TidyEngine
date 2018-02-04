@@ -30,7 +30,6 @@ Material::Material(glm::vec4 ambient, glm::vec4 diff, glm::vec4 spec, std::vecto
 	m_AmbientC = ambient;
 	m_DiffuseC = diff;
 	m_SpecC = spec;
-	printf("R: %f G: %f B: %f A: %f\n", m_AmbientC.x, m_AmbientC.y, m_AmbientC.z, m_DiffuseC.w);
 	m_Diffuse = diffuse;
 	m_Specular = specular;
 	m_Shine = shine;
