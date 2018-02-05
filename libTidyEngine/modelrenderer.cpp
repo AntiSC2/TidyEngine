@@ -113,7 +113,7 @@ void ModelRenderer::DebugGrid()
 	if (m_Grid == nullptr)
 		return;
 	m_Grid->Bind();
-	m_Grid->SetUniformMat4("view", m_Camera->GetView() * m_Camera->GetProj() * m_Camera->GetModel());
+	m_Grid->SetUniformMat4("view", m_Camera->GetView());
 	m_Grid->SetUniform3f("pos", m_Camera->GetPos());
 	m_Grid->SetUniform4f("gridColor", glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
 	glBindVertexArray(m_GridID);
