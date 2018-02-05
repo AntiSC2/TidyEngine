@@ -15,7 +15,7 @@ file(GLOB TIDYENGINE_SOURCE
 )
 
 set(TIDYENGINE_SOURCE ${TIDYENGINE_SOURCE}
-	${CMAKE_SOURCE_DIR}/deps/install/include/stb_image.h
+	${CMAKE_CURRENT_SOURCE_DIR}/../deps/install/include/stb_image.h
 )
 
 add_library(TidyEngine STATIC ${TIDYENGINE_SOURCE})
