@@ -29,7 +29,7 @@
 #include <memory>
 #include <string>
 #include <glad/glad.h>
-#include <ft2build.h>
+#include <freetype2/ft2build.h>
 #include <freetype/freetype.h>
 #include <freetype/ftglyph.h>
 
