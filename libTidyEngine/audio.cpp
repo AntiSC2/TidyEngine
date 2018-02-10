@@ -23,8 +23,8 @@
 
 #include "audio.hpp"
 #include <cstdio>
-#include <alc.h>
-#include <al.h>
+#include <AL/alc.h>
+#include <AL/al.h>
 
 Audio::Audio()
 {
