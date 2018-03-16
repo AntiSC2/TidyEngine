@@ -128,7 +128,7 @@ void Graphics::Execute(bool fixed)
 		}
 		if (r.first == std::type_index(typeid(ModelRenderer))) {
 			auto rend = static_cast<ModelRenderer*>(r.second.get());
-			rend->DebugGrid();
+			//rend->DebugGrid();
 			rend->Begin();
 			rend->SetCamera(&m_EM->GetEntity("Camera").GetComponent<Camera>());
 			rend->Draw(Res.LoadModel("Models/char.obj"));

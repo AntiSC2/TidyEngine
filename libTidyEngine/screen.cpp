@@ -108,7 +108,7 @@ bool Screen::InitGL()
 	glEnable(GL_BLEND);
 	glEnable(GL_DEPTH_TEST);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 
 	printf("Vendor: %s\n", glGetString(GL_VENDOR));
 	printf("GFX Renderer: %s\n", glGetString(GL_RENDERER));

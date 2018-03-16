@@ -29,7 +29,7 @@ Contact the author at: jakob.sinclair99@gmail.com
 
 ModelRenderer::ModelRenderer()
 {
-	m_Light.SetPos(glm::vec3(10.0f, 10.0f, 2.0f));	
+	m_Light.SetPos(glm::vec3(0.0f, 10.0f, 5.0f));	
 }
 
 ModelRenderer::~ModelRenderer()
@@ -110,7 +110,7 @@ void ModelRenderer::Present()
 
 void ModelRenderer::DebugGrid()
 {
-	if (m_Grid == nullptr)
+	if (m_Grid == nullptr || m_Camera == nullptr)
 		return;
 	m_Grid->Bind();
 	m_Grid->SetUniformMat4("view", m_Camera->GetView());
